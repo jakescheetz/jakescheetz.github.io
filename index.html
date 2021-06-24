@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <title>Jacobs's Website</title>
+  </head>
+  <body>
+
+    <canvas id="bg"></canvas>   
+
+    <main>
+
+      <header>
+        <h1>Jacob Scheetz</h1>
+        <p>Scroll down for my blog and to learn more about me! ☟ </p>
+        <p>🚀 Welcome to my website!</p>
+        <div class="home__social">
+          <a href="https://www.linkedin.com/in/jacobscheetz/" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
+          <a href="https://twitter.com/FindingUrPasswd" class="home__social-icon"><i class='bx bxl-twitter' ></i></a>
+          <a href="https://github.com/jakescheetz" class="home__social-icon"><i class='bx bxl-github' ></i></a>
+        </div>
+      </header>
+  
+
+
+      <section>
+        <h1 style="text-align: center"> Blog</h1>
+        <a href="#" class="button1" style="display: block;
+                                          margin-left: auto;
+                                          margin-right: auto;
+                                          width: 50%;">
+        view blog posts </a>  
+      </section>
+      
+      <blockquote>
+        <p>I like trying to break things on the internet 💥</p>
+      </blockquote>
+
+      <section>
+        <h2>📜 Manifesto</h2>
+        <p>
+          I am a recent college graduate from the University of Dayton, where I majored in Computer Information Systems. I also received a certificate in Cyber Defense through the NSA/DHS's School of Excellency program. 
+        </p>
+
+        <p>
+          I mainly use this site as a collection of security resources that I've accumulated over my time in the field. Those resources include things like blog posts, Yara rules, useful tools, HackTheBox walkthroughs, TryHackMe walkthroughs, certification reviews and so much more.  
+        </p>
+
+        <p>
+          Feel free to hang around and enjoy some content here! 🙂
+        </p>
+
+      </section>
+
+      <section class="light">
+        <h2>👩🏽‍🚀 Projects</h2>
+
+        <h3> Cyber Threat Intelligence Tool - GE Aviaton </h3>
+        <p>
+          As apart of my senior year capstone, I developed a cyber threat intelligence CLI tool in python called Cyber Turtle.
+          This tool is comprised of three main components, a JSON wordlist of relevant terms to the user, a content analyzer to read in
+          reports, and a similarity calculator. The tool uses the TFIF algorithm to calculate a normalized score for each document that is read in
+          based on a constantly changed base line and then report it to the user to determine if it is worth reading for TPI. The tool supports multiple user modes
+          and is highly flexible due to the CLI. Check out the open source version here: <br><a href="https://cps491s21-team8.bitbucket.io/" class="button1"> View Open-Source Version Here</a>
+        </p> 
+
+        <h2>🏆 Accomplishments</h2>
+
+        <h3> National Cyber League 2020 </h3>
+        <p>
+          In the spring 2020 individual game, I was able to place 130th out of 5755 participants nationwide. 
+          This score based on accuracy and completion of challenges put me just inside the top 10 percent of competitors for the year. 
+          For those unfamiliar, the NCL is a CTF event where competitors work through challenges in the categories of: OSINT, cryptography, password cracking, log analysis, network traffic analysis, forensics, web app exploitation and reverse engineering.
+        </p>
+
+        <h3> TryHackMe </h3>
+        <p>
+          Sticking to my commitiment to a continuation of education, I constantly hone my cyber skills
+          by exploring new topics and brushing up on olds one through TryHackMe's platform. On this site, 
+          I have achieved top 2 percent of users out of 500,000+ registered users.
+        </p>
+        <script src="https://tryhackme.com/badge/218412"></script>
+        <br>
+        <h2>📚 Certifications </h2>
+
+        <h3> CompTIA Security+</h3>
+        <p> Valid Aug 2020 - Aug 2023 </p>
+        <a href="https://www.credly.com/badges/2d22e677-e97e-4a68-9d79-f5851b3fdb9d" class="button1"> Verify Here</a>
+
+        <h3> Studying for eJPT </h3>
+        <p> Estimated exam date → July 2021 </p>
+
+        <h3> On the horizon ::: OSCP </h3>
+        <p> Estimated exam date → Early December 2021 </p>
+
+
+      </section>
+
+      <blockquote>
+        <p> Oppotunities multiply as they are seized <br>- Sun Tzu</p>
+      </blockquote>
+
+      <section class="left">
+        <h2>💻 Work History</h2>
+
+        <h3>ISSQUARED Inc.</h3>
+        <h4>Digital Forensics and Incident Reponse Analyst</h4>
+        <img src="issq.png" class="center">
+        <p>
+          Day to day responsibilities included: conducting investigations on verified alerts from SIEM and EDR to determine causality in incidents
+          Other responsibilities included: help build and deploy cloud applications for clients, Run vulnerability assessments in Qualys, assist in building RIN servers and utilizing automated code vulnerability scanners to aid in the DevSecOps process
+        </p>
+
+        <h3>MCPc Inc.</h3>
+        <h4>Cyber Intern</h4>
+        <img src="mcpc.png" class="center">
+        <p>
+        Generated weekly vulnerability tracking reports for several customer accounts as well as internal production. These reports markedly helped the businesses identify and manage the vulnerabilities that were currently a risk to the business. Additionally, these provided insight and progress metrics to the business to see the risks they have mitigated over time as well as emerging threats.
+        Also, I worked with the Cyber Security Incident Response Team (CSIRT) to respond to actively identified data breaches. Work included restoring data from breach site, re-imaging infected computers, retrieving important forensic data from breached machines, etc.
+        </p>
+
+        <h3>University of Dayton Research Institute | NASIC</h3>
+        <h4>Research Assistant</h4>
+        <div class="images">
+          <img src="udri.png" height="60%" width="60%" style="float: left"> 
+          <img src="nasic.png" height="40%" width="40%">
+        </div> 
+        <p>
+          Worked on an ITAR restricted project on which I was the team resource for all things Ghidra (SRE),
+          wireless network exploitation, and network traffic analysis. By becoming the team resource in these categories
+          I became more skilled in things like: python scripting, wireshark, malware analysis, and offensive security techniques. 
+        </p>
+
+      </section>
+
+      <blockquote>
+        <p>Thanks for visiting!</p>
+      </blockquote>
+
+      <section class="left">
+      <h1> 📲 Want to Get in Touch? </h1>
+      <h3> 📩 Email </h3>
+      <a href="jacobscheetz1@gmail.com" class="button1"> Email Me</a>
+      <br>
+      <h3> 🌐 Socials </h3>
+      <div class="home__social">
+          <a href="https://www.linkedin.com/in/jacobscheetz/" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
+          <a href="https://twitter.com/FindingUrPasswd" class="home__social-icon"><i class='bx bxl-twitter' ></i></a>
+          <a href="https://github.com/jakescheetz" class="home__social-icon"><i class='bx bxl-github' ></i></a>
+        </div>
+      </section> 
+
+
+    </main>
+    
+    <script type="module" src="/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
