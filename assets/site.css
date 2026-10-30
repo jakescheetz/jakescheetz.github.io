@@ -8,6 +8,29 @@ time, .header td.width-min {
   white-space: nowrap;
 }
 
+/* Avatar: 6ch × 3 lines is square in JetBrains Mono (0.6em advance, 1.2em line height). */
+.avatar {
+  display: block;
+  width: 6ch;
+  height: calc(3 * var(--line-height));
+}
+.avatar-body {
+  fill: var(--text-color);
+}
+.avatar-eye {
+  fill: var(--background-color);
+}
+
+/* The avatar column costs 8ch; on phones shrink the name and let header facts wrap to fit. */
+@media screen and (max-width: 480px) {
+  .header:has(.avatar) h1 {
+    font-size: 1.5rem;
+  }
+  .header:has(.avatar) td.width-min {
+    white-space: normal;
+  }
+}
+
 h3, h4, h5, h6 {
   font-size: 1rem;
 }
@@ -30,6 +53,15 @@ ol li > p:first-child {
   display: inline;
 }
 
+/* index.css numbers items with counters(), so a list inside a later container (e.g. the
+   footnotes after a numbered list) renders as "4.1". Only genuinely nested lists nest. */
+ol li:before {
+  content: counter(item) ". ";
+}
+ol ol li:before {
+  content: counters(item, ".") ". ";
+}
+
 blockquote {
   margin: 0 0 var(--line-height);
   padding-left: calc(2ch - var(--border-thickness));
@@ -48,6 +80,10 @@ div.sourceCode > pre {
 /* The global `* + *` rhythm rule must not reach MathML layout. */
 math, math * {
   margin: 0;
+}
+/* Inline math is taller than a text line; let it overhang instead of growing the line box. */
+math:not([display="block"]) {
+  margin-block: -1em;
 }
 math[display="block"] {
   margin: var(--line-height) 0;
@@ -71,9 +107,15 @@ math[display="block"] {
 #refs .csl-entry {
   padding-left: 2ch;
   text-indent: -2ch;
+  overflow-wrap: anywhere;
 }
 #refs .csl-entry + .csl-entry {
   margin-top: var(--line-height);
+}
+
+/* The ↩︎ glyph comes from a fallback font whose metrics would grow the line. */
+.footnote-back {
+  line-height: 0;
 }
 
 footer {
