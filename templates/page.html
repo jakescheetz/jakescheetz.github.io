@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+$endif$
+$if(description-meta)$
+  <meta name="description" content="$description-meta$" />
+$endif$
+  <title>$pagetitle$$if(post)$ · $site-title$$endif$</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="$root$assets/reset.css" />
+  <link rel="stylesheet" href="$root$assets/index.css" />
+  <link rel="stylesheet" href="$root$assets/site.css" />
+$for(header-includes)$
+  $header-includes$
+$endfor$
+$if(math)$
+  $math$
+$endif$
+</head>
+<body>
+<table class="header">
+$if(post)$
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
+    </td>
+    <th>Published</th>
+    <td class="width-min"><time>$date$</time></td>
+  </tr>
+  <tr>
+    <th>Updated</th>
+    <td class="width-min"><time>$if(updated)$$updated$$else$$date$$endif$</time></td>
+  </tr>
+  <tr>
+    <th class="width-min">Author</th>
+    <td class="width-auto"><a href="$root$"><cite>$author$</cite></a></td>
+    <th class="width-min">Reading</th>
+    <td>$reading-time$</td>
+  </tr>
+$else$
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
+    </td>
+    <th>Org</th>
+    <td class="width-min">$org$</td>
+  </tr>
+  <tr>
+    <th>Based</th>
+    <td class="width-min">$location$</td>
+  </tr>
+  <tr>
+    <th class="width-min">Links</th>
+    <td class="width-auto">$links$</td>
+    <th class="width-min">Updated</th>
+    <td><time>$build-date$</time></td>
+  </tr>
+$endif$
+</table>
+$if(dev)$
+<label class="debug-toggle-label"><input type="checkbox" class="debug-toggle" /> Debug grid</label>
+$endif$
+$if(abstract)$
+<div class="abstract">
+<div class="abstract-title">$abstract-title$</div>
+$abstract$
+</div>
+$endif$
+$if(toc)$
+<nav id="TOC" role="doc-toc">
+<h2 id="toc-title">$if(toc-title)$$toc-title$$else$Contents$endif$</h2>
+$table-of-contents$
+</nav>
+$endif$
+$body$
+$if(home)$
+<h2 id="posts">Posts</h2>
+$post-index$
+$endif$
+<footer>
+<hr />
+<p>$if(post)$<a href="$root$">← Index</a> · $endif$© $year$ $site-title$ · Set in <a href="https://owickstrom.github.io/the-monospace-web/">The Monospace Web</a></p>
+</footer>
+$if(dev)$
+<div class="debug-grid"></div>
+$endif$
+<script src="$root$assets/index.js"></script>
+<script src="$root$assets/site.js"></script>
+</body>
+</html>

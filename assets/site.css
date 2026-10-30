@@ -1,0 +1,85 @@
+/* Additions on top of The Monospace Web (index.css) for blog posts. */
+
+.muted {
+  color: var(--text-color-alt);
+}
+
+time, .header td.width-min {
+  white-space: nowrap;
+}
+
+h3, h4, h5, h6 {
+  font-size: 1rem;
+}
+
+/* Footnote references must not grow the line box; mirrors `sub` in index.css. */
+sup {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  vertical-align: super;
+  line-height: 0;
+  font-size: .75rem;
+}
+
+/* Pandoc wraps footnotes and loose-list items in <p>; keep the marker on the same line. */
+li > p {
+  margin-bottom: 0;
+}
+ol li > p:first-child {
+  display: inline;
+}
+
+blockquote {
+  margin: 0 0 var(--line-height);
+  padding-left: calc(2ch - var(--border-thickness));
+  border-left: var(--border-thickness) solid var(--text-color);
+}
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Highlighted code blocks get a box, offset like `details` to stay on the grid. */
+div.sourceCode > pre {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+}
+
+/* The global `* + *` rhythm rule must not reach MathML layout. */
+math, math * {
+  margin: 0;
+}
+math[display="block"] {
+  margin: var(--line-height) 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.abstract {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  margin-bottom: var(--line-height);
+}
+.abstract-title {
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+.abstract > :last-child {
+  margin-bottom: 0;
+}
+
+#refs .csl-entry {
+  padding-left: 2ch;
+  text-indent: -2ch;
+}
+#refs .csl-entry + .csl-entry {
+  margin-top: var(--line-height);
+}
+
+footer {
+  margin-top: calc(var(--line-height) * 2);
+  color: var(--text-color-alt);
+}
+footer a:link, footer a:visited {
+  color: var(--text-color-alt);
+}

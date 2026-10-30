@@ -1,0 +1,4 @@
+# Site-wide pandoc metadata; a page's own front matter overrides these.
+site-title: Jake Scheetz
+author: Jake Scheetz
+lang: en
