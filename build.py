@@ -26,6 +26,7 @@ CONTENT = ROOT / "content"
 POSTS = CONTENT / "posts"
 ASSETS = ROOT / "assets"
 TEMPLATES = ROOT / "templates"
+FILTERS = ROOT / "filters"
 SITE_META = ROOT / "site.yaml"
 OUT = ROOT / "_site"
 
@@ -129,7 +130,11 @@ def render(page, posts, today, dev):
         f"--variable=year:{today.year}",
     ]
     if page.meta.get("bibliography") or page.meta.get("references"):
-        args.append("--citeproc")
+        args += [
+            "--citeproc",
+            "--metadata=link-citations:true",
+            f"--lua-filter={FILTERS / 'cite-links.lua'}",
+        ]
     if page.meta.get("toc") is True:
         args.append("--toc")
     if not page.meta.get("description") and page.meta.get("subtitle"):
@@ -189,7 +194,7 @@ def report(pages, posts, drafts):
 
 def snapshot():
     files = [SITE_META]
-    for base in (CONTENT, ASSETS, TEMPLATES):
+    for base in (CONTENT, ASSETS, TEMPLATES, FILTERS):
         files += [p for p in base.rglob("*") if p.is_file()]
     return {p: p.stat().st_mtime_ns for p in files if p.exists()}
 

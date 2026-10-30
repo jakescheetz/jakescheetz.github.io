@@ -1,5 +1,23 @@
 /* Additions on top of The Monospace Web (index.css) for blog posts. */
 
+/* Accent palette after Tokyo Night Day / Tokyo Night, for code and charts only. */
+:root {
+  --accent-blue: #2e7de9;
+  --accent-purple: #9854f1;
+  --accent-green: #587539;
+  --accent-orange: #b15c00;
+  --accent-cyan: #007197;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent-blue: #7aa2f7;
+    --accent-purple: #bb9af7;
+    --accent-green: #9ece6a;
+    --accent-orange: #ff9e64;
+    --accent-cyan: #7dcfff;
+  }
+}
+
 .muted {
   color: var(--text-color-alt);
 }
@@ -16,9 +34,6 @@ time, .header td.width-min {
 }
 .avatar-body {
   fill: var(--text-color);
-}
-.avatar-eye {
-  fill: var(--background-color);
 }
 
 /* The avatar column costs 8ch; on phones shrink the name and let header facts wrap to fit. */
@@ -77,6 +92,18 @@ div.sourceCode > pre {
   padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
 }
 
+/* Syntax tokens: pandoc's highlighter classes. */
+code span.kw, code span.cf, code span.im, code span.ex { color: var(--accent-purple); }
+code span.st, code span.ss, code span.vs, code span.ch { color: var(--accent-green); }
+code span.dv, code span.fl, code span.bn, code span.cn, code span.va { color: var(--accent-orange); }
+code span.fu, code span.bu { color: var(--accent-blue); }
+code span.sc, code span.dt, code span.at { color: var(--accent-cyan); }
+code span.co, code span.do, code span.an, code span.cv { color: var(--text-color-alt); font-style: italic; }
+
+/* ASCII chart series: wrap markers in <span class="chart-…"> inside a raw <pre>. */
+.chart-proxy { color: var(--accent-blue); }
+.chart-true { color: var(--accent-orange); }
+
 /* The global `* + *` rhythm rule must not reach MathML layout. */
 math, math * {
   margin: 0;
@@ -99,6 +126,7 @@ math[display="block"] {
 .abstract-title {
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
+  margin-bottom: var(--line-height);
 }
 .abstract > :last-child {
   margin-bottom: 0;

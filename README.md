@@ -16,6 +16,8 @@ Markdown is rendered by [pandoc](https://pandoc.org/) through `build.py` (Python
 ```
 
 Put figures and a `references.bib` next to the post's `index.md` and reference them relatively.
+Citations (`@key`, `[@key, sec. 2]`) link straight to the paper's `url` (or `doi`) from the `.bib` entry.
+To color an ASCII chart, write it as a raw `<pre>` and wrap series markers in `<span class="chart-proxy">` / `<span class="chart-true">` (see the reward-model post).
 `content/posts/writing-guide/` is a draft that demonstrates every supported element (math, citations, footnotes, code, diagrams) and documents the front matter fields.
 
 To publish: delete the `draft: true` line, commit, push to `main`.
@@ -28,11 +30,12 @@ Drafts, including the files in their directories, are left out of production bui
 | `content/index.md`    | Home page: bio and header facts; the post index is appended    |
 | `content/posts/*/`    | One directory per post                                         |
 | `site.yaml`           | Site-wide metadata (author, site title, language)              |
-| `templates/page.html` | Pandoc HTML template for every page                            |
-| `assets/`             | Upstream theme (`reset.css`, `index.css`, `index.js`) + `site.*` additions |
+| `templates/page.html` | Pandoc HTML template for every page; holds the pixel-cloud avatar |
+| `filters/cite-links.lua` | Points in-text citations at the cited paper                |
+| `assets/`             | Upstream theme (`reset.css`, `index.css`, `index.js`), `site.*` additions, favicons |
 
 `./build.py` writes the production site to `_site/`.
 
 ## License
 
-The theme files in `assets/` (except `site.css` and `site.js`) are © Oskar Wickström, MIT licensed; see `assets/LICENSE-monospace-web.md`.
+The theme files `assets/reset.css`, `assets/index.css`, and `assets/index.js` are © Oskar Wickström, MIT licensed; see `assets/LICENSE-monospace-web.md`.
