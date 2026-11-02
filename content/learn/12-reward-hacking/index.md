@@ -172,7 +172,7 @@ In the toy, comparisons between answers around $x = 5$ to $8$ would show the rew
 Gao et al. (sec. 4.3) extended their RL fit to this kind of iteration and, under simplifying assumptions, predicted that it raises the final gold score through the $b$ term, which they attribute mostly to distribution shift, and leaves the part they tie to noise unchanged.
 That matches the toy: fresh comparisons can teach the reward model the missing $x^2/10$, but they can't remove $\varepsilon$.
 
-I wrote about the security side of this, and why it reminded me of fuzzing, in [Your reward model is an attack surface](../../posts/your-reward-model-is-an-attack-surface/).
+My post [Reward hacking from the ground up](../../posts/your-reward-model-is-an-attack-surface/) tells this as one story, including why it reminded me of fuzzing.
 
 ## Worked example
 

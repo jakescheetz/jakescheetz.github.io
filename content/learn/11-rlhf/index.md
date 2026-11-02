@@ -246,7 +246,7 @@ The fitted weights call 77.2% of the picks and the hidden ones 77.1%: the simula
 ## Where this goes next
 
 - Unit 12: step 3 pushes the policy toward whatever $r_\phi$ scores highest, and $r_\phi$ only learned from comparisons between $\pi_0$'s answers. Unit 12 follows the reward model's scores as the policy moves away from those answers, and looks at what the KL penalty does about it.
-- My post [Your reward model is an attack surface](../../posts/your-reward-model-is-an-attack-surface/) covers the same ground from the security side.
+- My post [Reward hacking from the ground up](../../posts/your-reward-model-is-an-attack-surface/) tells the same story in one piece, from this recipe through the usual mitigations.
 
 ## Self-test
 
