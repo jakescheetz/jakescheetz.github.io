@@ -1,3 +1,5 @@
 _site/
+_site.staging/
+_site.old/
 __pycache__/
 .DS_Store

@@ -13,13 +13,16 @@ $endif$
 $if(description-meta)$
   <meta name="description" content="$description-meta$" />
 $endif$
-  <title>$pagetitle$$if(post)$ · $site-title$$endif$</title>
+  <title>$pagetitle$$if(home)$$else$ · $site-title$$endif$</title>
   <link rel="icon" href="$root$assets/favicon-32.png" sizes="32x32" />
   <link rel="icon" href="$root$assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="$root$assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="$root$assets/reset.css" />
   <link rel="stylesheet" href="$root$assets/index.css" />
   <link rel="stylesheet" href="$root$assets/site.css" />
+$if(learn)$
+  <link rel="stylesheet" href="$root$assets/learn.css" />
+$endif$
 $for(header-includes)$
   $header-includes$
 $endfor$
@@ -47,6 +50,44 @@ $if(post)$
     <td class="width-auto"><a href="$root$"><cite>$author$</cite></a></td>
     <th class="width-min">Reading</th>
     <td>$reading-time$</td>
+  </tr>
+$elseif(unit)$
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
+    </td>
+    <th>Unit</th>
+    <td class="width-min">$unit-number$ / $unit-count$</td>
+  </tr>
+  <tr>
+    <th>Time</th>
+    <td class="width-min">$unit-minutes$</td>
+  </tr>
+  <tr>
+    <th class="width-min">Route</th>
+    <td class="width-auto"><a href="$route-url$">$route-title$</a></td>
+    <th class="width-min">Done</th>
+    <td><input type="checkbox" data-unit-done="$unit-slug$" aria-label="Mark this unit done" /></td>
+  </tr>
+$elseif(learn-index)$
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
+    </td>
+    <th>Units</th>
+    <td class="width-min">$unit-count$</td>
+  </tr>
+  <tr>
+    <th>Time</th>
+    <td class="width-min">$route-time$</td>
+  </tr>
+  <tr>
+    <th class="width-min">Author</th>
+    <td class="width-auto"><a href="$root$"><cite>$author$</cite></a></td>
+    <th class="width-min">Done</th>
+    <td><span data-progress="$unit-slugs$">0/$unit-count$</span></td>
   </tr>
 $else$
   <tr>
@@ -93,15 +134,36 @@ $body$
 $if(home)$
 <h2 id="posts">Posts</h2>
 $post-index$
+$if(learn-summary)$
+<h2 id="learn">Learn</h2>
+$learn-summary$
+$endif$
+$endif$
+$if(learn-index)$
+<h2 id="units">Units</h2>
+<p class="progress-bar" data-progress-bar="$unit-slugs$"></p>
+$unit-index$
+$endif$
+$if(unit)$
+<nav class="unit-nav">
+<label class="unit-done"><input type="checkbox" data-unit-done="$unit-slug$" /> I can do everything in "You're done when" without notes</label>
+<p class="unit-links">$if(prev-url)$<a href="$prev-url$">← $prev-number$ $prev-title$</a>$else$<span></span>$endif$$if(next-url)$<a href="$next-url$">$next-number$ $next-title$ →</a>$endif$</p>
+</nav>
 $endif$
 <footer>
 <hr />
-<p>$if(post)$<a href="$root$">← Index</a> · $endif$© $year$</p>
+<p>$if(post)$<a href="$root$">← Index</a> · $endif$$if(learn-index)$<a href="$root$">← Index</a> · $endif$$if(unit)$<a href="$route-url$">← $route-title$</a> · $endif$© $year$</p>
 </footer>
 $if(dev)$
 <div class="debug-grid"></div>
 $endif$
 <script src="$root$assets/index.js"></script>
 <script src="$root$assets/site.js"></script>
+$if(learn)$
+<script src="$root$assets/learn.js"></script>
+$endif$
+$for(scripts)$
+<script src="$scripts$"></script>
+$endfor$
 </body>
 </html>

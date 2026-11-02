@@ -1,0 +1,187 @@
+/* /learn: widget panels, SVG stages, controls, "done when" boxes, unit navigation, progress. */
+
+/* Widget panel: full width, bordered like <details>, padded to stay on the line grid. */
+figure.widget {
+  margin: calc(var(--line-height) * 2) 0;
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  overflow: visible;
+}
+figure.widget > * {
+  margin-top: 0;
+}
+figure.widget > * + * {
+  margin-top: var(--line-height);
+}
+figure.widget figcaption {
+  font-style: normal;
+  color: var(--text-color-alt);
+}
+
+/* SVG stage. Shapes take their color from `color`: set fill/stroke to currentColor and add a
+   color class (ink, muted, blue, orange, green, purple, cyan) on the shape or a parent group. */
+.stage {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: 13px;
+}
+.stage line, .stage polyline, .stage path {
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+.stage text, .stage polygon {
+  fill: currentColor;
+  stroke: none;
+}
+.stage .ink { color: var(--text-color); }
+.stage .muted { color: var(--text-color-alt); }
+.stage .blue { color: var(--accent-blue); }
+.stage .orange { color: var(--accent-orange); }
+.stage .green { color: var(--accent-green); }
+.stage .purple { color: var(--accent-purple); }
+.stage .cyan { color: var(--accent-cyan); }
+.stage .faint { opacity: 0.35; }
+.stage .dashed { stroke-dasharray: 4 4; }
+.stage .thin { stroke-width: 1; }
+.stage .thick { stroke-width: 4; }
+
+/* Controls: one grid row per slider, label | track | value. */
+.controls > * {
+  margin: 0;
+}
+.control {
+  display: grid;
+  grid-template-columns: 18ch 1fr 9ch;
+  column-gap: 1ch;
+  align-items: center;
+  height: var(--line-height);
+}
+.control > * {
+  margin: 0;
+}
+.control label {
+  width: auto;
+}
+.control output {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media screen and (max-width: 480px) {
+  .control {
+    grid-template-columns: 12ch 1fr 7ch;
+  }
+}
+
+.control input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--line-height);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.control input[type=range]::-webkit-slider-runnable-track {
+  height: var(--border-thickness);
+  background: var(--text-color);
+}
+.control input[type=range]::-moz-range-track {
+  height: var(--border-thickness);
+  background: var(--text-color);
+}
+.control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1ch;
+  height: var(--line-height);
+  margin-top: calc((var(--line-height) - var(--border-thickness)) / -2);
+  border: none;
+  border-radius: 0;
+  background: var(--accent-blue);
+}
+.control input[type=range]::-moz-range-thumb {
+  width: 1ch;
+  height: var(--line-height);
+  border: none;
+  border-radius: 0;
+  background: var(--accent-blue);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1ch;
+}
+.buttons > * {
+  margin: 0;
+}
+
+pre.readout {
+  margin: 0;
+  white-space: pre-wrap;
+}
+/* Accent text anywhere on learn pages: readouts, raw <pre> diagrams, inline notes. */
+span.blue { color: var(--accent-blue); }
+span.orange { color: var(--accent-orange); }
+span.green { color: var(--accent-green); }
+span.purple { color: var(--accent-purple); }
+span.cyan { color: var(--accent-cyan); }
+
+@media (prefers-reduced-motion: reduce) {
+  .widget *, .widget *::before, .widget *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* "You're done when" checklist: a pandoc fenced div `::: done-when`. */
+.done-when {
+  border: var(--border-thickness) solid var(--accent-green);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  margin-bottom: var(--line-height);
+}
+.done-when::before {
+  content: "You're done when";
+  display: block;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin-bottom: var(--line-height);
+}
+.done-when > :last-child {
+  margin-bottom: 0;
+}
+
+/* Unit navigation and progress. */
+.unit-nav {
+  margin-top: calc(var(--line-height) * 2);
+}
+.unit-done {
+  font-weight: var(--font-weight-normal);
+}
+.unit-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 2ch;
+}
+.unit-links > * {
+  margin: 0;
+}
+.unit-links a:last-child:not(:first-child) {
+  text-align: right;
+}
+.done {
+  color: var(--accent-green);
+}
+.unit-index td:last-child {
+  text-align: center;
+}
+.unit-index td.width-min {
+  white-space: nowrap;
+}
+.progress-bar {
+  white-space: pre;
+}

@@ -1,5 +1,18 @@
 /* Additions on top of The Monospace Web (index.css) for blog posts. */
 
+/* The web build of JetBrains Mono draws η (eta) exactly like n. Borrow just that glyph from
+   a system monospace font; everything else stays JetBrains Mono. */
+@font-face {
+  font-family: "Eta";
+  src: local("Menlo-Regular"), local("Menlo Regular"), local("Menlo"),
+       local("Consolas"), local("DejaVu Sans Mono"), local("Noto Sans Mono"),
+       local("Roboto Mono"), local("Courier New");
+  unicode-range: U+03B7;
+}
+:root {
+  --font-family: "Eta", "JetBrains Mono", monospace;
+}
+
 /* Accent palette after Tokyo Night Day / Tokyo Night, for code and charts only. */
 :root {
   --accent-blue: #2e7de9;
@@ -22,7 +35,7 @@
   color: var(--text-color-alt);
 }
 
-time, .header td.width-min {
+time, .header td.width-min, .nowrap {
   white-space: nowrap;
 }
 
@@ -44,6 +57,12 @@ time, .header td.width-min {
   .header:has(.avatar) td.width-min {
     white-space: normal;
   }
+}
+
+/* Long words in a 2rem title ("BACKPROPAGATION") are wider than a phone's header cell. */
+.header h1 {
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 h3, h4, h5, h6 {
@@ -112,7 +131,11 @@ math, math * {
 math:not([display="block"]) {
   margin-block: -1em;
 }
-math[display="block"] {
+/* filters/math.lua wraps display math in this span: <math> itself ignores max-width, so the
+   wrapper is what scrolls sideways when an equation is wider than a phone screen. */
+.math-display {
+  display: block;
+  max-width: 100%;
   margin: var(--line-height) 0;
   overflow-x: auto;
   overflow-y: hidden;
