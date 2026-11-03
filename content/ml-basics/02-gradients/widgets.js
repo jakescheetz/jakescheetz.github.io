@@ -143,9 +143,10 @@
     contour.setAttribute("rx", Math.sqrt(value) * S);
     contour.setAttribute("ry", Math.sqrt(value / 3) * S);
     step.update(X(px), Y(py), X(px + s[0]), Y(py + s[1]));
-    // Label s beside the middle of its shaft, so it stays readable when s lines up with ∇f.
-    stepLabel.setAttribute("x", X(px + 0.6 * s[0] - 0.4 * s[1]) - 4);
-    stepLabel.setAttribute("y", Y(py + 0.6 * s[1] + 0.4 * s[0]) + 5);
+    // Label s beside the middle of its shaft, on the side away from ∇f, so the two never overlap.
+    const side = -s[1] * gx + s[0] * gy > 0 ? -1 : 1;
+    stepLabel.setAttribute("x", X(px + 0.6 * s[0] - side * 0.4 * s[1]) - 4);
+    stepLabel.setAttribute("y", Y(py + 0.6 * s[1] + side * 0.4 * s[0]) + 5);
     const tip = [px + ARROW_SCALE * gx, py + ARROW_SCALE * gy];
     gradArrow.update(X(px), Y(py), X(tip[0]), Y(tip[1]));
     const away = g ? [gx / g, gy / g] : [0, 0];

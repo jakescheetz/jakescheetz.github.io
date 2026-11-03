@@ -52,10 +52,12 @@
     const cos = dot / (aLength * length);
     const degrees = Math.acos(Math.max(-1, Math.min(1, cos))) * 180 / Math.PI;
     out.innerHTML =
-      `a = (3.00, 1.00)   <span class="blue">b = (${fmt(b[0])}, ${fmt(b[1])})</span>\n` +
-      `a · b = 3.00 × ${fmt(b[0])} + 1.00 × ${fmt(b[1])} = <span class="orange">${fmt(dot)}</span>\n` +
-      `shadow of b on a = ${fmt(along)}, times |a| (${fmt(aLength)}) = <span class="orange">${fmt(dot)}</span>\n` +
-      `cosine similarity = ${fmt(cos)}   (angle between them ${fmt(degrees, 0)}°)`;
+      `a = (3.00, 1.00)  <span class="blue">b = (${fmt(b[0])}, ${fmt(b[1])})</span>\n` +
+      `a · b = 3.00 × ${fmt(b[0])} + 1.00 × ${fmt(b[1])}\n` +
+      `      = <span class="orange">${fmt(dot)}</span>\n` +
+      `shadow of b on a = ${fmt(along)}\n` +
+      `shadow × |a| = ${fmt(along)} × ${fmt(aLength)} = <span class="orange">${fmt(dot)}</span>\n` +
+      `cosine similarity = ${fmt(cos)} (${fmt(degrees, 0)}°)`;
   }
 
   const angleControl = slider(ctl, { label: "angle of b", min: 0, max: 359, step: 1, value: Math.round(angle), format: (v) => `${Math.round(v)}°` }, (v) => {

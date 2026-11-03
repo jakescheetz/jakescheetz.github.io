@@ -101,10 +101,12 @@
     const e = z.map(Math.exp);
     const sum = e.reduce((a, b) => a + b, 0);
     out.innerHTML =
-      `Σ e^z  = ${e.map((v) => fmt(v)).join(" + ")} = ${fmt(sum)}\n` +
+      `Σ e^z  = ${e.slice(0, 3).map((v) => fmt(v)).join(" + ")}\n` +
+      `       + ${e.slice(3).map((v) => fmt(v)).join(" + ")} = ${fmt(sum)}\n` +
       `<span class="blue">p(mat)</span> = ${fmt(e[correct])} / ${fmt(sum)} = <span class="blue">${fmt(p[correct], 3)}</span>\n` +
       `loss   = −log p(mat) = <span class="orange">${fmt(loss, 3)}</span>\n` +
-      `p − y  = (${g.map(signed).join(", ")})`;
+      `p − y  = (${g.slice(0, 3).map(signed).join(", ")},\n` +
+      `          ${g.slice(3).map(signed).join(", ")})`;
   }
 
   const sliders = tokens.map((token, i) =>

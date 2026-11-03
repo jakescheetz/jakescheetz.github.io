@@ -41,7 +41,7 @@
   const dataG = svg("g", { "clip-path": "url(#descent-clip-data)" }, root);
   svg("line", { x1: dx(-0.5), y1: dy(0), x2: dx(3.6), y2: dy(0), class: "muted faint thin" }, dataG);
   svg("line", { x1: dx(0), y1: dy(-0.8), x2: dx(0), y2: dy(9.5), class: "muted faint thin" }, dataG);
-  svg("text", { x: dx(3.6) - 12, y: dy(0) + 18, class: "muted", text: "x" }, root);
+  svg("text", { x: dx(3.6) - 12, y: dy(0) - 8, class: "muted", text: "x" }, root);
   svg("text", { x: dx(0) + 8, y: 16, class: "muted", text: "y" }, root);
   const residuals = xs.map(() => svg("line", { class: "muted dashed thin" }, dataG));
   const fitLine = svg("line", { class: "orange" }, dataG);

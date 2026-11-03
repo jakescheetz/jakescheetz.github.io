@@ -92,12 +92,15 @@
       const tok = tokens[query], bestTok = tokens[best];
       const sum = w.reduce((a, b) => a + b, 0);
       out.innerHTML =
-        `<span class="blue">query "${tok}" (position ${query + 1}), q = ${vec(q)}</span>\n` +
-        `biggest weight on "${bestTok}" (position ${best + 1}), k = ${vec(keys[best])}\n` +
-        `score = q · k / √4 = ${fmt(raw[best])} / 2 = ${fmt(raw[best] / 2)}, × scale ${scale.toFixed(1)} = ${fmt(scores[best])}\n` +
-        `<span class="orange">weight on "${bestTok}" = ${fmt(w[best])}</span>, ` +
-        `weights on positions 1 to ${query + 1} sum to ${fmt(sum)}` +
-        (query < n - 1 ? `, ${query + 2} to ${n} masked` : "");
+        `<span class="blue">query "${tok}" (position ${query + 1})\n` +
+        `q = ${vec(q)}</span>\n` +
+        `top weight on "${bestTok}" (position ${best + 1})\n` +
+        `k = ${vec(keys[best])}\n` +
+        `score = q · k / √4 = ${fmt(raw[best])} / 2 = ${fmt(raw[best] / 2)}\n` +
+        `× scale ${scale.toFixed(1)} = ${fmt(scores[best])}\n` +
+        `<span class="orange">weight on "${bestTok}" = ${fmt(w[best])}</span>\n` +
+        `weights on 1 to ${query + 1} sum to ${fmt(sum)}\n` +
+        (query < n - 1 ? `positions ${query + 2} to ${n} masked` : "no positions masked");
     }
 
     const position = slider(ctl, { label: "query token", min: 1, max: n, step: 1, value: query + 1, format: (v) => tokens[v - 1] }, (v) => {
@@ -242,8 +245,9 @@
       const lo = Math.min(...scores), hi = Math.max(...scores);
       out.innerHTML =
         `d_k = ${d}, ${scaled ? "scores are q · k / √d_k" : "scores are raw q · k"}\n` +
-        `spread (std) of raw q · k over 1,000 random pairs: ${fmt(spread(d), 1)}   √d_k = ${fmt(Math.sqrt(d), 1)}\n` +
-        `<span class="blue">these 8 scores run from ${fmt(lo, 1).replace("-", "−")} to ${fmt(hi, 1).replace("-", "−")}</span>\n` +
+        `raw q · k over 1,000 random pairs:\n` +
+        `spread (std) ${fmt(spread(d), 1)}   √d_k = ${fmt(Math.sqrt(d), 1)}\n` +
+        `<span class="blue">the 8 scores run from ${fmt(lo, 1).replace("-", "−")} to ${fmt(hi, 1).replace("-", "−")}</span>\n` +
         `<span class="orange">largest weight: ${fmt(w[best])} on k${best + 1}</span>`;
     }
 

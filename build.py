@@ -116,7 +116,8 @@ def check_quiz(meta, label):
 def load_page(src):
     label = src.relative_to(ROOT).as_posix()
     raw = pandoc(
-        [src.name, "--to=html5", "--math-method=mathml", f"--template={TEMPLATES / 'meta.json'}"],
+        [src.name, "--to=html5", "--math-method=mathml", f"--lua-filter={FILTERS / 'math.lua'}",
+         f"--template={TEMPLATES / 'meta.json'}"],
         src.parent, label,
     )
     page = Page(src, json.loads(raw))

@@ -62,7 +62,7 @@ quiz:
     wrong: ['Every row of $E$', 'Every row except 11 and 13', 'None, since a lookup has no gradient']
     why: 'The one-hot entry $u_v$ is 0 for every token that isn''t in the batch, so those rows get no gradient through the lookup.'
   - kind: apply
-    q: 'In GPT-2''s embeddings, unrelated tokens like " cat" and " however" score around 0.2. How should you read 0.55 for " cat" and " dog"?'
+    q: 'In GPT-2''s embeddings, unrelated tokens like `" cat"` and `" however"` score around 0.2. How should you read 0.55 for `" cat"` and `" dog"`?'
     answer: 'As fairly similar, since it sits well above that 0.2 background'
     wrong: ['As barely related, since it''s only about half of 1', 'As unrelated, since only scores above 0.8 count as close', 'As identical, since any positive cosine means the same direction']
     why: 'All of GPT-2''s rows lean toward one shared direction, so unrelated pairs don''t land near 0. Compare scores against each other, not against 0 or 1.'

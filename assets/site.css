@@ -105,10 +105,20 @@ blockquote > :last-child {
   margin-bottom: 0;
 }
 
-/* Highlighted code blocks get a box, offset like `details` to stay on the grid. */
-div.sourceCode > pre {
+/* Highlighted code blocks get a box, offset like `details` to stay on the grid. Plain
+   preformatted output gets the same box, so a line too long for a phone visibly scrolls
+   inside it instead of looking cut off. ASCII diagrams in figures are fitted by site.js. */
+div.sourceCode > pre,
+pre:not(.sourceCode):not(figure pre) {
   border: var(--border-thickness) solid var(--text-color);
   padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+}
+
+/* On a phone, figures (diagrams, widgets, charts) use the full text width. */
+@media screen and (max-width: 480px) {
+  figure {
+    margin-inline: 0;
+  }
 }
 
 /* Syntax tokens: pandoc's highlighter classes. */
@@ -123,13 +133,11 @@ code span.co, code span.do, code span.an, code span.cv { color: var(--text-color
 .chart-proxy { color: var(--accent-blue); }
 .chart-true { color: var(--accent-orange); }
 
-/* The global `* + *` rhythm rule must not reach MathML layout. */
+/* The global `* + *` rhythm rule must not reach MathML layout. Inline math keeps a zero
+   margin too: a negative block margin (to stop tall math growing the line) makes Safari and
+   other WebKit browsers draw inline math away from where its text expects it. */
 math, math * {
   margin: 0;
-}
-/* Inline math is taller than a text line; let it overhang instead of growing the line box. */
-math:not([display="block"]) {
-  margin-block: -1em;
 }
 /* filters/math.lua wraps display math in this span: <math> itself ignores max-width, so the
    wrapper is what scrolls sideways when an equation is wider than a phone screen. */

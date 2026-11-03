@@ -72,8 +72,8 @@
   svg("text", { x: px0 - 14, y: SY(0) + 4, class: "muted", text: "0" }, root);
   svg("text", { x: ZX(0) + 6, y: 16, class: "muted", text: "σ(z)" }, root);
   svg("text", { x: px1 - 10, y: SY(0) - 8, class: "muted", text: "z" }, root);
-  svg("text", { x: ZX(-10) - 4, y: SY(0) + 18, class: "muted", text: "−10" }, root);
-  svg("text", { x: ZX(10) - 30, y: SY(0) + 18, class: "muted", text: "10" }, root);
+  svg("text", { x: ZX(-10) - 4, y: SY(0) + 26, class: "muted", text: "−10" }, root);
+  svg("text", { x: ZX(10) - 30, y: SY(0) + 26, class: "muted", text: "10" }, root);
   const curve = [];
   for (let z = -10; z <= 10.001; z += 0.25) curve.push(`${ZX(z).toFixed(1)},${SY(sigmoid(z)).toFixed(1)}`);
   svg("polyline", { points: curve.join(" "), class: "ink" }, root);

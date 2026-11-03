@@ -134,14 +134,15 @@ The bottom divides by the square root of the key size, for a reason the next sec
 The weights are the softmax of those scores over the positions $i$ is allowed to see, $j = 1, \dots, i$, and the output is the weighted sum of the values:
 
 $$
-a_{ij} = \frac{e^{s_{ij}}}{e^{s_{i1}} + \cdots + e^{s_{ii}}}
-\qquad
-o_i = a_{i1} v_1 + a_{i2} v_2 + \cdots + a_{ii} v_i
+\begin{aligned}
+a_{ij} &= \frac{e^{s_{ij}}}{e^{s_{i1}} + \cdots + e^{s_{ii}}} \\
+o_i &= a_{i1} v_1 + a_{i2} v_2 + \cdots + a_{ii} v_i
+\end{aligned}
 $$
 
 ::: formula
-The left formula is softmax from [unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities), run over the $i$ scores in row $i$: $e$ to one score on top, $e$ to every visible score added up on the bottom.
-The right formula is the weighted average from the first section, with the values $v_j$ in place of the raw vectors $h_j$.
+The first formula is softmax from [unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities), run over the $i$ scores in row $i$: $e$ to one score on top, $e$ to every visible score added up on the bottom.
+The second is the weighted average from the first section, with the values $v_j$ in place of the raw vectors $h_j$.
 :::
 
 Scoring with $h_i \cdot h_j$ directly would make one vector play all three roles.
@@ -167,7 +168,7 @@ At 0 every score is 0, so the weights are all equal.
 At 2, "it" puts 0.99 on "cat".
 Bigger scores push more of the weight onto the top score, and the $\sqrt{d_k}$ in the score formula is there to keep scores from getting that big.
 
-## Why divide by √d_k
+## Why divide by the square root of the key size
 
 Suppose the entries of $q$ and $k$ are independent ([unit 3](../03-probability/#conditional-probability-and-bayes-rule)) random numbers with mean 0 and variance 1 ([unit 3](../03-probability/#expectation-spread-and-sampling)).
 Each product $q_m k_m$ of matching entries then has variance 1, and $q \cdot k$ adds up $d_k$ of them.

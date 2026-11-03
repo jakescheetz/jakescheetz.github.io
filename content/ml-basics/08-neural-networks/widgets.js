@@ -35,15 +35,15 @@
       { node: ["h2"], edges: ["z2-h2"], text: "h₂ = ReLU(z₂) = max(0, −0.5) = 0" },
       { node: ["yh"], edges: ["h1-yh", "h2-yh"], text: "ŷ = 1·h₁ + 0.5·h₂ + 0 = 0.5" },
       { node: ["L"], edges: ["yh-L"], text: "L = (ŷ − y)² = (0.5 − 1)² = 0.25" },
-      { back: true, node: ["L"], text: "∂L/∂L = 1. The backward pass starts at the loss." },
-      { back: true, node: ["yh"], edges: ["yh-L"], reuse: ["yh"], text: "∂L/∂ŷ = ∂L/∂L · 2(ŷ − y) = 2(0.5 − 1) = −1" },
-      { back: true, node: ["h1"], edges: ["h1-yh"], text: "∂L/∂h₁ = ∂L/∂ŷ · 1 = −1   (1 is h₁'s weight into ŷ)" },
-      { back: true, node: ["h2"], edges: ["h2-yh"], text: "∂L/∂h₂ = ∂L/∂ŷ · 0.5 = −0.5   (0.5 is h₂'s weight)" },
-      { back: true, node: ["z1"], edges: ["z1-h1"], reuse: ["z1"], text: "∂L/∂z₁ = ∂L/∂h₁ · 1 = −1   (z₁ > 0, so ReLU passes it on)" },
-      { back: true, node: ["z2"], edges: ["z2-h2"], reuse: ["z2"], text: "∂L/∂z₂ = ∂L/∂h₂ · 0 = 0   (z₂ < 0, so ReLU blocks it)" },
+      { back: true, node: ["L"], text: "∂L/∂L = 1.\nThe backward pass starts at the loss." },
+      { back: true, node: ["yh"], edges: ["yh-L"], reuse: ["yh"], text: "∂L/∂ŷ = ∂L/∂L · 2(ŷ − y)\n      = 2(0.5 − 1) = −1" },
+      { back: true, node: ["h1"], edges: ["h1-yh"], text: "∂L/∂h₁ = ∂L/∂ŷ · 1 = −1\n(1 is h₁'s weight into ŷ)" },
+      { back: true, node: ["h2"], edges: ["h2-yh"], text: "∂L/∂h₂ = ∂L/∂ŷ · 0.5 = −0.5\n(0.5 is h₂'s weight)" },
+      { back: true, node: ["z1"], edges: ["z1-h1"], reuse: ["z1"], text: "∂L/∂z₁ = ∂L/∂h₁ · 1 = −1\n(z₁ > 0, so ReLU passes it on)" },
+      { back: true, node: ["z2"], edges: ["z2-h2"], reuse: ["z2"], text: "∂L/∂z₂ = ∂L/∂h₂ · 0 = 0\n(z₂ < 0, so ReLU blocks it)" },
       {
         back: true, node: [], edges: ["x1-z1", "x2-z1", "x1-z2", "x2-z2", "h1-yh", "h2-yh"], reuse: ["x1", "x2", "h1", "h2"],
-        text: "∂L/∂W₂ = ∂L/∂ŷ · h = (−0.5, 0)   ∂L/∂b₂ = −1\n∂L/∂W₁ = ∂L/∂z times x: row 1 (−1, 0), row 2 (0, 0)   ∂L/∂b₁ = (−1, 0)",
+        text: "∂L/∂W₂ = ∂L/∂ŷ · h = (−0.5, 0)\n∂L/∂b₂ = −1   ∂L/∂b₁ = (−1, 0)\n∂L/∂W₁ = ∂L/∂z times x:\n  row 1 (−1, 0), row 2 (0, 0)",
       },
     ];
     // The step at which each node's value and gradient first appear.
@@ -94,12 +94,15 @@
         gradText[id].textContent = id in gradAt && current >= gradAt[id] ? num(grad[id]) : "";
       }
       const phase = s.back ? '<span class="orange">backward</span>' : '<span class="blue">forward</span>';
+      // Always four text lines, so the buttons below don't jump between steps.
       const lines = s.text.split("\n");
+      while (lines.length < 4) lines.push(" ");
       out.innerHTML =
-        `W₁ = [[0.5, −0.5], [−1, 1]]  b₁ = (0, 0.5)  W₂ = (1, 0.5)  b₂ = 0\n` +
-        `step ${current + 1} of ${steps.length}, ${phase}` +
-        (s.reuse && s.back ? ", reusing the underlined forward values" : "") + "\n" +
-        `${lines[0]}\n${lines[1] || " "}`;
+        `W₁ = [[0.5, −0.5], [−1, 1]]\n` +
+        `b₁ = (0, 0.5)  W₂ = (1, 0.5)  b₂ = 0\n` +
+        `step ${current + 1} of ${steps.length}, ${phase}\n` +
+        (s.reuse && s.back ? "reusing the underlined forward values" : " ") + "\n" +
+        lines.join("\n");
       back.disabled = current === 0;
       next.disabled = current === steps.length - 1;
     }
@@ -276,8 +279,10 @@
       const L = history[history.length - 1];
       out.innerHTML =
         `step ${step}   <span class="purple">loss ${L < 1e-4 ? L.toExponential(1) : fmt(L, 4)}</span>\n` +
-        `ŷ at (0,0) ${preds[0]}  (0,1) ${preds[1]}  (1,0) ${preds[2]}  (1,1) ${preds[3]}\n` +
-        `hidden units: ${H}, dead (z ≤ 0 on all four inputs): ${deadUnits()}`;
+        `ŷ at (0,0) ${preds[0]}   (0,1) ${preds[1]}\n` +
+        `     (1,0) ${preds[2]}   (1,1) ${preds[3]}\n` +
+        `hidden units: ${H}, dead: ${deadUnits()}\n` +
+        `(dead: z ≤ 0 on all four inputs)`;
     }
 
     init();

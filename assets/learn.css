@@ -65,14 +65,16 @@ figure.widget figcaption {
 }
 .control label {
   width: auto;
+  white-space: nowrap;
 }
 .control output {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
+/* Phones: a 12ch label column, widened for any label longer than that (one line per row). */
 @media screen and (max-width: 480px) {
   .control {
-    grid-template-columns: 12ch 1fr 7ch;
+    grid-template-columns: minmax(12ch, max-content) 1fr 7ch;
   }
 }
 
@@ -233,6 +235,13 @@ span.cyan { color: var(--accent-cyan); }
 }
 .quiz-choice > * {
   margin: 0;
+}
+/* The theme's radio fills a whole line, so one-line options stack into a chain of touching
+   circles; inset each circle a little so neighbours have a gap (row height is unchanged). */
+.quiz-choice > input[type=radio] {
+  width: calc(var(--line-height) - 4px);
+  height: calc(var(--line-height) - 4px);
+  margin: 2px;
 }
 .quiz-choice.is-correct {
   color: var(--accent-green);

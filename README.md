@@ -18,6 +18,8 @@ Markdown is rendered by [pandoc](https://pandoc.org/) through `build.py` (Python
 Put figures and a `references.bib` next to the post's `index.md` and reference them relatively.
 Citations (`@key`, `[@key, sec. 2]`) link straight to the paper's `url` (or `doi`) from the `.bib` entry.
 To color an ASCII chart, write it as a raw `<pre>` and wrap series markers in `<span class="chart-proxy">` / `<span class="chart-true">` (see the reward-model post).
+An ASCII diagram inside a `<figure>` shrinks to fit a narrow screen (`assets/site.js`), down to an 8px font; keep diagrams to about 65 columns so they stay readable on a phone.
+Display equations wider than a phone (about 300px) scroll sideways, so split long ones over lines with `\begin{aligned} … \end{aligned}`.
 `content/posts/writing-guide/` is a draft that demonstrates every supported element (math, citations, footnotes, code, diagrams) and documents the front matter fields.
 
 To publish: delete the `draft: true` line, commit, push to `main`.

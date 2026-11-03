@@ -187,12 +187,15 @@ The way around it is one line of calculus.
 The derivative of $\log \pi$ is $\nabla \pi / \pi$, so $\nabla \pi = \pi \, \nabla \log \pi$, and substituting that in gives
 
 $$
-\nabla J = \sum_a \pi_\theta(a)\, R(a)\, \nabla \log \pi_\theta(a) = \mathbb{E}_{a \sim \pi_\theta}\big[\, r\, \nabla \log \pi_\theta(a) \,\big]
+\begin{aligned}
+\nabla J &= \sum_a \pi_\theta(a)\, R(a)\, \nabla \log \pi_\theta(a) \\
+&= \mathbb{E}_{a \sim \pi_\theta}\big[\, r\, \nabla \log \pi_\theta(a) \,\big]
+\end{aligned}
 $$
 
 ::: formula
-The middle expression is the exact sum after substituting.
-Its weights are the policy's own probabilities $\pi_\theta(a)$, and the right-hand side writes that weighted sum as an expectation.
+The first line is the exact sum after substituting.
+Its weights are the policy's own probabilities $\pi_\theta(a)$, and the second line writes that weighted sum as an expectation.
 :::
 
 So the gradient is an average over the actions the policy itself picks, and an average like that can be estimated by sampling, the [Monte Carlo estimate](../03-probability/#expectation-spread-and-sampling) from unit 3.
@@ -244,11 +247,15 @@ A pull of A that pays 4.1 has an advantage of −0.9 and pushes A down, and a pu
 On average, the baseline adds nothing to the update, because the probabilities always add up to 1:
 
 $$
-\mathbb{E}_{a \sim \pi_\theta}\big[\, b\, \nabla \log \pi_\theta(a) \,\big] = b \sum_a \nabla \pi_\theta(a) = b\, \nabla \Big( \sum_a \pi_\theta(a) \Big) = b\, \nabla 1 = 0
+\begin{aligned}
+\mathbb{E}_{a \sim \pi_\theta}\big[\, b\, \nabla \log \pi_\theta(a) \,\big]
+&= b \sum_a \nabla \pi_\theta(a) \\
+&= b\, \nabla \Big( \sum_a \pi_\theta(a) \Big) = b\, \nabla 1 = 0
+\end{aligned}
 $$
 
 ::: formula
-Read it left to right.
+Read it one step at a time.
 The baseline's part of the update, averaged over actions, is $\sum_a \pi_\theta(a)\, b\, \nabla \log \pi_\theta(a)$, and $\pi\, \nabla \log \pi = \nabla \pi$ turns that into $b \sum_a \nabla \pi_\theta(a)$.
 The gradient of a sum is the sum of the gradients, so that's $b$ times the gradient of the total probability.
 The total is always 1, a constant, and the gradient of a constant is 0.

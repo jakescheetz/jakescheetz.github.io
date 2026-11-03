@@ -65,7 +65,8 @@
         `r(y_w) − r(y_l) = ${num(d)}\n` +
         `P(y_w ≻ y_l) = σ(${num(d)}) = <span class="blue">${fmt(p)}</span>\n` +
         `loss = −log P = ${fmt(-Math.log(p))}\n` +
-        `push = 1 − P = <span class="orange">${fmt(1 - p)}</span>, r(y_w) up and r(y_l) down`;
+        `push = 1 − P = <span class="orange">${fmt(1 - p)}</span>\n` +
+        `r(y_w) up and r(y_l) down`;
     }
 
     const gap = slider(ctl, { label: "reward gap", min: -6, max: 6, step: 0.1, value: 0.9, format: (v) => num(v) }, draw);
@@ -142,9 +143,9 @@
       const cell = (v) => num(v).padStart(7);
       const right100 = (k) => Math.round(history.reduce((s, h) => s + h[k], 0) / Math.max(1, history.length) * 100);
       const latest = last
-        ? `<span class="green">${names[last.w]}</span> beat <span class="orange">${names[last.l]}</span>. ` +
-          `Model gave that ${fmt(last.p)}, push ${fmt(last.push, 3)}`
-        : "none yet";
+        ? `<span class="green">${names[last.w]}</span> beat <span class="orange">${names[last.l]}</span>\n` +
+          `model gave that ${fmt(last.p)}, push ${fmt(last.push, 3)}`
+        : "none yet\n";
       out.innerHTML =
         `comparisons: ${count}\n` +
         `latest: ${latest}\n` +

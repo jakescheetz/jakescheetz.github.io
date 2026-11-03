@@ -128,16 +128,17 @@
 
     const probs = p.map((v, i) => `<span class="${colors[i]}">π(${names[i]}) ${fmt(v)}</span>`).join("  ");
     const lastLine = last
-      ? `pulled <span class="${colors[last.a]}">${names[last.a]}</span>: reward ${fmt(last.r)}, ` +
+      ? `pulled <span class="${colors[last.a]}">${names[last.a]}</span>: reward ${fmt(last.r)}\n` +
         (useBaseline ? `baseline ${fmt(last.used)}, ` : "") +
         `advantage ${fmt(last.advantage)}`
-      : "no pulls yet";
+      : "no pulls yet\n ";
     out.innerHTML =
-      `run ${run}, pull ${pull} of ${runLength}, baseline ${useBaseline ? "on" : "off"}\n` +
+      `run ${run}, pull ${pull}/${runLength}, baseline ${useBaseline ? "on" : "off"}\n` +
       `${lastLine}\n` +
       `θ = (${theta.map((v) => fmt(v)).join(", ")})\n` +
       `${probs}\n` +
-      `finished runs ${finished}, most likely arm at the end: A ${tally[0]}, B ${tally[1]}, C ${tally[2]}`;
+      `finished runs: ${finished}\n` +
+      `top arm at the end: A ${tally[0]}, B ${tally[1]}, C ${tally[2]}`;
   }
 
   slider(ctl, { label: "learn rate η", min: 0.02, max: 0.4, step: 0.02, value: eta, format: (v) => v.toFixed(2) }, (v) => {

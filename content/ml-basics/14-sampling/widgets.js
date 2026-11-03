@@ -103,14 +103,22 @@
     });
     const tally = drawCounts();
     const nKept = keep.filter(Boolean).length;
-    const sequence = draws.map((i) => tokens[i]).join(" ");
+    // Break the sampled tokens into lines of at most 38 characters, so they fit a phone-width readout.
+    const sequence = [];
+    draws.forEach((i) => {
+      const last = sequence.length - 1;
+      if (last >= 0 && sequence[last].length + 1 + tokens[i].length <= 38) sequence[last] += ` ${tokens[i]}`;
+      else sequence.push(tokens[i]);
+    });
+    const counts = tokens.map((t, i) => `${t} ${tally[i]}`);
     out.innerHTML =
       `T = ${fmt(T)}   top-k = ${k}   top-p = ${fmt(topP)}\n` +
-      `<span class="blue">kept ${nKept} of 8 tokens</span>, holding ${fmt(keptMass, 3)} of the probability before renormalizing\n` +
+      `<span class="blue">kept ${nKept} of 8 tokens</span>, holding ${fmt(keptMass, 3)} of\n` +
+      `the probability before renormalizing\n` +
       (draws.length
-        ? `<span class="orange">${sequence}</span>\n` +
-          tokens.map((t, i) => `${t} ${tally[i]}`).join("  ")
-        : `press "Sample ${SAMPLES}" to draw ${SAMPLES} tokens from the blue bars`);
+        ? `<span class="orange">${sequence.join("\n")}</span>\n` +
+          `${counts.slice(0, 4).join("  ")}\n${counts.slice(4).join("  ")}`
+        : `press "Sample ${SAMPLES}" to draw ${SAMPLES} tokens\nfrom the blue bars`);
   }
 
   function stopBatch() {

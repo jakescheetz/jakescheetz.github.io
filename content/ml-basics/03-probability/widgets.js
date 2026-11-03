@@ -115,9 +115,9 @@
     const err = mean - die.mean;
     out.innerHTML =
       `${die.name}   <span class="orange">E[X] = ${fmt(die.mean)}</span>   σ = ${fmt(die.sd)}\n` +
-      `rolls N = ${N.toLocaleString("en-US")}   ` +
+      `rolls N = ${N.toLocaleString("en-US")}\n` +
       (N ? `<span class="blue">running mean = ${fmt(mean, 3)}</span>   miss = ${err >= 0 ? "+" : ""}${fmt(err, 3)}` : "no rolls yet") + "\n" +
-      (N ? `typical miss σ/√N = ${fmt(die.sd)}/√${N.toLocaleString("en-US")} = ${fmt(die.sd / Math.sqrt(N), 3)}` : "typical miss σ/√N appears after the first roll");
+      (N ? `typical miss σ/√N = ${fmt(die.sd / Math.sqrt(N), 3)}\n= ${fmt(die.sd)}/√${N.toLocaleString("en-US")}` : "typical miss σ/√N appears\nafter the first roll");
   }
 
   drawFunnel();
@@ -201,10 +201,10 @@
     // The sliders keep the base rate and catch rate above zero, so P(flag) never is.
     const posterior = flagPhish / pFlag;
     out.innerHTML =
-      `1,000 emails: <span class="orange">${nPhish} phishing, ${nCaught} flagged</span>; ` +
-      `${nLegit} legit, <span class="blue">${nFalse} flagged</span>\n` +
-      `P(flag) = ${fmt(hit)} × ${fmt(prior, 3)} + ${fmt(falseAlarm, 3)} × ${fmt(1 - prior, 3)} = ${fmt(pFlag, 4)}\n` +
-      `P(phish | flag) = ${fmt(flagPhish, 4)} / ${fmt(pFlag, 4)} = <span class="orange">${fmt(posterior, 3)}</span>`;
+      `<span class="orange">phishing: ${nPhish} of 1,000, ${nCaught} flagged</span>\n` +
+      `legit:    ${nLegit} of 1,000, <span class="blue">${nFalse} flagged</span>\n` +
+      `P(flag) = ${fmt(hit)} × ${fmt(prior, 3)}\n        + ${fmt(falseAlarm, 3)} × ${fmt(1 - prior, 3)} = ${fmt(pFlag, 4)}\n` +
+      `P(phish|flag) = ${fmt(flagPhish, 4)} / ${fmt(pFlag, 4)} = <span class="orange">${fmt(posterior, 3)}</span>`;
   }
 
   slider(ctl, { label: "base rate", min: 0.005, max: 0.5, step: 0.005, value: prior, format: pct }, (v) => { prior = v; draw(); });

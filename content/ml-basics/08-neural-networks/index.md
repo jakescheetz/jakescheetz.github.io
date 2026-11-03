@@ -237,7 +237,7 @@ The output is a sum of folded planes, so the blue region always has straight edg
 With one hidden unit it never fits.
 The output only changes as you move along one direction in the plane, so the 0.5 boundary is a single straight line, and the XOR argument above showed no line works.
 Two units are enough in principle (the hand-built network uses two), but from a random start gradient descent often gets stuck with a dead unit or a bad fold.
-When I pressed New start 20 times at each size and ran 1,000 steps, two units solved it 4 times, three units 12 times, and eight units all 20.
+When I pressed New start 20 times at each size and ran 1,000 steps, the network solved it 4 times with two hidden units, 12 times with three, and all 20 times with eight.
 
 ## Worked example
 

@@ -96,7 +96,7 @@
     };
   });
 
-  const root = stage(figure, { rows: 15, width: 720 });
+  const root = stage(figure, { rows: 17, width: 720 });
   root.setAttribute("aria-label", "Top: a corridor of nine cells with the agent, the coin and the end of the level. Bottom: for each share of training levels with a randomly placed coin, how often the trained agents get a coin placed to their left, and how often they end up at the end of the level instead.");
 
   // Corridor.
@@ -128,11 +128,11 @@
     const r = results[j];
     svg("rect", { class: "orange", x: x + slot / 2 - 18, y: GY(r.coin), width: 16, height: G.y1 - GY(r.coin), fill: "currentColor" }, root);
     svg("rect", { class: "blue", x: x + slot / 2 + 2, y: GY(r.end), width: 16, height: Math.max(0.5, G.y1 - GY(r.end)), fill: "currentColor" }, root);
-    svg("text", { class: "muted", x: x + slot / 2, y: G.y1 + 18, "text-anchor": "middle", text: pct(s) }, root);
+    svg("text", { class: "muted", x: x + slot / 2, y: G.y1 + 24, "text-anchor": "middle", text: pct(s) }, root);
   });
-  svg("text", { class: "orange", x: G.x1 + 8, y: G.y0 + 12, text: "gets coin" }, root);
-  svg("text", { class: "blue", x: G.x1 + 8, y: G.y0 + 30, text: "at end" }, root);
-  svg("text", { class: "muted", x: G.x1, y: G.y1 + 36, "text-anchor": "end", text: "share of training levels with a random coin" }, root);
+  svg("text", { class: "orange", x: G.x1 + 8, y: G.y0 + 14, text: "coin" }, root);
+  svg("text", { class: "blue", x: G.x1 + 8, y: G.y0 + 44, text: "at end" }, root);
+  svg("text", { class: "muted", x: G.x1, y: G.y1 + 58, "text-anchor": "end", text: "share of levels with a random coin" }, root);
 
   const out = readout(figure);
   const ctl = controls(figure);
@@ -167,12 +167,14 @@
     agentDot.setAttribute("cx", CX(ep.pos));
     const side = ep.coin < START ? "left" : "right";
     out.innerHTML =
-      `${pct(SHARES[k])} of training levels had a random coin, ${RUNS} runs\n` +
+      `random coin in ${pct(SHARES[k])} of training levels\n` +
       `runs with w_coin > w_end: ${r.wins} of ${RUNS}\n` +
       `average w_coin ${fmt(r.wCoin)}, w_end ${fmt(r.wEnd)}\n` +
-      `coin at the end (training): gets it ${fmt(r.train)}\n` +
-      `coin to the left (test):    <span class="orange">gets it ${fmt(r.coin)}</span>, <span class="blue">at the end ${fmt(r.end)}</span>\n` +
-      `run ${ep.run + 1} (w_coin ${fmt(ep.w[0])}, w_end ${fmt(ep.w[1])}), coin to the ${side}\n` +
+      `training, coin at end: gets it ${fmt(r.train)}\n` +
+      `test, coin on left:    <span class="orange">gets it ${fmt(r.coin)}</span>\n` +
+      `                       <span class="blue">at the end ${fmt(r.end)}</span>\n` +
+      `run ${ep.run + 1}: w_coin ${fmt(ep.w[0])}, w_end ${fmt(ep.w[1])}\n` +
+      `coin to the ${side}\n` +
       `step ${ep.t} of ${STEPS}${ep.done ? `: ${ep.done}` : ""}`;
   }
 

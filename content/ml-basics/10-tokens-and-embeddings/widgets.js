@@ -143,19 +143,19 @@
         : `start: ${baseVocab} single characters`];
       if (state.next) {
         const parts = [...state.next.parts];
-        const seen = parts.length > 1
-          ? `${parts.map(([word, n]) => `${n} (${word})`).join(" + ")} = ${state.next.count} times`
-          : `${state.next.count} times (${parts[0][0]})`;
-        lines.push(`next: <span class="orange">${state.next.pair.join(" + ")}</span>, ${seen}`);
+        lines.push(`next: <span class="orange">${state.next.pair.join(" + ")}</span>, ${state.next.count} times`);
+        lines.push(parts.length > 1
+          ? `= ${parts.map(([word, n]) => `${n} (${word})`).join(" + ")}`
+          : `all in ${parts[0][0]}`);
         if (state.ties.length) {
           const tied = state.ties.map((p) => p.pair.join(" + ")).join(", ");
-          lines.push(`tie with ${tied}: the pair counted first wins`);
+          lines.push(`tied: ${tied} (first wins)`);
         }
       } else {
         lines.push(`next: none, every word is one token`);
       }
-      // Always three lines, so the buttons below don't jump when a tie line comes and goes.
-      while (lines.length < 3) lines.push("\u00a0");
+      // Always four lines, so the buttons below don't jump when a tie line comes and goes.
+      while (lines.length < 4) lines.push("\u00a0");
       out.innerHTML = lines.join("\n");
     }
 

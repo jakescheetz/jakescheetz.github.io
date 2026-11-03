@@ -271,7 +271,10 @@ Each email's gradient for $w$ is its own feature vector times its miss $p - y$.
 For the full training set, average these over the $N$ emails and take the step from [unit 4](../04-gradient-descent/#walk-downhill):
 
 $$
-w \leftarrow w - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)\,x_i, \qquad b \leftarrow b - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)
+\begin{aligned}
+w &\leftarrow w - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)\,x_i \\
+b &\leftarrow b - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)
+\end{aligned}
 $$
 
 ::: formula

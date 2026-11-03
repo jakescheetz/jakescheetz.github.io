@@ -228,7 +228,10 @@ It turns a probability you know in one direction into the other direction, from 
 For the filter, $P(\text{flag})$ is the "flagged" column total, the flagged phishing plus the flagged legit:
 
 $$
-P(\text{phish} \mid \text{flag}) = \frac{0.9 \times 0.01}{0.9 \times 0.01 + 0.05 \times 0.99} = \frac{0.009}{0.0585} \approx 0.154
+\begin{aligned}
+P(\text{phish} \mid \text{flag}) &= \frac{0.9 \times 0.01}{0.9 \times 0.01 + 0.05 \times 0.99} \\
+&= \frac{0.009}{0.0585} \approx 0.154
+\end{aligned}
 $$
 
 So a flagged email is phishing only about 15% of the time, even though the filter catches 90% of phishing.
@@ -337,7 +340,16 @@ The first line's `0.9999999999999999` is six copies of $1/6$ added up in floatin
 <summary>A random variable is 0 with probability 0.5, 1 with probability 0.3 and 2 with probability 0.2. What are its mean, variance and standard deviation?</summary>
 
 Mean: $0 \times 0.5 + 1 \times 0.3 + 2 \times 0.2 = 0.7$.
-Variance: $(0 - 0.7)^2 \times 0.5 + (1 - 0.7)^2 \times 0.3 + (2 - 0.7)^2 \times 0.2 = 0.245 + 0.027 + 0.338 = 0.61$.
+Variance, each value's squared distance from 0.7 weighted by its probability:
+
+$$
+\begin{aligned}
+&(0 - 0.7)^2 \times 0.5 + (1 - 0.7)^2 \times 0.3 \\
+&\quad + (2 - 0.7)^2 \times 0.2 \\
+&= 0.245 + 0.027 + 0.338 = 0.61
+\end{aligned}
+$$
+
 Standard deviation: $\sqrt{0.61} \approx 0.78$.
 
 </details>
@@ -361,7 +373,12 @@ Multiplying $N$ by 100 divides the miss by $\sqrt{100} = 10$.
 <details>
 <summary>In the Bayes widget, keep the catch rate at 90% and false alarms at 5%, and raise the base rate to 50%. What is P(phish | flag) now, and why is it so different from 15%?</summary>
 
-$0.9 \times 0.5 / (0.9 \times 0.5 + 0.05 \times 0.5) = 0.45 / 0.475 \approx 0.947$.
+About 0.95, from Bayes' rule with the new base rate:
+
+$$
+\frac{0.9 \times 0.5}{0.9 \times 0.5 + 0.05 \times 0.5} = \frac{0.45}{0.475} \approx 0.947
+$$
+
 With half the email phishing, the 5% false alarms only apply to as many emails as the catch rate does, so they no longer swamp the real catches.
 
 </details>
