@@ -95,10 +95,13 @@ $$
 \max_\theta\; \mathbb{E}_{x \sim D,\; y \sim \pi_\theta(\cdot \mid x)}\big[r_\phi(x, y)\big] - \beta\, D_{\mathrm{KL}}\big(\pi_\theta \,\|\, \pi_0\big)
 $$
 
-In words: pick the policy parameters $\theta$ that make the average reward-model score as high as possible, minus a charge for moving away from $\pi_0$.
+::: formula
 The first term is the average reward-model score of the policy's answers.
 $\mathbb{E}$ is the expectation from [unit 3](../03-probability/#expectation-spread-and-sampling), and the subscript says what to average over, as in unit 15's [objective](../15-reinforcement-learning/#a-policy-picks-actions-with-probabilities): prompts $x$ drawn from $D$, and answers $y$ drawn from the policy's distribution $\pi_\theta(\cdot \mid x)$ for that prompt.
 The second term measures how far the policy's answers have moved from $\pi_0$'s, and $\beta$ sets how much that costs.
+:::
+
+In words: pick the policy parameters $\theta$ that make the average reward-model score as high as possible, minus a charge, scaled by $\beta$, for moving away from $\pi_0$.
 
 That second term is called the *KL divergence* (Kullback–Leibler), written $D_{\mathrm{KL}}(\pi_\theta \,\|\, \pi_0)$ and read "the KL from $\pi_\theta$ to $\pi_0$".
 For one answer $y$ it's estimated as
@@ -143,16 +146,19 @@ InstructGPT had them rank 4 to 9 answers at a time and counted every pair inside
 So the training data is a pile of results like "A beat B", and the reward model has to output numbers.
 The link between the two is the *Bradley–Terry model*, and it turns out to be logistic regression from unit 5 with the reward gap as the score.
 Write $y_w$ for the answer people picked (the winner), $y_l$ for the other one (the loser), and $y_w \succ y_l$ for "$y_w$ is preferred to $y_l$".
-Bradley–Terry says
+Writing $r(y)$ for $r_\phi(x, y)$, since both answers share the prompt, Bradley–Terry says
 
 $$
 P(y_w \succ y_l) = \sigma\big(r(y_w) - r(y_l)\big), \qquad \sigma(t) = \frac{1}{1 + e^{-t}}
 $$
 
-where $r(y)$ is short for $r_\phi(x, y)$, since both answers share the prompt.
+::: formula
 The left side is the probability that people pick $y_w$ over $y_l$.
 Inside the $\sigma$ is the gap between the two answers' rewards, and $\sigma$ is the sigmoid from [unit 5](../05-classification/#from-a-score-to-a-probability), which squashes any number into a probability between 0 and 1, with $\sigma(0) = 0.5$.
 In unit 5 the score fed to the sigmoid was $w \cdot x + b$; here it's $r(y_w) - r(y_l)$, and the "class" is which answer won.
+:::
+
+So the chance people pick the winner is the sigmoid of the reward gap.
 
 For A and B the gap is $1.5 - 0.6 = 0.9$, and $\sigma(0.9) = 0.71$.
 So the model says people pick A over B 71% of the time, and B over A the other 29%.
@@ -163,24 +169,32 @@ Add 10 to every answer's reward and every probability stays the same, so a rewar
 InstructGPT shifted their trained reward model so that answers written by people averaged 0 before running RL.
 
 Training picks the rewards that make the observed picks most likely.
-For one comparison that means making $\sigma(r_w - r_l)$ big, where $r_w = r(y_w)$ and $r_l = r(y_l)$, and as in unit 5 you minimize the negative log instead:
+For one comparison that means making $\sigma(r_w - r_l)$ big, where $r_w = r(y_w)$ and $r_l = r(y_l)$, and as in unit 5 you minimize the negative log instead, averaged over all comparisons:
 
 $$
 L = -\log \sigma(r_w - r_l)
 $$
 
-averaged over all comparisons.
-$\sigma(r_w - r_l)$ is the probability the model gave to the pick people actually made, and the loss is minus its log, so it's near 0 when the model was confident and right and large when it was confident and wrong.
+::: formula
+$\sigma(r_w - r_l)$ is the probability the model gave to the pick people actually made, and the loss is minus its log.
 This is unit 5's [log loss](../05-classification/#log-loss) with the label always $y = 1$, since we always put the winner first.
+:::
+
+The loss is near 0 when the model was confident and right, and large when it was confident and wrong.
 If people picked A over B, the loss is $-\log 0.71 = 0.34$.
 If they picked B, the gap flips to $-0.9$ and the loss is $-\log 0.29 = 1.24$.
 
 The gradient is what made this loss make sense to me.
-The derivative of $-\log \sigma(t)$ is $-(1 - \sigma(t))$, the same $p - y$ as in [unit 5](../05-classification/#training-with-gradient-descent) with $p = \sigma(t)$ and $y = 1$, so a gradient step (unit 4) raises $r_w$ and lowers $r_l$ by the same amount, proportional to
+A gradient step (unit 4) raises $r_w$ and lowers $r_l$ by the same amount, proportional to
 
 $$
 1 - \sigma(r_w - r_l)
 $$
+
+::: formula
+The derivative of $-\log \sigma(t)$ is $-(1 - \sigma(t))$, the same $p - y$ as in [unit 5](../05-classification/#training-with-gradient-descent) with $p = \sigma(t)$ and $y = 1$.
+Here $t = r_w - r_l$, so $r_w$ and $r_l$ get that derivative with opposite signs.
+:::
 
 That's the probability the model gave to the pick people didn't make.
 When people pick A, the model had already given that 0.71, so the push is 0.29.
@@ -220,17 +234,24 @@ $$
 \pi^*(y \mid x) = \frac{1}{Z(x)}\, \pi_0(y \mid x)\, \exp\big(r(x, y)/\beta\big)
 $$
 
+::: formula
 On the left, $\pi^*(y \mid x)$ is the probability the best policy gives answer $y$ to prompt $x$.
-On the right, $\pi_0(y \mid x)$ is $\pi_0$'s probability for the same answer, and $\exp(r(x, y)/\beta)$ is $e$ to the power of the answer's reward over $\beta$, so answers the reward model likes get scaled up and a small $\beta$ scales them up harder.
-$Z(x)$ is the sum of $\pi_0(y \mid x)\exp(r(x, y)/\beta)$ over every possible answer, the number that makes the probabilities add up to 1, and for a language model nobody can compute it.
+On the right, $\pi_0(y \mid x)$ is $\pi_0$'s probability for the same answer, and $\exp(r(x, y)/\beta)$ is $e$ to the power of the answer's reward over $\beta$.
+$Z(x)$ is the sum of $\pi_0(y \mid x)\exp(r(x, y)/\beta)$ over every possible answer.
+:::
+
+So the best policy is $\pi_0$ reweighted: answers the reward model likes get scaled up, and a small $\beta$ scales them up harder.
+$Z(x)$ is the number that makes the probabilities add up to 1, and for a language model nobody can compute it.
 Solve for the reward instead, by taking the log of both sides and rearranging:
 
 $$
 r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_0(y \mid x)} + \beta \log Z(x)
 $$
 
+::: formula
 The first term is $\beta$ times the log of how many times more likely the best policy makes $y$ than $\pi_0$ did, the same log ratio as the KL penalty above.
 The second term depends only on the prompt.
+:::
 
 Now plug that into Bradley–Terry.
 Both answers in a comparison share the prompt, so the $\beta \log Z(x)$ terms cancel in $r_w - r_l$.
@@ -240,9 +261,12 @@ $$
 L_{\mathrm{DPO}} = -\log \sigma\Big(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_0(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_0(y_l \mid x)}\Big)
 $$
 
-It's the reward model's loss $-\log \sigma(r_w - r_l)$ with $\beta \log(\pi_\theta / \pi_0)$ standing in for the reward.
+::: formula
 The first term inside $\sigma$ is the winner's implied reward: $\beta$ times the log of how much more likely the policy makes $y_w$ than $\pi_0$ did.
-The second is the same for the loser $y_l$, and the loss falls as the policy raises the winner's probability relative to $\pi_0$ more than the loser's.
+The second is the same for the loser $y_l$.
+:::
+
+It's the reward model's loss $-\log \sigma(r_w - r_l)$ with $\beta \log(\pi_\theta / \pi_0)$ standing in for the reward, so the loss falls as the policy raises the winner's probability relative to $\pi_0$ more than the loser's.
 Each training step computes the log probability of both answers under $\pi_\theta$ and under a frozen copy of $\pi_0$, then takes a gradient step.
 The policy never writes anything during training, and it learns from the same comparison data as step 2.
 In the paper, DPO matched or beat PPO-based RLHF on summarization and single-turn dialogue.

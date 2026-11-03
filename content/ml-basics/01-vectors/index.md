@@ -89,9 +89,12 @@ $$
 \|a\| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2}
 $$
 
+::: formula
 Here $a_1, a_2, \dots, a_n$ are the entries of $a$ and $n$ is how many there are.
+For two entries this is Pythagoras for a right triangle with sides $a_1$ and $a_2$, and the same recipe works for any number of entries.
+:::
+
 Square each entry, add the squares, and take the square root of the total.
-For two entries that's Pythagoras for a right triangle with sides $a_1$ and $a_2$, and the same recipe works for any number of entries.
 So $\|(3, 1)\| = \sqrt{3^2 + 1^2} = \sqrt{10} \approx 3.16$.
 
 ## The dot product
@@ -102,20 +105,26 @@ $$
 a \cdot b = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
 $$
 
-Each term $a_i b_i$ is the $i$-th entry of $a$ times the $i$-th entry of $b$, and the sum runs over all $n$ positions, so both vectors need the same number of entries.
-For $a = (3, 1)$ and $b = (1, 2)$ that's $3 \cdot 1 + 1 \cdot 2 = 5$.
-The answer is a single number, not a vector.
+::: formula
+Each term $a_i b_i$ is the $i$-th entry of $a$ times the $i$-th entry of $b$, and the sum runs over all $n$ positions.
+:::
+
+Both vectors need the same number of entries.
+For $a = (3, 1)$ and $b = (1, 2)$ that's $3 \cdot 1 + 1 \cdot 2 = 5$, a single number, not a vector.
 
 The formula is easy.
 What it means took me longer.
-The same number can also be written as
+The same number can also be written using the angle $\theta$ between the two arrows:
 
 $$
 a \cdot b = \|a\|\,\|b\|\cos\theta
 $$
 
+::: formula
 The first two factors are the [lengths](#a-vector-is-a-list-of-numbers) of $a$ and $b$, and $\theta$ (theta) is the angle between the two arrows.
 Lengths are never negative, so the sign of the dot product comes entirely from $\cos\theta$.
+:::
+
 Cosine is 1 at 0°, 0 at 90°, and −1 at 180°, so the dot product is large and positive when the vectors point the same way, zero when they're perpendicular, and negative when they point away from each other.
 
 The picture I use: drop a line from the tip of $b$ straight down onto the line through $a$.
@@ -136,9 +145,12 @@ $$
 \cos\theta = \frac{a \cdot b}{\|a\|\,\|b\|}
 $$
 
+::: formula
 This is the second formula for $a \cdot b$ above, solved for $\cos\theta$.
 The numerator is the dot product, and the denominator is the product of the two lengths, which cancels out how long the arrows are.
-What's left is called *cosine similarity*.
+:::
+
+This ratio is called *cosine similarity*.
 It's always between −1 and 1, and it's the standard way to ask "do these two embeddings mean similar things?", which comes up in unit 10.
 
 ## A matrix is a stack of dot products

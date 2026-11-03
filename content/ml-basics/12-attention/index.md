@@ -80,13 +80,16 @@ In the first layer these are the embedding rows from unit 10.
 In later layers they're whatever the layers below produced.
 
 For each position $i$ I want a new vector that carries information from positions 1 to $i$.
-The simplest way to get one is a weighted average:
+The simplest way to get one is a weighted average, with a weight $a_{ij}$ for how much position $i$ takes from position $j$:
 
 $$
 o_i = a_{i1} h_1 + a_{i2} h_2 + \cdots + a_{ii} h_i
 $$
 
-Each $a_{ij}$ is how much position $i$ takes from position $j$, and each term is that weight times $h_j$, a vector scaled by a number.
+::: formula
+Each term is the weight $a_{ij}$ times $h_j$, a vector scaled by a number, and the terms run over the positions 1 to $i$ that position $i$ can see.
+:::
+
 The weights are at least 0 and add up to 1, so $o_i$ is a blend of the vectors it can see.
 
 Equal weights would give every earlier word the same say.
@@ -97,33 +100,38 @@ Softmax ([unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probab
 
 ## Queries, keys and values
 
-Attention makes three new vectors from every $h_i$, each with its own learned matrix, multiplied by $h_i$ as in [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products):
+Attention makes three new vectors from every $h_i$, each with its own learned matrix:
 
 $$
 q_i = W_Q h_i \qquad k_i = W_K h_i \qquad v_i = W_V h_i
 $$
 
+::: formula
+Each is a matrix times $h_i$, as in [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products).
 $W_Q$ and $W_K$ are $d_k \times d$, so every query $q_i$ and key $k_i$ has $d_k$ entries.
-$d_k$ is the *key size*, and it's usually much smaller than $d$.
 $W_V$ makes the value vectors $v_i$, and in this unit they have $d_k$ entries too, as in the original transformer paper.
+:::
+
+$d_k$ is the *key size*, and it's usually much smaller than $d$.
 
 - **Query** $q_i$: what position $i$ is looking for.
 - **Key** $k_j$: what position $j$ offers, written in the same $d_k$ numbers so the two can be compared with a [dot product](../01-vectors/#the-dot-product).
 - **Value** $v_j$: what position $j$ hands over if it's picked.
 
-> **An analogy.** It works like a search: the query is what you type, each key is a document's title, and the value is the document you get back.
+> **An analogy.** It's a soft version of a search. The query is what you type, each key is what a document is filed under, and the value is the document's contents. A normal search hands back the best match; attention hands back a blend of every value, weighted by how well its key matched the query.
 
-The score of position $j$ for the query at position $i$ is a scaled dot product:
+The score of position $j$ for the query at position $i$ is a scaled dot product, large when $i$'s query and $j$'s key point the same way:
 
 $$
 s_{ij} = \frac{q_i \cdot k_j}{\sqrt{d_k}}
 $$
 
-The top is the dot product of $i$'s query with $j$'s key, which is large when the two point the same way.
+::: formula
+The top is the dot product of $i$'s query with $j$'s key.
 The bottom divides by the square root of the key size, for a reason the next section explains.
+:::
 
-The weights are the softmax of those scores over the positions $i$ is allowed to see, $j = 1, \dots, i$.
-The output is the weighted sum of the values:
+The weights are the softmax of those scores over the positions $i$ is allowed to see, $j = 1, \dots, i$, and the output is the weighted sum of the values:
 
 $$
 a_{ij} = \frac{e^{s_{ij}}}{e^{s_{i1}} + \cdots + e^{s_{ii}}}
@@ -131,8 +139,10 @@ a_{ij} = \frac{e^{s_{ij}}}{e^{s_{i1}} + \cdots + e^{s_{ii}}}
 o_i = a_{i1} v_1 + a_{i2} v_2 + \cdots + a_{ii} v_i
 $$
 
-The left formula is softmax from unit 11, run over the $i$ scores in row $i$: $e$ to one score on top, $e$ to every visible score added up on the bottom.
+::: formula
+The left formula is softmax from [unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities), run over the $i$ scores in row $i$: $e$ to one score on top, $e$ to every visible score added up on the bottom.
 The right formula is the weighted average from the first section, with the values $v_j$ in place of the raw vectors $h_j$.
+:::
 
 Scoring with $h_i \cdot h_j$ directly would make one vector play all three roles.
 What "it" is looking for (a noun that could be the subject) is different from what "it" offers to the words after it, and both are different from the information it should pass along.
@@ -194,18 +204,20 @@ For four tokens the score grid looks like this, with one row per query and one c
 </figure>
 
 Stack the $q_i$ as the rows of a matrix $Q$ (shape $n \times d_k$), and the same for $K$ and $V$.
-Then all the scores are one matrix product, $Q K^\top$, where $K^\top$ is $K$ with rows and columns swapped.
-Entry $(i, j)$ of $Q K^\top$ is row $i$ of $Q$ dotted with row $j$ of $K$, which is $q_i \cdot k_j$.
-The whole layer is
+Then all the scores are one matrix product, $Q K^\top$, and the whole layer is
 
 $$
 A = \mathrm{softmax}\left(\frac{Q K^\top}{\sqrt{d_k}} + M\right) \qquad \text{output} = A V
 $$
 
+::: formula
+$K^\top$ is $K$ with rows and columns swapped, so entry $(i, j)$ of $Q K^\top$ is row $i$ of $Q$ dotted with row $j$ of $K$, which is $q_i \cdot k_j$.
 Inside the softmax, $Q K^\top / \sqrt{d_k}$ is the grid of every score $s_{ij}$ at once, and $M$ is the mask: 0 on and below the diagonal and $-\infty$ above it, so adding it leaves the visible scores alone and wipes out the rest.
-The softmax runs along each row, and multiplying the weights by $V$ forms every $o_i$ at once, since row $i$ of $AV$ is $a_{i1} v_1 + \cdots + a_{ii} v_i$.
+The softmax runs along each row, and row $i$ of $AV$ is $a_{i1} v_1 + \cdots + a_{ii} v_i$, so multiplying the weights by $V$ forms every $o_i$ at once.
+:::
+
 $A$ is the $n \times n$ weight matrix.
-It's lower-triangular, and every row adds up to 1.
+The mask leaves nothing above the diagonal, so it's lower-triangular, and every row adds up to 1.
 
 The mask also helps when generating text.
 The keys and values of earlier positions never depend on later tokens, so they can be computed once and stored.

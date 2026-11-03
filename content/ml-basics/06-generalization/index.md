@@ -83,7 +83,12 @@ $$
 y = \sin(\pi x) + \varepsilon
 $$
 
-where $\varepsilon$ (epsilon) is a fresh random number for each point, drawn from a normal distribution with mean 0 and standard deviation 0.25 ([unit 3](../03-probability/#random-variables-and-distributions)).
+where $\varepsilon$ is fresh random noise for each point, with standard deviation 0.25.
+
+::: formula
+$\varepsilon$ (epsilon) is drawn from a normal distribution with mean 0 and standard deviation 0.25 ([unit 3](../03-probability/#random-variables-and-distributions)).
+:::
+
 So a typical point sits about 0.25 above or below the curve, and nothing about $x$ tells you which way.
 
 I take ten training points at evenly spaced $x$ and fit a polynomial of degree $k$ to them:
@@ -92,8 +97,11 @@ $$
 \hat y = w_0 + w_1 x + w_2 x^2 + \cdots + w_k x^k
 $$
 
+::: formula
 $\hat y$ is the prediction at $x$, and $w_0, \dots, w_k$ are the $k + 1$ weights the fit gets to choose.
 Degree 0 is a flat line at height $w_0$, degree 1 is unit 4's straight line, and each extra degree adds one more power of $x$ with its own weight.
+:::
+
 The prediction is still a weighted sum, with the powers $1, x, \dots, x^k$ playing the role of inputs.
 So the best weights come from the same mean squared error as in [unit 4](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong), and for a model this small NumPy can solve for them directly instead of walking downhill.
 
@@ -159,12 +167,15 @@ $$
 L(w) = \frac{1}{N} \sum_{i=1}^{N} (\hat y_i - y_i)^2 + \frac{\lambda}{2} \sum_{j=1}^{k} w_j^2
 $$
 
+::: formula
 The first term is the training MSE over the $N$ training points, as before.
 The second adds up the squared weights and multiplies by $\lambda/2$.
-$\lambda$ (lambda) is a number you choose, 0 or more; at 0 the penalty is off, and the larger it is, the more a big weight costs compared with a missed point.
-(It's a different number from the curvature that [unit 4](../04-gradient-descent/#the-learning-rate) also called $\lambda$.)
+$\lambda$ (lambda) is a different number from the curvature that [unit 4](../04-gradient-descent/#the-learning-rate) also called $\lambda$.
 The sum starts at $j = 1$ and leaves out $w_0$, because shifting the whole curve up or down doesn't make it wiggle.
 The $\frac{1}{2}$ is there so the gradient comes out without a stray 2.
+:::
+
+The penalty strength $\lambda$ is a number you choose, 0 or more: at 0 the penalty is off, and the larger it is, the more a big weight costs compared with a missed point.
 
 The fit now has to balance two things: weights big enough to follow the data, small enough to keep the penalty low.
 At degree 9, $\lambda = 0.0001$ already cuts the validation loss from 1.4732 to 0.1325, and the largest weight from 270.4 to 5.0.
@@ -173,14 +184,17 @@ At $\lambda = 1$ the penalty wins and flattens the curve, with training loss 0.4
 So $\lambda$ is a hyperparameter, picked on the validation set like the degree.
 
 For a general model with parameters $\theta$, the penalty is $\frac{\lambda}{2}\|\theta\|^2$, half of $\lambda$ times the squared length of the parameter vector ([unit 1](../01-vectors/#a-vector-is-a-list-of-numbers)).
-By the [power rule](../02-gradients/#the-rules-you-need), each term $\frac{\lambda}{2}\theta_j^2$ has derivative $\lambda\theta_j$, so the penalty's gradient is $\lambda\theta$.
-Add that to the gradient in the [update rule](../04-gradient-descent/#walk-downhill):
+Its gradient is $\lambda\theta$, so add that to the gradient in the [update rule](../04-gradient-descent/#walk-downhill):
 
 $$
 \theta \leftarrow \theta - \eta\,(\nabla L_{\text{data}} + \lambda\theta) = (1 - \eta\lambda)\,\theta - \eta \nabla L_{\text{data}}
 $$
 
+::: formula
+By the [power rule](../02-gradients/#the-rules-you-need), each penalty term $\frac{\lambda}{2}\theta_j^2$ has derivative $\lambda\theta_j$, which is where $\lambda\theta$ comes from.
 $\nabla L_{\text{data}}$ is the gradient of the loss without the penalty, and $\eta$ is the learning rate.
+:::
+
 The right-hand side says what a step does: multiply every parameter by $1 - \eta\lambda$, a number just under 1, and then take the usual gradient step.
 With $\eta = 0.1$ and $\lambda = 0.001$ the factor is $0.9999$.
 A weight the data stops pushing on shrinks toward zero a little every step, which is why this is called *weight decay*.

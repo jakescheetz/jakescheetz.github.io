@@ -82,7 +82,10 @@ $$
 \frac{f(3 + h) - f(3)}{h}
 $$
 
+::: formula
 The top is how much $f$ changed, and the bottom is the size of the step, so the ratio is the change per unit of step.
+:::
+
 With $h = 1$ that's $(16 - 9)/1 = 7$.
 With $h = 0.1$ it's $(9.61 - 9)/0.1 = 6.1$, and with $h = 0.01$ it's $6.01$.
 As the step shrinks, the answer settles on 6.
@@ -95,8 +98,10 @@ $$
 f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
 $$
 
+::: formula
 This is the same ratio as before at a general point $x$.
 The $\lim_{h \to 0}$ in front reads "the value the ratio settles on as $h$ shrinks toward 0," which is what the 7, 6.1, 6.01 sequence was doing.
+:::
 
 For $x^2$ you can see where the 6 comes from by expanding.
 $(x + h)^2 - x^2 = 2xh + h^2$, so the ratio is exactly $2x + h$, and letting $h$ go to zero leaves $f'(x) = 2x$.
@@ -108,9 +113,12 @@ $$
 f(x + h) \approx f(x) + f'(x)\,h
 $$
 
+::: formula
 On the left is the new output after the nudge.
 On the right, $f(x)$ is where you started and $f'(x)\,h$ is the exchange rate times the size of the nudge.
 The $\approx$ is there because the tangent line only matches the curve near $x$, so the approximation gets better as $h$ gets smaller.
+:::
+
 At $x = 3$, a nudge of 0.01 should move $x^2$ by about $6 \times 0.01 = 0.06$, and the exact change is 0.0601.
 The sign tells you which way $f$ moves when $x$ increases.
 At $x = -2$ the slope is $-4$, so increasing $x$ makes $f$ go down.
@@ -137,7 +145,7 @@ $$
 L(w) = (2w - 3)^2
 $$
 
-Here $2w$ is the prediction, 3 is the right answer, and squaring the gap makes misses in either direction count as positive loss.
+Squaring the gap makes misses in either direction count as positive loss.
 Split it into two steps: first $u = 2w - 3$, then $L = u^2$.
 Each step has its own exchange rate.
 $u$ moves 2 times as much as $w$, so $\frac{du}{dw} = 2$.
@@ -148,8 +156,11 @@ $$
 \frac{dL}{dw} = \frac{dL}{du} \cdot \frac{du}{dw} = 2u \cdot 2
 $$
 
+::: formula
 On the left is the rate we want, the loss's response to $w$.
 The first factor is the rate of the second step and the second factor is the rate of the first step.
+:::
+
 At $w = 1$ we get $u = -1$ and $\frac{dL}{dw} = -4$.
 To check it, move $w$ from 1 to 1.01.
 Then $u$ goes from $-1$ to $-0.98$, a change of 0.02.
@@ -177,13 +188,16 @@ For $\frac{\partial f}{\partial x}$, treat $y$ as a constant, so $3y^2$ contribu
 In the same way, $\frac{\partial f}{\partial y} = 6y$.
 The curly $\partial$ is a reminder that there are other inputs and they're being held still.
 
-The *gradient* collects all the partial derivatives into one vector:
+The *gradient*, written $\nabla f$, collects all the partial derivatives into one vector:
 
 $$
 \nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) = (2x, 6y)
 $$
 
-The $\nabla$ (read "nabla" or "del") is the name for the gradient, and each entry is one partial derivative from the paragraph above, in the same order as the inputs.
+::: formula
+The $\nabla$ is read "nabla" or "del", and each entry is one partial derivative from the paragraph above, in the same order as the inputs.
+:::
+
 So the gradient is a vector, in the [unit 1 sense](../01-vectors/#a-vector-is-a-list-of-numbers), with one entry per input.
 At the point $(1, 1)$ that's $(2, 6)$.
 For a model with parameters $\theta$ and loss $L$, the gradient $\nabla L$ has one entry per parameter, so a model with a billion parameters has a gradient with a billion entries.
@@ -198,9 +212,11 @@ $$
 f(v + s) \approx f(v) + \nabla f \cdot s
 $$
 
+::: formula
 On the left is the value after the step.
 On the right, $f(v)$ is the starting value, and $\nabla f \cdot s$ is the [dot product from unit 1](../01-vectors/#the-dot-product) of the gradient at $v$ with the step: $\frac{\partial f}{\partial x} s_1 + \frac{\partial f}{\partial y} s_2$, the two changes just described added together.
 It's the one-input approximation $f(x + h) \approx f(x) + f'(x)\,h$ again, with the gradient in place of $f'(x)$ and the step vector in place of $h$.
+:::
 
 Fix the step's length at 1 and only choose its direction.
 The [angle form of the dot product](../01-vectors/#the-dot-product) says $\nabla f \cdot s = \|\nabla f\|\,\|s\|\cos\varphi$, where $\|\cdot\|$ is the [length of a vector](../01-vectors/#a-vector-is-a-list-of-numbers) and $\varphi$ (phi) is the angle between the step and the gradient.
@@ -232,7 +248,10 @@ $$
 \frac{\partial f}{\partial x} \approx \frac{f(x + h, y) - f(x - h, y)}{2h}
 $$
 
+::: formula
 The top is the change in $f$ from $x - h$ to $x + h$ with $y$ held fixed, and the bottom, $2h$, is the distance between those two points, so it's the same change-per-step ratio, centered on $x$.
+:::
+
 This is called a *central difference*.
 The one-sided version is off by an amount proportional to $h$ (for $x^2$ it's off by exactly $h$, which is the 6.1 from earlier).
 The central version is off by an amount proportional to $h^2$, which is much smaller.

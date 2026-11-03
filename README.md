@@ -34,6 +34,9 @@ A quiz bank is a list of questions, each with `kind` (`term` or `apply`), `q`, `
 Each unit page shows five random questions from its bank (mixing both kinds, options shuffled), and the review quiz on the course page draws ten from the units the reader has marked done.
 The build fails with a message if a question is missing a field.
 
+Put the term-by-term reading of a display equation in a `::: formula` fenced div right after it; it renders as a smaller, muted aside, so the main text has to make sense without it.
+A `::: done-when` div holds the unit's "You're done when" checklist.
+
 Widgets are plain JavaScript on top of the `window.Learn` helpers in `assets/learn.js` (SVG stage, sliders, buttons, readout, animation loop that respects reduced motion); styles and color classes are in `assets/learn.css`.
 `content/ml-basics/01-vectors/` is the reference unit.
 

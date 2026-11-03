@@ -86,10 +86,13 @@ $$
 z = w \cdot x + b = w_1 x_1 + w_2 x_2 + b
 $$
 
-$w = (w_1, w_2)$ holds one weight per feature, and $b$ is a single number called the *bias*.
+::: formula
+$w = (w_1, w_2)$ holds one weight per feature, and $b$ is a single number.
 The first part is the dot product from [unit 1](../01-vectors/#the-dot-product): multiply each feature by its weight and add the results up.
-A positive weight means that feature pushes the score up, toward spam.
-The bias then shifts every score by the same amount, which sets how much evidence an email needs before it counts as spammy.
+:::
+
+Each feature gets a weight in $w$, and a positive weight pushes the score up, toward spam.
+The *bias* $b$ shifts every score by the same amount, which sets how much evidence an email needs before it counts as spammy.
 
 Pick some weights by hand for now: $w = (0.5, 1)$ and $b = -5$, so $z = 0.5 x_1 + x_2 - 5$.
 Email A has 4 links and 2 exclamation marks, so $z = 2 + 2 - 5 = -1$.
@@ -103,11 +106,14 @@ $$
 \sigma(z) = \frac{1}{1 + e^{-z}}
 $$
 
+::: formula
 Here $e \approx 2.718$ is the base of the natural log, and $e^{-z}$ is $e$ raised to minus the score.
 When $z$ is large and positive, $e^{-z}$ is close to 0, the bottom of the fraction is close to 1, and $\sigma(z)$ is close to 1.
 When $z$ is large and negative, $e^{-z}$ is huge and $\sigma(z)$ is close to 0.
 At $z = 0$, $e^0 = 1$, so $\sigma(0) = 1/2$.
-Some values in between:
+:::
+
+Some values:
 
 | $z$ | −3 | −1 | 0 | 1 | 3 |
 |---|---|---|---|---|---|
@@ -124,9 +130,12 @@ $$
 z = \log \frac{p}{1 - p}
 $$
 
-The fraction $p / (1 - p)$ is the *odds* of spam: the probability of spam divided by the probability of not spam, so $p = 0.75$ gives odds of 3 to 1.
-The log is the natural log, so the score is the log of the odds.
-That gives each weight a concrete meaning.
+::: formula
+The fraction $p / (1 - p)$ is the probability of spam divided by the probability of not spam, so $p = 0.75$ gives odds of 3 to 1.
+The log is the natural log.
+:::
+
+So the score is the log of the *odds* of spam, and that gives each weight a concrete meaning.
 One more exclamation mark adds $w_2 = 1$ to the log-odds, which multiplies the odds of spam by $e^1 \approx 2.72$.
 One more link adds $0.5$, which multiplies them by $e^{0.5} \approx 1.65$.
 Scores that get fed into a sigmoid are often called *logits*, after this log-odds function, and unit 11 uses the same name.
@@ -180,11 +189,14 @@ $$
 L = -\big[\, y \log p + (1 - y) \log(1 - p) \,\big]
 $$
 
+::: formula
 The $y$ and $1 - y$ in front of the two terms work as a switch.
 For a spam email $y = 1$, the second term gets multiplied by 0 and drops out, and what's left is $L = -\log p$.
 For a normal email $y = 0$, the first term drops out instead, leaving $L = -\log(1 - p)$.
-Either way the loss is minus the log of the probability given to the true label.
-The log of a number below 1 is negative, so the minus sign makes the loss positive, and the loss is 0 only when that probability is exactly 1.
+The log of a number below 1 is negative, so the minus sign makes the loss positive.
+:::
+
+Either way the loss is minus the log of the probability given to the true label, and it's 0 only when that probability is exactly 1.
 The loss for the whole training set is the average of $L$ over the 22 emails.
 This is called *log loss*, or *binary cross-entropy*.
 
@@ -210,9 +222,12 @@ $$
 \frac{\partial (p - y)^2}{\partial z} = 2(p - y) \cdot p(1 - p)
 $$
 
+::: formula
 The first factor, $2(p - y)$, is the derivative of the square with respect to $p$.
 The second, $p(1 - p)$, is how fast $p$ changes as $z$ changes, which is the slope of the sigmoid.
-That slope is 0.25 at $z = 0$ and close to 0 far out on either side, where the curve is flat.
+:::
+
+The sigmoid's slope is 0.25 at $z = 0$ and close to 0 far out on either side, where the curve is flat.
 Take a spam email the model scores at $z = -6$, so $p = 0.0025$.
 Squared error pushes on its score with a gradient of $-0.0049$.
 Log loss, as the next section shows, pushes with $p - y = -0.9975$, about 200 times harder.
@@ -220,16 +235,18 @@ With squared error the model learns slowest from exactly the emails it's most wr
 
 ## Training with gradient descent
 
-The gradient of log loss for one email comes from the chain rule in two steps, from $z$ to $p$ and from $p$ to $L$.
-The derivative of $\log p$ is $1/p$ (a rule unit 2 didn't need), so
+The gradient of log loss for one email comes from the chain rule in two steps, from $z$ to $p$ and from $p$ to $L$:
 
 $$
 \frac{\partial L}{\partial p} = -\frac{y}{p} + \frac{1 - y}{1 - p} = \frac{p - y}{p(1 - p)}
 $$
 
+::: formula
+The derivative of $\log p$ is $1/p$ (a rule unit 2 didn't need).
 The middle expression differentiates each of the two terms of $L$, and the right side is the same thing put over a common denominator.
-The other step, $\partial p / \partial z$, is the sigmoid's slope $p(1 - p)$ from above.
-Multiplying the two, the $p(1 - p)$ cancels:
+:::
+
+The other step, $\partial p / \partial z$, is the sigmoid's slope $p(1 - p)$ from above, so multiplying the two cancels it:
 
 $$
 \frac{\partial L}{\partial z} = p - y
@@ -240,12 +257,15 @@ For a spam email it's $p - 1$, which is negative, so a step raises the score.
 For a normal email it's $p$, which is positive, so a step lowers it.
 The cancellation is why log loss doesn't stall where the sigmoid is flat.
 
-Next, the score is $z = w \cdot x + b$.
-Nudging $w_1$ changes $z$ by $x_1$ per unit, nudging $w_2$ changes it by $x_2$, and nudging $b$ changes it by 1, so
+Next, the score is $z = w \cdot x + b$, so
 
 $$
 \frac{\partial L}{\partial w} = (p - y)\,x, \qquad \frac{\partial L}{\partial b} = p - y
 $$
+
+::: formula
+Nudging $w_1$ changes $z$ by $x_1$ per unit, nudging $w_2$ changes it by $x_2$, and nudging $b$ changes it by 1.
+:::
 
 Each email's gradient for $w$ is its own feature vector times its miss $p - y$.
 For the full training set, average these over the $N$ emails and take the step from [unit 4](../04-gradient-descent/#walk-downhill):
@@ -254,7 +274,10 @@ $$
 w \leftarrow w - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)\,x_i, \qquad b \leftarrow b - \eta\,\frac{1}{N}\sum_{i=1}^{N} (p_i - y_i)
 $$
 
+::: formula
 $\eta$ is the learning rate, $x_i$ and $y_i$ are email $i$'s features and label, and $p_i$ is the model's current probability for it.
+:::
+
 In words: every email pulls $w$ along its own feature vector, toward spam-like directions if it's spam and away if it isn't, in proportion to how wrong the model is about it.
 Email A (not spam, $p = 0.27$, $x = (4, 2)$) has gradient $0.27 \cdot (4, 2) = (1.08, 0.54)$.
 The step subtracts $\eta$ times that, which lowers the score of every email that looks like A.

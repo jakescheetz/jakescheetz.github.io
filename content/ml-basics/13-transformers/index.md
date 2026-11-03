@@ -90,7 +90,9 @@ $$
 h \leftarrow h + f(h)
 $$
 
+::: formula
 Read the arrow as "replace with": the new $h$ is the old $h$ plus $f(h)$, the sublayer's output computed from the old $h$.
+:::
 
 After $N$ blocks, each with an attention part that adds $a$ and an MLP part that adds $m$, the vector at the top is a plain sum:
 
@@ -98,7 +100,9 @@ $$
 h_{\text{top}} = h_0 + a_1 + m_1 + a_2 + m_2 + \cdots + a_N + m_N
 $$
 
-where $h_0$ is the embedding the lane started with, $a_j$ is what block $j$'s attention added, $m_j$ is what block $j$'s MLP added, and $h_{\text{top}}$ is what comes out of the last block.
+::: formula
+$h_0$ is the embedding the lane started with, $a_j$ is what block $j$'s attention added, $m_j$ is what block $j$'s MLP added, and $h_{\text{top}}$ is what comes out of the last block.
+:::
 
 > **An analogy, if it helps.**
 > The stream works like a shared notepad.
@@ -109,8 +113,7 @@ where $h_0$ is the embedding the lane started with, $a_j$ is what block $j$'s at
 </figure>
 
 Two things to look for in the widget.
-Only the attention rows draw lines between columns, because attention is the only part that moves information from one position to another.
-The MLP rows work on each column alone.
+Only the attention rows draw lines between columns, because attention is the only part that moves information between positions; the MLP rows work on each column alone.
 And every row is the row below plus a colored piece, so the bottom row's numbers are still in there at the top.
 
 There's a training reason for the additions too.
@@ -133,6 +136,11 @@ $$
 h \leftarrow h + \mathrm{MLP}(\mathrm{LN}(h))
 $$
 
+::: formula
+Both lines have the same shape as $h \leftarrow h + f(h)$ above.
+In the first, $f$ is attention applied to $\mathrm{LN}(h)$; in the second, $f$ is the MLP applied to $\mathrm{LN}(h)$ of the already-updated $h$.
+:::
+
 <figure>
 <pre>h ──┬──────────────────► (+) ──┬──────────────────► (+) ──► h
     │                     ▲    │                     ▲
@@ -140,17 +148,13 @@ $$
 <figcaption>One pre-norm block. The straight line along the top is the residual stream. Each sublayer branches off it, and its result is added back in.</figcaption>
 </figure>
 
-Both lines have the same shape as $h \leftarrow h + f(h)$ above.
-In the first, $f$ is attention applied to $\mathrm{LN}(h)$; in the second, $f$ is the MLP applied to $\mathrm{LN}(h)$ of the already-updated $h$.
-
 $\mathrm{LN}$ is *layer norm*.
 It works on one token's vector at a time: subtract the [mean](../03-probability/#expectation-spread-and-sampling) of its $d$ entries, divide by their standard deviation, then multiply entry by entry by a learned vector $\gamma$ (gamma) and add a learned vector $\beta$ (beta).
 The stream tends to get longer as blocks keep adding to it, and layer norm hands each sublayer an input at the same scale no matter how long the stream has gotten.
 
 Placing layer norm at the input of each sublayer is called *pre-norm*.
-The original 2017 transformer normalized after the addition instead, $\mathrm{LN}(h + f(h))$, which puts a normalization on the main path itself.
-GPT-2 moved it to the sublayer inputs, and most models since then do the same.
-With pre-norm, the stream itself never passes through anything except additions.
+The original 2017 transformer normalized after the addition instead, $\mathrm{LN}(h + f(h))$, which puts a normalization on the main path.
+GPT-2 moved it to the sublayer inputs, and most models since do the same, so the stream itself only ever gets additions.
 
 $\mathrm{Attn}$ is unit 12's [attention](../12-attention/#queries-keys-and-values), with one more matrix at the end.
 Each head produces a vector of size $d_k$, the heads' outputs are placed side by side, and an output matrix $W_O$ ($d \times d$) maps that back to width $d$ so it can be added to the stream.
@@ -185,7 +189,10 @@ $$
 z = W_U \, \mathrm{LN}(h_{\text{top}})
 $$
 
-Here $h_{\text{top}}$ is one position's vector after the last block, $\mathrm{LN}$ is that final layer norm, and $z$ is the list of $V$ logits, one score per vocabulary token.
+::: formula
+$h_{\text{top}}$ is one position's vector after the last block, $\mathrm{LN}$ is that final layer norm, and $z$ is the list of $V$ logits, one score per vocabulary token.
+:::
+
 GPT-2 reuses the embedding table here, $W_U = E$, so it adds no new parameters.
 A [softmax](../11-next-token-prediction/#softmax-turns-scores-into-probabilities) gives the probabilities for the next token, as in unit 11.
 

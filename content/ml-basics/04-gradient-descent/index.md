@@ -86,8 +86,12 @@ $$
 L(w, b) = \frac{1}{N} \sum_{i=1}^{N} (\hat y_i - y_i)^2 = \frac{1}{N} \sum_{i=1}^{N} (w x_i + b - y_i)^2
 $$
 
-This is the *mean squared error*, and $L$ is the *loss*.
-It turns a whole line into one number, and lower is better.
+::: formula
+$\hat y_i$ is the line's prediction at $x_i$, and the sum runs over the points $i = 1$ to $N$.
+The second form just writes the prediction out as $w x_i + b$.
+:::
+
+This is the *mean squared error*, and $L$ is the *loss*: one number for the whole line, lower is better.
 
 Try $w = 2$, $b = 0$.
 The predictions are $0, 2, 4, 6$, the misses are $-1, -1, 0, -1$, and the loss is $(1 + 1 + 0 + 1) / 4 = 0.75$.
@@ -112,18 +116,24 @@ $$
 \theta \leftarrow \theta - \eta \nabla L(\theta)
 $$
 
-$\eta$ (eta) is the *learning rate*, a small positive number that sets how far each step goes.
+::: formula
+$\eta$ (eta) is a small positive number.
 In words: from the current parameters $\theta$, compute the gradient of the loss there, scale it by $\eta$, and subtract it.
-Repeating that update until the loss stops falling is *gradient descent*.
+:::
 
-For the line fit, write $e_i = w x_i + b - y_i$ for the miss at point $i$.
-The [chain rule](../02-gradients/#the-rules-you-need) gives the two partial derivatives, because $e_i$ changes by $x_i$ when $w$ moves by 1 and by $1$ when $b$ moves by 1:
+The *learning rate* $\eta$ sets how far each step goes, and repeating the update until the loss stops falling is *gradient descent*.
+
+For the line fit, write $e_i = w x_i + b - y_i$ for the miss at point $i$; the [chain rule](../02-gradients/#the-rules-you-need) gives the two partial derivatives:
 
 $$
 \frac{\partial L}{\partial w} = \frac{2}{N} \sum_{i=1}^{N} e_i x_i, \qquad \frac{\partial L}{\partial b} = \frac{2}{N} \sum_{i=1}^{N} e_i
 $$
 
-Each one averages the misses over the $N$ points and doubles them, the 2 coming from the square.
+::: formula
+The chain rule step: $e_i$ changes by $x_i$ when $w$ moves by 1 and by $1$ when $b$ moves by 1.
+Each partial averages the misses over the $N$ points and doubles them, the 2 coming from the square.
+:::
+
 For $w$ every miss is weighted by its $x_i$, so points far to the right count for more; for $b$ every miss counts the same.
 
 Start from the bad guess $w = -1$, $b = 3$, where the misses are $2, -1, -3, -7$.

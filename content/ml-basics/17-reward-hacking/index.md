@@ -128,8 +128,12 @@ $$
 r^*(x) = x - \frac{x^2}{10}
 $$
 
+::: formula
 The $x$ term says more is better, and the $-x^2/10$ term is a penalty that grows faster.
-The two balance at $x = 5$, where the true reward peaks at $5 - 2.5 = 2.5$, and past that the penalty wins.
+The two balance at $x = 5$, where the true reward is $5 - 2.5 = 2.5$.
+:::
+
+So the true reward peaks at $x = 5$, at 2.5, and falls after that.
 
 About 95% of $\pi_0$'s responses have $x$ below 5, so in the comparisons people made, the answer with more $x$ was usually the better one.
 The reward model learned a straight line plus noise:
@@ -138,8 +142,11 @@ $$
 r_\phi(x) = x + \varepsilon, \qquad \varepsilon \sim \mathcal{N}(0, 1)
 $$
 
-Its score is $x$ itself plus $\varepsilon$ (epsilon), a fresh draw of noise from a normal distribution with mean 0 and standard deviation 1.
-Subtract $r^*(x)$ and its error is $e(x) = \varepsilon + x^2/10$.
+::: formula
+$\varepsilon$ (epsilon) is a fresh draw of noise from a normal distribution with mean 0 and standard deviation 1.
+:::
+
+So the score is $x$ plus random noise $\varepsilon$, and subtracting $r^*(x)$ leaves an error $e(x) = \varepsilon + x^2/10$.
 The noise $\varepsilon$ is the regressional part.
 The $x^2/10$ is the extremal part: it's small near 0, where $\pi_0$ spends its time, and large past 5, where $\pi_0$ rarely goes and the reward model never got a correction.
 
@@ -156,8 +163,11 @@ $$
 D_{\mathrm{KL}}(\pi \,\|\, \pi_0) = \mathbb{E}_{y \sim \pi}\left[\log \frac{\pi(y)}{\pi_0(y)}\right]
 $$
 
+::: formula
 $\pi(y)$ and $\pi_0(y)$ are the probabilities the new policy and the starting policy give response $y$, and $\mathbb{E}_{y \sim \pi}$ is the [expectation](../03-probability/#expectation-spread-and-sampling) over responses drawn from $\pi$.
-So: draw responses from the new policy $\pi$, take the log of how many times more likely $\pi$ makes each one than $\pi_0$ did, and average.
+:::
+
+In words: draw responses from the new policy $\pi$, take the log of how many times more likely $\pi$ makes each one than $\pi_0$ did, and average.
 It's 0 when the two policies are the same and grows as $\pi$ moves its probability onto responses $\pi_0$ rarely wrote.
 With the natural log the unit is nats, the natural-log version of bits.
 
@@ -167,8 +177,11 @@ $$
 D_{\mathrm{KL}}(\pi_{\mathrm{bon}} \,\|\, \pi_0) = \log n - \frac{n-1}{n}
 $$
 
+::: formula
 $\pi_{\mathrm{bon}}$ is the policy "draw $n$ from $\pi_0$ and keep the top-scoring one", and $n$ is the number of draws.
-The derivation below shows where the two terms come from.
+:::
+
+Here's where the two terms come from.
 
 For a response $y$, let $u$ be the fraction of $\pi_0$'s responses that the reward model scores below $y$, so $u$ is between 0 and 1.
 Best-of-$n$ returns $y$ when one of the $n$ draws is $y$ and the other $n - 1$ all score below it.
@@ -178,10 +191,14 @@ $$
 \pi_{\mathrm{bon}}(y) = n\, u^{n-1}\, \pi_0(y)
 $$
 
+::: formula
 Read right to left: $\pi_0(y)$ is the chance one draw is $y$, $u^{n-1}$ is the chance the other $n - 1$ draws all score below it, and the $n$ counts which draw it was.
-So the log ratio inside the KL is $\log n + (n-1)\log u$.
+Dividing by $\pi_0(y)$ and taking the log gives the log ratio below.
 The winner's $u$ is the largest of $n$ uniform numbers between 0 and 1, which has density $n u^{n-1}$, and the average of $\log u$ under that density is $\int_0^1 n u^{n-1} \log u \, du = -1/n$.
-Plug that in and you get the formula: the $\log n$ comes from the factor $n$, and the $-(n-1)/n$ is $(n-1)$ times that average $-1/n$.
+So the $\log n$ in the formula comes from the factor $n$, and the $-(n-1)/n$ is $(n-1)$ times that average $-1/n$.
+:::
+
+So the log ratio inside the KL is $\log n + (n-1)\log u$, and averaging it over the winners gives the formula above.
 
 The derivation assumes two different responses never get exactly the same score, which holds in the toy.
 For real text, where the same response can be drawn twice, [Beirami et al.](https://arxiv.org/abs/2401.01879) show the formula is an upper bound on the true KL rather than exact.
@@ -213,11 +230,14 @@ $$
 R_{\mathrm{bon}}(d) = d\,(a - b\,d), \qquad R_{\mathrm{RL}}(d) = d\,(a - b \log d)
 $$
 
+::: formula
 $R_{\mathrm{bon}}(d)$ and $R_{\mathrm{RL}}(d)$ are the gold score at distance $d$, counted from where $\pi_0$ started, for best-of-$n$ and for RL.
-$a$ and $b$ are numbers fitted to the data.
-The paper calls them $\alpha$ and $\beta$; I renamed them because $\beta$ is already the KL coefficient.
 Each method gets its own $a$ and $b$.
+The paper calls them $\alpha$ and $\beta$; I renamed them because $\beta$ is already the KL coefficient.
 Multiplied out, best-of-$n$ is $a d - b d^2$ and RL is $a d - b\, d \log d$.
+:::
+
+In both, $a$ and $b$ are numbers fitted to the data.
 The $a d$ part is the early rise, and the $b$ term grows faster than $a d$ for large $d$, so it eventually pulls the score back down.
 
 Other results from the paper:

@@ -86,7 +86,10 @@ $$
 G = r_1 + r_2 + \cdots + r_T
 $$
 
-where $r_1$ is the reward after the first step, $r_2$ after the second, and so on, and $T$ is the number of steps in the episode.
+::: formula
+$r_1$ is the reward after the first step, $r_2$ after the second, and so on, and $T$ is the number of steps in the episode.
+:::
+
 Many setups shrink later rewards by a discount factor a little below 1 before adding them up; I'll leave that out here.
 
 In chess the state is the board, an action is a move, and an episode is one game.
@@ -113,7 +116,10 @@ $$
 \pi_\theta(a) = \frac{e^{\theta_a}}{e^{\theta_A} + e^{\theta_B} + e^{\theta_C}}
 $$
 
+::: formula
 The numerator is $e$ raised to the chosen arm's logit, and the denominator is the same for all three arms, so the three probabilities add up to 1.
+:::
+
 Starting from $\theta = (0, 0, 0)$, each arm gets probability 1/3.
 
 A language model is a policy too.
@@ -125,8 +131,10 @@ $$
 \log \pi_\theta(y \mid x) = \sum_{t=1}^{m} \log \pi_\theta(y_t \mid x, y_1, \dots, y_{t-1})
 $$
 
+::: formula
 On the left is the log-probability of the whole response $y$ given the prompt $x$.
 On the right, term $t$ is the log-probability of token $y_t$ given the prompt and the $t - 1$ tokens before it, and the sum runs over all $m$ tokens.
+:::
 
 In RLHF the reward usually comes once, after the last token, from a reward model (unit 16).
 
@@ -136,8 +144,11 @@ $$
 J(\theta) = \mathbb{E}_{a \sim \pi_\theta}[\,r\,]
 $$
 
-$J(\theta)$ is the *objective*, the number training tries to raise.
+::: formula
 $\mathbb{E}_{a \sim \pi_\theta}[\,r\,]$ is unit 3's expectation of the reward $r$, with the subscript $a \sim \pi_\theta$ saying which distribution to average over: actions $a$ drawn from the policy.
+:::
+
+$J(\theta)$ is the *objective*, the number training tries to raise.
 For the bandit that's $J(\theta) = 4\,\pi_\theta(A) + 5\,\pi_\theta(B) + 6\,\pi_\theta(C)$.
 At the start it's 5, and the best possible is 6, by always pulling C.
 
@@ -166,8 +177,11 @@ $$
 J(\theta) = \sum_a \pi_\theta(a)\, R(a), \qquad \nabla J = \sum_a R(a)\, \nabla \pi_\theta(a)
 $$
 
+::: formula
 The left equation is $J$ written as unit 3's weighted sum: each action's average reward times the probability of picking it.
 The right one takes the gradient $\nabla$ (the vector of derivatives with respect to each entry of $\theta$) of that sum; $R(a)$ doesn't depend on $\theta$, so only $\pi_\theta(a)$ gets differentiated.
+:::
+
 That's exact, but it needs $R(a)$ for every action, and the agent doesn't know any of them.
 The way around it is one line of calculus.
 The derivative of $\log \pi$ is $\nabla \pi / \pi$, so $\nabla \pi = \pi \, \nabla \log \pi$, and substituting that in gives
@@ -176,9 +190,12 @@ $$
 \nabla J = \sum_a \pi_\theta(a)\, R(a)\, \nabla \log \pi_\theta(a) = \mathbb{E}_{a \sim \pi_\theta}\big[\, r\, \nabla \log \pi_\theta(a) \,\big]
 $$
 
+::: formula
 The middle expression is the exact sum after substituting.
-Its weights are the policy's own probabilities $\pi_\theta(a)$, which makes it an average over the actions the policy itself picks, and the right-hand side writes that average as an expectation.
-An average like that can be estimated by sampling, the [Monte Carlo estimate](../03-probability/#expectation-spread-and-sampling) from unit 3.
+Its weights are the policy's own probabilities $\pi_\theta(a)$, and the right-hand side writes that weighted sum as an expectation.
+:::
+
+So the gradient is an average over the actions the policy itself picks, and an average like that can be estimated by sampling, the [Monte Carlo estimate](../03-probability/#expectation-spread-and-sampling) from unit 3.
 Pull an arm, see the reward $r$, and $r\, \nabla \log \pi_\theta(a)$ is one noisy estimate of the gradient.
 (Using the reward you saw in place of $R(a)$ is fine, because on average it equals $R(a)$.)
 
@@ -189,8 +206,11 @@ $$
 \theta \leftarrow \theta + \eta\, r\, \nabla \log \pi_\theta(a)
 $$
 
+::: formula
 $\eta$ is the learning rate, as in unit 4, $r$ is the reward from this pull, and $\nabla \log \pi_\theta(a)$ points in the direction that raises the probability of the action just taken.
-So a high reward pushes that action's probability up hard and a small one barely moves it.
+:::
+
+Each pull raises the probability of the action just taken, in proportion to its reward: a high reward pushes it up hard and a small one barely moves it.
 That's REINFORCE (Williams, 1992).
 
 For a softmax policy, $\nabla \log \pi_\theta(a)$ is the one-hot vector for $a$ minus the probabilities $\pi_\theta$.
@@ -200,7 +220,7 @@ So the pulled arm's logit goes up by $\eta\, r\, (1 - \pi_\theta(a))$, and every
 The same update also reads as ordinary next-token training from unit 11, on a sample the model wrote itself, with the loss multiplied by the reward.
 
 One step with real numbers.
-Start at equal probabilities with $\eta = 0.1$, pull B, and get a reward of 5.2.
+Start at equal probabilities with the learning rate $\eta = 0.1$, pull B, and get a reward of 5.2.
 $\theta_B$ goes up by $0.1 \times 5.2 \times 2/3 \approx 0.35$, $\theta_A$ and $\theta_C$ go down by $0.1 \times 5.2 \times 1/3 \approx 0.17$, and the probabilities become (0.27, 0.46, 0.27).
 
 B isn't the best arm, but its probability went from 0.33 to 0.46 anyway.
@@ -221,17 +241,19 @@ The difference $r - b$ is called the *advantage*: how much better this pull did 
 With $b = 5$, the pull of B that paid 5.2 has an advantage of 0.2 and barely moves anything (the probabilities become (0.331, 0.338, 0.331)).
 A pull of A that pays 4.1 has an advantage of −0.9 and pushes A down, and a pull of C that pays 6 pushes C up.
 
-On average, the baseline adds nothing to the update.
-Its share of the expected gradient is
+On average, the baseline adds nothing to the update, because the probabilities always add up to 1:
 
 $$
 \mathbb{E}_{a \sim \pi_\theta}\big[\, b\, \nabla \log \pi_\theta(a) \,\big] = b \sum_a \nabla \pi_\theta(a) = b\, \nabla \Big( \sum_a \pi_\theta(a) \Big) = b\, \nabla 1 = 0
 $$
 
+::: formula
 Read it left to right.
 The baseline's part of the update, averaged over actions, is $\sum_a \pi_\theta(a)\, b\, \nabla \log \pi_\theta(a)$, and $\pi\, \nabla \log \pi = \nabla \pi$ turns that into $b \sum_a \nabla \pi_\theta(a)$.
 The gradient of a sum is the sum of the gradients, so that's $b$ times the gradient of the total probability.
 The total is always 1, a constant, and the gradient of a constant is 0.
+:::
+
 So $b$ can be any number that doesn't depend on which action was taken, and the average direction of training stays the same.
 What changes is how noisy each single estimate is, in [unit 3's](../03-probability/#expectation-spread-and-sampling) sense of standard deviation.
 In the worked example below, subtracting the average reward makes each one-pull estimate four to five times less spread out.

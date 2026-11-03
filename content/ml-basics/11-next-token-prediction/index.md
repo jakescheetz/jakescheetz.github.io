@@ -81,8 +81,11 @@ $$
 z = W_U\, h
 $$
 
-The result $z$ has $V$ entries, one per token, and they're called *logits*.
-From [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products), $W_U h$ is "score $h$ against every row of $W_U$", so each logit is the dot product of $h$ with that token's row.
+::: formula
+From [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products), $W_U h$ is "score $h$ against every row of $W_U$", so entry $i$ of $z$ is the dot product of $h$ with token $i$'s row.
+:::
+
+The result $z$ has $V$ entries, one score per token, and they're called *logits*.
 GPT-2 reuses its embedding table $E$ from unit 10 as $W_U$, so a token's logit there is its own embedding dotted with $h$.
 With GPT-2's vocabulary that's 50,257 logits at every position.
 
@@ -106,9 +109,12 @@ $$
 p_i = \frac{e^{z_i}}{\sum_{j=1}^{V} e^{z_j}}
 $$
 
+::: formula
 The top is $e \approx 2.718$ raised to token $i$'s logit $z_i$.
 The bottom adds up the same exponential for every token $j$ in the vocabulary, so it's one number shared by all $V$ probabilities.
 We write the whole vector as $p = \mathrm{softmax}(z)$.
+:::
+
 The exponential makes every entry positive and keeps the order (a bigger logit always gets a bigger probability), and dividing by the sum makes the entries add up to 1.
 
 For the example, $e^{2.0} = 7.39$ and the five exponentials add up to 12.26, so $p_{\text{mat}} = 7.39 / 12.26 = 0.60$.
@@ -135,7 +141,7 @@ $$
 
 the negative log of the probability the model gave the right answer, with $\log$ the natural log.
 For the example that's $-\log 0.60 = 0.51$.
-It's the same rule as log loss in [unit 5](../05-classification/#log-loss), minus the log of the probability given to what actually happened, with $V$ possible answers instead of two.
+It's the same rule as log loss in [unit 5](../05-classification/#log-loss), with $V$ possible answers instead of two.
 
 This is called *cross-entropy*.
 The general formula compares the model's distribution $p$ with a target distribution $y$ as $-\sum_i y_i \log p_i$: for every token $i$, the target's probability $y_i$ times the log of the model's probability $p_i$, summed and negated.
@@ -164,27 +170,29 @@ So adding up $-\log p_c$ over every token is the same as maximizing the probabil
 ## The gradient is p − y
 
 To train, we need the gradient of $L$ with respect to the logits ([unit 2](../02-gradients/#the-gradient-points-uphill)), so that gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)) can step against it.
-Writing out the softmax inside the log, and using $\log(a/b) = \log a - \log b$ and $\log e^{z_c} = z_c$, gives
+Writing out the softmax inside the log splits the loss into two terms:
 
 $$
 L = -\log \frac{e^{z_c}}{\sum_j e^{z_j}} = -z_c + \log \sum_j e^{z_j}
 $$
 
-The first term, $-z_c$, is minus the correct token's logit.
+::: formula
+The split uses $\log(a/b) = \log a - \log b$ and $\log e^{z_c} = z_c$.
+The first term, $-z_c$, is minus the correct token's logit; its derivative with respect to $z_i$ is $-1$ if $i = c$ and 0 otherwise.
 The second, $\log \sum_j e^{z_j}$, is the log of the softmax's denominator, and it depends on every logit.
-The derivative of the first term with respect to $z_i$ is $-1$ if $i = c$ and 0 otherwise.
-The derivative of the second term is $e^{z_i} / \sum_j e^{z_j}$, which is $p_i$: the log differentiates to one over the sum (the $1/p$ rule from [unit 5](../05-classification/#training-with-gradient-descent)), and by the chain rule ([unit 2](../02-gradients/#the-rules-you-need)) that gets multiplied by the sum's own derivative, $e^{z_i}$.
+Its derivative is $e^{z_i} / \sum_j e^{z_j}$, which is $p_i$: the log differentiates to one over the sum (the $1/p$ rule from [unit 5](../05-classification/#training-with-gradient-descent)), and by the chain rule ([unit 2](../02-gradients/#the-rules-you-need)) that gets multiplied by the sum's own derivative, $e^{z_i}$.
+:::
+
 Put together, with $y$ the one-hot vector for the correct token:
 
 $$
 \nabla_z L = p - y
 $$
 
-Entry $i$ of $\nabla_z L$ is $\partial L / \partial z_i$, so it's $p_i - 1$ for the correct token and $p_i$ for every other one.
+Entry $i$, $\partial L / \partial z_i$, is $p_i - 1$ for the correct token and $p_i$ for every other one.
 It's the same "predicted minus actual" that log loss gives for the sigmoid in [unit 5](../05-classification/#training-with-gradient-descent), one entry per token.
 For the example that's $(-0.40,\ 0.22,\ 0.13,\ 0.03,\ 0.01)$.
-A gradient step with learning rate $\eta$ moves each logit against its gradient.
-The correct token's logit goes up by $\eta\,(1 - p_c)$, and every other logit goes down by $\eta$ times its own probability.
+A gradient step with learning rate $\eta$ raises the correct token's logit by $\eta\,(1 - p_c)$ and lowers every other logit by $\eta$ times its own probability.
 So the wrong token that grabbed the most probability gets pushed down the hardest, and a token the model already ignores barely moves.
 The entries always add up to zero, because $p$ and $y$ both add up to 1.
 The gradient is zero only at $p = y$, which softmax can approach but never reach with finite logits.
@@ -211,15 +219,19 @@ loss       <span class="orange">3.91</span>  <span class="orange">1.20</span>  <
 <figcaption>Position t sees the input tokens 1 to t and is graded on token t + 1. The probabilities are made up; the losses are −log of them.</figcaption>
 </figure>
 
-A sequence of tokens $x_1, \dots, x_n$ gives $n - 1$ predictions, and the training loss is their average:
+A sequence of tokens $x_1, \dots, x_n$ gives $n - 1$ predictions, and the training loss is the average of their $-\log p$:
 
 $$
 L = -\frac{1}{n-1} \sum_{t=1}^{n-1} \log p_\theta(x_{t+1} \mid x_1, \dots, x_t)
 $$
 
+::: formula
 The sum runs over positions $t$ from 1 to $n - 1$, and the $\frac{1}{n-1}$ in front turns it into an average.
 Each term is the log of $p_\theta(x_{t+1} \mid x_1, \dots, x_t)$, the probability the model with parameters $\theta$ gives the actual next token $x_{t+1}$ after seeing $x_1$ to $x_t$.
-The bar reads "given", as in [conditional probability](../03-probability/#conditional-probability-and-bayes-rule), and the sum is the log-probability of the text from [unit 3](../03-probability/#why-models-work-in-log-probabilities), leaving out the first token, so $L$ is minus that log-probability divided by $n - 1$.
+The bar reads "given", as in [conditional probability](../03-probability/#conditional-probability-and-bayes-rule).
+The sum is the log-probability of the text from [unit 3](../03-probability/#why-models-work-in-log-probabilities), leaving out the first token, so $L$ is minus that log-probability divided by $n - 1$.
+:::
+
 The figure's text, "the cat sat on the mat", is six tokens, so it gives five predictions and $L = (3.91 + 1.20 + 0.80 + 0.16 + 0.51)/5 = 1.32$.
 
 All $n - 1$ predictions come out of one forward pass.

@@ -146,7 +146,9 @@ $$
 V = 256 + 50{,}000 + 1 = 50{,}257
 $$
 
+::: formula
 The first term is the byte values BPE starts from, the second is one new token per merge, and the third is the end-of-text token.
+:::
 
 Before counting pairs, GPT-2 cuts text into chunks with a regular expression: runs of letters, runs of digits and runs of other symbols, each allowed one leading space, plus a few English contractions like 's and 've.
 Merges never cross a chunk boundary, which stops "dog.", "dog!" and "dog?" from each becoming a token of its own (the paper's example).
@@ -164,27 +166,32 @@ Feeding the raw ID into a layer like $Wx + b$ from [unit 8](../08-neural-network
 
 Instead, the model keeps an *embedding table* $E$, a $V \times d$ matrix with one row per token.
 Row $v$, written $E_v$, is the vector for token $v$, and $d$ is the model width, the number of entries in each vector.
-Embedding token $x_i$ means taking row $x_i$:
+Embedding a token means taking its row:
 
 $$
 h_i = E_{x_i}
 $$
 
-Here $h_i$ is the vector for position $i$ of the prompt, and $E_{x_i}$ is the row whose number is that position's token ID.
+::: formula
+$h_i$ is the vector for position $i$ of the prompt, and $E_{x_i}$ is the row whose number is that position's token ID $x_i$.
+:::
 
 A sequence of $n$ IDs becomes $n$ vectors of length $d$, and everything in units 12 and 13 works on those vectors.
 For the smallest GPT-2, $d = 768$, so $E$ holds $50{,}257 \times 768 = 38{,}597{,}376$ numbers, about 31% of the model's 124 million parameters.
 
 The lookup can also be written as a matrix multiplication ([unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products)), which is how training sees it.
 Write token $x_i$ as a *one-hot vector* $u$: $V$ entries, all 0 except a 1 at position $x_i$.
-Multiplying $u$ (written as a row) by $E$ adds up the rows of $E$ weighted by the entries of $u$, and every row but one gets weight 0:
+Multiplying $u$ by $E$ adds up the rows of $E$ weighted by the entries of $u$, and every row but one gets weight 0, so the result is row $x_i$:
 
 $$
 uE = \sum_{v=0}^{V-1} u_v E_v = E_{x_i}
 $$
 
+::: formula
+$u$ is written as a row vector here.
 The sum runs over every token $v$ in the vocabulary.
-Each term is the entry $u_v$ (a 0 or a 1) times row $E_v$, so the only term that survives is the one at $v = x_i$, and the result is that row.
+Each term is the entry $u_v$ (a 0 or a 1) times row $E_v$, so the only term that survives is the one at $v = x_i$.
+:::
 
 <figure>
 <pre> id  token    u       row v of E
@@ -203,7 +210,7 @@ Each term is the entry $u_v$ (a 0 or a 1) times row $E_v$, so the only term that
 
 Real code does the lookup by indexing (GPT-2's code uses `tf.gather`, PyTorch has `nn.Embedding`), since multiplying by 50,256 zeros is wasted work.
 The one-hot view tells you how the table learns.
-It's a linear layer, so backpropagation ([unit 8](../08-neural-networks/#backpropagation)) reaches it like any other weights, and because $u_v = 0$ for every token that isn't in the batch, only the rows of tokens that actually appeared get a gradient through the lookup.
+It's a linear layer, so backpropagation ([unit 8](../08-neural-networks/#backpropagation)) reaches it like any other weights, and since $u_v = 0$ for every token not in the batch, only the rows of tokens that appeared get a gradient through the lookup.
 (GPT-2 also reuses $E$ at the output end, which unit 13 covers, and that path reaches every row.)
 
 ## Similar tokens end up close

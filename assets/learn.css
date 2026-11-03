@@ -155,6 +155,22 @@ span.cyan { color: var(--accent-cyan); }
   margin-bottom: 0;
 }
 
+/* Term-by-term reading of the formula above it: a pandoc fenced div `::: formula`.
+   A quieter blockquote, so the main text reads on its own and this can be skipped. */
+.formula {
+  font-size: 0.875rem;
+  color: var(--text-color-alt);
+  margin: 0 0 var(--line-height);
+  padding-left: calc(2ch - var(--border-thickness));
+  border-left: var(--border-thickness) solid var(--text-color-alt);
+}
+.formula > * {
+  margin-bottom: 0;
+}
+.formula > * + * {
+  margin-top: calc(var(--line-height) / 2);
+}
+
 /* Unit navigation and progress. */
 .unit-nav {
   margin-top: calc(var(--line-height) * 2);

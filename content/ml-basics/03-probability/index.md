@@ -98,14 +98,17 @@ $$
 p(x) = \frac{1}{\sigma\sqrt{2\pi}}\; e^{-(x - \mu)^2 / (2\sigma^2)}
 $$
 
-It has two settings.
-$\mu$ (mu) is the center of the bell, and $\sigma$ (sigma) is its width; the next section names them properly as the mean and the standard deviation.
+::: formula
 $e \approx 2.718$ is the base of the natural log, and $\pi \approx 3.14$ is the usual pi.
 Read the exponent from the inside out.
 $(x - \mu)/\sigma$ is how far $x$ is from the center, counted in widths.
 Squaring it, halving it and putting a minus sign in front means the curve is highest at $x = \mu$ and falls off fast as you move away in either direction.
 The factor in front, $1/(\sigma\sqrt{2\pi})$, is only there to make the total area come out to 1.
 A wider bell is lower, so the area stays the same.
+:::
+
+It has two settings: $\mu$ (mu) is the center of the bell, and $\sigma$ (sigma) is its width.
+The next section names them properly as the mean and the standard deviation.
 
 The usual shorthand is $\mathcal{N}(\mu, \sigma^2)$, and "$X \sim \mathcal{N}(0, 3^2)$" reads "$X$ is drawn from a normal distribution centered at 0 with width 3."
 The second number is $\sigma^2$, not $\sigma$, which is easy to trip on.
@@ -119,8 +122,11 @@ $$
 \mathbb{E}[X] = \sum_x x \, P(X = x)
 $$
 
+::: formula
 The $\sum_x$ means "add this up over every value $x$ that $X$ can take."
 Each term is a value times how likely it is, so likely values pull the answer toward themselves and unlikely ones barely count.
+:::
+
 For the die every face has weight $1/6$, so $\mathbb{E}[X] = (1 + 2 + 3 + 4 + 5 + 6)/6 = 3.5$.
 No roll ever comes up 3.5.
 It's the number the average of many rolls settles toward, which the widget below shows.
@@ -137,8 +143,11 @@ $$
 \mathrm{Var}(X) = \mathbb{E}\big[(X - \mathbb{E}[X])^2\big]
 $$
 
+::: formula
 Inside the brackets, $X - \mathbb{E}[X]$ is how far one outcome lands from the mean.
 Squaring makes misses on both sides count as positive, and the outer $\mathbb{E}$ averages those squares with the same probability weights as before.
+:::
+
 For the die the squared distances from 3.5 are $6.25, 2.25, 0.25, 0.25, 2.25, 6.25$, and their average is $17.5 / 6 \approx 2.92$.
 Squaring also squares the units, so the usual measure of spread is the square root of the variance, the standard deviation $\sigma = \sqrt{2.92} \approx 1.71$.
 That's the same $\sigma$ as the [normal distribution's width](#random-variables-and-distributions).
@@ -190,7 +199,10 @@ $$
 P(A \mid B) = \frac{P(A, B)}{P(B)}
 $$
 
+::: formula
 The numerator is the share of all cases where both happen, and dividing by $P(B)$ rescales it so that "every case where $B$ happened" counts as the whole.
+:::
+
 In the table, that means staying inside one row or column.
 $P(\text{flag} \mid \text{phish}) = 0.009 / 0.01 = 0.9$, the catch rate.
 Rearranged, $P(A, B) = P(A \mid B)\,P(B)$, which is how I filled in the table: 90% of the 1% is 0.009.
@@ -207,9 +219,12 @@ $$
 P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}
 $$
 
-It turns a probability you know in one direction into the other direction.
-$P(A)$ is called the prior, what you'd believe before seeing $B$, and $P(A \mid B)$ is the posterior, what you believe after.
+::: formula
+$P(A)$ is what you'd believe before seeing $B$, and $P(A \mid B)$ is what you believe after.
 $P(B \mid A)$ says how likely the evidence is when $A$ is true, and $P(B)$ is how likely the evidence is overall.
+:::
+
+It turns a probability you know in one direction into the other direction, from the *prior* $P(A)$ to the *posterior* $P(A \mid B)$.
 For the filter, $P(\text{flag})$ is the "flagged" column total, the flagged phishing plus the flagged legit:
 
 $$
@@ -234,8 +249,11 @@ $$
 P(x_1, \dots, x_n) = P(x_1)\; P(x_2 \mid x_1) \cdots P(x_n \mid x_1, \dots, x_{n-1})
 $$
 
-Each factor is one next-token prediction: the probability of token $x_t$ given every token before it.
-That's exactly what a language model outputs, so multiplying its predictions along a text gives the probability of the whole text.
+::: formula
+Each factor is the probability of token $x_t$ given every token before it.
+:::
+
+Each factor is one next-token prediction, exactly what a language model outputs, so multiplying its predictions along a text gives the probability of the whole text.
 If the model gives "of" probability 0.6 after "I'd like a cup" and "tea" probability 0.5 after "I'd like a cup of", the two tokens together get $0.6 \times 0.5 = 0.3$.
 
 A real response is hundreds or thousands of tokens, and every factor is below 1.
@@ -248,8 +266,11 @@ $$
 \log P(x_1, \dots, x_n) = \sum_{t=1}^{n} \log P(x_t \mid x_1, \dots, x_{t-1})
 $$
 
+::: formula
 Each term is the log of one next-token probability, and the sum adds them up over the $n$ tokens.
 Logs here are natural logs (base $e$).
+:::
+
 A probability between 0 and 1 has a log between $-\infty$ and 0, with $\log 1 = 0$ and $\log 0.5 \approx -0.69$.
 The 2,000-token text's log-probability is $2000 \times \log 0.5 \approx -1386.3$, an ordinary number.
 And since the log only goes up as its input goes up, whatever has the highest probability also has the highest log-probability, so making one bigger makes the other bigger.

@@ -146,8 +146,11 @@ $$
 p_i = \frac{e^{z_i / T}}{\sum_{j=1}^{V} e^{z_j / T}}
 $$
 
+::: formula
 The numerator is $e$ raised to token $i$'s logit divided by $T$.
 The denominator adds up the same quantity for all $V$ tokens in the vocabulary, $j$ running from 1 to $V$, so the $p_i$ add up to 1.
+:::
+
 With $T = 1$ this is exactly the softmax from unit 11, and you get the model's own distribution.
 What the division does is easiest to see in the ratio of two probabilities, where the denominator cancels:
 
@@ -183,8 +186,11 @@ $$
 q_i = \frac{p_i}{\sum_{j \in S} p_j} \;\text{ for } i \in S, \qquad q_i = 0 \;\text{ otherwise}
 $$
 
+::: formula
 For a kept token, $q_i$ is its old probability $p_i$ divided by the total probability of everything kept, $\sum_{j \in S} p_j$ (read $j \in S$ as "every token $j$ in the set $S$").
 Every token outside $S$ gets $q_i = 0$, so it can't be drawn.
+:::
+
 With $k = 3$ the example keeps mat, floor and bed, which hold 0.813 together, and renormalizing gives 0.547, 0.271 and 0.182.
 
 A fixed $k$ ignores how sure the model is.

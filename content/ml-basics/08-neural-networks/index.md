@@ -74,24 +74,25 @@ Every model in the rest of this route is trained with it.
 
 ## One neuron
 
-A neuron takes an input vector $x$, computes a weighted sum of its entries plus a number called the bias, and passes the result through a nonlinearity:
+A neuron takes an input vector $x$, computes a weighted sum of its entries using a weight vector $w$, adds a number $b$ called the bias, and passes the result through a nonlinearity:
 
 $$
 z = w \cdot x + b, \qquad h = \mathrm{ReLU}(z) = \max(0, z)
 $$
 
-The weight vector $w$ and the bias $b$ are the neuron's parameters, and training is what sets them.
-The first part, $z$, is the same score $w \cdot x + b$ that logistic regression computes in [unit 5](../05-classification/#from-a-score-to-a-probability); the difference is what happens to it next.
-There it went through the sigmoid to become a probability.
-Here it goes through *ReLU* (short for rectified linear unit), which keeps positive numbers as they are and turns negative ones into zero.
+::: formula
+$w$ and $b$ are the neuron's parameters, and training is what sets them.
+The first part, $z$, is the same score $w \cdot x + b$ that logistic regression computes in [unit 5](../05-classification/#from-a-score-to-a-probability), where it went through the sigmoid to become a probability.
+:::
+
+The nonlinearity here is *ReLU* (short for rectified linear unit), which keeps positive numbers as they are and turns negative ones into zero.
 
 Take $w = (0.5, -0.5)$ and $b = 0$.
 For $x = (1, 0)$ the weighted sum is $z = 0.5$, so $h = 0.5$.
 For $x = (0, 1)$ it's $z = -0.5$, so $h = 0$.
 
 The weighted sum is a dot product, so the reading from [unit 1](../01-vectors/#the-dot-product) applies: $z$ is large when $x$ points along $w$.
-So a neuron works like a detector.
-It stays at zero until $w \cdot x$ gets past a threshold, which the bias sets, and then grows in a straight line.
+So a neuron works like a detector: it stays at zero until $w \cdot x$ gets past a threshold, which the bias sets, and then grows in a straight line.
 
 With two inputs, the points where $z = 0$ form a line across the plane.
 On one side the neuron outputs zero, and on the other its output rises with distance from the line, so I picture ReLU as folding the plane along that line.
@@ -105,8 +106,10 @@ $$
 h = \mathrm{ReLU}(W x + b)
 $$
 
+::: formula
 ReLU is applied to each entry separately.
 If $W$ is $m \times n$, the input has $n$ entries and the layer outputs $m$ of them, one per neuron.
+:::
 
 A multi-layer perceptron (MLP) is a few layers in a row, each one reading the previous one's output.
 The network in this unit has two layers:
@@ -152,7 +155,7 @@ In practice you start from random weights and let gradient descent find good one
 
 Gradient descent needs $\partial L / \partial \theta$ for every parameter $\theta$ (every entry of $W_1$, $b_1$, $W_2$ and $b_2$).
 The loss $L$ here is the squared error $(\hat y - y)^2$ between the output $\hat y$ and the target $y$ for a single input, the squared miss that the [mean squared error](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong) in unit 4 averages over points.
-Unit 5 trained its classifier with [log loss](../05-classification/#log-loss) instead, because its output was a probability; this network's output can be any number, so squared error is the simpler fit.
+Unit 5 trained its classifier with [log loss](../05-classification/#log-loss) because its output was a probability; this network's output can be any number, so squared error is the simpler fit.
 The [chain rule](../02-gradients/#the-rules-you-need) says how to get the gradient: a nudge to a weight propagates forward through the network, and the rates of change along the way multiply.
 
 To use the chain rule mechanically, break the network into a computational graph.
@@ -169,7 +172,10 @@ $$
 \frac{\partial L}{\partial h_1} = \frac{\partial L}{\partial \hat y}\,\frac{\partial \hat y}{\partial h_1}
 $$
 
+::: formula
 Read it right to left through the network: $\partial L / \partial \hat y$ is the gradient that has already arrived at the output, $\partial \hat y / \partial h_1$ is the output node's local derivative with respect to the hidden unit $h_1$, and their product is how much the loss changes per unit change in $h_1$.
+:::
+
 The local derivative of the loss is $2(\hat y - y)$.
 For a weighted sum, the derivative with respect to an input is that input's weight, and with respect to a weight it's the input that weight multiplies.
 For ReLU it's 1 if $z > 0$ and 0 otherwise.
@@ -186,8 +192,7 @@ At step 13 in the widget, the gradient into $z_2$ is 0 because $z_2$ was negativ
 So neither weight into $z_2$ learns anything from this example.
 A hidden unit whose $z$ is negative for every training input gets no gradient at all and can never recover, which is called a *dead unit*.
 
-Written for a whole layer at once, the backward pass is four lines.
-$W^\top$ is $W$ with rows and columns swapped, $h^\top$ and $x^\top$ turn a column vector into a row, and $\odot$ multiplies two vectors entry by entry:
+Written for a whole layer at once, the backward pass is four lines:
 
 $$
 \frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial \hat y}\, h^\top, \qquad
@@ -199,12 +204,16 @@ $$
 \frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial z}\, x^\top
 $$
 
+::: formula
+$W^\top$ is $W$ with rows and columns swapped, $h^\top$ and $x^\top$ turn a column vector into a row, and $\odot$ multiplies two vectors entry by entry.
 The first line says each weight in $W_2$ gets the output's gradient times the hidden value it multiplied.
 The second sends the output's gradient back to the hidden units, each scaled by its weight in $W_2$.
 The third is the ReLU step: $[z > 0]$ is the vector with a 1 where $z$ is positive and a 0 elsewhere, so the gradient passes only through units that were on.
 The fourth gives each weight in $W_1$ the gradient at its $z$ times the input it multiplied.
-The bias gradients are $\partial L / \partial \hat y$ and $\partial L / \partial z$ themselves.
-The worked example below is these four lines in NumPy.
+:::
+
+They're the local-derivative rules above, applied to every unit of a layer at once.
+The bias gradients are $\partial L / \partial \hat y$ and $\partial L / \partial z$ themselves, and the worked example below is these four lines in NumPy.
 
 ## Checking the gradient, then training
 

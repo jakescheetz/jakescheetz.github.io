@@ -123,11 +123,13 @@ $$
 \text{precision} = \frac{TP}{TP + FP}, \qquad \text{recall} = \frac{TP}{TP + FN}
 $$
 
+::: formula
 Both have the true positives on top and differ in what they divide by.
-Precision divides by everything the filter flagged, so it answers "when the filter flags an email, how often is it really phishing?"
-Here that's $7 / (7 + 1) = 0.875$.
-Recall divides by every email that really is phishing, so it answers "of the phishing emails, how many did the filter catch?"
-Here that's $7 / (7 + 3) = 0.70$.
+$TP + FP$ is everything the filter flagged, and $TP + FN$ is every email that really is phishing.
+:::
+
+*Precision* answers "when the filter flags an email, how often is it really phishing?", here $7 / (7 + 1) = 0.875$.
+*Recall* answers "of the phishing emails, how many did the filter catch?", here $7 / (7 + 3) = 0.70$.
 Neither one uses TN, so the 89 easy legitimate emails can't pad them.
 The never-flag filter has recall $0 / 10 = 0$, and its precision is $0 / 0$, undefined, because it never flagged anything.
 
@@ -137,8 +139,7 @@ $$
 F_1 = \frac{2PR}{P + R}
 $$
 
-$P$ is precision and $R$ is recall.
-This is their *harmonic mean*, and unlike the plain average $(P + R)/2$ it stays close to whichever of the two is smaller, so it's only high when both are.
+This is the *harmonic mean* of precision $P$ and recall $R$, and unlike the plain average $(P + R)/2$ it stays close to whichever of the two is smaller, so it's only high when both are.
 For the filter, $2 \cdot 0.875 \cdot 0.70 / (0.875 + 0.70) = 0.78$.
 A filter that flags every email has recall 1 and precision $10 / 100 = 0.10$.
 The plain average of those is 0.55, which flatters a useless filter; F1 is 0.18.
@@ -185,15 +186,18 @@ Because the order is the same, any threshold on the old scores has a matching th
 Only the probabilities changed.
 In the 0.8 to 0.9 bin the stretched filter has 88 emails averaging 0.85, and only 64% of them are phishing.
 
-One summary number for this is the *expected calibration error*:
+One summary number for this is the *expected calibration error*, the average gap between each bin's score and its share of phishing, weighted by how many emails land in the bin:
 
 $$
 \text{ECE} = \sum_{m} \frac{n_m}{N} \, \big| \, \text{phish}_m - \text{score}_m \big|
 $$
 
+::: formula
 The sum runs over the bins $m$.
-$\text{score}_m$ is the bin's average score and $\text{phish}_m$ is the share of its emails that are phishing, so the difference is that bin's gap (the orange bars in the widget below).
-Each gap is weighted by $n_m / N$, the share of all $N$ emails that land in bin $m$, so a bin with 5 emails counts for little.
+$\text{score}_m$ is bin $m$'s average score and $\text{phish}_m$ is the share of its emails that are phishing, so the difference between them is that bin's gap (the orange bars in the widget below).
+$n_m / N$ is the share of all $N$ emails that land in bin $m$, so a bin with 5 emails counts for little.
+:::
+
 A perfectly calibrated model has ECE 0.
 
 <figure class="widget" id="reliability">
@@ -207,18 +211,21 @@ Their fix, *temperature scaling*, divides every $z$ by one number fitted on the 
 ## How much to trust one number
 
 The 0.96 came from 100 emails, and a different 100 would have given a different number.
-Each email is either labeled right (1) or wrong (0), so accuracy is an average of 100 samples.
-[Unit 3](../03-probability/#expectation-spread-and-sampling) showed that an average like that misses the true value by about one sample's standard deviation divided by the square root of the number of samples.
-A single right-or-wrong result with true accuracy $a$ is 1 with probability $a$ and 0 otherwise, so its variance is $a(1-a)$ and its standard deviation is $\sqrt{a(1-a)}$.
-For a test set of $n$ examples that gives:
+Each email is either labeled right (1) or wrong (0), so accuracy is an average of 100 samples, and [unit 3](../03-probability/#expectation-spread-and-sampling) showed how far an average like that typically misses the true value.
+For a test set of $n$ examples and a true accuracy $a$, that distance is:
 
 $$
 \text{SE} = \sqrt{\frac{a(1-a)}{n}}
 $$
 
-SE is the *standard error*, the typical distance between the accuracy you measure and the one you'd get on unlimited data.
+::: formula
+Unit 3's rule is one sample's standard deviation divided by the square root of the number of samples.
+A single right-or-wrong result is 1 with probability $a$ and 0 otherwise, so its variance is $a(1-a)$ and its standard deviation is $\sqrt{a(1-a)}$.
 The $a(1-a)$ is largest at $a = 0.5$ and shrinks to 0 for a model that's always right or always wrong.
-The $n$ underneath means a test set 4 times as big halves the error.
+:::
+
+SE is the *standard error*, the typical distance between the accuracy you measure and the one you'd get on unlimited data.
+The $n$ under the square root means a test set 4 times as big halves the error.
 
 For $a = 0.94$ and $n = 100$ the SE is about 0.024.
 The worked example checks this by splitting its 10,000 emails into 100 test sets of 100.
@@ -236,12 +243,7 @@ The never-flag filter at 0.90 is one reference point, the score you get for doin
 Others are the model you're replacing, and people doing the same job on the same examples.
 A *benchmark* fixes the test set, the metric and the rules, so scores from different models can be compared, and it only works while its test examples stay out of everyone's training data ([unit 6](../06-generalization/#leakage-and-contamination)).
 
-I built [EchoBench](https://www.netspi.com/blog/technical-blog/ai-ml-pentesting/introducing-echobench-a-human-calibrated-benchmark-for-autonomous-pentesting/) around that problem, for autonomous pentesting agents.
-Part of its score is strict F1 on the findings an agent reports.
-Precision is the share of its reported findings that hold up, recall is the share of the known findings it reproduces, and "strict" means a finding only counts with specific evidence such as the endpoint and role involved.
-The reference is a cohort of associate pentesters who tested the same five web applications.
-Their F1 was 71.2% on one application and 38.9% on another, so an agent with 50% F1 is behind the people on the first and ahead of them on the second.
-EchoBench divides the agent's F1 by the people's F1 on the same application, so 1.0 means the agent matched them.
+For the phishing filter that means the 0.96 is worth 0.06 over doing nothing, and that gap, not the 0.96, is what the model earned.
 
 ## Worked example
 
