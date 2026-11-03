@@ -18,6 +18,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 from pathlib import Path
@@ -241,6 +242,9 @@ def quiz_bank(units):
 
 
 def render(page, out, site, today, dev):
+    # Template variables go through a defaults file, not -V arguments: the quiz
+    # banks are hundreds of KB of HTML, and Linux caps one argument at 128 KB.
+    variables = {"root": page.root, "year": str(today.year)}
     args = [
         page.src.name,
         "--from=markdown",
@@ -251,8 +255,6 @@ def render(page, out, site, today, dev):
         f"--template={TEMPLATES / 'page.html'}",
         f"--metadata-file={SITE_META}",
         f"--output={out / page.rel_out}",
-        f"--variable=root:{page.root}",
-        f"--variable=year:{today.year}",
     ]
     if page.meta.get("bibliography") or page.meta.get("references"):
         args += [
@@ -265,14 +267,14 @@ def render(page, out, site, today, dev):
     if not page.meta.get("description") and page.meta.get("subtitle"):
         args.append(f"--metadata=description:{plain_text(page.meta['subtitle'])}")
     if page.is_post:
-        args += ["--variable=post:true", f"--variable=reading-time:{reading_time(page.src)}"]
+        variables.update({"post": "true", "reading-time": reading_time(page.src)})
     if page.is_home:
-        args += [
-            "--variable=home:true",
-            f"--variable=build-date:{today.isoformat()}",
-            f"--variable=post-index:{post_index(site['posts'])}",
-            f"--variable=learn-summary:{learn_summary(site['route'], site['sections'], site['units'])}",
-        ]
+        variables.update({
+            "home": "true",
+            "build-date": today.isoformat(),
+            "post-index": post_index(site["posts"]),
+            "learn-summary": learn_summary(site["route"], site["sections"], site["units"]),
+        })
     units = site["units"]
     if page.is_learn_index or page.is_unit:
         args += [
@@ -282,42 +284,45 @@ def render(page, out, site, today, dev):
             f"--metadata=unit-self:{page.slug if page.is_unit else ''}",
         ]
     if page.is_learn_index:
-        args += [
-            "--variable=learn:true",
-            "--variable=learn-index:true",
-            f"--variable=unit-index:{unit_index(site['sections'])}",
-            f"--variable=unit-count:{len(units)}",
-            f"--variable=unit-slugs:{' '.join(u.slug for u in units)}",
-            f"--variable=route-time:{total_time(units) if units else '-'}",
-            f"--variable=review-bank:{quiz_bank(units)}",
-        ]
+        variables.update({
+            "learn": "true",
+            "learn-index": "true",
+            "unit-index": unit_index(site["sections"]),
+            "unit-count": str(len(units)),
+            "unit-slugs": " ".join(u.slug for u in units),
+            "route-time": total_time(units) if units else "-",
+            "review-bank": quiz_bank(units),
+        })
     if page.is_unit:
         route = site["route"]
         position = units.index(page)
-        args += [
-            "--variable=learn:true",
-            "--variable=unit:true",
-            f"--variable=unit-number:{page.unit_number:02d}",
-            f"--variable=unit-count:{len(units):02d}",
-            f"--variable=unit-slug:{page.slug}",
-            f"--variable=unit-minutes:{page.minutes} min",
-            f"--variable=section-name:{page.meta['section']}",
-            "--variable=route-url:../",
-            f"--variable=route-title:{route.meta.get('title', 'Learn') if route else 'Learn'}",
-            f"--variable=quiz-bank:{quiz_bank([page])}",
-        ]
+        variables.update({
+            "learn": "true",
+            "unit": "true",
+            "unit-number": f"{page.unit_number:02d}",
+            "unit-count": f"{len(units):02d}",
+            "unit-slug": page.slug,
+            "unit-minutes": f"{page.minutes} min",
+            "section-name": page.meta["section"],
+            "route-url": "../",
+            "route-title": route.meta.get("title", "Learn") if route else "Learn",
+            "quiz-bank": quiz_bank([page]),
+        })
         for name, neighbor in (("prev", units[position - 1] if position else None),
                                ("next", units[position + 1] if position + 1 < len(units) else None)):
             if neighbor is not None:
-                args += [
-                    f"--variable={name}-url:../{neighbor.slug}/",
-                    f"--variable={name}-number:{neighbor.unit_number:02d}",
-                    f"--variable={name}-title:{neighbor.meta['title']}",
-                ]
+                variables.update({
+                    f"{name}-url": f"../{neighbor.slug}/",
+                    f"{name}-number": f"{neighbor.unit_number:02d}",
+                    f"{name}-title": neighbor.meta["title"],
+                })
     if dev:
-        args.append("--variable=dev:true")
+        variables["dev"] = "true"
     (out / page.rel_out).parent.mkdir(parents=True, exist_ok=True)
-    pandoc(args, page.src.parent, page.rel)
+    with tempfile.NamedTemporaryFile("w", suffix=".json", encoding="utf-8") as defaults:
+        json.dump({"variables": variables}, defaults, ensure_ascii=False)
+        defaults.flush()
+        pandoc([*args, f"--defaults={defaults.name}"], page.src.parent, page.rel)
 
 
 def is_hidden(path, base):
