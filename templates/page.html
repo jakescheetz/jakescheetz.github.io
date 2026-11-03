@@ -65,8 +65,8 @@ $elseif(unit)$
     <td class="width-min">$unit-minutes$</td>
   </tr>
   <tr>
-    <th class="width-min">Route</th>
-    <td class="width-auto"><a href="$route-url$">$route-title$</a></td>
+    <th class="width-min">Part of</th>
+    <td class="width-auto"><a href="$route-url$">$route-title$</a> · $section-name$</td>
     <th class="width-min">Done</th>
     <td><input type="checkbox" data-unit-done="$unit-slug$" aria-label="Mark this unit done" /></td>
   </tr>
@@ -135,7 +135,6 @@ $if(home)$
 <h2 id="posts">Posts</h2>
 $post-index$
 $if(learn-summary)$
-<h2 id="learn">Learn</h2>
 $learn-summary$
 $endif$
 $endif$
@@ -143,8 +142,23 @@ $if(learn-index)$
 <h2 id="units">Units</h2>
 <p class="progress-bar" data-progress-bar="$unit-slugs$"></p>
 $unit-index$
+$if(review-bank)$
+<h2 id="review-quiz">Review quiz</h2>
+<section class="quiz" data-pick="10">
+<p>Ten questions drawn at random across the units, some about what the key terms mean and some about using them. Leave the box checked to draw only from units you've marked done.</p>
+<label class="quiz-filter"><input type="checkbox" data-quiz-filter="" checked="" /> Only units I've marked done</label>
+$review-bank$
+</section>
+$endif$
 $endif$
 $if(unit)$
+$if(quiz-bank)$
+<h2 id="quiz">Quiz</h2>
+<section class="quiz" data-pick="5">
+<p>Five questions drawn at random from this unit's bank, some about what the terms mean and some about using them. Check your answers, then draw a new set.</p>
+$quiz-bank$
+</section>
+$endif$
 <nav class="unit-nav">
 <label class="unit-done"><input type="checkbox" data-unit-done="$unit-slug$" /> I can do everything in "You're done when" without notes</label>
 <p class="unit-links">$if(prev-url)$<a href="$prev-url$">← $prev-number$ $prev-title$</a>$else$<span></span>$endif$$if(next-url)$<a href="$next-url$">$next-number$ $next-title$ →</a>$endif$</p>

@@ -25,7 +25,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 CONTENT = ROOT / "content"
 POSTS = CONTENT / "posts"
-LEARN = CONTENT / "learn"
+LEARN = CONTENT / "ml-basics"
+QUIZ_KINDS = ("term", "apply")
+SECTION_COLORS = ("blue", "green", "cyan", "purple", "orange")
 ASSETS = ROOT / "assets"
 TEMPLATES = ROOT / "templates"
 FILTERS = ROOT / "filters"
@@ -90,9 +92,32 @@ def require_int(meta, field, label):
         raise BuildError(f"{label}: `{field}` must be a positive whole number, got {value!r}")
 
 
+def check_quiz(meta, label):
+    quiz = meta.get("quiz")
+    if quiz is None:
+        return
+    if not isinstance(quiz, list) or not quiz:
+        raise BuildError(f"{label}: `quiz` must be a non-empty list of questions")
+    for number, item in enumerate(quiz, 1):
+        where = f"{label}: quiz question {number}"
+        if not isinstance(item, dict):
+            raise BuildError(f"{where} must be a mapping with q, answer, wrong, why, kind")
+        for field in ("q", "answer", "why"):
+            if not isinstance(item.get(field), str) or not item[field].strip():
+                raise BuildError(f"{where} needs a text `{field}` (quote values like true/false/yes)")
+        wrong = item.get("wrong")
+        if not isinstance(wrong, list) or len(wrong) < 2 or not all(isinstance(w, str) and w.strip() for w in wrong):
+            raise BuildError(f"{where} needs `wrong`: a list of at least two text answers")
+        if item.get("kind") not in QUIZ_KINDS:
+            raise BuildError(f"{where}: `kind` must be one of {', '.join(QUIZ_KINDS)}")
+
+
 def load_page(src):
     label = src.relative_to(ROOT).as_posix()
-    raw = pandoc([src.name, "--to=html5", f"--template={TEMPLATES / 'meta.json'}"], src.parent, label)
+    raw = pandoc(
+        [src.name, "--to=html5", "--math-method=mathml", f"--template={TEMPLATES / 'meta.json'}"],
+        src.parent, label,
+    )
     page = Page(src, json.loads(raw))
     if page.is_post:
         for field in ("title", "date"):
@@ -103,10 +128,12 @@ def load_page(src):
             if value is not None and not DATE_RE.match(str(value)):
                 raise BuildError(f"{label}: `{field}` must be YYYY-MM-DD, got {value!r}")
     if page.is_unit:
-        if not page.meta.get("title"):
-            raise BuildError(f"{label}: unit front matter needs `title`")
+        for field in ("title", "section"):
+            if not page.meta.get(field):
+                raise BuildError(f"{label}: unit front matter needs `{field}`")
         require_int(page.meta, "unit", label)
         require_int(page.meta, "minutes", label)
+        check_quiz(page.meta, label)
     return page
 
 
@@ -147,9 +174,7 @@ def post_index(posts):
     )
 
 
-def unit_index(units):
-    if not units:
-        return "<p>No units yet.</p>"
+def unit_rows(units):
     rows = []
     for unit in units:
         link = f'<a href="{html.escape(unit.slug)}/">{unit.meta["title"]}</a>'
@@ -163,23 +188,56 @@ def unit_index(units):
             f'<td class="width-min">{unit.minutes} min</td>'
             f'<td class="width-min"><span data-unit-mark="{html.escape(unit.slug)}">·</span></td></tr>'
         )
-    return (
-        '<table class="unit-index">\n'
-        '<thead><tr><th class="width-min">#</th><th class="width-auto">Unit</th>'
-        '<th class="width-min">Time</th><th class="width-min">Done</th></tr></thead>\n'
-        "<tbody>\n" + "\n".join(rows) + "\n</tbody>\n</table>"
-    )
+    return "\n".join(rows)
 
 
-def learn_summary(route, units):
+def unit_index(sections):
+    if not sections:
+        return "<p>No units yet.</p>"
+    parts = []
+    for section in sections:
+        units = section["units"]
+        slugs = " ".join(u.slug for u in units)
+        span = f"{units[0].unit_number:02d}" + (f"–{units[-1].unit_number:02d}" if len(units) > 1 else "")
+        parts.append(
+            f'<h3 class="unit-section"><span class="{section["color"]}">■</span> {section["name"]}'
+            f' <span class="muted">· {span} · <span data-progress="{slugs}">0/{len(units)}</span> done</span></h3>\n'
+            f'<table class="unit-index">\n<tbody>\n{unit_rows(units)}\n</tbody>\n</table>'
+        )
+    return "\n".join(parts)
+
+
+def learn_summary(route, sections, units):
+    """Home page block: the course's `home-title` as a linked heading, then its subtitle and size."""
     if route is None or not units:
         return ""
+    title = route.meta.get("home-title") or route.meta.get("title", "Learn")
     subtitle = route.meta.get("subtitle")
     lead = f"{subtitle} " if subtitle else ""
+    anchor = re.sub(r"[^a-z0-9]+", "-", plain_text(title).lower()).strip("-")
     return (
-        f'<p><a href="{html.escape(route.url)}">{route.meta.get("title", "Learn")}</a>: {lead}'
-        f"{len(units)} units, {total_time(units)}.</p>"
+        f'<h2 id="{anchor}"><a href="{html.escape(route.url)}">{title} →</a></h2>\n'
+        f"<p>{lead}{len(units)} units in {len(sections)} sections, {total_time(units)}.</p>"
     )
+
+
+def quiz_bank(units):
+    """Hidden question bank for assets/learn.js to draw quizzes from (one unit, or all of them)."""
+    items = []
+    for unit in units:
+        tag = (
+            f' data-unit="{html.escape(unit.slug)}" data-unit-number="{unit.unit_number:02d}"'
+            f' data-unit-title="{html.escape(plain_text(unit.meta["title"]))}"'
+        )
+        for q in unit.meta.get("quiz") or []:
+            options = [f'<div class="quiz-option" data-correct="">{q["answer"]}</div>']
+            options += [f'<div class="quiz-option">{wrong}</div>' for wrong in q["wrong"]]
+            items.append(
+                f'<div class="quiz-q" data-kind="{q["kind"]}"{tag}>'
+                f'<div class="quiz-prompt">{q["q"]}</div>{"".join(options)}'
+                f'<div class="quiz-why">{q["why"]}</div></div>'
+            )
+    return f'<div class="quiz-bank" hidden="">{"".join(items)}</div>' if items else ""
 
 
 def render(page, out, site, today, dev):
@@ -213,17 +271,25 @@ def render(page, out, site, today, dev):
             "--variable=home:true",
             f"--variable=build-date:{today.isoformat()}",
             f"--variable=post-index:{post_index(site['posts'])}",
-            f"--variable=learn-summary:{learn_summary(site['route'], site['units'])}",
+            f"--variable=learn-summary:{learn_summary(site['route'], site['sections'], site['units'])}",
         ]
     units = site["units"]
+    if page.is_learn_index or page.is_unit:
+        args += [
+            f"--lua-filter={FILTERS / 'unit-links.lua'}",
+            f"--metadata=unit-slugs:{' '.join(u.slug for u in units)}",
+            f"--metadata=unit-link-prefix:{'../' if page.is_unit else ''}",
+            f"--metadata=unit-self:{page.slug if page.is_unit else ''}",
+        ]
     if page.is_learn_index:
         args += [
             "--variable=learn:true",
             "--variable=learn-index:true",
-            f"--variable=unit-index:{unit_index(units)}",
+            f"--variable=unit-index:{unit_index(site['sections'])}",
             f"--variable=unit-count:{len(units)}",
             f"--variable=unit-slugs:{' '.join(u.slug for u in units)}",
             f"--variable=route-time:{total_time(units) if units else '-'}",
+            f"--variable=review-bank:{quiz_bank(units)}",
         ]
     if page.is_unit:
         route = site["route"]
@@ -235,8 +301,10 @@ def render(page, out, site, today, dev):
             f"--variable=unit-count:{len(units):02d}",
             f"--variable=unit-slug:{page.slug}",
             f"--variable=unit-minutes:{page.minutes} min",
+            f"--variable=section-name:{page.meta['section']}",
             "--variable=route-url:../",
             f"--variable=route-title:{route.meta.get('title', 'Learn') if route else 'Learn'}",
+            f"--variable=quiz-bank:{quiz_bank([page])}",
         ]
         for name, neighbor in (("prev", units[position - 1] if position else None),
                                ("next", units[position + 1] if position + 1 < len(units) else None)):
@@ -256,6 +324,31 @@ def is_hidden(path, base):
     return any(part.startswith(".") for part in path.relative_to(base).parts)
 
 
+def group_sections(route, units):
+    """Units grouped into the route's `sections` (name + color), in unit order."""
+    if not units:
+        return []
+    label = route.rel if route else LEARN.relative_to(ROOT).as_posix()
+    declared = (route.meta.get("sections") if route else None) or []
+    colors = {}
+    for item in declared:
+        if not isinstance(item, dict) or not item.get("name") or item.get("color") not in SECTION_COLORS:
+            raise BuildError(f"{label}: each section needs a `name` and a `color` from {', '.join(SECTION_COLORS)}")
+        colors[item["name"]] = item["color"]
+    groups = []
+    for unit in units:
+        name = unit.meta["section"]
+        if name not in colors:
+            raise BuildError(f"{unit.rel}: section {name!r} isn't listed under `sections` in {label}")
+        if groups and groups[-1]["name"] == name:
+            groups[-1]["units"].append(unit)
+        elif any(g["name"] == name for g in groups):
+            raise BuildError(f"{unit.rel}: section {name!r} has units on both sides of another section")
+        else:
+            groups.append({"name": name, "color": colors[name], "units": [unit]})
+    return groups
+
+
 def build(out=OUT, drafts=False, dev=False):
     if shutil.which("pandoc") is None:
         raise BuildError("pandoc not found on PATH (macOS: brew install pandoc)")
@@ -272,9 +365,9 @@ def build(out=OUT, drafts=False, dev=False):
     numbers = [u.unit_number for u in units]
     if len(set(numbers)) != len(numbers):
         dupes = sorted({n for n in numbers if numbers.count(n) > 1})
-        raise BuildError(f"duplicate unit numbers in content/learn: {dupes}")
+        raise BuildError(f"duplicate unit numbers in {LEARN.relative_to(ROOT)}: {dupes}")
     route = next((p for p in pages if p.is_learn_index), None)
-    site = {"posts": posts, "units": units, "route": route}
+    site = {"posts": posts, "units": units, "route": route, "sections": group_sections(route, units)}
 
     # Build into a staging directory and swap it in at the end, so a dev server never serves a
     # half-written page while a rebuild is running.

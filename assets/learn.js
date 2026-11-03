@@ -196,5 +196,106 @@
   });
   renderProgress();
 
+  // Quizzes --------------------------------------------------------------------------------
+  // A <section class="quiz" data-pick="N"> holds a hidden .quiz-bank (built by build.py from
+  // front matter). Each draw takes N random questions, alternating "term" and "apply" kinds
+  // when both exist, and shuffles each question's options.
+
+  function shuffled(items) {
+    const a = items.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function mixedDraw(pool, count) {
+    const byKind = {};
+    for (const q of shuffled(pool)) (byKind[q.dataset.kind] = byKind[q.dataset.kind] || []).push(q);
+    const queues = Object.values(byKind);
+    const picked = [];
+    while (picked.length < count && queues.some((q) => q.length)) {
+      for (const queue of queues) if (queue.length && picked.length < count) picked.push(queue.shift());
+    }
+    return shuffled(picked);
+  }
+
+  let quizCount = 0;
+  function setupQuiz(section) {
+    const id = ++quizCount;
+    const pick = Number(section.dataset.pick) || 5;
+    const bank = [...section.querySelectorAll(".quiz-bank .quiz-q")];
+    if (!bank.length) return;
+    const filter = section.querySelector("input[data-quiz-filter]");
+    const note = el("p", { class: "quiz-note muted" }, section);
+    const list = el("ol", { class: "quiz-list" }, section);
+    const result = el("p", { class: "quiz-result" }, section);
+    const row = el("div", { class: "buttons" }, section);
+    let items = [];
+
+    function pool() {
+      if (!filter || !filter.checked) return { questions: bank, note: "" };
+      const done = bank.filter((q) => isDone(q.dataset.unit));
+      if (done.length) return { questions: done, note: "" };
+      return { questions: bank, note: "No units are marked done yet, so these come from all of them." };
+    }
+
+    function draw() {
+      const { questions, note: message } = pool();
+      note.textContent = message;
+      note.hidden = !message;
+      result.textContent = "";
+      list.replaceChildren();
+      items = mixedDraw(questions, pick).map((q, i) => {
+        const li = el("li", { class: "quiz-item" }, list);
+        el("div", { class: "quiz-prompt" }, li).innerHTML = q.querySelector(".quiz-prompt").innerHTML;
+        const choices = shuffled([...q.querySelectorAll(".quiz-option")]).map((option) => {
+          const label = el("label", { class: "quiz-choice" }, li);
+          const input = el("input", { type: "radio", name: `quiz-${id}-${i}` }, label);
+          el("span", {}, label).innerHTML = option.innerHTML;
+          return { label, input, correct: option.hasAttribute("data-correct") };
+        });
+        const mark = el("p", { class: "quiz-mark", hidden: "" }, li);
+        const why = el("div", { class: "quiz-why", hidden: "" }, li);
+        why.innerHTML = q.querySelector(".quiz-why").innerHTML;
+        if (filter && q.dataset.unit) {
+          const from = el("p", { class: "quiz-from muted" }, why);
+          from.append("From ");
+          el("a", { href: `${q.dataset.unit}/`, text: `${q.dataset.unitNumber} ${q.dataset.unitTitle}` }, from);
+        }
+        return { choices, mark, why };
+      });
+      check.disabled = false;
+    }
+
+    function grade() {
+      let right = 0, blank = 0;
+      for (const item of items) {
+        const chosen = item.choices.find((c) => c.input.checked);
+        if (!chosen) blank++;
+        const ok = Boolean(chosen && chosen.correct);
+        if (ok) right++;
+        for (const c of item.choices) {
+          c.label.classList.toggle("is-correct", c.correct);
+          c.label.classList.toggle("is-wrong", c.input.checked && !c.correct);
+          c.input.disabled = true;
+        }
+        item.mark.hidden = false;
+        item.mark.className = `quiz-mark ${ok ? "done" : "missed"}`;
+        item.mark.textContent = ok ? "✓ Right." : chosen ? "✗ Not quite." : "✗ Left blank.";
+        item.why.hidden = false;
+      }
+      result.textContent = `${right} of ${items.length} right` + (blank ? ` (${blank} left blank)` : "") + ".";
+      check.disabled = true;
+    }
+
+    const check = button(row, "Check answers", grade);
+    button(row, "New questions", draw);
+    if (filter) filter.addEventListener("change", draw);
+    draw();
+  }
+  document.querySelectorAll("section.quiz").forEach(setupQuiz);
+
   window.Learn = { reducedMotion, ROW, el, svg, stage, controls, slider, button, buttons, readout, arrow, loop, fmt };
 })();

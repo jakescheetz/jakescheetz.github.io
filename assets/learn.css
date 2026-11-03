@@ -185,3 +185,59 @@ span.cyan { color: var(--accent-cyan); }
 .progress-bar {
   white-space: pre;
 }
+.unit-section {
+  margin-bottom: 0;
+}
+
+/* Quizzes: questions drawn at random by assets/learn.js from a hidden .quiz-bank. */
+.quiz-list > li {
+  display: grid;
+  grid-template-columns: 4ch 1fr;
+}
+.quiz-list > li + li {
+  margin-top: var(--line-height);
+}
+.quiz-list > li::before {
+  grid-column: 1;
+  grid-row: 1;
+}
+.quiz-list > li > * {
+  grid-column: 2;
+  margin: 0;
+}
+.quiz-prompt {
+  font-weight: var(--font-weight-medium);
+}
+.quiz-choice {
+  display: grid;
+  grid-template-columns: 3ch 1fr;
+  width: auto;
+  font-weight: var(--font-weight-normal);
+  cursor: pointer;
+}
+.quiz-choice > * {
+  margin: 0;
+}
+.quiz-choice.is-correct {
+  color: var(--accent-green);
+}
+.quiz-choice.is-wrong {
+  color: var(--accent-orange);
+  text-decoration: line-through;
+}
+.quiz-list > li > .quiz-mark {
+  margin-top: var(--line-height);
+}
+.quiz-mark.missed {
+  color: var(--accent-orange);
+}
+.quiz-why > * {
+  margin: 0;
+}
+.quiz-result {
+  font-weight: var(--font-weight-bold);
+}
+.quiz-filter {
+  font-weight: var(--font-weight-normal);
+  margin-bottom: var(--line-height);
+}
