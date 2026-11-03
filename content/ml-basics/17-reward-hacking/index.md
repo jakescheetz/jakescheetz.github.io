@@ -331,6 +331,7 @@ With noise as the only error, the true reward rises on every row toward its maxi
 - Unit 16's DPO has no separate reward model, but [Rafailov et al. (2024)](https://arxiv.org/abs/2406.02900) found DPO-style methods degrade in a similar way at larger KL budgets, often before a single pass over the data.
 - Best-of-$n$ also works as a decoding method next to the ones in unit 14: at generation time, sample $n$ responses and return the one a scorer likes best, with $n$ trading compute for distance from $\pi_0$.
 - Everything here treats the policy as a search with no goals of its own. Gao et al. (sec. 4.2.4) note that a model able to game the reward model on purpose could break their trends, and the last section of [my blog post](../../posts/your-reward-model-is-an-attack-surface/) points at that problem.
+- Unit 18 puts reward hacking next to the other ways a model ends up doing something people didn't mean, learning the wrong goal from a correct reward and learning to agree with its raters, and looks at how people supervise and test models for them.
 
 ## Self-test
 

@@ -21,7 +21,7 @@ This goes in order, with each unit using only what came before it, and it ends a
 
 ## How it works
 
-There are seventeen units in five sections.
+There are eighteen units in five sections.
 Each one explains a single idea from the ground up, has at least one picture you can play with, and ends with a short self-test, a "you're done when" list and a quiz that draws a different set of questions every time.
 If you can do everything on the list without looking back at the page, check the unit off and move on.
 Progress is only saved in your browser, and the review quiz at the bottom draws from the units you've checked off.
