@@ -311,3 +311,179 @@
     });
   })();
 })();
+
+// Step-through: one neuron. Weighted sum, then ReLU, for three inputs.
+(function () {
+  const W = [0.5, -0.5];
+  const O = { x: 500, y: 232 }, U = 90; // the ReLU graph: origin and pixels per unit
+  Learn.demo(document.getElementById("demo-neuron"), {
+    height: 320,
+    label: "One neuron: two inputs with weights, a weighted sum z, and a ReLU graph showing the output h",
+    steps: [
+      { s: { x1: 1, x2: 0, sum: 0, relu: 0 }, cap: "A neuron with two inputs. Each input has its own weight: 0.5 for x₁ and −0.5 for x₂. The bias b is 0." },
+      { s: { sum: 1 }, cap: "Feed in x = (1, 0). The weighted sum is 0.5 × 1 + (−0.5) × 0 + 0 = 0.5. That number is z." },
+      { s: { relu: 1 }, cap: "ReLU keeps a positive number as it is. z = 0.5, so the output h is 0.5." },
+      { s: { x1: 0, x2: 1 }, cap: "Now feed in x = (0, 1). The sum is 0.5 × 0 + (−0.5) × 1 + 0 = −0.5. ReLU turns a negative number into zero, so h = 0." },
+      { s: { x1: 2, x2: 0 }, cap: "x = (2, 0) points further along w. Now z = 1 and h = 1. Once z is past zero, the output grows in a straight line." },
+    ],
+    draw(ctx, s, c, d) {
+      const z = W[0] * s.x1 + W[1] * s.x2, h = Math.max(0, z);
+      const box = (x, y, name, v, color) => {
+        d.rect(x - 34, y - 24, 68, 48, c.bg, color, 2);
+        d.text(name, x, y - 36, { c: c.muted, s: 13, a: "center", w: 700 });
+        d.text(d.fmt(v, 2), x, y, { c: color, s: 18, a: "center", w: 700 });
+      };
+      d.arrow(98, 90, 206, 148, c.muted, 2);
+      d.arrow(98, 220, 206, 172, c.muted, 2);
+      d.text("× 0.5", 150, 100, { c: c.ink, s: 13, w: 700 });
+      d.text("× (−0.5)", 150, 212, { c: c.ink, s: 13, w: 700 });
+      box(60, 90, "x₁", s.x1, c.blue);
+      box(60, 220, "x₂", s.x2, c.blue);
+      d.rect(210, 132, 96, 56, c.bg, c.ink, 2);
+      d.text("sum + b", 258, 118, { c: c.muted, s: 13, a: "center", w: 700 });
+      d.text("z =", 222, 160, { c: c.muted, s: 14 });
+      ctx.globalAlpha = s.sum;
+      d.text(d.fmt(z, 2), 296, 160, { c: c.ink, s: 18, a: "right", w: 700 });
+      d.text(`0.5×${d.fmt(s.x1, 1)} + (−0.5)×${d.fmt(s.x2, 1)} + 0`, 30, 290, { c: c.muted, s: 13 });
+      ctx.globalAlpha = 1;
+      d.arrow(308, 160, 372, 160, c.muted, 2);
+
+      // ReLU graph.
+      d.text("h = ReLU(z)", 500, 30, { c: c.muted, s: 13, a: "center", w: 700 });
+      d.line(O.x - 1.2 * U, O.y, O.x + 1.4 * U, O.y, c.muted, 1.5);
+      d.line(O.x, O.y + 16, O.x, O.y - 1.4 * U, c.muted, 1.5);
+      for (const v of [-1, 1]) {
+        d.line(O.x + v * U, O.y - 4, O.x + v * U, O.y + 4, c.muted, 1.5);
+        d.text(d.fmt(v, 0), O.x + v * U, O.y + 18, { c: c.muted, s: 12, a: "center" });
+      }
+      d.line(O.x - 4, O.y - U, O.x + 4, O.y - U, c.muted, 1.5);
+      d.text("1", O.x - 12, O.y - U, { c: c.muted, s: 12, a: "center" });
+      d.text("z", O.x + 1.4 * U - 6, O.y + 18, { c: c.muted, s: 12, a: "center" });
+      d.line(O.x - 1.2 * U, O.y, O.x, O.y, c.blue, 3.5);
+      d.line(O.x, O.y, O.x + 1.3 * U, O.y - 1.3 * U, c.blue, 3.5);
+      if (s.relu > 0.01) {
+        ctx.globalAlpha = s.relu;
+        const px = O.x + z * U, py = O.y - h * U;
+        d.line(px, O.y, px, py, c.orange, 2, [4, 4]);
+        d.dot(px, py, 8, c.orange);
+        d.rect(404, 262, 192, 40, c.bg, c.orange, 2);
+        d.text(`z = ${d.fmt(z, 2)}  →  h = ${d.fmt(h, 2)}`, 500, 282, { c: c.ink, s: 14, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();
+
+// Step-through: the hand-built XOR network drawn along the one axis both hidden units read.
+(function () {
+  const X = (v) => 120 + v * 190, Y = (v) => 240 - v * 85;
+  const targets = [0, 1, 0], names = ["(0, 0)", "(0, 1) (1, 0)", "(1, 1)"];
+  Learn.demo(document.getElementById("demo-xor"), {
+    height: 340,
+    label: "XOR targets plotted against x1 plus x2, with the two ReLU hidden units and the output that bends to fit them",
+    steps: [
+      { s: { lin: 0, h1: 0, h2: 0, out: 0 }, cap: "Place the four XOR inputs by their sum x₁ + x₂. The targets (squares) are 0 at sum 0, 1 at sum 1, and 0 at sum 2. They go up, then back down." },
+      { s: { lin: 1 }, cap: "A linear function can't rise and then fall. The best it can do is a flat 0.5 everywhere, which is off by 0.5 at every input." },
+      { s: { lin: 0, h1: 1 }, cap: "Hidden unit h₁ = ReLU(x₁ + x₂). It rises with the sum: 0, 1, 2." },
+      { s: { h2: 1 }, cap: "Hidden unit h₂ = ReLU(x₁ + x₂ − 1). It stays at 0 until the sum passes 1, then rises: 0, 0, 1." },
+      { s: { out: 1 }, cap: "The output is ŷ = h₁ − 2 × h₂. Up to sum 1 it follows h₁. After that h₂ pulls it down twice as fast: 0, 1, 0. The bend at 1 lets it hit every target." },
+    ],
+    draw(ctx, s, c, d) {
+      for (const v of [0, 1, 2]) {
+        d.line(X(0), Y(v), X(2), Y(v), v ? c.line : c.muted, v ? 1 : 1.5);
+        d.text(String(v), X(0) - 16, Y(v), { c: c.muted, s: 12, a: "center" });
+        d.line(X(v), Y(0) - 4, X(v), Y(0) + 4, c.muted, 1.5);
+        d.text(String(v), X(v), Y(0) + 20, { c: c.muted, s: 12, a: "center" });
+        d.text(names[v], X(v), Y(0) + 42, { c: c.ink, s: 12, a: "center" });
+      }
+      d.line(X(0), Y(0) + 6, X(0), Y(2) - 10, c.muted, 1.5);
+      d.text("sum x₁ + x₂", X(1), 320, { c: c.muted, s: 12, a: "center" });
+      d.text("inputs", 14, Y(0) + 42, { c: c.muted, s: 12 });
+      const path = (pts, color, alpha, width, dash) => {
+        if (alpha < 0.01) return;
+        ctx.globalAlpha = alpha;
+        for (let i = 0; i + 1 < pts.length; i++) d.line(X(pts[i][0]), Y(pts[i][1]), X(pts[i + 1][0]), Y(pts[i + 1][1]), color, width, dash);
+        ctx.globalAlpha = 1;
+      };
+      path([[0, 0.5], [2, 0.5]], c.red, s.lin, 3, [8, 6]);
+      path([[0, 0], [2, 2]], c.blue, s.h1 * (1 - 0.6 * s.out), 3);
+      path([[0, 0], [1, 0], [2, 1]], c.purple, s.h2 * (1 - 0.6 * s.out), 3);
+      path([[0, 0], [1, 1], [2, 0]], c.orange, s.out, 5);
+      const tag = (str, x, y, color, alpha) => { if (alpha > 0.01) { ctx.globalAlpha = alpha; d.text(str, x, y, { c: color, s: 13, w: 700 }); ctx.globalAlpha = 1; } };
+      tag("linear: 0.5", X(2) + 12, Y(0.5), c.red, s.lin);
+      tag("h₁", X(2) + 12, Y(2), c.blue, s.h1);
+      tag("h₂", X(2) + 12, Y(1), c.purple, s.h2);
+      tag("ŷ = h₁ − 2h₂", X(2) + 12, Y(0) - 14, c.orange, s.out);
+      for (const v of [0, 1, 2]) d.rect(X(v) - 9, Y(targets[v]) - 9, 18, 18, c.bg, c.ink, 3);
+      d.rect(16, 16, 16, 16, c.bg, c.ink, 3);
+      d.text("target", 42, 24, { c: c.ink, s: 13, w: 700 });
+    },
+  });
+})();
+
+// Step-through: a finite-difference check of one backprop gradient, then one training step.
+(function () {
+  // The backprop network with only W1[0][0] = w free: z1 = w, h1 = ReLU(w), h2 = 0, so y-hat = h1.
+  const L = (w) => (Math.max(0, w) - 1) ** 2;
+  const X = (w) => 70 + (w + 0.2) * 300, Y = (v) => 286 - v * 190;
+  const w0 = 0.5, eps = 0.1, eta = 0.1, grad = 2 * (w0 - 1);
+  const slope = (L(w0 + eps) - L(w0 - eps)) / (2 * eps);
+  Learn.demo(document.getElementById("demo-gradcheck"), {
+    height: 340,
+    label: "The loss as one weight changes, with two nudged points and the line through them whose slope is the gradient",
+    steps: [
+      { s: { up: 0, dn: 0, sec: 0, step: 0 }, cap: "The loss of the backprop network as its first weight changes and everything else stays fixed. The weight is 0.5 and the loss is 0.25. Backprop says the gradient here is −1." },
+      { s: { up: 1 }, cap: "Nudge the weight up by ε = 0.1, to 0.6, and run a forward pass. The loss is 0.16." },
+      { s: { dn: 1 }, cap: "Nudge it down by 0.1, to 0.4, and run another forward pass. The loss is 0.36." },
+      { s: { sec: 1 }, cap: "Divide the change in loss by the distance between the nudges: (0.16 − 0.36) ÷ 0.2 = −1. That matches backprop. Real checks use a far smaller ε, like 0.000001." },
+      { s: { up: 0, dn: 0, sec: 0, step: 1 }, cap: "Training uses that gradient. With η = 0.1 the update is 0.5 − 0.1 × (−1) = 0.6. The weight moves right and the loss drops from 0.25 to 0.16." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(X(-0.2), Y(0), X(1.4), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(0) + 6, X(0), Y(1.1), c.muted, 1.5);
+      for (const v of [0, 0.5, 1]) {
+        d.line(X(v), Y(0) - 4, X(v), Y(0) + 4, c.muted, 1.5);
+        d.text(String(v), X(v), Y(0) + 18, { c: c.muted, s: 12, a: "center" });
+      }
+      for (const v of [0.5, 1]) {
+        d.line(X(0) - 4, Y(v), X(0) + 4, Y(v), c.muted, 1.5);
+        d.text(String(v), X(0) - 10, Y(v), { c: c.muted, s: 12, a: "right" });
+      }
+      d.text("first weight of W₁", X(1.4), Y(0) + 40, { c: c.muted, s: 12, a: "right" });
+      d.text("loss L", X(0) + 10, Y(1.1) + 2, { c: c.muted, s: 12 });
+      ctx.strokeStyle = c.blue; ctx.lineWidth = 3.5; ctx.setLineDash([]);
+      ctx.beginPath();
+      for (let i = 0; i <= 160; i++) { const w = -0.2 + i * 0.01; if (i) ctx.lineTo(X(w), Y(L(w))); else ctx.moveTo(X(w), Y(L(w))); }
+      ctx.stroke();
+      if (s.sec > 0.01) {
+        ctx.globalAlpha = s.sec;
+        const a = w0 - 0.4, b = w0 + 0.25, mid = (L(w0 + eps) + L(w0 - eps)) / 2;
+        d.line(X(a), Y(mid + slope * (a - w0)), X(b), Y(mid + slope * (b - w0)), c.orange, 2, [7, 5]);
+        ctx.globalAlpha = 1;
+      }
+      const nudge = (w, alpha, side) => {
+        if (alpha < 0.01) return;
+        ctx.globalAlpha = alpha;
+        d.line(X(w), Y(0), X(w), Y(L(w)), c.orange, 1.5, [3, 4]);
+        d.dot(X(w), Y(L(w)), 6, c.orange);
+        d.text(d.fmt(L(w), 2), X(w) + side * 12, Y(L(w)) - side * 13, { c: c.orange, s: 13, a: side > 0 ? "left" : "right", w: 700 });
+        ctx.globalAlpha = 1;
+      };
+      nudge(w0 + eps, s.up, 1);
+      nudge(w0 - eps, s.dn, -1);
+      const w = w0 - eta * grad * s.step;
+      d.line(X(w), Y(0), X(w), Y(L(w)), c.ink, 1.5, [3, 4]);
+      d.dot(X(w), Y(L(w)), 8, c.ink);
+      d.panel(c, 356, 20, 270, 122);
+      d.text(`weight ${d.fmt(w, 2)}   loss ${d.fmt(L(w), 2)}`, 370, 42, { c: c.ink, s: 13, w: 700 });
+      d.text(`backprop gradient: ${d.fmt(grad, 2)}`, 370, 68, { c: c.muted, s: 13 });
+      ctx.globalAlpha = s.sec;
+      d.text("finite difference:", 370, 96, { c: c.orange, s: 13, w: 700 });
+      d.text(`(0.16 − 0.36) ÷ 0.2 = ${d.fmt(slope, 2)}`, 370, 120, { c: c.orange, s: 13, w: 700 });
+      ctx.globalAlpha = s.step;
+      d.text("update: w ← w − η × gradient", 370, 96, { c: c.ink, s: 13 });
+      d.text(`0.5 − 0.1 × (−1) = ${d.fmt(w0 - eta * grad, 2)}`, 370, 120, { c: c.ink, s: 13, w: 700 });
+      ctx.globalAlpha = 1;
+    },
+  });
+})();

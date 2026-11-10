@@ -331,3 +331,218 @@
     reset();
   })();
 })();
+
+// Step-through: the four single-point gradients against their average, at the start and at the bottom.
+(function () {
+  const xs = [0, 1, 2, 3], ys = [1, 3, 4, 7];
+  const START = [-1, 3], BEST = [1.9, 0.9], OY = 116;
+  Learn.demo(document.getElementById("demo-noise"), {
+    height: 340,
+    label: "Four arrows, one gradient per data point, and a thicker arrow for their average, first at the starting line and then at the best line",
+    steps: [
+      { s: { n: 1, avg: 0, pos: 0, zoom: 9, ox: 500 }, cap: "Start at w = −1, b = 3. Each arrow is the gradient from one data point. Point 1 alone gives (0, 4). A step goes against the arrow, so point 1 says: lower b." },
+      { s: { n: 4 }, cap: "The other three points give (−2, −2), (−12, −6) and (−42, −14). Four points, four different arrows." },
+      { s: { avg: 1 }, cap: "Their average is the full gradient, (−14, −4.5). A batch of one steps along a single blue arrow. Any one of them can be far off. Averaged over many steps, they add up to the orange one." },
+      { s: { pos: 1, zoom: 60, ox: 320 }, cap: "Now move to the best line, w = 1.9, b = 0.9, and zoom in. The average is exactly (0, 0). But single arrows as long as about 3 remain, so a batch of one keeps getting kicked off the bottom." },
+    ],
+    draw(ctx, s, c, d) {
+      const w = START[0] + (BEST[0] - START[0]) * s.pos, b = START[1] + (BEST[1] - START[1]) * s.pos;
+      const grads = xs.map((x, i) => { const e = w * x + b - ys[i]; return [2 * e * x, 2 * e]; });
+      const mean = [0, 1].map((k) => grads.reduce((a, g) => a + g[k], 0) / 4);
+      const PX = (v) => s.ox + v * s.zoom, PY = (v) => OY - v * s.zoom;
+      d.line(20, OY, 620, OY, c.line, 1.5);
+      d.line(s.ox, 16, s.ox, 250, c.line, 1.5);
+      d.text("w part", 616, OY + 14, { c: c.muted, s: 12, a: "right" });
+      d.text("b part", s.ox + 8, 22, { c: c.muted, s: 12 });
+      const unit = s.pos < 0.5 ? 10 : 1;
+      d.line(24, 42, 24 + unit * s.zoom, 42, c.muted, 2);
+      d.line(24, 37, 24, 47, c.muted, 2);
+      d.line(24 + unit * s.zoom, 37, 24 + unit * s.zoom, 47, c.muted, 2);
+      d.text(`length ${unit}`, 24, 24, { c: c.muted, s: 12 });
+      // Mid-zoom the arrows overshoot; keep them out of the readout below.
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, 640, 256); ctx.clip();
+      grads.forEach((g, i) => {
+        const alpha = d.clamp(s.n - i, 0, 1);
+        if (alpha < 0.01) return;
+        ctx.globalAlpha = alpha;
+        d.arrow(PX(0), PY(0), PX(g[0]), PY(g[1]), c.blue, 3);
+        const len = Math.hypot(g[0], g[1]) || 1, off = 14;
+        d.text(String(i + 1), d.clamp(PX(g[0]) + g[0] / len * off, 12, 628), d.clamp(PY(g[1]) - g[1] / len * off, 14, 246), { c: c.blue, s: 13, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      });
+      if (s.avg > 0.01) {
+        ctx.globalAlpha = s.avg;
+        d.arrow(PX(0), PY(0), PX(mean[0]), PY(mean[1]), c.orange, 5);
+        d.dot(PX(mean[0]), PY(mean[1]), 5, c.orange);
+        ctx.globalAlpha = 1;
+      }
+      d.dot(PX(0), PY(0), 4, c.ink);
+      ctx.restore();
+      d.panel(c, 20, 262, 600, 66);
+      const xsLabel = [34, 150, 280, 420];
+      grads.forEach((g, i) => {
+        ctx.globalAlpha = d.clamp(s.n - i, 0, 1);
+        d.text(`${i + 1}: (${d.fmt(g[0], 1)}, ${d.fmt(g[1], 1)})`, xsLabel[i], 282, { c: c.blue, s: 13, w: 700 });
+      });
+      ctx.globalAlpha = s.avg;
+      d.text(`average = full gradient: (${d.fmt(mean[0], 1)}, ${d.fmt(mean[1], 1)})`, 34, 308, { c: c.orange, s: 13, w: 700 });
+      ctx.globalAlpha = 1;
+      d.text(`w = ${d.fmt(w, 1)}, b = ${d.fmt(b, 1)}`, 606, 308, { c: c.muted, s: 13, a: "right" });
+    },
+  });
+})();
+
+// Step-through: momentum's velocity when the gradient is steady, then when it flips every step.
+(function () {
+  const BETA = 0.5, BASE = 176, U = 56;
+  const X = (k) => 96 + (k - 1) * 78;
+  Learn.demo(document.getElementById("demo-momentum"), {
+    height: 320,
+    label: "Bars for the gradient and the momentum velocity over six steps, first with a steady gradient and then with one that flips sign",
+    steps: [
+      { s: { t: 1, flip: 0 }, cap: "Momentum keeps a velocity v. Each step it halves the old v (β = 0.5) and adds the new gradient. Here the gradient is 1 on every step. After step 1, v = 1." },
+      { s: { t: 2 }, cap: "Step 2: half of the old velocity plus the new gradient. 0.5 × 1 + 1 = 1.5." },
+      { s: { t: 6 }, cap: "Keep going: 1.75, 1.88, 1.94, 1.97. The velocity levels off at 2, which is 1 ÷ (1 − 0.5). A steady gradient doubles the step." },
+      { s: { t: 1, flip: 1 }, cap: "Now the gradient flips sign on every step: +1, −1, +1, −1. After step 1, v = 1 again." },
+      { s: { t: 2 }, cap: "Step 2: 0.5 × 1 + (−1) = −0.5. The leftover velocity cancels half of the new gradient." },
+      { s: { t: 6 }, cap: "Keep going: 0.75, −0.63, 0.69, −0.66. The size settles at 0.67, which is 1 ÷ (1 + 0.5). A flipping gradient shrinks the step." },
+    ],
+    draw(ctx, s, c, d) {
+      const flip = s.flip > 0.5;
+      d.rect(24, 18, 14, 14, c.blue); d.text("gradient g", 46, 25, { c: c.blue, s: 13, w: 700 });
+      d.rect(160, 18, 14, 14, c.orange); d.text("velocity v", 182, 25, { c: c.orange, s: 13, w: 700 });
+      d.text(flip ? "gradient flips: +1, −1, +1, ..." : "gradient steady: 1, 1, 1, ...", 616, 25, { c: c.ink, s: 13, a: "right", w: 700 });
+      d.line(60, BASE, 560, BASE, c.muted, 1.5);
+      const limit = flip ? 1 / (1 + BETA) : 1 / (1 - BETA);
+      for (const sign of flip ? [1, -1] : [1]) d.line(60, BASE - sign * limit * U, 560, BASE - sign * limit * U, c.muted, 1.5, [6, 5]);
+      d.text(flip ? "±0.67" : "2", 568, BASE - limit * U, { c: c.muted, s: 13, w: 700 });
+      d.text("0", 568, BASE, { c: c.muted, s: 13 });
+      let v = 0;
+      for (let k = 1; k <= 6; k++) {
+        const g = flip && k % 2 === 0 ? -1 : 1;
+        v = BETA * v + g;
+        d.text(`step ${k}`, X(k) + 26, 256, { c: c.muted, s: 12, a: "center" });
+        const alpha = d.clamp(s.t - k + 1, 0, 1);
+        if (alpha < 0.01) continue;
+        ctx.globalAlpha = alpha;
+        d.rect(X(k), Math.min(BASE, BASE - g * U), 22, U, c.blue);
+        d.rect(X(k) + 30, Math.min(BASE, BASE - v * U), 22, Math.abs(v) * U, c.orange);
+        d.text(d.fmt(v, 2), X(k) + 41, v > 0 ? BASE - v * U - 12 : BASE - v * U + 12, { c: c.orange, s: 13, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      }
+      d.panel(c, 24, 276, 592, 34);
+      d.text("each step:  v ← 0.5 × v + g", 38, 293, { c: c.ink, s: 13, w: 700 });
+      d.text(flip ? "settles at 1 ÷ (1 + 0.5) = 0.67" : "settles at 1 ÷ (1 − 0.5) = 2", 602, 293, { c: c.muted, s: 13, a: "right" });
+    },
+  });
+})();
+
+// Step-through: Adam's first step on unit 4's line, one quantity at a time.
+(function () {
+  const g = [-14, -4.5], ETA = 0.1, B1 = 0.9, B2 = 0.999;
+  const m = g.map((v) => (1 - B1) * v), sq = g.map((v) => (1 - B2) * v * v);
+  const mh = m.map((v) => v / (1 - B1)), sh = sq.map((v) => v / (1 - B2));
+  const ratio = mh.map((v, i) => v / Math.sqrt(sh[i]));
+  const rows = [
+    ["gradient g", g, 1],
+    ["GD step: −η × g", g.map((v) => -ETA * v), 2],
+    ["m = 0.1 × g", m, 2],
+    ["s = 0.001 × g²", sq, 5],
+    ["m̂ = m ÷ 0.1", mh, 1],
+    ["ŝ = s ÷ 0.001", sh, 2],
+    ["m̂ ÷ √ŝ", ratio, 2],
+    ["Adam step: −η × that", ratio.map((v) => -ETA * v), 2],
+  ];
+  const RY = (i) => 62 + i * 31;
+  Learn.demo(document.getElementById("demo-adam"), {
+    height: 330,
+    label: "A table that builds Adam's first step for w and b from the gradient, next to bars comparing it with gradient descent's step",
+    steps: [
+      { s: { r: 2, h0: 0, h1: 1, adam: 0 }, cap: "The start of unit 4's line. The gradient is −14 for w and −4.5 for b. Plain gradient descent with η = 0.1 moves w by 1.4 and b by 0.45." },
+      { s: { r: 3, h0: 2, h1: 2 }, cap: "Adam keeps m, a running average of the gradient. It starts at 0, so after one step m = 0.1 × g. That is −1.4 for w and −0.45 for b." },
+      { s: { r: 4, h0: 3, h1: 3 }, cap: "It also keeps s, a running average of the squared gradient. After one step s = 0.001 × g², which is 0.196 for w and 0.02025 for b." },
+      { s: { r: 6, h0: 4, h1: 5 }, cap: "Both averages started at zero, so both are too small. Bias correction divides m by 0.1 and s by 0.001. That gives m̂ = −14 and −4.5, and ŝ = 196 and 20.25." },
+      { s: { r: 7, h0: 6, h1: 6 }, cap: "Divide m̂ by the square root of ŝ. For w: −14 ÷ 14 = −1. For b: −4.5 ÷ 4.5 = −1. The size of the gradient cancels. Only its sign is left." },
+      { s: { r: 8, h0: 7, h1: 7, adam: 1 }, cap: "Adam's step is −η times that: 0.1 for w and 0.1 for b. Gradient descent moved w 14 times as far and b 4.5 times as far. Adam moves every parameter the same distance." },
+    ],
+    draw(ctx, s, c, d) {
+      d.text("w", 300, 30, { c: c.muted, s: 13, a: "right", w: 700 });
+      d.text("b", 400, 30, { c: c.muted, s: 13, a: "right", w: 700 });
+      d.line(20, 44, 410, 44, c.muted, 1.5);
+      d.rect(20, RY(s.h0) - 15, 390, RY(s.h1) - RY(s.h0) + 30, c.soft);
+      rows.forEach(([name, vals, digits], i) => {
+        const alpha = d.clamp(s.r - i, 0, 1);
+        if (alpha < 0.01) return;
+        ctx.globalAlpha = alpha;
+        const color = i === 1 ? c.blue : i === 7 ? c.orange : c.ink;
+        d.text(name, 30, RY(i), { c: i === 1 || i === 7 ? color : c.muted, s: 13, w: 700 });
+        d.text(d.fmt(vals[0], digits), 300, RY(i), { c: color, s: 14, a: "right", w: 700 });
+        d.text(d.fmt(vals[1], digits), 400, RY(i), { c: color, s: 14, a: "right", w: 700 });
+        ctx.globalAlpha = 1;
+      });
+      // Bars: how far each parameter moves on the first step.
+      const BX = 470, U = 90;
+      const bar = (y, label, v, color) => {
+        d.text(label, BX - 10, y, { c: c.muted, s: 13, a: "right", w: 700 });
+        d.rect(BX, y - 9, v * U, 18, color);
+        d.text(d.fmt(v, 2), BX + v * U + 8, y, { c: color, s: 13, w: 700 });
+      };
+      d.text("first step, gradient", 440, 62, { c: c.blue, s: 13, w: 700 });
+      d.text("descent", 440, 80, { c: c.blue, s: 13, w: 700 });
+      bar(108, "w", -ETA * g[0], c.blue);
+      bar(136, "b", -ETA * g[1], c.blue);
+      ctx.globalAlpha = s.adam;
+      d.text("first step, Adam", 440, 196, { c: c.orange, s: 13, w: 700 });
+      bar(224, "w", -ETA * ratio[0], c.orange);
+      bar(252, "b", -ETA * ratio[1], c.orange);
+      ctx.globalAlpha = 1;
+      d.line(BX, 96, BX, 264, c.muted, 1.5);
+    },
+  });
+})();
+
+// Step-through: warmup then cosine decay over a 200-step run.
+(function () {
+  const T = 200, W = 20, MAX = 0.05, MIN = 0.005;
+  const eta = (t) => (t <= W ? MAX * t / W : MIN + 0.5 * (MAX - MIN) * (1 + Math.cos(Math.PI * (t - W) / (T - W))));
+  const X = (t) => 80 + t * 2.6, Y = (v) => 250 - v * 4000;
+  Learn.demo(document.getElementById("demo-schedule"), {
+    height: 320,
+    label: "The learning rate over a 200-step run: a straight climb for 20 steps, then a cosine-shaped fall to a floor",
+    steps: [
+      { s: { t: 0 }, cap: "An example run: 200 steps, 20 of them warmup, a peak learning rate of 0.05 and a floor of 0.005 (10% of the peak). At step 0 the learning rate is 0." },
+      { s: { t: 10 }, cap: "Step 10 is halfway through warmup, so the learning rate is half the peak: 0.05 × 10 ÷ 20 = 0.025." },
+      { s: { t: 20 }, cap: "Step 20: warmup ends and the learning rate is at its peak, 0.05. From here the cosine formula takes over." },
+      { s: { t: 110 }, cap: "Step 110 is halfway through the decay. The cosine is 0 there, so the learning rate sits halfway between peak and floor: 0.0275. This is where it falls fastest." },
+      { s: { t: 200 }, cap: "Step 200: the curve levels off at the floor, 0.005. Small steps at the end let the parameters settle instead of bouncing." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(X(0), Y(0), X(T), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(0), X(0), Y(0.056), c.muted, 1.5);
+      for (const t of [0, 20, 110, 200]) {
+        d.line(X(t), Y(0) - 4, X(t), Y(0) + 4, c.muted, 1.5);
+        d.text(String(t), X(t), Y(0) + 18, { c: c.muted, s: 12, a: "center" });
+      }
+      d.text("step t", X(T), Y(0) + 42, { c: c.muted, s: 12, a: "right" });
+      for (const [v, name] of [[MAX, "peak 0.05"], [MIN, "floor 0.005"]]) {
+        d.line(X(0), Y(v), X(T), Y(v), c.line, 1.5, [5, 5]);
+        d.text(name, X(T) + 30, Y(v) - 16, { c: c.muted, s: 12, a: "right" });
+      }
+      d.text("η", X(0) - 14, Y(0.056) + 4, { c: c.muted, s: 13, a: "center", w: 700 });
+      ctx.globalAlpha = 0.35;
+      d.rect(X(0), Y(0.056), X(W) - X(0), Y(0) - Y(0.056), c.soft);
+      ctx.globalAlpha = 1;
+      d.text("warmup", X(W) + 6, Y(0) - 12, { c: c.muted, s: 12 });
+      ctx.strokeStyle = c.blue; ctx.lineWidth = 3.5; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(X(0), Y(0));
+      for (let t = 1; t <= s.t; t++) ctx.lineTo(X(t), Y(eta(t)));
+      ctx.lineTo(X(s.t), Y(eta(s.t)));
+      ctx.stroke();
+      const px = X(s.t), py = Y(eta(s.t));
+      d.line(px, Y(0), px, py, c.orange, 1.5, [3, 4]);
+      d.dot(px, py, 7, c.orange);
+      d.panel(c, 330, 16, 220, 34);
+      d.text(`step ${Math.round(s.t)}   η = ${eta(s.t).toFixed(4)}`, 344, 33, { c: c.ink, s: 13, w: 700 });
+    },
+  });
+})();

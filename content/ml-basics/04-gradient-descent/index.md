@@ -68,19 +68,29 @@ quiz:
     why: 'Growing overshoots mean $\eta$ times the steepest curvature is above 2. A smaller $\eta$ brings it back under.'
 ---
 
-Unit 2 ended with the gradient, the direction that makes a function go up fastest.
-Training uses it the other way around: score how wrong the model's outputs are with a single number, the loss, and lower that number a little at a time by stepping against the gradient.
-Every model in the rest of the route, from the network in unit 8 to the reward model in unit 16, is trained by some version of this loop.
+::: why
+Think about tuning a guitar string.
+You pluck it, hear how far off the note is, turn the peg a little in the direction that helps, and repeat.
+Training a model works the same way.
+The *loss* is one number for how far off the model is, and *gradient descent* is the rule for which way to turn every knob.
+Every model in the rest of this course, from the network in unit 8 to the reward model in unit 16, is trained by some version of this loop.
+:::
 
 ## A loss is one number for how wrong
 
-Take four points, $(0, 1)$, $(1, 3)$, $(2, 4)$ and $(3, 7)$, and try to draw a straight line through them.
-A line is $\hat y = wx + b$, where $w$ is the slope, $b$ is where it crosses the y-axis, and $\hat y$ ("y hat") is the line's prediction at $x$.
-The two numbers $w$ and $b$ are the model's parameters, and I'll write them together as $\theta = (w, b)$.
+Take four points: $(0, 1)$, $(1, 3)$, $(2, 4)$ and $(3, 7)$.
+The job is to draw one straight line that comes close to all of them.
 
-No line goes through all four points, so the question is which line misses by the least.
-For each point $(x_i, y_i)$ the miss is $\hat y_i - y_i$, the prediction minus the target.
-Square each miss and average over the $N$ points:
+A line is $\hat y = wx + b$.
+Here $w$ is the slope and $b$ is where the line crosses the y-axis.
+The symbol $\hat y$ ("y hat") is the line's prediction at $x$.
+The numbers $w$ and $b$ are the model's *parameters*, the knobs that training gets to turn.
+I'll write them together as $\theta = (w, b)$.
+
+No line goes through all four points.
+So the real question is which line misses by the least.
+For each point $(x_i, y_i)$, the *miss* is $\hat y_i - y_i$, the prediction minus the target.
+Square each miss, then average over the $N$ points:
 
 $$
 L(w, b) = \frac{1}{N} \sum_{i=1}^{N} (\hat y_i - y_i)^2 = \frac{1}{N} \sum_{i=1}^{N} (w x_i + b - y_i)^2
@@ -91,26 +101,36 @@ $\hat y_i$ is the line's prediction at $x_i$, and the sum runs over the points $
 The second form just writes the prediction out as $w x_i + b$.
 :::
 
-This is the *mean squared error*, and $L$ is the *loss*: one number for the whole line, lower is better.
+This average is called the *mean squared error*.
+The result $L$ is the *loss*: one number for the whole line, and lower is better.
 
 Try $w = 2$, $b = 0$.
-The predictions are $0, 2, 4, 6$, the misses are $-1, -1, 0, -1$, and the loss is $(1 + 1 + 0 + 1) / 4 = 0.75$.
+The predictions are $0, 2, 4, 6$ and the misses are $-1, -1, 0, -1$.
+The loss is $(1 + 1 + 0 + 1) / 4 = 0.75$.
 The best possible line for these points is $w = 1.9$, $b = 0.9$, with loss $0.175$.
-A bad guess like $w = -1$, $b = 3$ (sloping the wrong way) misses by $2, -1, -3, -7$ and scores $63 / 4 = 15.75$.
+A bad guess like $w = -1$, $b = 3$ slopes the wrong way.
+It misses by $2, -1, -3, -7$ and scores $63 / 4 = 15.75$.
+
+<figure class="widget demo" id="demo-loss"></figure>
 
 Squaring does two jobs.
-It makes every miss count as positive, so a miss above the line can't cancel one below it.
-It also makes big misses cost much more than small ones: missing by 7 costs 49, while missing by 1 costs 1.
+First, it makes every miss count as positive, so a miss above the line can't cancel one below it.
+Second, it makes big misses cost much more than small ones.
+Missing by 7 costs 49, while missing by 1 costs 1.
 
 ## Walk downhill
 
-The loss is a function of $w$ and $b$, so you can picture it as a surface over the $(w, b)$ plane, with height $L$.
-Every point on that surface is one line through the data.
-Fitting the line means finding the lowest point.
+The loss depends on $w$ and $b$.
+Picture it as a landscape: $w$ runs east to west, $b$ runs north to south, and the height at each spot is $L$.
+Every spot on that landscape is one line through the data.
+Fitting the line means finding the lowest spot.
 
-For two parameters you could solve for the bottom with algebra.
-A language model has billions of parameters and a loss with no closed-form answer, so instead you start somewhere and repeatedly take a small step downhill.
-[Unit 2](../02-gradients/#the-gradient-points-uphill) showed that the gradient $\nabla L$ points in the steepest uphill direction, so the step goes the opposite way:
+With two parameters you could solve for the bottom with algebra.
+A language model has billions of parameters, and no formula gives its lowest spot.
+So training does what a hiker in fog would do: feel which way the ground slopes and take a small step downhill, over and over.
+
+[Unit 2](../02-gradients/#the-gradient-points-uphill) showed that the gradient $\nabla L$ points in the steepest uphill direction.
+The step goes the opposite way:
 
 $$
 \theta \leftarrow \theta - \eta \nabla L(\theta)
@@ -121,9 +141,12 @@ $\eta$ (eta) is a small positive number.
 In words: from the current parameters $\theta$, compute the gradient of the loss there, scale it by $\eta$, and subtract it.
 :::
 
-The *learning rate* $\eta$ sets how far each step goes, and repeating the update until the loss stops falling is *gradient descent*.
+The number $\eta$ is the *learning rate*.
+It sets how far each step goes.
+Repeating this update until the loss stops falling is called *gradient descent*.
 
-For the line fit, write $e_i = w x_i + b - y_i$ for the miss at point $i$; the [chain rule](../02-gradients/#the-rules-you-need) gives the two partial derivatives:
+For the line fit, write $e_i = w x_i + b - y_i$ for the miss at point $i$.
+The [chain rule](../02-gradients/#the-rules-you-need) gives the two partial derivatives:
 
 $$
 \frac{\partial L}{\partial w} = \frac{2}{N} \sum_{i=1}^{N} e_i x_i, \qquad \frac{\partial L}{\partial b} = \frac{2}{N} \sum_{i=1}^{N} e_i
@@ -134,29 +157,41 @@ The chain rule step: $e_i$ changes by $x_i$ when $w$ moves by 1 and by $1$ when 
 Each partial averages the misses over the $N$ points and doubles them, the 2 coming from the square.
 :::
 
-For $w$ every miss is weighted by its $x_i$, so points far to the right count for more; for $b$ every miss counts the same.
+For $w$, each miss is multiplied by its $x_i$, so points far to the right count for more.
+For $b$, every miss counts the same.
 
 Start from the bad guess $w = -1$, $b = 3$, where the misses are $2, -1, -3, -7$.
 Then $\partial L / \partial w = \frac{2}{4}(0 - 1 - 6 - 21) = -14$ and $\partial L / \partial b = \frac{2}{4}(2 - 1 - 3 - 7) = -4.5$.
 Both are negative, so raising either parameter lowers the loss.
-With $\eta = 0.1$ the step gives $w = -1 + 1.4 = 0.4$ and $b = 3 + 0.45 = 3.45$, and the loss drops from 15.75 to about 3.08.
+With $\eta = 0.1$ the step gives $w = -1 + 1.4 = 0.4$ and $b = 3 + 0.45 = 3.45$.
+The loss drops from 15.75 to about 3.08.
+
+<figure class="widget demo" id="demo-step"></figure>
 
 ## The learning rate
 
-$\eta$ is a choice you make, and a bowl with one parameter shows what happens as you change it.
+You choose $\eta$, and the choice matters a lot.
+A bowl with one parameter shows why.
 Take $L(\theta) = \frac{1}{2}\lambda\theta^2$, a parabola with its bottom at $\theta = 0$.
-The number $\lambda$ is the curvature: how quickly the slope grows as you move away from the bottom, so a big $\lambda$ means steep walls.
-The gradient is $\lambda\theta$, and one step of gradient descent gives
+The number $\lambda$ is the *curvature*: how quickly the slope grows as you move away from the bottom.
+A big $\lambda$ means steep walls.
+The gradient is $\lambda\theta$, so one step of gradient descent gives
 
 $$
 \theta \leftarrow \theta - \eta\lambda\theta = (1 - \eta\lambda)\,\theta
 $$
 
 Every step multiplies the distance from the bottom by the same factor, $1 - \eta\lambda$.
-If $\eta\lambda$ is small, the factor is just under 1 and progress is slow.
-At $\eta\lambda = 1$ the factor is 0 and the first step lands exactly on the bottom.
-Between 1 and 2 the factor is negative, so each step overshoots to the other side, but by less each time.
-Above 2 the factor is below −1, every step overshoots by more than the last, and $\theta$ runs off to infinity.
+That one factor decides everything:
+
+- If $\eta\lambda$ is small, the factor is just under 1 and progress is slow.
+- At $\eta\lambda = 1$ the factor is 0, and the first step lands exactly on the bottom.
+- Between 1 and 2 the factor is negative. Each step overshoots to the other side, but by less each time.
+- Above 2 the factor is below −1. Every step overshoots by more than the last, and $\theta$ runs off to infinity. People say the training *diverges*.
+
+<figure class="widget demo" id="demo-rate"></figure>
+
+The same four cases as a table:
 
 <figure>
 <pre>  ηλ   step 0       1       2       3       4       5
@@ -167,44 +202,61 @@ Above 2 the factor is below −1, every step overshoots by more than the last, a
 <figcaption>θ after each step on the bowl ½λθ², starting from θ = 1. Each row multiplies by 1 − ηλ per step.</figcaption>
 </figure>
 
-The line-fit loss is a bowl too, stretched so its contour lines are long, thin ellipses.
-Along the short axis of the ellipses the walls are steep, with curvature 8.41.
-Along the long axis they're nearly flat, with curvature 0.59.
+The line-fit loss is a bowl too, but a stretched one.
+Seen from above, its contour lines are long, thin ellipses, like a valley between two ridges.
+Across the valley the walls are steep, with curvature 8.41.
+Along the valley floor the ground is nearly flat, with curvature 0.59.
 (These are the eigenvalues of the matrix of second derivatives of $L$.)
-The steep direction is mostly $w$, because changing the slope moves the prediction at $x = 3$ three times as far as changing $b$ does.
+The steep direction is mostly $w$.
+That's because changing the slope moves the prediction at $x = 3$ three times as far as changing $b$ does.
 
 One $\eta$ has to serve both directions at once.
-The steep direction sets the speed limit: above $\eta = 2 / 8.41 \approx 0.238$ it diverges, and above $1 / 8.41 \approx 0.119$ it zig-zags.
-The flat direction sets how long the trip takes: at $\eta = 0.1$ each step only multiplies its distance by $1 - 0.1 \cdot 0.59 = 0.94$.
+The steep direction sets the speed limit.
+Above $\eta = 2 / 8.41 \approx 0.238$ it diverges, and above $1 / 8.41 \approx 0.119$ it zig-zags.
+The flat direction sets how long the trip takes.
+At $\eta = 0.1$ each step only multiplies its distance by $1 - 0.1 \cdot 0.59 = 0.94$.
 So the first step or two remove most of the error along the steep direction.
 The rest of the run crawls along the valley floor, with $w$ rising and $b$ falling together.
+
+Now try it yourself.
+Pick a preset or drag $\eta$, and watch the path in the bowl and the line on the data move together.
 
 <figure class="widget" id="descent">
 <figcaption>Right: contours of the loss over w (across) and b (up), with the bottom marked by the green cross. The blue path is gradient descent from w = −1, b = 3; the orange dot is the current (w, b), and the orange line on the left is the same (w, b) drawn through the data, with dashed misses. Try the four presets, drag η, or click in the bowl to start somewhere else.</figcaption>
 </figure>
 
-The zig-zag preset ($\eta = 0.2$) overshoots on its first step, and the loss goes up, to 8.31 against 3.08 at $\eta = 0.1$.
+The zig-zag preset ($\eta = 0.2$) overshoots on its first step.
+Its loss after one step is 8.31, against 3.08 at $\eta = 0.1$.
 But its flat-direction factor is $0.88$ instead of $0.94$, and after 10 steps its loss is 0.41 against 1.03.
 It gets within 0.0001 of the lowest loss in 41 steps, where $\eta = 0.1$ needs 84.
 For a bowl like this the fastest fixed rate is $2 / (8.41 + 0.59) \approx 0.22$, which zig-zags.
+
 The ratio between the two curvatures, here about 14, decides how slow this gets.
-The steep direction caps $\eta$ below 0.238, and even right at that cap the flat direction only shrinks by a factor of about 0.86 per step.
+The steep direction caps $\eta$ below 0.238.
+Even right at that cap, the flat direction only shrinks by a factor of about 0.86 per step.
 
 ## Mini-batches
 
 The gradient above is an average over all $N$ points.
-With four points that's free.
-A language model trains on billions of tokens, and computing the exact gradient over all of them for every single step would be far too slow.
+With four points that costs nothing.
+A language model trains on billions of tokens.
+Computing the exact gradient over all of them for every single step would be far too slow.
 
 *Stochastic gradient descent* uses a random sample instead.
+("Stochastic" just means random.)
 Each step picks a *mini-batch* of $B$ examples, computes the loss and its gradient on just those, and takes the step.
-The batch gradient is noisy, but averaged over all the batches you could have drawn it equals the full gradient, so the steps still point downhill on average.
-The path wobbles where full gradient descent would be smooth, and in exchange each step costs $B$ examples instead of $N$.
+It works like a poll: you ask a few hundred people instead of the whole country.
+
+The batch gradient is noisy.
+But averaged over all the batches you could have drawn, it equals the full gradient, so the steps still point downhill on average.
+The path wobbles where full gradient descent would be smooth.
+In exchange, each step costs $B$ examples instead of $N$.
 One pass through the whole dataset in batches is called an *epoch*.
 
 Large models are trained this way, usually with an optimizer called Adam (or its variant AdamW) instead of the plain update.
 Adam steps along a running average of recent gradients.
-It also divides each parameter's step by a running estimate of that parameter's typical gradient size, which helps with the steep-versus-flat problem from the last section.
+It also divides each parameter's step by a running estimate of that parameter's typical gradient size.
+That helps with the steep-versus-flat problem from the last section.
 Unit 9 works through both, with the formulas.
 
 ## Worked example
@@ -243,9 +295,17 @@ step 200  w =  1.9000  b =  0.9000  loss = 0.1750
 [1.9 0.9]
 ```
 
-The first step takes the loss from 15.75 to 3.08, and the next 49 steps only get it down to 0.1813.
-The first step fixes most of the steep direction, and the rest is the walk along the flat one, with $b$ sliding from 3.45 down to 0.9.
+The first step takes the loss from 15.75 to 3.08.
+The next 49 steps only get it down to 0.1813.
+The first step fixes most of the steep direction.
+The rest is the walk along the flat one, with $b$ sliding from 3.45 down to 0.9.
 `np.polyfit` solves the same problem exactly and agrees: slope 1.9, intercept 0.9.
+
+::: real-world
+- **Every training script.** In PyTorch, `loss.backward()` computes the gradient and `optimizer.step()` applies the update. Those two calls, inside a loop over mini-batches, are this unit.
+- **A loss that turns into NaN.** When a training run's loss shoots up and prints `nan`, the first suspect is a learning rate that is too high for the steepest direction. Lowering it is the standard first fix.
+- **Adversarial examples.** An attacker can run the same walk on the input instead of the parameters. They nudge an image's pixels a little at a time in the direction that raises the model's loss, until the model gives the wrong answer.
+:::
 
 ## Where this shows up later
 
@@ -254,6 +314,46 @@ The first step fixes most of the steep direction, and the rest is the walk along
 - Unit 11: language models use a different loss, cross-entropy, and train it with mini-batches of text.
 - Unit 15: reinforcement learning climbs a reward instead of descending a loss, so the step flips sign to $\theta \leftarrow \theta + \eta \nabla J$.
 - Unit 16: the reward model is trained by gradient descent on a loss built from people's comparisons.
+
+::: review
+Parameters, $\theta$
+:   The numbers training gets to change. For the line they are the slope $w$ and the intercept $b$.
+
+Loss, $L$
+:   One number for how wrong the model is. Lower is better.
+
+Mean squared error
+:   A loss: square each miss (prediction minus target) and average the squares.
+
+Gradient descent
+:   Repeat $\theta \leftarrow \theta - \eta \nabla L(\theta)$: a small step against the gradient, which is downhill on the loss.
+
+Learning rate, $\eta$
+:   How far each step goes. Too small is slow, too large overshoots.
+
+Curvature, $\lambda$
+:   How quickly the slope grows as you move away from the bottom. On the bowl, each step multiplies the distance to the bottom by $1 - \eta\lambda$.
+
+Diverge
+:   The loss grows every step and runs off to infinity. It happens when $\eta$ times the steepest curvature is above 2.
+
+Mini-batch
+:   A random sample of $B$ examples used to estimate the gradient for one step.
+
+Stochastic gradient descent
+:   Gradient descent where every step uses a mini-batch instead of the whole dataset.
+
+Epoch
+:   One pass through the whole dataset in mini-batches.
+:::
+
+::: say
+A loss turns all of a model's mistakes into one number.
+Gradient descent lowers that number by taking small steps against the gradient.
+The learning rate sets the step size: too small crawls, and too large overshoots or diverges.
+When the loss is a stretched bowl, the steep direction limits the learning rate and the flat direction makes the trip long.
+Real training estimates the gradient from a random mini-batch, because using all the data for every step costs too much.
+:::
 
 ## Self-test
 

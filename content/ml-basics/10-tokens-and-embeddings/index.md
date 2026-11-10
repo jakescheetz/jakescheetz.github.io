@@ -68,78 +68,106 @@ quiz:
     why: 'All of GPT-2''s rows lean toward one shared direction, so unrelated pairs don''t land near 0. Compare scores against each other, not against 0 or 1.'
 ---
 
-A language model never sees letters.
-Before any text reaches it, a tokenizer cuts the text into pieces from a fixed list and replaces each piece with its number in that list.
+::: why
+You read words, but a language model never sees letters.
+It can only do math on numbers (unit 1).
+So before any text reaches the model, a program cuts the text into pieces and swaps each piece for a number.
 The model's first layer then swaps each number for a vector by looking it up in a table.
-The list comes from byte-pair encoding (the method GPT-2 uses), and the table is where the vectors from unit 1 come in.
+Every prompt you have ever typed went through these two steps first.
+:::
 
 ## Text becomes a list of integers
 
-A network only does arithmetic, so text has to become numbers before anything else can happen.
-The first step is to fix a *vocabulary*: a list of $V$ pieces of text, numbered $0$ to $V - 1$.
-A *tokenizer* splits a string into pieces from that list and outputs their numbers, which are called *token IDs*.
+A network only does arithmetic, so text has to become numbers first.
+Start with a *vocabulary*: a fixed list of $V$ pieces of text, numbered $0$ to $V - 1$.
+A *tokenizer* is a program that cuts a string into pieces from that list.
+Each piece is a *token*, and its number in the list is its *token ID*.
 A prompt becomes a sequence $x_1, \dots, x_n$, where each $x_i$ is one ID and $n$ is the number of tokens.
 
-The open question is what the pieces are.
-The two obvious answers, characters and whole words, both have a problem.
+What should the pieces be?
+The two obvious answers are single characters and whole words.
+Both have a problem.
 
-Single characters give a tiny vocabulary (a few hundred symbols, or exactly 256 if you work with raw bytes), and any string at all can be written with them.
+**Characters.** The vocabulary is tiny: a few hundred symbols, or exactly 256 if you work with raw bytes.
+Any string at all can be written with it.
 The cost is length.
-Every character takes a position, so sequences get long, and the model has to assemble every word out of letters itself.
-Long sequences are expensive: attention (unit 12) compares each position with every earlier one, and a model can only read a fixed number of positions at once (1,024 for GPT-2).
+Every character takes a position, so sequences get long, and the model has to build every word out of letters itself.
+Long sequences are expensive.
+Attention (unit 12) compares each position with every earlier one, and a model can only read a fixed number of positions at once (1,024 for GPT-2).
 
-Whole words give short sequences, but the vocabulary gets enormous and still misses things.
-Any word that wasn't in the training text, like a typo or a new product name, has no entry, so it gets replaced by one shared "unknown" token, and the model can't tell one unknown word from another.
+**Whole words.** Sequences are short, but the vocabulary gets enormous and still misses things.
+A typo or a new product name has no entry.
+It gets replaced by one shared "unknown" token, and the model can't tell one unknown word from another.
 Related forms like "run", "runs" and "running" become three separate entries that share nothing.
 
 Sennrich, Haddow and Birch put numbers on this for a German training corpus (Table 1 of their paper, linked at the bottom).
-Split into words, it was 100 million tokens with 1.75 million distinct types.
-Split into characters, it was 550 million tokens with 3,000 types.
-Their subword method landed at 112 million tokens with 63,000 types, and none of their test text came out as unknown.
 
-Subwords keep frequent words whole and split rare ones into pieces that are common.
-GPT-2 stores `" tokenization"` as two tokens, `" token"` and `"ization"`, and my last name, `" Scheetz"`, as `" Sche"` and `"etz"`.
+- Split into words: 100 million tokens, with 1.75 million distinct types.
+- Split into characters: 550 million tokens, with 3,000 types.
+- Split with their subword method: 112 million tokens, with 63,000 types. None of their test text came out as unknown.
+
+A *subword* is a piece between a character and a word.
+Subword tokenizers keep frequent words whole and split rare words into pieces that are common.
+GPT-2 stores `" tokenization"` as two tokens, `" token"` and `"ization"`.
+It stores my last name, `" Scheetz"`, as `" Sche"` and `"etz"`.
 The leading space is part of the token, which I'll come back to below.
 
 ## Byte-pair encoding
 
-*Byte-pair encoding* (BPE) builds a subword vocabulary out of training text by repeating one rule:
+*Byte-pair encoding* (BPE) builds a subword vocabulary from training text.
+It repeats one rule:
 
 1. Start with a vocabulary of single characters and split every word into characters.
 2. Count every pair of neighboring tokens across the corpus. A word that appears 6 times adds 6 to each pair inside it.
-3. Take the most frequent pair, add the two glued together as a new token, and replace every occurrence of the pair with it.
+3. Take the most frequent pair, add the two glued together as a new token, and replace every occurrence of the pair with it. This step is called a *merge*.
 4. Go back to step 2 until you've done as many merges as you want.
 
 Words are counted separately, so a merge never reaches across a space.
 
 For a corpus I'll use the toy example from the Sennrich paper: "low" 5 times, "lower" twice, "newest" 6 times and "widest" 3 times.
 That's 16 words and 79 characters, using 10 distinct letters.
+
 In the first count, e + s shows up 6 times inside "newest" and 3 times inside "widest", 9 in total.
-s + t also has 9, and a tie goes to whichever pair was counted first, so "es" joins the vocabulary as its eleventh token.
+s + t also has 9.
+A tie goes to whichever pair was counted first, so "es" joins the vocabulary as its eleventh token.
 The next count finds es + t, again 9 times, and "est" joins as the twelfth.
 
-Each merge adds one token to the vocabulary and shortens the corpus by the number of times the pair appeared: 79 tokens, then 70, then 61.
+Each merge adds one token to the vocabulary.
+It also shortens the corpus by the number of times the pair appeared: 79 tokens, then 70, then 61.
+
+<figure class="widget demo" id="demo-bpe"></figure>
+
+The widget below runs the same corpus all the way to the end, one merge per click.
 
 <figure class="widget" id="bpe-merges">
 <figcaption>The four words of the corpus with their counts. The orange outline marks the most frequent pair, which the next merge glues together; blue text marks the tokens the last merge created. Step through by hand or press play, and watch the vocabulary bar grow while the corpus bar shrinks.</figcaption>
 </figure>
 
 The number of merges is the only setting BPE has.
-The vocabulary size is the number of starting symbols plus the number of merges, so picking how many merges to run is picking where you land between characters and words.
+The vocabulary size is the number of starting symbols plus the number of merges.
+So picking how many merges to run is picking where you land between characters and words.
 After twelve merges every word in this corpus is a single token, and you're back to a word-level vocabulary.
 
 Tokenizing new text uses the merge list, not the corpus.
 Split the new word into characters, then apply the merges in the order they were learned.
+
+<figure class="widget demo" id="demo-tokenize"></figure>
+
 "lowest" never appeared in the corpus, but after ten merges it comes out as "low" + "est", two pieces the corpus taught.
-"newer" comes out as "new" + "e" + "r", because e + r appears only twice (inside "lower") and ten merges ran out before reaching it.
+"newer" comes out as "new" + "e" + "r".
+The pair e + r appears only twice (inside "lower"), and ten merges ran out before reaching it.
 
 ## What GPT-2 does
 
 GPT-2 runs BPE on bytes instead of characters.
-Text is stored as UTF-8, where each character takes one to four bytes, so starting from the 256 possible byte values means any string in any language, emoji included, can be encoded without an unknown token.
+A *byte* is a number from 0 to 255, and computers store text as bytes.
+In the UTF-8 format each character takes one to four bytes.
+So GPT-2 starts from the 256 possible byte values.
+Any string in any language, emoji included, can be encoded without an unknown token.
 The GPT-2 paper points out that starting from Unicode characters instead would need a base vocabulary of over 130,000.
 
-On top of the 256 bytes, GPT-2 learned 50,000 merges and added one special token, <code style="font-variant-ligatures: none">&lt;|endoftext|&gt;</code>, that marks where one document ends and the next begins.
+On top of the 256 bytes, GPT-2 learned 50,000 merges.
+It also added one *special token*, <code style="font-variant-ligatures: none">&lt;|endoftext|&gt;</code>, that marks where one document ends and the next begins.
 That's where its vocabulary size comes from:
 
 $$
@@ -150,22 +178,31 @@ $$
 The first term is the byte values BPE starts from, the second is one new token per merge, and the third is the end-of-text token.
 :::
 
-Before counting pairs, GPT-2 cuts text into chunks with a regular expression: runs of letters, runs of digits and runs of other symbols, each allowed one leading space, plus a few English contractions like 's and 've.
-Merges never cross a chunk boundary, which stops "dog.", "dog!" and "dog?" from each becoming a token of its own (the paper's example).
-Because the space rides along at the front, `" the"` (ID 262) and `"the"` (ID 1169) are different tokens, and the first three merges GPT-2 learned were space + t, space + a, and h + e.
+Before counting pairs, GPT-2 cuts text into chunks with a regular expression.
+The chunks are runs of letters, runs of digits and runs of other symbols, each allowed one leading space, plus a few English contractions like 's and 've.
+Merges never cross a chunk boundary.
+That stops "dog.", "dog!" and "dog?" from each becoming a token of its own (the paper's example).
 
-`" strawberry"` is a single token in GPT-2, ID 41236.
-The model receives that one number and nothing that spells the word out, so whatever it knows about the letters inside a token, it had to pick up indirectly from training text.
+The space rides along at the front of a chunk.
+So `" the"` (ID 262) and `"the"` (ID 1169) are different tokens.
+The first three merges GPT-2 learned were space + t, space + a, and h + e.
+
+`" strawberry"` is a single token in GPT-2, ID 41236.
+The model receives that one number and nothing that spells the word out.
+Whatever it knows about the letters inside a token, it had to pick up indirectly from training text.
 So asking GPT-2 how many r's are in "strawberry" asks about something its input doesn't contain.
 
 ## Embeddings: one row per token
 
-A token ID is just a label.
-In the toy vocabulary, ID 13 is "low" and ID 14 is "ne", and being neighbors as numbers says nothing about them.
+A token ID is just a label, like a locker number.
+In the toy vocabulary, ID 13 is "low" and ID 14 is "ne".
+Being neighbors as numbers says nothing about them.
 Feeding the raw ID into a layer like $Wx + b$ from [unit 8](../08-neural-networks/#layers-and-why-the-bend-matters) would treat "ne" as a little more than "low", which means nothing.
 
-Instead, the model keeps an *embedding table* $E$, a $V \times d$ matrix with one row per token.
-Row $v$, written $E_v$, is the vector for token $v$, and $d$ is the model width, the number of entries in each vector.
+So the model keeps an *embedding table* $E$.
+It's a matrix with $V$ rows and $d$ columns, one row per token.
+Row $v$, written $E_v$, is the vector for token $v$.
+The number $d$ is the *model width*, the number of entries in each vector.
 Embedding a token means taking its row:
 
 $$
@@ -176,12 +213,17 @@ $$
 $h_i$ is the vector for position $i$ of the prompt, and $E_{x_i}$ is the row whose number is that position's token ID $x_i$.
 :::
 
-A sequence of $n$ IDs becomes $n$ vectors of length $d$, and everything in units 12 and 13 works on those vectors.
-For the smallest GPT-2, $d = 768$, so $E$ holds $50{,}257 \times 768 = 38{,}597{,}376$ numbers, about 31% of the model's 124 million parameters.
+A sequence of $n$ IDs becomes $n$ vectors of length $d$.
+Everything in units 12 and 13 works on those vectors.
+For the smallest GPT-2, $d = 768$, so $E$ holds $50{,}257 \times 768 = 38{,}597{,}376$ numbers.
+That's about 31% of the model's 124 million parameters.
+
+<figure class="widget demo" id="demo-lookup"></figure>
 
 The lookup can also be written as a matrix multiplication ([unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products)), which is how training sees it.
 Write token $x_i$ as a *one-hot vector* $u$: $V$ entries, all 0 except a 1 at position $x_i$.
-Multiplying $u$ by $E$ adds up the rows of $E$ weighted by the entries of $u$, and every row but one gets weight 0, so the result is row $x_i$:
+Multiplying $u$ by $E$ adds up the rows of $E$, each weighted by its entry of $u$.
+Every row but one gets weight 0, so the result is row $x_i$:
 
 $$
 uE = \sum_{v=0}^{V-1} u_v E_v = E_{x_i}
@@ -208,23 +250,33 @@ Each term is the entry $u_v$ (a 0 or a 1) times row $E_v$, so the only term that
 <figcaption>Looking up token 13 ("low") in the 20 × 4 table from the worked example. Each row of E gets multiplied by its entry of u and the results are added up; only row 13 has a 1, so uE is row 13.</figcaption>
 </figure>
 
-Real code does the lookup by indexing (GPT-2's code uses `tf.gather`, PyTorch has `nn.Embedding`), since multiplying by 50,256 zeros is wasted work.
+Real code does the lookup by indexing (GPT-2's code uses `tf.gather`, PyTorch has `nn.Embedding`).
+Multiplying by 50,256 zeros would be wasted work.
+
 The one-hot view tells you how the table learns.
-It's a linear layer, so backpropagation ([unit 8](../08-neural-networks/#backpropagation)) reaches it like any other weights, and since $u_v = 0$ for every token not in the batch, only the rows of tokens that appeared get a gradient through the lookup.
+The lookup is a linear layer, so backpropagation ([unit 8](../08-neural-networks/#backpropagation)) reaches it like any other weights.
+And $u_v = 0$ for every token not in the batch.
+So only the rows of tokens that appeared get a gradient through the lookup.
 (GPT-2 also reuses $E$ at the output end, which unit 13 covers, and that path reaches every row.)
 
 ## Similar tokens end up close
 
 Nobody writes the rows of $E$ by hand.
-They start as small random numbers and get trained by gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)) along with every other weight in the model.
+They start as small random numbers.
+Gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)) trains them along with every other weight in the model.
 
 Training pulls tokens that get used the same way toward similar rows.
-`" Monday"` and `" Tuesday"` show up in the same kinds of sentences, so the rest of the network should react to them in nearly the same way, and giving them rows that point in nearly the same direction is a direct way to get there.
-[Cosine similarity](../01-vectors/#cosine-similarity) from unit 1 measures that: the dot product of two rows divided by both their lengths, which is 1 for rows pointing the same way and 0 for perpendicular ones.
+`" Monday"` and `" Tuesday"` show up in the same kinds of sentences.
+The rest of the network should react to them in nearly the same way.
+Giving them rows that point in nearly the same direction is a direct way to get there.
+
+[Cosine similarity](../01-vectors/#cosine-similarity) from unit 1 measures that.
+It's the dot product of two rows divided by both their lengths: 1 for rows pointing the same way, 0 for perpendicular ones.
 
 I checked this on the released GPT-2 weights.
-The rows for `" Monday"` and `" Tuesday"` have a cosine similarity of 0.89, and searching all 50,257 rows for the six closest to `" Monday"` returns the other six days of the week, at 0.80 to 0.89.
-The closest row to `" lowest"` is `" highest"`, at 0.80.
+The rows for `" Monday"` and `" Tuesday"` have a cosine similarity of 0.89.
+Searching all 50,257 rows for the six closest to `" Monday"` returns the other six days of the week, at 0.80 to 0.89.
+The closest row to `" lowest"` is `" highest"`, at 0.80.
 Opposites fill the same slots in a sentence, so they end up close too.
 
 <figure class="widget" id="embedding-neighbors">
@@ -232,8 +284,10 @@ Opposites fill the same slots in a sentence, so they end up close too.
 </figure>
 
 In the widget, the pairs that aren't related land between 0.12 and 0.35, not near 0.
-GPT-2's rows all lean a little toward one shared direction: if you subtract the average row from every row first, `" cat"` against `" however"` drops from 0.19 to 0.07.
-So read these numbers against each other: 0.55 for `" cat"` and `" dog"` is high because the background is about 0.2.
+GPT-2's rows all lean a little toward one shared direction.
+If you subtract the average row from every row first, `" cat"` against `" however"` drops from 0.19 to 0.07.
+So read these numbers against each other.
+0.55 for `" cat"` and `" dog"` is high because the background is about 0.2.
 
 ## Worked example
 
@@ -323,8 +377,16 @@ widen -> ['wid', 'e', 'n'] [18, 1, 4]
 True
 ```
 
-"est" comes out of the first two merges because it sits inside two different words, and that shared piece is what lets the unseen word "lowest" come out as IDs 13 and 11.
-The rest of the output is the embedding step: `E[x]` picks rows 13 and 11 of the $20 \times 4$ table, and multiplying the one-hot rows by $E$ gives the same two rows.
+"est" comes out of the first two merges because it sits inside two different words.
+That shared piece is what lets the unseen word "lowest" come out as IDs 13 and 11.
+The rest of the output is the embedding step.
+`E[x]` picks rows 13 and 11 of the $20 \times 4$ table, and multiplying the one-hot rows by $E$ gives the same two rows.
+
+::: real-world
+- **Limits and bills.** A model's context window is counted in tokens, and so is the bill for most model APIs. A long rare word can cost several tokens while a common word costs one.
+- **Search by meaning.** Search tools use the same idea one level up. A model turns a whole passage into one vector, and passages with nearby vectors mean similar things.
+- **Slipping past filters.** A keyword filter looks for exact strings. An attacker can misspell a banned word or add odd characters, so the filter misses it, while the model still gets subword tokens it can often read.
+:::
 
 ## Where this shows up later
 
@@ -332,6 +394,42 @@ The rest of the output is the embedding step: `E[x]` picks rows 13 and 11 of the
 - Unit 12: attention mixes the $n$ token vectors that come out of the lookup.
 - Unit 13: GPT-2 adds a learned position vector to each token's row, and that sum is where the residual stream starts. At the top of the model, GPT-2 turns vectors back into logits with $E$ itself.
 - Unit 14: generation picks one ID at a time, and the tokenizer turns the IDs back into text.
+
+::: review
+Vocabulary
+:   A fixed, numbered list of $V$ pieces of text.
+
+Tokenizer
+:   The program that cuts text into pieces from the vocabulary and outputs their numbers.
+
+Token and token ID
+:   A token is one piece of text from the vocabulary. Its ID is its number in the list, from $0$ to $V - 1$.
+
+Subword
+:   A piece between a character and a word. Frequent words stay whole and rare words split into common pieces.
+
+Byte-pair encoding (BPE)
+:   Builds a vocabulary by gluing the most frequent neighboring pair into a new token, over and over.
+
+Merge
+:   One round of BPE. It adds one token to the vocabulary and shortens the corpus by the pair's count.
+
+Embedding table, $E$
+:   A $V \times d$ matrix with one learned row per token.
+
+Model width, $d$
+:   The number of entries in each token's vector. 768 for the smallest GPT-2.
+
+One-hot vector
+:   $V$ entries, all 0 except a 1 at the token's position. Multiplying it by $E$ picks out that token's row.
+:::
+
+::: say
+A tokenizer cuts text into pieces from a fixed vocabulary and replaces each piece with its ID.
+Byte-pair encoding builds that vocabulary by merging the most frequent neighboring pair again and again.
+The model looks up each ID in the embedding table and gets one vector per token.
+Training moves the rows, so tokens that are used the same way end up pointing the same way.
+:::
 
 ## Self-test
 

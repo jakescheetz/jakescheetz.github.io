@@ -266,3 +266,72 @@ span.cyan { color: var(--accent-cyan); }
   font-weight: var(--font-weight-normal);
   margin-bottom: var(--line-height);
 }
+
+/* Step-through animation: <figure class="widget demo" id="…"></figure>, filled by Learn.demo(). */
+:root {
+  --demo-line: #d0d0d0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --demo-line: #333;
+  }
+}
+figure.demo canvas {
+  display: block;
+  width: 100%;
+}
+figure.demo .demo-cap {
+  margin-bottom: 0;
+}
+.demo-buttons {
+  align-items: center;
+}
+.demo-count {
+  margin-right: auto;
+  white-space: nowrap;
+}
+.demo-buttons button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Callout boxes: pandoc fenced divs `::: why`, `::: real-world`, `::: review`, `::: say`.
+   Same box as "done when", with the label drawn by CSS and a color per kind. */
+.why, .real-world, .review, .say {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  margin-bottom: var(--line-height);
+}
+.why::before, .real-world::before, .review::before, .say::before {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin-bottom: var(--line-height);
+}
+.why > :last-child, .real-world > :last-child, .review > :last-child, .say > :last-child {
+  margin-bottom: 0;
+}
+.why { border-color: var(--accent-orange); }
+.why::before { content: "Why this matters"; color: var(--accent-orange); }
+.real-world { border-color: var(--accent-cyan); }
+.real-world::before { content: "Where you'll see it"; color: var(--accent-cyan); }
+.review::before { content: "Quick review"; }
+.say { border-color: var(--accent-blue); }
+.say::before { content: "The short version"; color: var(--accent-blue); }
+
+/* Quick review: a definition list, term on its own line and the meaning indented under it. */
+.review dl {
+  margin: 0;
+}
+.review dt {
+  font-weight: var(--font-weight-bold);
+}
+.review dt:not(:first-child) {
+  margin-top: var(--line-height);
+}
+.review dd {
+  margin: 0 0 0 2ch;
+}
+.review dd > p {
+  margin: 0;
+}

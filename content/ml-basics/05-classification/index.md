@@ -68,19 +68,24 @@ quiz:
     why: 'Once every point is on its correct side, a longer $w$ pushes every $p$ closer to its label and lowers the loss a little more. The loss never reaches 0, so there is no point where it stops.'
 ---
 
-Unit 4's line predicts a number, but a lot of questions have a yes-or-no answer.
-A spam filter has to decide whether an email is spam, and a language model has to pick one token out of 50,257.
+::: why
+Your email app sorts every message into inbox or spam.
+That is a yes-or-no question, and unit 4's line can't answer it, because a line predicts a number.
+A good filter also says how sure it is: "90% likely spam" is more useful than a bare "spam."
 *Logistic regression* is the simplest model that answers a yes-or-no question with a probability.
 Its loss and its gradient come back almost unchanged when unit 11 trains a language model and unit 16 trains a reward model.
+:::
 
 ## From a score to a probability
 
 The example for this unit is a toy spam filter.
-Each email is described by two numbers, $x = (x_1, x_2)$: $x_1$ is how many links it contains and $x_2$ is how many exclamation marks.
-Each email also has a label $y$, which is 1 if it's spam and 0 if it isn't.
+Each email is described by two numbers, $x = (x_1, x_2)$.
+The first, $x_1$, is how many links it contains.
+The second, $x_2$, is how many exclamation marks it has.
+Each email also has a *label* $y$, the right answer: 1 if it's spam and 0 if it isn't.
 The training set is 22 emails, 11 of each, plotted in the widget further down.
 
-The model starts by giving each email a score:
+The model starts by giving each email a *score*:
 
 $$
 z = w \cdot x + b = w_1 x_1 + w_2 x_2 + b
@@ -91,8 +96,10 @@ $w = (w_1, w_2)$ holds one weight per feature, and $b$ is a single number.
 The first part is the dot product from [unit 1](../01-vectors/#the-dot-product): multiply each feature by its weight and add the results up.
 :::
 
-Each feature gets a weight in $w$, and a positive weight pushes the score up, toward spam.
-The *bias* $b$ shifts every score by the same amount, which sets how much evidence an email needs before it counts as spammy.
+Each feature gets its own *weight* in $w$.
+A positive weight pushes the score up, toward spam.
+The *bias* $b$ shifts every score by the same amount.
+It sets how much evidence an email needs before it counts as spammy.
 
 Pick some weights by hand for now: $w = (0.5, 1)$ and $b = -5$, so $z = 0.5 x_1 + x_2 - 5$.
 Email A has 4 links and 2 exclamation marks, so $z = 2 + 2 - 5 = -1$.
@@ -100,7 +107,9 @@ Email B has 6 links and 5 exclamation marks, so $z = 3 + 5 - 5 = 3$.
 B scores higher, so it looks more like spam.
 
 A score can be any number, though, and $-1$ doesn't say how likely spam is.
-The *sigmoid* function $\sigma$ (here a function, not the standard deviation from [unit 3](../03-probability/#expectation-spread-and-sampling)) squashes any score into the range between 0 and 1:
+The *sigmoid* function $\sigma$ fixes that.
+It squashes any score into the range between 0 and 1.
+(Here $\sigma$ is a function. It is not the standard deviation from [unit 3](../03-probability/#expectation-spread-and-sampling).)
 
 $$
 \sigma(z) = \frac{1}{1 + e^{-z}}
@@ -119,9 +128,14 @@ Some values:
 |---|---|---|---|---|---|
 | $\sigma(z)$ | 0.05 | 0.27 | 0.50 | 0.73 | 0.95 |
 
-The model's output is $p = \sigma(z)$, read as the probability that the email is spam.
+The model's output is $p = \sigma(z)$.
+Read it as the probability that the email is spam.
 Email A gets $p = \sigma(-1) = 0.27$ and email B gets $p = \sigma(3) = 0.95$.
-The curve is symmetric around zero, $\sigma(-z) = 1 - \sigma(z)$, so the probability of "not spam", $1 - p$, is the sigmoid of the negated score.
+
+<figure class="widget demo" id="demo-sigmoid"></figure>
+
+The curve is symmetric around zero: $\sigma(-z) = 1 - \sigma(z)$.
+So the probability of "not spam", $1 - p$, is the sigmoid of the negated score.
 
 You can also run the sigmoid backward.
 Solving $p = \sigma(z)$ for $z$ gives
@@ -135,15 +149,18 @@ The fraction $p / (1 - p)$ is the probability of spam divided by the probability
 The log is the natural log.
 :::
 
-So the score is the log of the *odds* of spam, and that gives each weight a concrete meaning.
+The fraction inside the log is the *odds* of spam, the same odds a bettor quotes as "3 to 1."
+So the score is the log of the odds, and that gives each weight a concrete meaning.
 One more exclamation mark adds $w_2 = 1$ to the log-odds, which multiplies the odds of spam by $e^1 \approx 2.72$.
 One more link adds $0.5$, which multiplies them by $e^{0.5} \approx 1.65$.
-Scores that get fed into a sigmoid are often called *logits*, after this log-odds function, and unit 11 uses the same name.
+Scores that get fed into a sigmoid are often called *logits*, after this log-odds function.
+Unit 11 uses the same name.
 
 ## The decision boundary is a line
 
 To turn the probability into a yes or no, call an email spam when $p \ge 0.5$.
-The sigmoid crosses 0.5 exactly at $z = 0$ and only ever goes up, so $p \ge 0.5$ is the same as $z \ge 0$.
+The sigmoid crosses 0.5 exactly at $z = 0$ and only ever goes up.
+So $p \ge 0.5$ is the same as $z \ge 0$.
 The emails the model can't decide about are the ones with
 
 $$
@@ -151,24 +168,33 @@ w \cdot x + b = 0
 $$
 
 that is, every point whose score is exactly zero.
-With two features that set is a straight line, the *decision boundary*.
+With two features that set is a straight line, called the *decision boundary*.
 For the hand-picked weights it's $0.5 x_1 + x_2 = 5$, which passes through $(0, 5)$ and $(10, 0)$.
-Every email on one side has $z > 0$ and gets called spam, and every email on the other side has $z < 0$.
-With three features the boundary is a flat plane, and with more features it's the same kind of flat cut in more dimensions.
+Every email on one side has $z > 0$ and gets called spam.
+Every email on the other side has $z < 0$.
+With three features the boundary is a flat plane.
+With more features it's the same kind of flat cut in more dimensions.
 
-The dot product also tells you how $w$ sits relative to that line.
+<figure class="widget demo" id="demo-boundary"></figure>
+
+The dot product tells you how $w$ sits relative to that line.
 Take two points $u$ and $v$ on the boundary.
-Both have $w \cdot x = -b$, so $w \cdot (u - v) = 0$, and from [unit 1](../01-vectors/#the-dot-product) a zero dot product means a right angle.
+Both have $w \cdot x = -b$, so $w \cdot (u - v) = 0$.
+From [unit 1](../01-vectors/#the-dot-product), a zero dot product means a right angle.
 So $w$ points straight across the boundary, toward the side where scores are positive (spam).
-Dividing the score by the length of $w$, $\|w\| = \sqrt{w_1^2 + w_2^2}$, gives each point's signed distance from the line, $z / \|w\|$.
-That's the shadow onto $w$'s direction from [unit 1](../01-vectors/#the-dot-product), measured from the boundary instead of from the origin.
-For $w = (0.5, 1)$ the length is $\|w\| = 1.12$, so email A, with $z = -1$, sits 0.89 units over on the not-spam side.
 
-The length of $w$ also sets how sure the model is.
-Multiply $w$ and $b$ by 2 and every score doubles, but the points with $z = 0$ stay the same, so the line doesn't move.
+The score also measures distance.
+Divide it by the length of $w$, $\|w\| = \sqrt{w_1^2 + w_2^2}$, and you get each point's signed distance from the line, $z / \|w\|$.
+That's the shadow onto $w$'s direction from [unit 1](../01-vectors/#the-dot-product), measured from the boundary instead of from the origin.
+For $w = (0.5, 1)$ the length is $\|w\| = 1.12$.
+So email A, with $z = -1$, sits 0.89 units over on the not-spam side.
+
+The length of $w$ sets how sure the model is.
+Multiply $w$ and $b$ by 2 and every score doubles.
+The points with $z = 0$ stay the same, so the line doesn't move.
 What changes is how quickly $p$ goes from near 0 to near 1 as you cross it.
-In the widget the dashed lines mark $p = 0.1$ and $p = 0.9$, which are scores of $-2.2$ and $2.2$, so they sit $2.2 / \|w\|$ either side of the boundary.
-A longer $w$ squeezes them in.
+In the widget the dashed lines mark $p = 0.1$ and $p = 0.9$, which are scores of $-2.2$ and $2.2$.
+They sit $2.2 / \|w\|$ either side of the boundary, so a longer $w$ squeezes them in.
 
 The 0.5 cutoff is a choice.
 A filter that should almost never bin real mail could require $p \ge 0.9$, which moves the cut over to the $z = 2.2$ line.
@@ -176,12 +202,14 @@ Unit 7 is about choosing it.
 
 The straight line is also the model's limit.
 If spam sat in two opposite corners of the plot, no single line could fence it off.
-Unit 8's XOR example is the standard case, and a neural network gets around it by learning new features first.
+Unit 8's XOR example is the standard case.
+A neural network gets around it by learning new features first.
 
 ## Log loss
 
 Training needs a loss, [one number for how wrong the model is](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong).
-For a single email, look at the probability the model gave to what actually happened: $p$ if the email is spam, and $1 - p$ if it isn't.
+For a single email, look at the probability the model gave to what actually happened.
+That is $p$ if the email is spam, and $1 - p$ if it isn't.
 A good model puts that number close to 1.
 The loss is minus its log:
 
@@ -196,26 +224,34 @@ For a normal email $y = 0$, the first term drops out instead, leaving $L = -\log
 The log of a number below 1 is negative, so the minus sign makes the loss positive.
 :::
 
-Either way the loss is minus the log of the probability given to the true label, and it's 0 only when that probability is exactly 1.
+Either way the loss is minus the log of the probability given to the true label.
+It's 0 only when that probability is exactly 1.
 The loss for the whole training set is the average of $L$ over the 22 emails.
 This is called *log loss*, or *binary cross-entropy*.
 
 With the hand-picked weights, email A is a normal email with $p = 0.27$, so its loss is $-\log 0.73 = 0.31$.
 Email B is spam with $p = 0.95$, and its loss is $-\log 0.95 = 0.05$.
 The spam email at $(3, 2)$ scores $z = -1.5$, so $p = \sigma(-1.5) = 0.182$ and the loss is $-\log 0.182 = 1.70$.
-The model is wrong about that one, and fairly sure of itself, and it costs more than A and B put together.
+The model is wrong about that one, and fairly sure of itself.
+It costs more than A and B put together.
 
 | probability on the true label | 0.9 | 0.5 | 0.1 | 0.01 |
 |---|---|---|---|---|
 | loss | 0.11 | 0.69 | 2.30 | 4.61 |
 
 Each time the probability on the true label drops by a factor of 10, the loss goes up by another 2.30, with no ceiling.
+Log loss works like a weather forecaster's reputation.
+Saying "1% chance of rain" on a day it pours costs far more than saying "50%."
+
+<figure class="widget demo" id="demo-logloss"></figure>
+
 There's also a probability reason for the log ([unit 3](../03-probability/#why-models-work-in-log-probabilities)).
 Adding up $-\log$ of each email's probability is the same as taking $-\log$ of their product.
 If the emails are treated as independent ([unit 3](../03-probability/#conditional-probability-and-bayes-rule)), that product is the probability the model gives to the whole set of labels.
 So minimizing log loss makes the labels you actually saw as likely as possible under the model.
 
-Squared error from [unit 4](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong), $(p - y)^2$, looks like it should work too, but it gets stuck on confident mistakes.
+Squared error from [unit 4](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong), $(p - y)^2$, looks like it should work too.
+It gets stuck on confident mistakes.
 Its gradient with respect to the score goes through the sigmoid, so by the [chain rule](../02-gradients/#the-rules-you-need) it picks up the sigmoid's slope:
 
 $$
@@ -227,15 +263,19 @@ The first factor, $2(p - y)$, is the derivative of the square with respect to $p
 The second, $p(1 - p)$, is how fast $p$ changes as $z$ changes, which is the slope of the sigmoid.
 :::
 
-The sigmoid's slope is 0.25 at $z = 0$ and close to 0 far out on either side, where the curve is flat.
+The sigmoid's slope is 0.25 at $z = 0$.
+Far out on either side, where the curve is flat, the slope is close to 0.
 Take a spam email the model scores at $z = -6$, so $p = 0.0025$.
 Squared error pushes on its score with a gradient of $-0.0049$.
 Log loss, as the next section shows, pushes with $p - y = -0.9975$, about 200 times harder.
 With squared error the model learns slowest from exactly the emails it's most wrong about.
 
+<figure class="widget demo" id="demo-push"></figure>
+
 ## Training with gradient descent
 
-The gradient of log loss for one email comes from the chain rule in two steps, from $z$ to $p$ and from $p$ to $L$:
+Training needs the gradient of the loss.
+For one email it comes from the chain rule in two steps, from $z$ to $p$ and from $p$ to $L$:
 
 $$
 \frac{\partial L}{\partial p} = -\frac{y}{p} + \frac{1 - y}{1 - p} = \frac{p - y}{p(1 - p)}
@@ -246,7 +286,8 @@ The derivative of $\log p$ is $1/p$ (a rule unit 2 didn't need).
 The middle expression differentiates each of the two terms of $L$, and the right side is the same thing put over a common denominator.
 :::
 
-The other step, $\partial p / \partial z$, is the sigmoid's slope $p(1 - p)$ from above, so multiplying the two cancels it:
+The other step, $\partial p / \partial z$, is the sigmoid's slope $p(1 - p)$ from above.
+Multiplying the two cancels it:
 
 $$
 \frac{\partial L}{\partial z} = p - y
@@ -281,25 +322,35 @@ $$
 $\eta$ is the learning rate, $x_i$ and $y_i$ are email $i$'s features and label, and $p_i$ is the model's current probability for it.
 :::
 
-In words: every email pulls $w$ along its own feature vector, toward spam-like directions if it's spam and away if it isn't, in proportion to how wrong the model is about it.
+In words: every email pulls $w$ along its own feature vector.
+A spam email pulls $w$ toward itself, and a normal email pushes $w$ away.
+The pull is in proportion to how wrong the model is about that email.
+
 Email A (not spam, $p = 0.27$, $x = (4, 2)$) has gradient $0.27 \cdot (4, 2) = (1.08, 0.54)$.
 The step subtracts $\eta$ times that, which lowers the score of every email that looks like A.
 An email the model already gets right with $p = 0.999$ barely pulls at all.
+
+Now watch the whole thing train.
+The widget starts from $w = 0$, $b = 0$ and runs gradient descent on all 22 emails.
 
 <figure class="widget" id="logistic">
 <figcaption>Gradient descent from w = 0, b = 0 on the 22 emails (orange dots spam, blue rings not spam). Left: the boundary (solid), the p = 0.1 and p = 0.9 lines (dashed), w as an arrow, and shading for p. Right: each email at its score on the sigmoid, with its miss p − y dashed. Steps speed up as training goes on. Try the separable data and watch |w|.</figcaption>
 </figure>
 
-Training from $w = 0$, $b = 0$ is slow: the loss falls from 0.69 to 0.43 in the first 100 steps, then needs another 900 to reach 0.26.
+Training from $w = 0$, $b = 0$ is slow.
+The loss falls from 0.69 to 0.43 in the first 100 steps, then needs another 900 to reach 0.26.
 This is the stretched bowl from [unit 4](../04-gradient-descent/#the-learning-rate) again.
 Every feature is a positive count between 0 and 9, so changing $b$ and changing $w$ move the scores in similar ways.
 At the start, the steepest direction of the loss curves about 170 times faster than the flattest one, and the flattest one is almost entirely $b$.
+
 The usual fix is to subtract each feature's average before training (4.2 links and 3.4 exclamation marks here).
 On centered features the same $\eta = 0.1$ gets the loss to 0.2443 in 100 steps, against 0.4266 without centering.
 
 Now switch the widget to the separable data, which drops the two emails no line can get right.
+(*Separable* means some straight line puts every email on its correct side.)
 Once every email is on its correct side, making $w$ longer pushes every $p$ closer to its label and lowers the loss a bit more.
-The loss never reaches 0, so $w$ never stops growing: after 10,000 steps $\|w\|$ is 2.44, the loss is 0.0175, and both are still moving.
+The loss never reaches 0, so $w$ never stops growing.
+After 10,000 steps $\|w\|$ is 2.44, the loss is 0.0175, and both are still moving.
 Unit 6 adds a penalty on the size of $w$ that stops this.
 
 ## Worked example
@@ -345,11 +396,21 @@ misclassified: [[6.0, 3.0], [3.0, 2.0]]
 new emails: [0.175 0.946]
 ```
 
-The loss starts at 0.6931, which is $\log 2$: with $w = 0$ and $b = 0$ every email gets $p = 0.5$.
-That also explains step 0's 11 right (0.5 counts as spam, so exactly the spam emails are right) and why $b$ is still 0 after step 1 (the average of $0.5 - y_i$ is 0 when half the labels are 1).
+The loss starts at 0.6931, which is $\log 2$.
+With $w = 0$ and $b = 0$ every email gets $p = 0.5$.
+That also explains step 0's 11 right: 0.5 counts as spam, so exactly the spam emails are right.
+And $b$ is still 0 after step 1 because the average of $0.5 - y_i$ is 0 when half the labels are 1.
+
 The last 4,000 steps only take another 0.0134 off the loss, which is the slow $b$ direction from the previous section.
-The two misses are the normal email at $(6, 3)$ and the spam email at $(3, 2)$, which sits inside the cluster of normal emails, so no straight line can put it on the spam side without taking normal emails with it.
+The two misses are the normal email at $(6, 3)$ and the spam email at $(3, 2)$.
+The spam one sits inside the cluster of normal emails, so no straight line can put it on the spam side without taking normal emails with it.
 The trained model gives emails A and B probabilities 0.175 and 0.946, close to the 0.27 and 0.95 from my hand-picked weights.
+
+::: real-world
+- **The last layer of a classifier.** A neural network that answers a yes-or-no question usually ends with a sigmoid and trains with this loss. In PyTorch it's called `BCEWithLogitsLoss`, and the "logits" in the name are this unit's scores.
+- **Risk scores.** Models that flag fraud, estimate medical risk or filter content output a probability. Then a person picks the cutoff, based on which mistake costs more.
+- **Evading a detector.** A spam or malware classifier draws a boundary, and an attacker looks for inputs that sit just on the safe side of it. With weights like this unit's, dropping a few exclamation marks is enough to cross the line.
+:::
 
 ## Where this shows up later
 
@@ -358,6 +419,42 @@ The trained model gives emails A and B probabilities 0.175 and 0.946, close to t
 - Unit 8: a neural network for a yes-or-no question usually ends with exactly this model on top of features it learned, which lets the boundary bend.
 - Unit 11: softmax turns one score per class into probabilities for many classes. With two classes it gives $\sigma(z_1 - z_2)$, and the gradient is again $p - y$.
 - Unit 16: the Bradley–Terry reward model says a person picks answer A over answer B with probability $\sigma(r_A - r_B)$, where $r_A$ and $r_B$ are the two answers' rewards. That's logistic regression on the difference of two rewards, and its loss is this unit's log loss with $y = 1$.
+
+::: review
+Label, $y$
+:   The right answer for one example: 1 for spam, 0 for not spam.
+
+Score (logit), $z$
+:   $w \cdot x + b$. Any number, where higher means more like class 1.
+
+Weights and bias, $w$ and $b$
+:   One weight per feature says how much that feature raises the score. The bias shifts every score by the same amount.
+
+Sigmoid, $\sigma(z)$
+:   $1 / (1 + e^{-z})$. It squashes a score into a probability between 0 and 1, with $\sigma(0) = 0.5$.
+
+Odds and log-odds
+:   The odds are $p / (1 - p)$. The score is the log of the odds, so adding 1 to the score multiplies the odds by $e \approx 2.72$.
+
+Decision boundary
+:   The points where the score is 0 and $p = 0.5$. With two features it's a straight line, and $w$ crosses it at a right angle.
+
+Log loss (binary cross-entropy)
+:   Minus the log of the probability the model gave to the true label. Confident mistakes cost the most.
+
+Gradient of log loss
+:   $p - y$ for the score, and $(p - y)\,x$ for the weights.
+
+Separable data
+:   Data that a straight line splits with no mistakes. On it, $\|w\|$ keeps growing for as long as you train.
+:::
+
+::: say
+Logistic regression gives each input a score, which is a dot product plus a bias.
+The sigmoid turns the score into a probability, and the points where the score is zero form a straight decision boundary.
+Log loss charges minus the log of the probability on the true label, so confident mistakes cost the most.
+Its gradient with respect to the score is the miss, p minus y, so the model learns fastest from the examples it gets most wrong.
+:::
 
 ## Self-test
 

@@ -68,16 +68,21 @@ quiz:
     why: 'Ten weights can''t pass through 40 points, so the fit has to follow the trend they share. It goes from 1.4732 to 0.0574.'
 ---
 
-Units 4 and 5 trained models by pushing a loss down, and both measured that loss on the same examples the model was trained on.
-That number tells you how well the model fits data it has already seen.
-What you actually want is a model that does well on new inputs, and the loss on those can go up while the training loss keeps going down.
-Every model later in the route, from the network in unit 8 to the language models in units 11 to 14, gets checked on data it never trained on, and the fixes here (held-out splits, weight decay, early stopping) show up in all of them.
+::: why
+Picture a student who memorizes the answer key to last year's exam.
+They score 100% on last year's questions and then fail the new exam, because they never learned the subject.
+A model can do the same thing with its training data.
+Units 4 and 5 measured the loss on the same examples the model trained on, which only shows how well it fits what it has already seen.
+What you want is a model that does well on new inputs, and this unit shows how to check for that and how to fix it.
+The fixes here (held-out data, weight decay, early stopping) show up in every model later in the course.
+:::
 
 ## Fitting ten noisy points
 
 I'll start with a small problem where I know the right answer.
 The hidden rule is $y = \sin(\pi x)$ for $x$ between −1 and 1, a curve with one dip and one hump.
-Every measurement comes with noise, so what I actually observe is
+Every measurement comes with *noise*, a small random error.
+So what I actually observe is
 
 $$
 y = \sin(\pi x) + \varepsilon
@@ -89,9 +94,10 @@ where $\varepsilon$ is fresh random noise for each point, with standard deviatio
 $\varepsilon$ (epsilon) is drawn from a normal distribution with mean 0 and standard deviation 0.25 ([unit 3](../03-probability/#random-variables-and-distributions)).
 :::
 
-So a typical point sits about 0.25 above or below the curve, and nothing about $x$ tells you which way.
+So a typical point sits about 0.25 above or below the curve.
+Nothing about $x$ tells you which way.
 
-I take ten training points at evenly spaced $x$ and fit a polynomial of degree $k$ to them:
+I take ten training points at evenly spaced $x$ and fit a *polynomial* of degree $k$ to them:
 
 $$
 \hat y = w_0 + w_1 x + w_2 x^2 + \cdots + w_k x^k
@@ -102,64 +108,88 @@ $\hat y$ is the prediction at $x$, and $w_0, \dots, w_k$ are the $k + 1$ weights
 Degree 0 is a flat line at height $w_0$, degree 1 is unit 4's straight line, and each extra degree adds one more power of $x$ with its own weight.
 :::
 
+A higher degree lets the curve bend more times.
 The prediction is still a weighted sum, with the powers $1, x, \dots, x^k$ playing the role of inputs.
-So the best weights come from the same mean squared error as in [unit 4](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong), and for a model this small NumPy can solve for them directly instead of walking downhill.
+So the best weights come from the same mean squared error as in [unit 4](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong).
+For a model this small, NumPy can solve for them directly instead of walking downhill.
 
-The training loss is that mean squared error on the ten training points.
+The *training loss* is that mean squared error on the ten training points.
 It drops as the degree goes up: 0.6244 at degree 0, 0.0979 at degree 3, and 0.0000 at degree 9.
 Degree 9 has ten weights for ten points, which is enough to pass through every point exactly.
 
 To see how each fit does on new data, I drew 20 more points from the same rule and never let the fit see them.
 This is a *validation set*, and the mean squared error on it is the *validation loss*.
 At degree 0 it's 0.4196, at degree 3 it's 0.0699, and at degree 9 it's 1.4732, worse than the flat line.
-How well a model does on data it hasn't seen is called *generalization*, and the difference between its validation loss and its training loss is the *generalization gap*.
+
+How well a model does on data it hasn't seen is called *generalization*.
+The difference between its validation loss and its training loss is the *generalization gap*.
+
+<figure class="widget demo" id="demo-fit"></figure>
 
 There's a floor under the validation loss.
-Even the true curve misses each point by that point's noise $\varepsilon$, and the average of $\varepsilon^2$ is the noise's variance, $0.25^2 = 0.0625$ ([unit 3](../03-probability/#expectation-spread-and-sampling)).
+Even the true curve misses each point by that point's noise $\varepsilon$.
+The average of $\varepsilon^2$ is the noise's variance, $0.25^2 = 0.0625$ ([unit 3](../03-probability/#expectation-spread-and-sampling)).
 So 0.0625 is about the best any model can expect, and degree 3's 0.0699 is close to it.
-A training loss far below 0.0625 means the fit is following the noise in those ten particular points, and the next ten points will have different noise.
+A training loss far below 0.0625 means the fit is following the noise in those ten particular points.
+The next ten points will have different noise.
 
 Degrees 0 to 2 *underfit*.
 They can't bend enough to follow a dip and a hump, so both losses stay high (degree 1 scores 0.4364 on training and 0.1946 on validation).
 Degree 3 is the first that can turn twice.
-Past degree 4 the fit *overfits*: training loss keeps falling while validation loss climbs, from 0.0986 at degree 5 to 0.2061 at degree 8 and 1.4732 at degree 9.
+
+Past degree 4 the fit *overfits*: training loss keeps falling while validation loss climbs.
+Validation loss goes from 0.0986 at degree 5 to 0.2061 at degree 8 and 1.4732 at degree 9.
 The degree-9 curve swings far above and below the data between training points.
 Its largest weight is 270.4, with big positive and negative terms cancelling each other to land on every point.
 
 The range of functions a model can represent is its *capacity*.
-A degree-$k$ polynomial can do anything a lower degree can (set the extra weights to 0), so adding degrees can only lower the training loss.
+A degree-$k$ polynomial can do anything a lower degree can (set the extra weights to 0).
+So adding degrees can only lower the training loss.
 On new data, extra capacity helps until the model can fit the noise, and then it hurts.
+
+Now try every degree yourself.
 
 <figure class="widget" id="capacity">
 <figcaption>Left: the ten training points (filled blue), the 20 validation points (hollow orange), the true curve sin(πx) (dashed) and the current fit. Right: training (blue) and validation (orange) error for every degree on a log scale, with the noise level 0.0625 dashed. Drag the degree first. Then, at degree 9, turn up the penalty λ, or add 30 training points.</figcaption>
 </figure>
 
-Counting weights works as a measure of capacity for polynomials, but it's a poor guide for large neural networks.
-[Zhang et al. (2016)](https://arxiv.org/abs/1611.03530) showed that standard image-classification networks can fit their training images even when every label is replaced by a random one, so they have room to memorize anything.
+Counting weights works as a measure of capacity for polynomials.
+It's a poor guide for large neural networks.
+[Zhang et al. (2016)](https://arxiv.org/abs/1611.03530) showed that standard image-classification networks can fit their training images even when every label is replaced by a random one.
+So they have room to memorize anything.
 The same networks still generalize well when the labels are real.
-What a big network ends up learning depends on the data and on how it's trained, as well as on its size, so in practice you measure generalization on held-out data instead of predicting it from the parameter count.
+What a big network ends up learning depends on the data and on how it's trained, as well as on its size.
+In practice you measure generalization on held-out data instead of predicting it from the parameter count.
 
 ## Train, validation and test
 
 Before training anything, split the data three ways.
 
-- The **training set** is what the weights are fit to.
-- The **validation set** is for choices the fit doesn't make itself: the degree, the penalty strength $\lambda$ below, when to stop training. These settings are called *hyperparameters*.
-- The **test set** gives one final score, at the end, for the model you picked.
+- The **training set** is what the weights are fit to. Think of it as the homework.
+- The **validation set** is for choices the fit doesn't make itself: the degree, the penalty strength $\lambda$ below, when to stop training. These settings are called *hyperparameters*. Think of it as a practice exam.
+- The **test set** gives one final score, at the end, for the model you picked. It's the real exam, taken once.
 
 The test set exists because choosing on the validation set makes the validation score optimistic.
 With ten degrees to choose from, the winner is partly the one whose errors happened to suit those 20 particular points.
 The test set played no part in any choice, so its score doesn't have that bias.
-In the worked example below, validation picks degree 3 and its test loss is 0.0490.
-That's lower than its validation loss of 0.0699, the opposite direction from the bias I just described, because a score from 20 points is noisy either way (unit 7 measures how noisy).
 
-Once you change the model because of its test score, the test set has become another validation set, and an unbiased number needs fresh data.
-When data is scarce, *cross-validation* stretches it: split the training data into five parts, train five times with a different part held out each time, and average the five validation losses.
+In the worked example below, validation picks degree 3 and its test loss is 0.0490.
+That's lower than its validation loss of 0.0699, the opposite direction from the bias I just described.
+A score from 20 points is noisy either way (unit 7 measures how noisy).
+
+Once you change the model because of its test score, the test set has become another validation set.
+An unbiased number then needs fresh data.
+
+When data is scarce, *cross-validation* stretches it.
+Split the training data into five parts.
+Train five times, holding out a different part each time, and average the five validation losses.
 
 ## Weight decay, early stopping and more data
 
 Picking a lower degree is one fix for overfitting.
 Three others keep the big model and stop it from fitting the noise.
+
+### An L2 penalty on the weights
 
 The first is an *L2 penalty*, an extra term in the loss that charges for large weights:
 
@@ -175,13 +205,17 @@ The sum starts at $j = 1$ and leaves out $w_0$, because shifting the whole curve
 The $\frac{1}{2}$ is there so the gradient comes out without a stray 2.
 :::
 
-The penalty strength $\lambda$ is a number you choose, 0 or more: at 0 the penalty is off, and the larger it is, the more a big weight costs compared with a missed point.
+The penalty strength $\lambda$ is a number you choose, 0 or more.
+At 0 the penalty is off.
+The larger it is, the more a big weight costs compared with a missed point.
 
 The fit now has to balance two things: weights big enough to follow the data, small enough to keep the penalty low.
 At degree 9, $\lambda = 0.0001$ already cuts the validation loss from 1.4732 to 0.1325, and the largest weight from 270.4 to 5.0.
 At $\lambda = 0.01$ the validation loss is 0.0663, slightly better than degree 3's 0.0699.
 At $\lambda = 1$ the penalty wins and flattens the curve, with training loss 0.4667 and validation loss 0.2629.
 So $\lambda$ is a hyperparameter, picked on the validation set like the degree.
+
+<figure class="widget demo" id="demo-penalty"></figure>
 
 For a general model with parameters $\theta$, the penalty is $\frac{\lambda}{2}\|\theta\|^2$, half of $\lambda$ times the squared length of the parameter vector ([unit 1](../01-vectors/#a-vector-is-a-list-of-numbers)).
 Its gradient is $\lambda\theta$, so add that to the gradient in the [update rule](../04-gradient-descent/#walk-downhill):
@@ -195,13 +229,22 @@ By the [power rule](../02-gradients/#the-rules-you-need), each penalty term $\fr
 $\nabla L_{\text{data}}$ is the gradient of the loss without the penalty, and $\eta$ is the learning rate.
 :::
 
-The right-hand side says what a step does: multiply every parameter by $1 - \eta\lambda$, a number just under 1, and then take the usual gradient step.
+The right-hand side says what a step does.
+First multiply every parameter by $1 - \eta\lambda$, a number just under 1.
+Then take the usual gradient step.
 With $\eta = 0.1$ and $\lambda = 0.001$ the factor is $0.9999$.
 A weight the data stops pushing on shrinks toward zero a little every step, which is why this is called *weight decay*.
 Unit 9 covers AdamW, which applies the decay separately from the optimizer's own step.
 
+### Stopping early
+
 The second fix is *early stopping*.
-Train the degree-9 polynomial with gradient descent instead of solving for it, starting from all weights at zero with $\eta = 0.3$, and record both losses as it goes.
+Train the degree-9 polynomial with gradient descent instead of solving for it.
+Start from all weights at zero with $\eta = 0.3$, and record both losses as it goes.
+
+<figure class="widget demo" id="demo-stop"></figure>
+
+The widget below runs the same training live.
 
 <figure class="widget" id="early-stopping">
 <figcaption>Gradient descent on the degree-9 fit. Left: the curve as training goes. Right: training (blue) and validation (orange) loss against the step number, both on log scales, up to a million steps. The green line marks the step with the lowest validation loss so far.</figcaption>
@@ -210,7 +253,8 @@ Train the degree-9 polynomial with gradient descent instead of solving for it, s
 Validation loss bottoms out at 0.0679 at step 305.
 By step 1,000 it's back up to 0.1020, while training loss has kept falling, from 0.0836 at step 305 to 0.0373.
 After a million steps training loss is 0.0114 and validation loss is 0.1542.
-Early stopping means keeping the weights from the step with the lowest validation loss, or stopping once validation loss hasn't improved for a while.
+Early stopping means keeping the weights from the step with the lowest validation loss.
+In practice you can also stop once validation loss hasn't improved for a while.
 
 Unit 4's [steep and flat directions](../04-gradient-descent/#the-learning-rate) explain why this works.
 Here the curvature of the loss ranges from 3.12 in its steepest direction to 0.00000014 in its flattest.
@@ -218,14 +262,18 @@ The broad shape of the data lies along the steep directions, which gradient desc
 Bending the curve through each noisy point needs the flat directions, which take millions of steps.
 Stopping early leaves the weights along those directions close to their starting value of zero, much like an L2 penalty would.
 
+### More data
+
 The third fix is more data.
 With 40 training points (the original ten plus 30 more from the same rule), degree 9 with no penalty scores 0.0432 on training and 0.0574 on validation.
-Ten weights can't pass through 40 points, so the fit follows the trend the points share, and the noise, which pushes different points in different directions, mostly cancels out.
+Ten weights can't pass through 40 points, so the fit follows the trend the points share.
+The noise pushes different points in different directions, so it mostly cancels out.
 
 ## Leakage and contamination
 
 Everything above assumes the validation and test points really are unseen.
-*Leakage* is when information from them reaches training anyway, and it makes held-out scores look better than the model is.
+*Leakage* is when information from them reaches training anyway.
+It makes held-out scores look better than the model is, like a practice exam that reuses homework questions.
 It's rarely deliberate:
 
 - The same example, or a near copy, lands on both sides of the split. This is common in data scraped from the web.
@@ -233,10 +281,16 @@ It's rarely deliberate:
 - Data with a time order is split at random, so the model trains on examples from after the ones it's tested on.
 
 Language models have a large-scale version of this, called *benchmark contamination*.
-They're pretrained on huge crawls of the public web, and benchmark questions get posted online along with their answers.
+(A *benchmark* is a fixed, public set of test questions used to compare models.)
+Language models are pretrained on huge crawls of the public web, and benchmark questions get posted online along with their answers.
 If those pages end up in the training data, a high score can mean the model has seen the answers.
-[Zhang et al. (2024)](https://arxiv.org/abs/2405.00332) wrote a fresh set of grade-school math problems matched in style and difficulty to GSM8k, a widely used benchmark, and found accuracy drops of up to 8% on the new set for some model families, though many models, especially the strongest ones, showed little sign of it.
-Benchmark authors try to make filtering possible: BIG-bench puts a fixed canary string in every task file so that people building training sets can find and drop documents that contain it.
+
+[Zhang et al. (2024)](https://arxiv.org/abs/2405.00332) wrote a fresh set of grade-school math problems matched in style and difficulty to GSM8k, a widely used benchmark.
+They found accuracy drops of up to 8% on the new set for some model families.
+Many models, especially the strongest ones, showed little sign of it.
+
+Benchmark authors try to make filtering possible.
+BIG-bench puts a fixed canary string in every task file, so that people building training sets can find and drop documents that contain it.
 
 From the security side this is a familiar problem.
 A test only measures something while the answers stay secret, and a public benchmark's answers are on the internet from the day it's released.
@@ -304,8 +358,18 @@ degree 9, lam 1       train 0.4667  val 0.2629  largest |w| 0.3
 degree 9, 40 points  train 0.0432  val 0.0574
 ```
 
-The training column only ever goes down, while the validation column bottoms out at degree 3 and blows up at degree 9.
-The extra rows `R` are the penalty written as least squares: each one asks a single weight $w_j$ to be 0, and its squared miss, $\frac{\lambda N}{2} w_j^2$, gets added to the summed squared error, which makes the total $N$ times the penalized loss $L(w)$ above, so it has the same minimum.
+The training column only ever goes down.
+The validation column bottoms out at degree 3 and blows up at degree 9.
+
+The extra rows `R` are the penalty written as least squares.
+Each one asks a single weight $w_j$ to be 0, and its squared miss, $\frac{\lambda N}{2} w_j^2$, gets added to the summed squared error.
+That makes the total $N$ times the penalized loss $L(w)$ above, so it has the same minimum.
+
+::: real-world
+- **Two curves on every training dashboard.** People who train models plot training loss and validation loss on the same chart. When the validation curve turns up while the training curve keeps falling, the model has started to overfit.
+- **The `weight_decay` setting.** PyTorch optimizers take a `weight_decay` argument, and it is this unit's $\lambda$. AdamW, the usual optimizer for large language models, has weight decay in its name: that is the W.
+- **Memorized training data.** A language model can memorize rare strings from its training set, and researchers have shown that the right prompts make it repeat some of them word for word. That turns overfitting into a privacy problem when the training data held secrets or personal details.
+:::
 
 ## Where this shows up later
 
@@ -313,6 +377,51 @@ The extra rows `R` are the penalty written as least squares: each one asks a sin
 - Unit 8: neural networks usually have far more parameters than the polynomials here, and you watch their training and validation curves the same way.
 - Unit 9: AdamW, the optimizer most large models train with, and its decoupled weight decay.
 - Unit 17: in reward hacking, the reward model's score keeps rising while the true quality falls, the same shape as the training and validation curves in this unit.
+
+::: review
+Training loss
+:   The loss on the examples the weights were fit to.
+
+Validation set and validation loss
+:   Examples held back from the fit, and the loss on them. Used to choose hyperparameters.
+
+Generalization
+:   How well a model does on data it hasn't seen. The generalization gap is validation loss minus training loss.
+
+Underfitting
+:   The model is too simple, so training and validation loss both stay high.
+
+Overfitting
+:   The model fits the noise in its training points, so training loss keeps falling while validation loss rises.
+
+Capacity
+:   The range of functions a model can represent. More capacity can only lower the training loss.
+
+Hyperparameter
+:   A setting the fit doesn't choose itself, like the degree, $\lambda$ or when to stop.
+
+Test set
+:   Examples used once, at the end, for a final score. It stops being a test set when you change the model because of it.
+
+L2 penalty and weight decay
+:   Adding $\frac{\lambda}{2}$ times the sum of squared weights to the loss. In the update it multiplies every weight by $1 - \eta\lambda$ each step.
+
+Early stopping
+:   Keeping the weights from the step where validation loss was lowest.
+
+Leakage
+:   Information from held-out data reaching training, which makes held-out scores too good.
+
+Benchmark contamination
+:   Benchmark questions and answers ending up in a model's training data.
+:::
+
+::: say
+A model can score well on its training data by memorizing noise, and then do badly on new data.
+You catch that by holding data out: a validation set for making choices and a test set for one final score.
+An L2 penalty, early stopping and more data all stop a big model from fitting the noise.
+None of this works if held-out data leaks into training, which is what benchmark contamination is for language models.
+:::
 
 ## Self-test
 

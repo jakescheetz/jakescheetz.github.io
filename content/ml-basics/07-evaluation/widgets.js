@@ -210,3 +210,251 @@
     render();
   })();
 })();
+
+// Step-through: 100 test emails, the never-flag filter, then the four confusion-matrix groups.
+(function () {
+  const G = { x: 30, y: 44, cell: 26 };
+  // Cells 0..9 are the phishing emails. The real filter flags cells 0..6 (TP) and cell 10 (FP).
+  const flagged = (i) => i < 7 || i === 10;
+  const TP = 7, FN = 3, FP = 1, TN = 89;
+  Learn.demo(document.getElementById("demo-confusion"), {
+    height: 340,
+    label: "A grid of 100 test emails, 10 of them phishing, sorted into true and false positives and negatives",
+    steps: [
+      { s: { never: 0, flag: 0, sort: 0, prec: 0, rec: 0 }, cap: "The test set: 100 emails. The 10 orange squares are phishing. The 90 blue squares are legitimate." },
+      { s: { never: 1 }, cap: "A filter that never flags anything is right about all 90 legitimate emails and wrong about all 10 phishing ones. Accuracy: 90 ÷ 100 = 0.90, with zero phishing caught." },
+      { s: { never: 0, flag: 1 }, cap: "The real filter flags 8 emails (dark outline). 7 are phishing and 1 is legitimate. It misses 3 phishing emails. It gets 96 right, so accuracy is 0.96." },
+      { s: { sort: 1 }, cap: "Sort the 100 answers into four groups. TP 7: phishing, flagged. FN 3: phishing, missed. FP 1: legitimate, flagged. TN 89: legitimate, left alone." },
+      { s: { prec: 1 }, cap: "Precision looks only at the flagged column. Of the 8 flagged emails, 7 are phishing: 7 ÷ 8 = 0.875." },
+      { s: { prec: 0, rec: 1 }, cap: "Recall looks only at the phishing row. Of the 10 phishing emails, the filter caught 7: 7 ÷ 10 = 0.70." },
+    ],
+    draw(ctx, s, c, d) {
+      d.text("100 test emails", G.x, 24, { c: c.muted, s: 13, w: 700 });
+      for (let i = 0; i < 100; i++) {
+        const x = G.x + (i % 10) * G.cell, y = G.y + Math.floor(i / 10) * G.cell;
+        const color = i < 10 ? c.orange : c.blue;
+        ctx.globalAlpha = 0.3;
+        d.rect(x + 3, y + 3, G.cell - 6, G.cell - 6, color);
+        ctx.globalAlpha = 1;
+        d.rect(x + 3, y + 3, G.cell - 6, G.cell - 6, null, color, 2);
+        if (flagged(i) && s.flag > 0.01) {
+          ctx.globalAlpha = s.flag;
+          d.rect(x + 3, y + 3, G.cell - 6, G.cell - 6, color, c.ink, 3);
+        }
+        const wrong = (i < 10 ? s.never : 0) + (flagged(i) !== (i < 10) ? s.flag : 0);
+        if (wrong > 0.01) {
+          ctx.globalAlpha = d.clamp(wrong, 0, 1);
+          d.line(x + 5, y + 5, x + G.cell - 5, y + G.cell - 5, c.red, 3);
+          d.line(x + G.cell - 5, y + 5, x + 5, y + G.cell - 5, c.red, 3);
+        }
+        ctx.globalAlpha = 1;
+      }
+      ctx.globalAlpha = d.clamp(s.never + s.flag, 0, 1);
+      d.text("red × = wrong answer", G.x, 322, { c: c.red, s: 12, a: "left" });
+      ctx.globalAlpha = 1;
+
+      d.panel(c, 320, 30, 300, 280);
+      const count = 1 - s.sort;
+      if (count > 0.01) {
+        const right = 100 - 10 * s.never - 4 * s.flag, wrong = 10 * s.never + 4 * s.flag;
+        const some = s.never + s.flag;
+        ctx.globalAlpha = count;
+        d.text(s.never > s.flag ? "never-flag filter" : s.flag > 0.01 ? "real filter, p ≥ 0.5" : "no filter yet", 336, 56, { c: c.muted, s: 13, w: 700 });
+        ctx.globalAlpha = count * d.clamp(some, 0, 1);
+        d.text(`right   ${Math.round(right)}`, 336, 100, { c: c.ink, s: 16 });
+        d.text(`wrong   ${Math.round(wrong)}`, 336, 130, { c: c.red, s: 16 });
+        d.text("accuracy", 336, 180, { c: c.muted, s: 13 });
+        d.text(`${Math.round(right)} ÷ 100 = ${d.fmt(Math.round(right) / 100, 2)}`, 336, 208, { c: c.ink, s: 20, w: 700 });
+        d.text(`phishing caught: ${Math.round(7 * s.flag)} of 10`, 336, 262, { c: c.orange, s: 14, w: 700 });
+        ctx.globalAlpha = 1;
+      }
+      if (s.sort > 0.01) {
+        const cx = [472, 566], ry = [124, 184];
+        if (s.prec > 0.01) { ctx.globalAlpha = s.sort * s.prec * 0.3; d.rect(430, 96, 84, 116, c.blue); }
+        if (s.rec > 0.01) { ctx.globalAlpha = s.sort * s.rec * 0.3; d.rect(430, 96, 178, 56, c.orange); }
+        ctx.globalAlpha = s.sort;
+        d.text("flagged", cx[0], 62, { c: c.muted, s: 13, a: "center", w: 700 });
+        d.text("not", cx[1], 54, { c: c.muted, s: 13, a: "center", w: 700 });
+        d.text("flagged", cx[1], 70, { c: c.muted, s: 13, a: "center", w: 700 });
+        d.text("phishing", 336, ry[0], { c: c.orange, s: 13, w: 700 });
+        d.text("legit", 336, ry[1], { c: c.blue, s: 13, w: 700 });
+        d.line(430, 96, 608, 96, c.muted, 1.5); d.line(430, 154, 608, 154, c.muted, 1.5);
+        d.line(430, 212, 608, 212, c.muted, 1.5); d.line(430, 96, 430, 212, c.muted, 1.5);
+        d.line(516, 96, 516, 212, c.muted, 1.5); d.line(608, 96, 608, 212, c.muted, 1.5);
+        const cell = (name, n, x, y, color) => {
+          d.text(name, x, y - 12, { c: c.muted, s: 12, a: "center" });
+          d.text(String(n), x, y + 10, { c: color, s: 20, a: "center", w: 700 });
+        };
+        cell("TP", TP, cx[0], ry[0], c.ink); cell("FN", FN, cx[1], ry[0], c.red);
+        cell("FP", FP, cx[0], ry[1], c.red); cell("TN", TN, cx[1], ry[1], c.ink);
+        const line = (alpha, a, b) => {
+          if (alpha < 0.05) return;
+          ctx.globalAlpha = s.sort * alpha;
+          d.text(a, 336, 246, { c: c.muted, s: 13 });
+          d.text(b, 336, 276, { c: c.ink, s: 17, w: 700 });
+        };
+        line(s.prec, "precision = TP ÷ (TP + FP)", `${TP} ÷ (${TP} + ${FP}) = ${d.fmt(TP / (TP + FP), 3)}`);
+        line(s.rec, "recall = TP ÷ (TP + FN)", `${TP} ÷ (${TP} + ${FN}) = ${d.fmt(TP / (TP + FN), 2)}`);
+        line(1 - Math.max(s.prec, s.rec), "accuracy = (TP + TN) ÷ 100", `(${TP} + ${TN}) ÷ 100 = ${d.fmt((TP + TN) / 100, 2)}`);
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();
+
+// Step-through: slide the threshold across the scored emails and watch precision and recall trade.
+(function () {
+  // Scores in hundredths, from the worked example's 100 test emails. The other 79 legitimate
+  // emails score under 0.10 and are summarized, not drawn.
+  const phish = [22, 36, 42, 51, 54, 56, 73, 86, 90, 96];
+  const legit = [13, 13, 17, 17, 19, 19, 20, 27, 29, 31, 63];
+  const X = (v) => 60 + v * 520, AX = 150;
+  Learn.demo(document.getElementById("demo-threshold"), {
+    height: 320,
+    label: "Test emails placed along a line by score, with a threshold that moves and the precision and recall at each position",
+    steps: [
+      { s: { t: 0.5, show: 0 }, cap: "Each dot is one test email, placed by its score p. The 10 phishing emails sit above the line. Legitimate ones sit below. 79 more legitimate emails score under 0.10 and are not drawn." },
+      { s: { show: 1 }, cap: "Set the threshold t = 0.5. Filled dots are flagged. The filter catches 7 of 10 phishing emails (recall 0.70). 7 of its 8 flags are right (precision 0.88)." },
+      { s: { t: 0.2 }, cap: "Lower t to 0.2. Now all 10 phishing emails are flagged, so recall is 1.00. But 5 legitimate emails are flagged too. Precision drops to 10 ÷ 15 = 0.67." },
+      { s: { t: 0.8 }, cap: "Raise t to 0.8. Only 3 emails are flagged and all 3 are phishing, so precision is 1.00. The filter now misses 7 phishing emails. Recall is 0.30." },
+      { s: { t: 0.34 }, cap: "At t = 0.34 the filter flags 9 phishing emails and 1 legitimate one. Precision and recall are both 0.90, and so is F1, its highest value on this test set." },
+    ],
+    draw(ctx, s, c, d) {
+      const tx = X(s.t), cut = s.t * 100 - 1e-6;
+      if (s.show > 0.01) {
+        ctx.globalAlpha = s.show;
+        d.rect(tx, 50, X(1) - tx + 20, 190, c.soft);
+        ctx.globalAlpha = 1;
+      }
+      d.line(X(0), AX, X(1) + 20, AX, c.muted, 1.5);
+      for (let k = 0; k <= 10; k++) {
+        d.line(X(k / 10), AX - 4, X(k / 10), AX + 4, c.muted, 1.5);
+        if (k % 2 === 0) d.text(d.fmt(k / 10, 1), X(k / 10), 252, { c: c.muted, s: 12, a: "center" });
+      }
+      d.text("score p", 636, AX - 12, { c: c.muted, s: 12, a: "right" });
+      d.text("phishing", 8, AX - 30, { c: c.orange, s: 12, w: 700 });
+      d.text("legit", 8, AX + 30, { c: c.blue, s: 12, w: 700 });
+      const mark = (x, y, color, on) => {
+        d.dot(x, y, 7, color);
+        if (on < 0.99) { ctx.globalAlpha = 1 - on; d.dot(x, y, 4.5, c.bg); ctx.globalAlpha = 1; }
+      };
+      let tp = 0, fp = 0;
+      for (const v of phish) { const on = v >= cut; if (on) tp++; mark(X(v / 100), AX - 30, c.orange, on ? s.show : 0); }
+      let prev = -1, stack = 0;
+      for (const v of legit) {
+        stack = v === prev ? stack + 1 : 0; prev = v;
+        const on = v >= cut; if (on) fp++;
+        mark(X(v / 100), AX + 30 + stack * 18, c.blue, on ? s.show : 0);
+      }
+      d.text("+79", X(0.045), AX + 30, { c: c.blue, s: 13, a: "center", w: 700 });
+      if (s.show > 0.01) {
+        ctx.globalAlpha = s.show;
+        d.line(tx, 44, tx, 240, c.ink, 2, [6, 5]);
+        d.text(`t = ${s.t.toFixed(2)}`, d.clamp(tx, 70, 570), 30, { c: c.ink, a: "center", w: 700 });
+        d.text("flagged →", Math.min(tx + 8, 540), 62, { c: c.muted, s: 12 });
+        const fn = 10 - tp, P = tp / (tp + fp), R = tp / 10, F = 2 * P * R / (P + R);
+        d.panel(c, 20, 270, 600, 40);
+        d.text(`TP ${tp}  FP ${fp}  FN ${fn}`, 34, 290, { c: c.ink, s: 13 });
+        d.text(`precision ${P.toFixed(2)}`, 208, 290, { c: c.blue, s: 13, w: 700 });
+        d.text(`recall ${R.toFixed(2)}`, 354, 290, { c: c.green, s: 13, w: 700 });
+        d.text(`F1 ${F.toFixed(2)}`, 480, 290, { c: c.ink, s: 13, w: 700 });
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();
+
+// Step-through: one bin of scores, calibrated and then stretched (overconfident).
+(function () {
+  const X = (v) => 70 + v * 440, rowA = 96, rowB = 216, H = 34;
+  Learn.demo(document.getElementById("demo-calibration"), {
+    height: 310,
+    label: "Two bars comparing what a filter claims for emails scored 0.8 to 0.9 with the share that really were phishing",
+    steps: [
+      { s: { fillA: 0, b: 0, fillB: 0, gap: 0 }, cap: "The filter scored 122 emails between 0.8 and 0.9. Their average score is 0.85. So the filter claims about 85% of these emails are phishing." },
+      { s: { fillA: 0.85 }, cap: "Check the labels. 85% of them really are phishing. The claim and the count match, so the filter is calibrated in this bin." },
+      { s: { b: 1 }, cap: "Now double every raw score z before the sigmoid. The stretched filter puts 88 emails in the same bin, again with an average score of 0.85." },
+      { s: { fillB: 0.64 }, cap: "Check the labels again. Only 64% of these 88 emails are phishing." },
+      { s: { gap: 1 }, cap: "The gap is 0.85 − 0.64 = 0.21. The stretched filter is overconfident: it claims more than the labels support. ECE averages gaps like this one over all the bins." },
+    ],
+    draw(ctx, s, c, d) {
+      const row = (y, title, fill, color) => {
+        d.text(title, X(0), y - 44, { c: c.ink, s: 13, w: 700 });
+        d.rect(X(0), y - H / 2, X(1) - X(0), H, c.soft, c.muted, 2);
+        if (fill > 0.005) {
+          d.rect(X(0), y - H / 2, X(fill) - X(0), H, color);
+          d.text(`${Math.round(fill * 100)}% phishing`, X(0) + 10, y, { c: c.bg, s: 13, w: 700 });
+        }
+        d.line(X(0.85), y - H / 2 - 8, X(0.85), y + H / 2 + 8, c.ink, 3);
+        d.text("claims 0.85", X(0.85) + 8, y - H / 2 - 12, { c: c.ink, s: 12, w: 700 });
+        d.text("0", X(0), y + H / 2 + 14, { c: c.muted, s: 12, a: "center" });
+        d.text("1", X(1), y + H / 2 + 14, { c: c.muted, s: 12, a: "center" });
+      };
+      row(rowA, "calibrated filter: 122 emails scored 0.8 to 0.9", s.fillA, c.blue);
+      if (s.fillA > 0.84) d.text("match", X(1) + 12, rowA, { c: c.blue, s: 13, w: 700 });
+      if (s.b > 0.01) {
+        ctx.globalAlpha = s.b;
+        row(rowB, "stretched filter (2z): 88 emails scored 0.8 to 0.9", s.fillB, c.orange);
+        if (s.gap > 0.01) {
+          ctx.globalAlpha = s.b * s.gap * 0.45;
+          d.rect(X(0.64), rowB - H / 2, X(0.85) - X(0.64), H, c.red);
+          ctx.globalAlpha = s.b * s.gap;
+          d.text("gap", (X(0.64) + X(0.85)) / 2, rowB - 7, { c: c.ink, s: 12, a: "center", w: 700 });
+          d.text("0.21", (X(0.64) + X(0.85)) / 2, rowB + 8, { c: c.ink, s: 12, a: "center", w: 700 });
+          d.text("overconfident", X(0.85), rowB + H / 2 + 32, { c: c.red, s: 13, a: "center", w: 700 });
+        }
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();
+
+// Step-through: the standard error of an accuracy, and what a 4 times bigger test set buys.
+(function () {
+  const X = (v) => 70 + (v - 0.9) * 5000, A = 0.96, B = 0.94;
+  const se = (a, n) => Math.sqrt(a * (1 - a) / n);
+  Learn.demo(document.getElementById("demo-stderr"), {
+    height: 300,
+    label: "Two filters' accuracies on an axis with error bars that shrink as the test set grows",
+    steps: [
+      { s: { bar: 0, b: 0, k: 1 }, cap: "Filter A scores 0.96 on 100 test emails. A different 100 emails would give a slightly different number." },
+      { s: { bar: 1 }, cap: "The standard error says how different. For 100 emails it is about 0.02. The bar reaches one standard error to each side of 0.96." },
+      { s: { b: 1 }, cap: "Filter B scores 0.94 on the same 100 emails. The gap between A and B is 0.02, about one standard error. The bars overlap, so this test can't tell which filter is better." },
+      { s: { k: 2 }, cap: "Suppose the scores held on 400 emails. 4 times the emails halves each standard error, to about 0.01. The bars still touch." },
+      { s: { k: 4 }, cap: "On 1,600 emails each standard error halves again, to about 0.005. The bars no longer overlap. A gap of 0.02 on a test set this size is worth believing." },
+    ],
+    draw(ctx, s, c, d) {
+      const n = 100 * s.k * s.k, AX = 236;
+      d.line(X(0.9), AX, X(1), AX, c.muted, 1.5);
+      for (let k = 0; k <= 10; k++) {
+        const v = 0.9 + k / 100;
+        d.line(X(v), AX - 4, X(v), AX + 4, c.muted, 1.5);
+        if (k % 2 === 0) d.text(v.toFixed(2), X(v), AX + 18, { c: c.muted, s: 12, a: "center" });
+      }
+      d.text("accuracy", X(0.95), AX + 42, { c: c.muted, s: 12, a: "center" });
+      d.panel(c, 20, 16, 226, 64);
+      d.text(`test set: ${Math.round(n).toLocaleString("en-US")} emails`, 34, 36, { c: c.ink, s: 13, w: 700 });
+      d.text(`standard error ≈ ${se(0.95, n).toFixed(3)}`, 34, 60, { c: c.muted, s: 13 });
+      const row = (y, name, a, color, alpha) => {
+        if (alpha < 0.01) return;
+        const e = se(a, n);
+        ctx.globalAlpha = alpha;
+        d.line(X(a), y + 12, X(a), AX, color, 1, [3, 4]);
+        if (s.bar > 0.01) {
+          ctx.globalAlpha = alpha * s.bar * 0.3;
+          d.rect(X(a - e), y - 10, X(a + e) - X(a - e), 20, color);
+          ctx.globalAlpha = alpha * s.bar;
+          d.line(X(a - e), y - 10, X(a - e), y + 10, color, 2);
+          d.line(X(a + e), y - 10, X(a + e), y + 10, color, 2);
+          d.line(X(a - e), y, X(a + e), y, color, 2);
+        }
+        ctx.globalAlpha = alpha;
+        d.dot(X(a), y, 7, color);
+        d.text(`${name}: ${a.toFixed(2)}`, X(a), y - 24, { c: color, s: 13, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      };
+      row(130, "filter A", A, c.blue, 1);
+      row(190, "filter B", B, c.orange, s.b);
+    },
+  });
+})();

@@ -230,3 +230,230 @@
 
   load();
 })();
+
+// Step-through: the sigmoid turns a score into a probability.
+(function () {
+  const X = (z) => 330 + z * 44, Y = (p) => 270 - p * 210;
+  const sig = (z) => 1 / (1 + Math.exp(-z));
+  Learn.demo(document.getElementById("demo-sigmoid"), {
+    height: 320,
+    label: "The S-shaped sigmoid curve, with one email's score on the horizontal axis and its probability on the vertical axis",
+    steps: [
+      { s: { z: -1, cur: 0, pt: 0 }, cap: "Email A has 4 links and 2 exclamation marks. Its score is z = 0.5 × 4 + 1 × 2 − 5 = −1. A score can be any number, so it is not a probability yet." },
+      { s: { cur: 1 }, cap: "This S-shaped curve is the sigmoid. It takes any score (across) and returns a number between 0 and 1 (up)." },
+      { s: { pt: 1 }, cap: "Put email A on the curve at z = −1 and read across: p = 0.27. The model gives A a 27% chance of being spam." },
+      { s: { z: 3 }, cap: "Email B has 6 links and 5 exclamation marks, so z = 3 + 5 − 5 = 3. The sigmoid gives p = 0.95. B is very likely spam." },
+      { s: { z: 0 }, cap: "A score of exactly 0 gives p = 0.5. Here the model can't decide either way." },
+      { s: { z: -5 }, cap: "Far to the left the curve flattens out. At z = −5, p is about 0.007. The curve gets close to 0 and 1 but never reaches them." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(X(-6), Y(1), X(6), Y(1), c.line);
+      d.line(X(-6), Y(0.5), X(6), Y(0.5), c.line);
+      d.line(X(-6), Y(0), X(6), Y(0), c.muted, 1.5);
+      d.line(X(-6), Y(1) - 14, X(-6), Y(0), c.muted, 1.5);
+      for (let z = -6; z <= 6; z += 2) d.text(d.fmt(z, 0), X(z), Y(0) + 16, { c: c.muted, s: 12, a: "center" });
+      for (const p of [0, 0.5, 1]) d.text(String(p), X(-6) - 8, Y(p), { c: c.muted, s: 12, a: "right" });
+      d.text("score z", X(6), Y(0) + 36, { c: c.muted, s: 13, a: "right" });
+      d.text("p", X(-6), Y(1) - 24, { c: c.muted, s: 13, a: "center" });
+      const p = sig(s.z);
+      if (s.cur > 0.01) {
+        ctx.globalAlpha = s.cur;
+        ctx.strokeStyle = c.blue; ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let i = 0; i <= 120; i++) { const z = -6 + i * 0.1; if (i) ctx.lineTo(X(z), Y(sig(z))); else ctx.moveTo(X(z), Y(sig(z))); }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      // The score on the z axis is there from the start; the probability appears with the point.
+      d.line(X(s.z), Y(0) - 7, X(s.z), Y(0) + 7, c.orange, 3);
+      if (s.pt > 0.01) {
+        ctx.globalAlpha = s.pt;
+        d.line(X(s.z), Y(0), X(s.z), Y(p), c.orange, 1.5, [4, 4]);
+        d.line(X(-6), Y(p), X(s.z), Y(p), c.orange, 1.5, [4, 4]);
+        d.dot(X(s.z), Y(p), 7, c.orange);
+        ctx.globalAlpha = 1;
+      }
+      d.panel(c, 84, 84, 188, s.pt > 0.01 ? 70 : 40);
+      d.text(`z = ${d.fmt(s.z, 2)}`, 98, 104, { c: c.ink, s: 17, w: 700 });
+      if (s.pt > 0.01) {
+        ctx.globalAlpha = s.pt;
+        d.text(`p = σ(z) = ${d.fmt(p, 3)}`, 98, 134, { c: c.orange, w: 700 });
+      }
+    },
+  });
+})();
+
+// Step-through: the decision boundary, the direction of w, and what the length of w does.
+(function () {
+  const X = (x) => 40 + x * 34, Y = (y) => 334 - y * 34;
+  const normal = [[0, 0], [1, 0], [0, 2], [2, 1], [1, 3], [3, 0], [2, 4], [4, 2], [3, 3], [5, 1], [6, 3]];
+  const spam = [[5, 6], [7, 3], [6, 5], [8, 7], [4, 7], [9, 4], [6, 8], [7, 6], [3, 6], [8, 2], [3, 2]];
+  const LEN = Math.hypot(0.5, 1), Z9 = Math.log(9); // score where p = 0.9 (about 2.2)
+  Learn.demo(document.getElementById("demo-boundary"), {
+    height: 360,
+    label: "Emails plotted by links and exclamation marks, split by a straight decision boundary with the weight vector crossing it",
+    steps: [
+      { s: { ln: 0, sh: 0, wv: 0, band: 0, sc: 1 }, cap: "Each mark is one email, placed by its links (across) and exclamation marks (up). Orange dots are spam. Blue rings are normal email. A and B are the two emails from the text." },
+      { s: { ln: 1 }, cap: "With w = (0.5, 1) and b = −5, the score is zero on the line 0.5 x₁ + x₂ = 5. It runs from (0, 5) to (10, 0). This line is the decision boundary." },
+      { s: { sh: 1 }, cap: "Above the line the score is positive, so the model says spam. Below it the score is negative, so the model says not spam. B is above. A is below." },
+      { s: { wv: 1 }, cap: "The arrow is w = (0.5, 1). It crosses the boundary at a right angle and points to the spam side. Moving along w raises the score fastest." },
+      { s: { band: 1 }, cap: "The dashed lines mark p = 0.1 and p = 0.9, where the score is −2.2 and 2.2. They sit 2.2 ÷ 1.12 = 1.97 units from the boundary. Between them the model is unsure." },
+      { s: { sc: 2 }, cap: "Double w and b. The boundary stays put, because the same points score zero. The dashed lines move in to 0.98 units, so the model is now surer about every email." },
+    ],
+    draw(ctx, s, c, d) {
+      for (let g = 0; g <= 10; g += 2) d.line(X(g), Y(0), X(g), Y(9), c.line);
+      for (let g = 0; g <= 9; g += 3) d.line(X(0), Y(g), X(10), Y(g), c.line);
+      d.line(X(0), Y(0), X(10), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(0), X(0), Y(9), c.muted, 1.5);
+      for (let g = 0; g <= 10; g += 2) d.text(String(g), X(g), Y(0) + 15, { c: c.muted, s: 12, a: "center" });
+      for (let g = 3; g <= 9; g += 3) d.text(String(g), X(0) - 9, Y(g), { c: c.muted, s: 12, a: "right" });
+      d.text("links x₁", X(10) + 22, Y(0) + 15, { c: c.muted, s: 12 });
+      d.text("exclamation marks x₂", X(0) + 4, Y(9) - 12, { c: c.muted, s: 12 });
+      ctx.save();
+      ctx.beginPath(); ctx.rect(X(0), Y(9), X(10) - X(0), Y(0) - Y(9)); ctx.clip();
+      if (s.sh > 0.01) {
+        ctx.globalAlpha = s.sh * 0.13;
+        ctx.fillStyle = c.orange;
+        ctx.beginPath(); ctx.moveTo(X(0), Y(5)); ctx.lineTo(X(10), Y(0)); ctx.lineTo(X(10), Y(9)); ctx.lineTo(X(0), Y(9)); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = c.blue;
+        ctx.beginPath(); ctx.moveTo(X(0), Y(5)); ctx.lineTo(X(10), Y(0)); ctx.lineTo(X(0), Y(0)); ctx.closePath(); ctx.fill();
+      }
+      if (s.band > 0.01) {
+        ctx.globalAlpha = s.band;
+        const off = Z9 / s.sc; // the line 0.5 x1 + x2 = 5 ± off
+        d.line(X(0), Y(5 + off), X(10), Y(off), c.ink, 1.5, [6, 5]);
+        d.line(X(0), Y(5 - off), X(10), Y(-off), c.ink, 1.5, [6, 5]);
+      }
+      if (s.ln > 0.01) {
+        ctx.globalAlpha = s.ln;
+        d.line(X(0), Y(5), X(10), Y(0), c.ink, 3);
+      }
+      ctx.restore();
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 2; ctx.strokeStyle = c.blue;
+      for (const [x, y] of normal) { ctx.beginPath(); ctx.arc(X(x), Y(y), 5, 0, 7); ctx.stroke(); }
+      for (const [x, y] of spam) d.dot(X(x), Y(y), 5.5, c.orange);
+      d.text("A", X(4) + 9, Y(2) + 12, { c: c.blue, w: 700 });
+      d.text("B", X(6) + 9, Y(5) + 12, { c: c.orange, w: 700 });
+      if (s.wv > 0.01) {
+        ctx.globalAlpha = s.wv;
+        d.arrow(X(4), Y(3), X(4 + 0.5 * s.sc), Y(3 + s.sc), c.purple, 3.5);
+        d.text("w", X(4 + 0.5 * s.sc) + 8, Y(3 + s.sc) - 4, { c: c.purple, w: 700 });
+      }
+      if (s.sh > 0.01) {
+        ctx.globalAlpha = s.sh;
+        d.text("spam side", X(10) - 6, Y(8.4), { c: c.orange, s: 13, w: 700, a: "right" });
+        d.text("not spam", X(0.4), Y(0.5), { c: c.blue, s: 13, w: 700 });
+      }
+      if (s.ln > 0.01) {
+        ctx.globalAlpha = s.ln;
+        d.panel(c, 420, 40, 208, s.band > 0.01 ? 226 : s.wv > 0.01 ? 132 : 104);
+        d.text(`w = (${d.fmt(0.5 * s.sc, 2)}, ${d.fmt(s.sc, 2)})`, 434, 64, { c: c.purple, w: 700 });
+        d.text(`b = ${d.fmt(-5 * s.sc, 1)}`, 434, 88, { c: c.ink, w: 700 });
+        d.text("boundary: z = 0", 434, 120, { c: c.muted, s: 13 });
+        if (s.wv > 0.01) {
+          ctx.globalAlpha = s.wv;
+          d.text(`length of w = ${d.fmt(LEN * s.sc, 2)}`, 434, 148, { c: c.ink, s: 13 });
+        }
+        if (s.band > 0.01) {
+          ctx.globalAlpha = s.band;
+          d.text("p = 0.1 and p = 0.9", 434, 184, { c: c.muted, s: 13 });
+          d.text("lines sit", 434, 204, { c: c.muted, s: 13 });
+          d.text(`${d.fmt(2.2 / (LEN * s.sc), 2)} units`, 434, 228, { c: c.ink, s: 17, w: 700 });
+          d.text("from the boundary", 434, 250, { c: c.muted, s: 13 });
+        }
+      }
+    },
+  });
+})();
+
+// Step-through: log loss against the probability the model gave to the true label.
+(function () {
+  const X = (q) => 70 + q * 380, Y = (L) => 280 - L * 50;
+  Learn.demo(document.getElementById("demo-logloss"), {
+    height: 330,
+    label: "The log loss curve: zero when the true label gets probability 1, rising without limit as that probability falls toward 0",
+    steps: [
+      { s: { q: 0.95, pt: 0 }, cap: "Across: the probability the model gave to what really happened. Up: the loss, minus the log of that probability. The loss is 0 at probability 1 and climbs as the probability falls." },
+      { s: { pt: 1 }, cap: "Email B is spam and the model said p = 0.95. The true label got 0.95, so the loss is −log 0.95 = 0.05. Right and confident costs almost nothing." },
+      { s: { q: 0.73 }, cap: "Email A is normal and the model said p = 0.27 for spam. That leaves 0.73 on the true label. The loss is −log 0.73 = 0.31." },
+      { s: { q: 0.182 }, cap: "The spam email at (3, 2) got p = 0.182. The model is wrong and fairly sure of itself. The loss is 1.70, more than A and B put together." },
+      { s: { q: 0.01 }, cap: "Push the probability on the truth down to 0.01 and the loss is 4.61. Each drop by a factor of 10 adds another 2.30. There is no ceiling." },
+    ],
+    draw(ctx, s, c, d) {
+      for (let L = 1; L <= 5; L++) d.line(X(0), Y(L), X(1), Y(L), c.line);
+      d.line(X(0), Y(0), X(1), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(5) - 10, X(0), Y(0), c.muted, 1.5);
+      for (const q of [0, 0.25, 0.5, 0.75, 1]) d.text(String(q), X(q), Y(0) + 16, { c: c.muted, s: 12, a: "center" });
+      for (let L = 1; L <= 5; L++) d.text(String(L), X(0) - 9, Y(L), { c: c.muted, s: 12, a: "right" });
+      d.text("probability on the true label", X(1), Y(0) + 36, { c: c.muted, s: 13, a: "right" });
+      d.text("loss", X(0) - 4, 14, { c: c.muted, s: 13, a: "right" });
+      ctx.strokeStyle = c.blue; ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 200; i++) {
+        const q = 0.0055 + (1 - 0.0055) * i / 200, y = Y(-Math.log(q));
+        if (i) ctx.lineTo(X(q), y); else ctx.moveTo(X(q), y);
+      }
+      ctx.stroke();
+      const L = -Math.log(s.q);
+      if (s.pt > 0.01) {
+        ctx.globalAlpha = s.pt;
+        d.line(X(s.q), Y(0), X(s.q), Y(L), c.orange, 1.5, [4, 4]);
+        d.line(X(0), Y(L), X(s.q), Y(L), c.orange, 1.5, [4, 4]);
+        d.dot(X(s.q), Y(L), 7, L > 1 ? c.red : c.orange);
+        d.panel(c, 476, 40, 152, 100);
+        d.text("on the truth", 488, 62, { c: c.muted, s: 13 });
+        d.text(d.fmt(s.q, 3), 488, 84, { c: c.ink, w: 700 });
+        d.text(`loss ${d.fmt(L, 2)}`, 488, 116, { c: L > 1 ? c.red : c.ink, s: 18, w: 700 });
+      }
+    },
+  });
+})();
+
+// Step-through: how hard log loss and squared error push on the score of a misjudged spam email.
+(function () {
+  const X = (z) => 196 + z * 25, Y = (p) => 262 - p * 190;
+  const sig = (z) => 1 / (1 + Math.exp(-z));
+  Learn.demo(document.getElementById("demo-push"), {
+    height: 320,
+    label: "A spam email sliding left along the sigmoid, with bars comparing the gradient of log loss and of squared error",
+    steps: [
+      { s: { z: 0, bars: 0 }, cap: "A spam email (y = 1) sits on the sigmoid at score z = 0, so p = 0.5. Training should push its score to the right. The short line through the dot shows the curve's slope there." },
+      { s: { bars: 1 }, cap: "The bars show how hard each loss pushes on the score. Log loss pushes with p − y = −0.5. Squared error pushes with 2(p − y) × p(1 − p) = −0.25." },
+      { s: { z: -2 }, cap: "Move the email to z = −2, so p = 0.12. The model is more wrong now. Log loss pushes harder: −0.88. Squared error pushes less: −0.18, because the curve is flatter here." },
+      { s: { z: -6 }, cap: "At z = −6, p = 0.0025. The model is badly wrong. Log loss pushes with −0.9975. Squared error pushes with only −0.0049, about 200 times weaker." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(X(-7), Y(1), X(7), Y(1), c.line);
+      d.line(X(-7), Y(0), X(7), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(1) - 10, X(0), Y(0), c.line);
+      for (let z = -6; z <= 6; z += 3) d.text(d.fmt(z, 0), X(z), Y(0) + 16, { c: c.muted, s: 12, a: "center" });
+      d.text("score z", X(7), Y(0) + 36, { c: c.muted, s: 13, a: "right" });
+      d.text("p = 1", X(-7), Y(1) - 12, { c: c.muted, s: 12 });
+      ctx.strokeStyle = c.blue; ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 140; i++) { const z = -7 + i * 0.1; if (i) ctx.lineTo(X(z), Y(sig(z))); else ctx.moveTo(X(z), Y(sig(z))); }
+      ctx.stroke();
+      const p = sig(s.z), slope = p * (1 - p);
+      const push = p - 1, pushSq = 2 * (p - 1) * slope;
+      // Tangent: a 3-unit-wide piece of the line with the sigmoid's slope at this score.
+      d.line(X(s.z - 1.5), Y(p - 1.5 * slope), X(s.z + 1.5), Y(p + 1.5 * slope), c.ink, 2);
+      d.dot(X(s.z), Y(p), 7, c.orange);
+      d.text("spam email", Math.max(24, X(s.z) - 90), Y(p) - 18, { c: c.orange, s: 13, w: 700 });
+      d.panel(c, 392, 24, 236, s.bars > 0.01 ? 250 : 84);
+      d.text(`z = ${d.fmt(s.z, 1)}   p = ${d.fmt(p, 4)}`, 404, 46, { c: c.ink, w: 700 });
+      d.text(`slope p(1 − p) = ${d.fmt(slope, 4)}`, 404, 78, { c: c.muted, s: 13 });
+      if (s.bars > 0.01) {
+        ctx.globalAlpha = s.bars;
+        d.text("push on the score", 404, 114, { c: c.muted, s: 13, w: 700 });
+        d.text(`log loss  ${d.fmt(push, 4)}`, 404, 142, { c: c.ink });
+        d.rect(404, 156, 200, 16, c.soft);
+        d.rect(404, 156, Math.max(1.5, 200 * -push), 16, c.orange);
+        d.text(`squared error  ${d.fmt(pushSq, 4)}`, 404, 198, { c: c.ink });
+        d.rect(404, 212, 200, 16, c.soft);
+        d.rect(404, 212, Math.max(1.5, 200 * -pushSq), 16, c.red);
+        d.text(`ratio: ${d.fmt(push / pushSq, 0)} to 1`, 404, 252, { c: c.muted, s: 13, w: 700 });
+      }
+    },
+  });
+})();

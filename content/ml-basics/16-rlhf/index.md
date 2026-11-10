@@ -68,10 +68,13 @@ quiz:
     why: '$\log(0.2 / 0.05) = \log 4 = 1.39$. It''s positive because the policy makes this answer more likely than $\pi_0$ did.'
 ---
 
-Unit 15 trained a policy against a reward that came from the environment, but a chatbot has no environment that hands out a score for an answer.
-RLHF (reinforcement learning from human feedback) builds one: it trains a reward model on people's choices between answers, then runs RL against that model.
-Most of the page is about that reward model: what its training data looks like and how "A beat B" becomes a number.
-DPO, at the end, trains on the same choices without a separate reward model.
+::: why
+Ask a chatbot the same question twice and you may like one answer better than the other.
+That choice is useful training data, but RL (unit 15) needs a number for every answer, and no environment hands one out for a chat reply.
+RLHF (reinforcement learning from human feedback) builds the missing scorer.
+It trains a second model on people's choices between answers, then runs RL against that model's scores.
+Most of this page is about how "A beat B" becomes a number.
+:::
 
 ## The three steps
 
@@ -89,6 +92,10 @@ It has three steps.
    The policy writes responses, the reward model scores them, and RL updates the policy toward responses that score higher.
    A penalty keeps the policy from drifting too far from $\pi_0$.
 
+Here are the three steps as one picture.
+
+<figure class="widget demo" id="demo-steps"></figure>
+
 Step 3 as an equation, where $D$ is the set of training prompts:
 
 $$
@@ -101,29 +108,41 @@ $\mathbb{E}$ is the expectation from [unit 3](../03-probability/#expectation-spr
 The second term measures how far the policy's answers have moved from $\pi_0$'s, and $\beta$ sets how much that costs.
 :::
 
-In words: pick the policy parameters $\theta$ that make the average reward-model score as high as possible, minus a charge, scaled by $\beta$, for moving away from $\pi_0$.
+In words: pick the policy parameters $\theta$ that make the average reward-model score as high as possible.
+Then subtract a charge for moving away from $\pi_0$.
+The number $\beta$ sets the size of that charge.
 
-That second term is called the *KL divergence* (Kullback–Leibler), written $D_{\mathrm{KL}}(\pi_\theta \,\|\, \pi_0)$ and read "the KL from $\pi_\theta$ to $\pi_0$".
+The charge is called the *KL divergence* (Kullback–Leibler).
+It measures how far one probability distribution has moved from another.
+It's written $D_{\mathrm{KL}}(\pi_\theta \,\|\, \pi_0)$ and read "the KL from $\pi_\theta$ to $\pi_0$".
 For one answer $y$ it's estimated as
 
 $$
 \log \pi_\theta(y \mid x) - \log \pi_0(y \mid x)
 $$
 
-the log probability the policy gives $y$ minus the log probability $\pi_0$ gave it, which is the log of how many times more likely the policy has made $y$.
-It's positive when the policy now makes $y$ more likely than $\pi_0$ did.
-A single answer can come out negative, but the average over the policy's own answers can't, and it's zero only when the two policies give every answer the same probability.
+That's the log probability the policy gives $y$, minus the log probability $\pi_0$ gave it.
+Say $\pi_0$ gave an answer a probability of 0.01 and the policy now gives it 0.04.
+The policy has made that answer 4 times more likely, and the estimate is $\log 4 \approx 1.39$.
+The estimate is positive when the policy makes $y$ more likely than $\pi_0$ did.
+A single answer can come out negative, but the average over the policy's own answers can't.
+The average is zero only when the two policies give every answer the same probability.
+
 InstructGPT subtracts $\beta$ times this from each answer's reward.
 They apply it token by token, which adds up to the same thing, because an answer's log probability is the sum of its tokens' log probabilities (unit 11).
 
 From there, step 3 is unit 15's setting.
 InstructGPT describes it as a bandit: a prompt comes in, the policy writes one response, the reward model scores it, and the episode ends.
-The RL algorithm is PPO, and the rest of this page is about step 2.
+The RL algorithm is PPO.
+The rest of this page is about step 2.
 
 ## What a reward model is
 
-A reward model reads a prompt $x$ and a response $y$ and returns one number, $r_\phi(x, y)$, where $\phi$ stands for its parameters.
-InstructGPT built theirs from the fine-tuned model: they took off the final unembedding layer (unit 13), the one that turns the last vector into $V$ logits, and trained the network to output a single number instead.
+A *reward model* reads a prompt $x$ and a response $y$ and returns one number, $r_\phi(x, y)$.
+The $\phi$ stands for its parameters.
+InstructGPT built theirs from the fine-tuned model.
+They took off the final unembedding layer (unit 13), the one that turns the last vector into $V$ logits.
+Then they trained the network to output a single number instead.
 They used a 6-billion-parameter reward model throughout.
 
 Take the prompt "How do I reverse a list in Python?" and say $\pi_0$ wrote four answers:
@@ -135,18 +154,30 @@ Take the prompt "How do I reverse a list in Python?" and say $\pi_0$ wrote four 
 
 A reward model doing its job might score them 1.5, 0.6, −0.4 and −1.7.
 Nobody gave it those numbers, though.
-In step 2 people see two or more answers and say which is better, and that's all the reward model learns from.
+In step 2 people see two or more answers and say which is better.
+That's all the reward model learns from.
 
-A score out of 10 means something different to each rater, and a choice between two answers doesn't need a shared scale.
+Why choices and not scores?
+A score out of 10 means something different to each rater.
+A choice between two answers doesn't need a shared scale.
 People still disagree on the choices: InstructGPT's labelers agreed with each other 72.6% of the time.
-InstructGPT had them rank 4 to 9 answers at a time and counted every pair inside a ranking as one comparison, so one ranking of 9 answers gives 36.
+
+InstructGPT had them rank 4 to 9 answers at a time.
+Every pair inside a ranking counts as one *comparison*, a record of which of two answers won.
+One ranking of 9 answers gives 36 comparisons.
 
 ## From picks to numbers
 
 So the training data is a pile of results like "A beat B", and the reward model has to output numbers.
-The link between the two is the *Bradley–Terry model*, and it turns out to be logistic regression from unit 5 with the reward gap as the score.
-Write $y_w$ for the answer people picked (the winner), $y_l$ for the other one (the loser), and $y_w \succ y_l$ for "$y_w$ is preferred to $y_l$".
-Writing $r(y)$ for $r_\phi(x, y)$, since both answers share the prompt, Bradley–Terry says
+The link between the two is the *Bradley–Terry model*.
+It's a rule that turns the gap between two rewards into the chance that one answer wins.
+It turns out to be logistic regression from unit 5, with the reward gap as the score.
+
+First, some names.
+Write $y_w$ for the answer people picked (the winner) and $y_l$ for the other one (the loser).
+Write $y_w \succ y_l$ for "$y_w$ is preferred to $y_l$".
+Both answers share the prompt, so write $r(y)$ as short for $r_\phi(x, y)$.
+Bradley–Terry says
 
 $$
 P(y_w \succ y_l) = \sigma\big(r(y_w) - r(y_l)\big), \qquad \sigma(t) = \frac{1}{1 + e^{-t}}
@@ -165,11 +196,13 @@ So the model says people pick A over B 71% of the time, and B over A the other 2
 A against D is a gap of 3.2, which gives 0.96.
 
 Only the gap enters the formula.
-Add 10 to every answer's reward and every probability stays the same, so a reward of 0 means nothing on its own.
+Add 10 to every answer's reward and every probability stays the same.
+So a reward of 0 means nothing on its own.
 InstructGPT shifted their trained reward model so that answers written by people averaged 0 before running RL.
 
 Training picks the rewards that make the observed picks most likely.
-For one comparison that means making $\sigma(r_w - r_l)$ big, where $r_w = r(y_w)$ and $r_l = r(y_l)$, and as in unit 5 you minimize the negative log instead, averaged over all comparisons:
+For one comparison that means making $\sigma(r_w - r_l)$ big, where $r_w = r(y_w)$ and $r_l = r(y_l)$.
+As in unit 5, you minimize the negative log instead, averaged over all comparisons:
 
 $$
 L = -\log \sigma(r_w - r_l)
@@ -180,12 +213,15 @@ $\sigma(r_w - r_l)$ is the probability the model gave to the pick people actuall
 This is unit 5's [log loss](../05-classification/#log-loss) with the label always $y = 1$, since we always put the winner first.
 :::
 
-The loss is near 0 when the model was confident and right, and large when it was confident and wrong.
+The loss is near 0 when the model was confident and right.
+It's large when the model was confident and wrong.
 If people picked A over B, the loss is $-\log 0.71 = 0.34$.
 If they picked B, the gap flips to $-0.9$ and the loss is $-\log 0.29 = 1.24$.
 
 The gradient is what made this loss make sense to me.
-A gradient step (unit 4) raises $r_w$ and lowers $r_l$ by the same amount, proportional to
+A gradient step (unit 4) raises $r_w$ and lowers $r_l$ by the same amount.
+I'll call that amount the *push*.
+It's proportional to
 
 $$
 1 - \sigma(r_w - r_l)
@@ -199,7 +235,16 @@ Here $t = r_w - r_l$, so $r_w$ and $r_l$ get that derivative with opposite signs
 That's the probability the model gave to the pick people didn't make.
 When people pick A, the model had already given that 0.71, so the push is 0.29.
 When they pick B, the model had given that only 0.29, so the push is 0.71.
-A comparison the model called at 0.95 moves the rewards by 0.05, and one it called at 0.05 moves them by 0.95.
+A comparison the model called at 0.95 moves the rewards by 0.05.
+One it called at 0.05 moves them by 0.95.
+A surprise teaches the model more than a pick it expected.
+
+The demo walks through those numbers in order.
+
+<figure class="widget demo" id="demo-bt"></figure>
+
+Now try any gap you like.
+The widget shows the same curve, and you drag the gap yourself.
 
 <figure class="widget" id="bt-curve">
 <figcaption>The curve is σ of the reward gap. The blue part is the probability the model gives to the pick people made, and the orange part is what's left, which sets how hard that comparison pushes the two rewards apart. Drag the gap below 0 to see a pick the model didn't expect.</figcaption>
@@ -210,25 +255,33 @@ Over thousands of comparisons the rewards settle where the gaps match how often 
 At the exact best fit, each answer's predicted wins, added up over all its comparisons, equal its actual wins.
 
 The widget below runs that with the four answers from the example.
-Simulated people pick between random pairs using the hidden rewards 1.5, 0.6, −0.4 and −1.7 through Bradley–Terry.
+Simulated people pick between random pairs.
+They use the hidden rewards 1.5, 0.6, −0.4 and −1.7 through Bradley–Terry.
 The model starts every answer at 0 and only ever sees who won.
 
 <figure class="widget" id="bt-fit">
 <figcaption>Rings are the hidden rewards, dots are the model's estimates. The last comparison's winner is green and its loser orange. Each update adds to one reward and subtracts the same amount from the other, so the estimates always average 0, like the hidden ones.</figcaption>
 </figure>
 
-Even the hidden rewards don't call every pick, because the simulated people pick at random with the Bradley–Terry probabilities.
-Averaged over the six pairs, the hidden rewards should call about 83% of picks right, and over many comparisons no set of estimates calls more.
+Even the hidden rewards don't call every pick.
+The simulated people pick at random with the Bradley–Terry probabilities, so the weaker answer sometimes wins.
+Averaged over the six pairs, the hidden rewards should call about 83% of picks right.
+Over many comparisons no set of estimates calls more.
 A bigger step size gets close faster and then jitters more, the same tradeoff as the learning rate in unit 4.
 
 In the widget each answer has its own number.
-A real reward model has one set of weights $\phi$ shared by every answer, and each comparison's push goes through backpropagation (unit 8) into those weights.
-That's how it can score answers nobody compared, which step 3 depends on, since almost everything the policy writes there is new.
+A real reward model has one set of weights $\phi$ shared by every answer.
+Each comparison's push goes through backpropagation (unit 8) into those weights.
+That's how it can score answers nobody compared.
+Step 3 depends on this, since almost everything the policy writes there is new.
 
 ## Skipping the reward model: DPO
 
-Rafailov et al. (2023) found a way to train the policy on the comparisons directly, with no reward model and no RL loop, and called it Direct Preference Optimization (DPO).
-It starts from the step 3 objective, which has an exact best policy if you could optimize it perfectly:
+Rafailov et al. (2023) found a way to train the policy on the comparisons directly, with no reward model and no RL loop.
+They called it *Direct Preference Optimization* (DPO).
+
+It starts from the step 3 objective.
+If you could optimize that objective perfectly, the best policy would have an exact formula:
 
 $$
 \pi^*(y \mid x) = \frac{1}{Z(x)}\, \pi_0(y \mid x)\, \exp\big(r(x, y)/\beta\big)
@@ -240,9 +293,16 @@ On the right, $\pi_0(y \mid x)$ is $\pi_0$'s probability for the same answer, an
 $Z(x)$ is the sum of $\pi_0(y \mid x)\exp(r(x, y)/\beta)$ over every possible answer.
 :::
 
-So the best policy is $\pi_0$ reweighted: answers the reward model likes get scaled up, and a small $\beta$ scales them up harder.
-$Z(x)$ is the number that makes the probabilities add up to 1, and for a language model nobody can compute it.
-Solve for the reward instead, by taking the log of both sides and rearranging:
+So the best policy is $\pi_0$ reweighted.
+Answers the reward model likes get scaled up, and a small $\beta$ scales them up harder.
+$Z(x)$ is the number that makes the probabilities add up to 1.
+
+The demo does this for a toy prompt with only four possible answers, so you can see every number.
+
+<figure class="widget demo" id="demo-dpo"></figure>
+
+For a real language model nobody can compute $Z(x)$, because the sum runs over every possible answer.
+So solve for the reward instead, by taking the log of both sides and rearranging:
 
 $$
 r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_0(y \mid x)} + \beta \log Z(x)
@@ -255,7 +315,8 @@ The second term depends only on the prompt.
 
 Now plug that into Bradley–Terry.
 Both answers in a comparison share the prompt, so the $\beta \log Z(x)$ terms cancel in $r_w - r_l$.
-Put the policy being trained, $\pi_\theta$, in place of $\pi^*$, and what's left is a loss on the policy itself:
+Put the policy being trained, $\pi_\theta$, in place of $\pi^*$.
+What's left is a loss on the policy itself:
 
 $$
 L_{\mathrm{DPO}} = -\log \sigma\Big(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_0(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_0(y_l \mid x)}\Big)
@@ -266,17 +327,23 @@ The first term inside $\sigma$ is the winner's implied reward: $\beta$ times the
 The second is the same for the loser $y_l$.
 :::
 
-It's the reward model's loss $-\log \sigma(r_w - r_l)$ with $\beta \log(\pi_\theta / \pi_0)$ standing in for the reward, so the loss falls as the policy raises the winner's probability relative to $\pi_0$ more than the loser's.
-Each training step computes the log probability of both answers under $\pi_\theta$ and under a frozen copy of $\pi_0$, then takes a gradient step.
+It's the reward model's loss $-\log \sigma(r_w - r_l)$ with $\beta \log(\pi_\theta / \pi_0)$ standing in for the reward.
+The loss falls as the policy raises the winner's probability, relative to $\pi_0$, more than the loser's.
+
+Each training step computes the log probability of both answers under $\pi_\theta$ and under a frozen copy of $\pi_0$.
+Then it takes a gradient step.
 The policy never writes anything during training, and it learns from the same comparison data as step 2.
 In the paper, DPO matched or beat PPO-based RLHF on summarization and single-turn dialogue.
 
 ## Worked example
 
-A reward model that's linear in four hand-made features, $r(y) = w \cdot f(y)$, fitted to 2,000 simulated comparisons.
-Here $f(y)$ is a vector of four numbers describing response $y$, $w$ holds one weight per feature, and $w \cdot f(y)$ is their [dot product](../01-vectors/#the-dot-product), so this is unit 5's logistic regression with feature differences $f(y_w) - f(y_l)$ as the input.
+This example fits a small reward model to 2,000 simulated comparisons.
+The model is linear in four hand-made features: $r(y) = w \cdot f(y)$.
+Here $f(y)$ is a vector of four numbers describing response $y$, and $w$ holds one weight per feature.
+$w \cdot f(y)$ is their [dot product](../01-vectors/#the-dot-product), so this is unit 5's logistic regression with feature differences $f(y_w) - f(y_l)$ as the input.
 It has no bias term, since a constant added to every reward would cancel in $r_w - r_l$.
-The simulated people pick using hidden weights, and the question is whether the fit gets them back from nothing but who won.
+The simulated people pick using hidden weights.
+The question is whether the fit gets those weights back from nothing but who won.
 
 ```python
 import numpy as np
@@ -339,13 +406,61 @@ picks predicted, fitted w: 0.772
 picks predicted, hidden w: 0.771
 ```
 
-By step 200, three of the four fitted weights are within 0.02 of the hidden ones, and the biggest miss is length (0.35 against 0.3).
-The fitted weights call 77.2% of the picks and the hidden ones 77.1%: the simulated people are noisy, and the fit edges past the truth by matching this sample's noise.
+By step 200, three of the four fitted weights are within 0.02 of the hidden ones.
+The biggest miss is length (0.35 against 0.3).
+The fitted weights call 77.2% of the picks and the hidden ones 77.1%.
+The simulated people are noisy, and the fit edges past the truth by matching this sample's noise.
+
+::: real-world
+- **Chess ratings.** The Elo system gives each player one number, and the chance of a win depends only on the gap between two ratings. It has the same shape as Bradley–Terry, with players in place of answers.
+- **Model leaderboards.** Sites like Chatbot Arena show you two unnamed models' answers and ask which is better. They turn those votes into one rating per model with this kind of math.
+- **Poisoned labels.** The reward model only knows what the comparisons tell it. If an attacker can slip biased picks into the data, the reward model learns to like what the attacker likes, and step 3 trains the policy to match.
+:::
 
 ## Where this goes next
 
 - Unit 17: step 3 pushes the policy toward whatever $r_\phi$ scores highest, and $r_\phi$ only learned from comparisons between $\pi_0$'s answers. Unit 17 follows the reward model's scores as the policy moves away from those answers, and looks at what the KL penalty does about it.
 - My post [Reward hacking from the ground up](../../posts/your-reward-model-is-an-attack-surface/) tells the same story in one piece, from this recipe through the usual mitigations.
+
+::: review
+RLHF
+:   Reinforcement learning from human feedback. Train a reward model on people's choices, then run RL against it.
+
+$\pi_0$
+:   The fine-tuned model that RL starts from. It writes the answers people compare, and the KL penalty is measured against it.
+
+Reward model, $r_\phi(x, y)$
+:   A model that reads a prompt and a response and returns one number. Higher means people would probably like the response more.
+
+Comparison
+:   One record of which of two answers people picked. The winner is $y_w$ and the loser is $y_l$.
+
+Bradley–Terry model
+:   The chance people pick the winner is the sigmoid of the reward gap, $\sigma(r_w - r_l)$. Only the gap matters.
+
+Reward model loss
+:   $-\log \sigma(r_w - r_l)$. Near 0 when the model expected the pick, large when it didn't.
+
+Push
+:   How far one comparison moves the two rewards: $1 - \sigma(r_w - r_l)$, the probability the model gave to the pick people didn't make.
+
+KL divergence
+:   A measure of how far the policy's answers have moved from $\pi_0$'s. For one answer it's estimated as $\log \pi_\theta(y \mid x) - \log \pi_0(y \mid x)$.
+
+$\beta$
+:   How much moving away from $\pi_0$ costs. A larger $\beta$ keeps the policy closer.
+
+DPO
+:   Direct Preference Optimization. It trains the policy on the comparisons directly, with $\beta \log(\pi_\theta / \pi_0)$ standing in for the reward.
+:::
+
+::: say
+A chatbot has no environment that scores its answers, so RLHF builds a scorer.
+People pick between pairs of answers, and a reward model learns numbers whose gaps predict those picks.
+The rule is Bradley–Terry: the chance of a pick is the sigmoid of the reward gap.
+Then RL trains the policy to score high on the reward model, with a KL penalty that keeps it near the model it started from.
+DPO gets to a similar place by training the policy on the same picks directly.
+:::
 
 ## Self-test
 

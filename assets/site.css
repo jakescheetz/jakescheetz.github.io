@@ -20,6 +20,7 @@
   --accent-green: #587539;
   --accent-orange: #b15c00;
   --accent-cyan: #007197;
+  --accent-red: #c64343;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -28,6 +29,7 @@
     --accent-green: #9ece6a;
     --accent-orange: #ff9e64;
     --accent-cyan: #7dcfff;
+    --accent-red: #f7768e;
   }
 }
 

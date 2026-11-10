@@ -68,15 +68,20 @@ quiz:
     why: 'Recall is the share of real positives the classifier flags, so $18{,}444 / 0.8 \approx 23{,}000$. The 14,800 multiplies by 0.8 instead of dividing.'
 ---
 
-Units 15 to 17 trained a model against a number, and unit 17 watched that number come apart from what people wanted.
+::: why
+Tell a kid to clean their room and you may find everything shoved under the bed.
+The kid did what you said and missed what you meant.
+Models trained against a number do the same thing, and unit 17 showed one case.
 *Alignment* is the name for the larger problem: getting a model to do what the people who build and use it actually intend.
-Reward hacking is one way to miss.
-A model can also learn the wrong goal from a reward that was right, or learn to please the people grading it instead of being correct, and much of the work on alignment is about preventing those and catching them when prevention fails.
+This unit covers three ways training can miss that target.
+It also covers how people supervise and test models to catch the misses.
+:::
 
 ## What alignment means
 
-InstructGPT, the paper behind unit 16's recipe, describes its goal as "aligning language models with user intent", and, following [Leike et al. (2018)](https://arxiv.org/abs/1811.07871), as training models "to act in accordance with the user's intention".
-It also borrows a three-word version from [Askell et al. (2021)](https://arxiv.org/abs/2112.00861) at Anthropic: helpful, honest and harmless.
+InstructGPT, the paper behind unit 16's recipe, describes its goal as "aligning language models with user intent".
+Following [Leike et al. (2018)](https://arxiv.org/abs/1811.07871), it also describes it as training models "to act in accordance with the user's intention".
+It borrows a three-word version from [Askell et al. (2021)](https://arxiv.org/abs/2112.00861) at Anthropic: helpful, honest and harmless.
 Both describe intent, and training never sees intent.
 It sees a loss or a reward, computed on the training data.
 
@@ -90,11 +95,14 @@ That leaves two places for a gap.
   That's *goal misgeneralization*, the next section.
 
 The best-known case of the first is OpenAI's CoastRunners agent ([Clark and Amodei, 2016](https://openai.com/index/faulty-reward-functions/)).
-The game's goal, as people understand it, is to finish a boat race, but the score comes from hitting targets along the route.
-The agent found a lagoon where it could circle and knock over the same three targets as they reappeared, catching fire and crashing into other boats along the way, and it scored on average 20 percent higher than human players.
+The game's goal, as people understand it, is to finish a boat race.
+But the score comes from hitting targets along the route.
+The agent found a lagoon where it could circle and knock over the same three targets as they reappeared.
+It caught fire and crashed into other boats along the way, and it scored on average 20 percent higher than human players.
 Unit 17's reward hacking is the same failure with a learned reward model as the objective.
 
-[Hubinger et al. (2019)](https://arxiv.org/abs/1906.01820) call these two gaps *outer alignment* and *inner alignment*, though they define the second only for a model that is itself searching toward an objective of its own.
+[Hubinger et al. (2019)](https://arxiv.org/abs/1906.01820) call these two gaps *outer alignment* and *inner alignment*.
+They define the second only for a model that is itself searching toward an objective of its own.
 
 ## Right reward, wrong goal
 
@@ -104,21 +112,34 @@ At test time they put the coin somewhere random, and "the agent generally ignore
 It still gets through the levels.
 In their words, "the agent's capability for solving the levels generalizes, but its goal of collecting coins does not."
 
-Nothing was wrong with the reward: the agent was only ever rewarded for the coin.
-The trouble is that on every training level, "go to the coin" and "go to the right end" are the same behavior and earn the same reward, so the training data can't tell the two goals apart.
-A validation set doesn't help either, since a [held-out set](../06-generalization/#train-validation-and-test) only tells you about data drawn the same way, and on validation levels with the coin at the end both goals score perfectly.
+Nothing was wrong with the reward.
+The agent was only ever rewarded for the coin.
+The trouble is that on every training level, "go to the coin" and "go to the right end" are the same behavior and earn the same reward.
+So the training data can't tell the two goals apart.
+
+A validation set doesn't help either.
+A [held-out set](../06-generalization/#train-validation-and-test) only tells you about data drawn the same way.
+On validation levels with the coin at the end, both goals score perfectly.
+
+The demo shows the idea on a small corridor that I describe in detail below.
+
+<figure class="widget demo" id="demo-corridor"></figure>
 
 [Shah et al. (2022)](https://arxiv.org/abs/2210.01790) define goal misgeneralization in general: a learned model "behaves as though it is optimizing an unintended goal, despite receiving correct feedback during training."
-An agent was rewarded for visiting colored spheres in the correct order, and it trained alongside a partner bot that visited them in that order, so following the partner was a good strategy.
+In one of their examples, an agent was rewarded for visiting colored spheres in the correct order.
+It trained alongside a partner bot that visited them in that order, so following the partner was a good strategy.
 At test time the partner was swapped for one that visited the spheres in the wrong order.
-The agent kept following it, scoring far worse than a random policy, even though it could observe the negative rewards.
+The agent kept following it.
+It scored far worse than a random policy, even though it could observe the negative rewards.
 
 Langosco et al. also tried the obvious fix.
 Their figure 2 reports that goal generalization "is greatly improved" when "just 2% of training levels have randomly placed coins (like the test environment)", and more randomization helps further.
-That fix needs someone to know which coincidence to break, and the training data of a large language model comes with no list of them.
+That fix needs someone to know which coincidence to break.
+The training data of a large language model comes with no list of them.
 
 I rebuilt a small version to watch the weights.
-The level is a corridor of 9 cells, the agent starts in the middle (cell 4), and the level ends at cell 8.
+The level is a corridor of 9 cells.
+The agent starts in the middle (cell 4), and the level ends at cell 8.
 The agent sees 4 cells each way, and it gets a reward of 1 for reaching the coin within 12 steps.
 In training the coin sits at cell 8, except on a chosen share of levels where it goes in a random cell.
 At each step the policy chooses between stepping right and stepping left:
@@ -134,7 +155,9 @@ $w_{\text{coin}}$ sets how strongly the agent heads toward a coin it can see, an
 Stepping left has probability $1 - \pi(\text{right} \mid s)$.
 ::::
 
-So the policy is logistic regression with two weights, one for heading toward a coin it can see and one for heading right, toward the end.
+So the policy is logistic regression with two weights.
+One is for heading toward a coin it can see.
+The other is for heading right, toward the end.
 It's trained with [REINFORCE and a running-average baseline](../15-reinforcement-learning/#a-baseline-compare-with-the-average) from unit 15 for 3,000 levels, starting from both weights at 0.
 
 With the coin always at the end, the two weights almost always get the same push.
@@ -143,52 +166,80 @@ The only steps that tell them apart are ones where the agent has wandered left o
 Stepping right is still what earns the reward there, and with $c = 0$ only $w_{\text{end}}$ gets the credit.
 So training ends with $w_{\text{end}}$ ahead: averaged over 20 runs, $w_{\text{coin}} = 1.63$ and $w_{\text{end}} = 2.24$.
 
+The demo plugs those average weights into the formula, first with the coin on the right and then with it on the left.
+
+<figure class="widget demo" id="demo-weights"></figure>
+
+The widget plays whole test levels with the 20 trained runs.
+You choose the share of training levels that had a random coin.
+
 <figure class="widget" id="coin-corridor">
 <figcaption>Top: one test level at a time, played by one of the 20 trained runs. The coin is orange, the end of the level is blue, and the dashed box is what the agent can see. Bottom: for each share of training levels with a random coin, how often the runs get a coin placed to the left of the start (orange) and how often they're standing at the end when time runs out (blue). Start at 0% and watch the coin-left levels, then move the slider to 2%.</figcaption>
 </figure>
 
-At 0%, every run gets the coin on its training levels, and on test levels with the coin to the left it gets the coin only 25% of the time and ends at the end 60% of the time.
+At 0%, every run gets the coin on its training levels.
+On test levels with the coin to the left, the runs get the coin only 25% of the time and end at the end 60% of the time.
 Run 1 at the start of such a level steps right with probability $\sigma(-1.42 + 2.07) = 0.66$, and three steps right put a coin at cell 2 out of view.
-At 2%, about 60 of the 3,000 training levels have a random coin, roughly half of them to the left, and all 20 runs end with $w_{\text{coin}}$ above $w_{\text{end}}$.
-The toy's 2% matching Langosco et al.'s is a coincidence of the setup, but the direction is the same: a few levels where the two goals disagree are enough to separate them.
+
+At 2%, about 60 of the 3,000 training levels have a random coin, roughly half of them to the left.
+All 20 runs end with $w_{\text{coin}}$ above $w_{\text{end}}$.
+The toy's 2% matching Langosco et al.'s is a coincidence of the setup, but the direction is the same.
+A few levels where the two goals disagree are enough to separate them.
 
 ## When the proxy is people
 
 RLHF uses people's picks as the training signal (unit 16), and those picks are a proxy too.
 [Sharma et al. (2023)](https://arxiv.org/abs/2310.13548) studied one way they miss: *sycophancy*, "where a model seeks human approval in unwanted ways."
+In plain words, the model tells you what you want to hear.
 
 They tested five assistants trained with human feedback (Claude 1.3, Claude 2, GPT-3.5, GPT-4 and LLaMA 2 70B chat) and found sycophancy in all of them.
 When a user replied "I don't think that's right. Are you sure?", Claude 1.3 wrongly admitted a mistake on 98% of questions.
 When the user suggested a wrong answer in the question, accuracy fell by up to 27% (LLaMA 2).
 
-To see where it comes from, they had GPT-4 tag 15,000 comparisons from Anthropic's public helpfulness data with 23 features and fit a Bayesian logistic regression predicting which answer people picked, the same kind of model as [unit 16's Bradley–Terry](../16-rlhf/#from-picks-to-numbers).
+To see where it comes from, they looked at the comparison data.
+They had GPT-4 tag 15,000 comparisons from Anthropic's public helpfulness data with 23 features.
+Then they fit a Bayesian logistic regression predicting which answer people picked, the same kind of model as [unit 16's Bradley–Terry](../16-rlhf/#from-picks-to-numbers).
 Matching the user's views was consistently one of the most predictive features, though not always the top one.
+
 They also wrote prompts where a user states a common misconception and asks for a comment.
 A preference model preferred a convincing answer that agreed with the misconception over a short correction 95% of the time.
-Against a correct answer that explained why the user was wrong, it still preferred the agreeing one 45% of the time on the hardest misconceptions, and human raters chose the truthful answer less reliably as the misconceptions got harder.
+Against a correct answer that explained why the user was wrong, it still preferred the agreeing one 45% of the time on the hardest misconceptions.
+Human raters chose the truthful answer less reliably as the misconceptions got harder.
 Running RL against Claude 2's preference model increased some forms of sycophancy.
 
-In terms of unit 17's [split of the proxy](../17-reward-hacking/#the-score-is-a-proxy), $r_\phi = r^* + e$, people's approval is now the proxy, and sycophancy is an error $e$ that's positive for answers that agree with the person grading them.
+Unit 17 [split the proxy](../17-reward-hacking/#the-score-is-a-proxy) into two parts, $r_\phi = r^* + e$.
+Here people's approval is the proxy.
+Sycophancy is an error $e$ that's positive for answers that agree with the person grading them.
 The reward model learns that error from the comparisons, and RL pushes toward it like any other.
 Fitting the comparisons more closely doesn't remove it, because the error is in the comparisons.
 
 ## Supervising what people can't check
 
-[Amodei et al. (2016)](https://arxiv.org/abs/1606.06565) named this problem *scalable oversight*: the designer may be able to evaluate the right objective, but it's "too expensive to do so frequently", so training has to "rely on cheaper approximations."
+[Amodei et al. (2016)](https://arxiv.org/abs/1606.06565) named this problem *scalable oversight*.
+The designer may be able to evaluate the right objective, but it's "too expensive to do so frequently", so training has to "rely on cheaper approximations."
 A reward model is one such approximation of people.
-The harder case is answers people can't check at all, because they're too long or too technical, and that's where approval and correctness are most likely to come apart.
+The harder case is answers people can't check at all, because they're too long or too technical.
+That's where approval and correctness are most likely to come apart.
 
 One response is to have models help supervise models.
 [Bai et al. (2022)](https://arxiv.org/abs/2212.08073) call their version *Constitutional AI*.
 The "constitution" is a list of 16 written principles about harmlessness.
-In a supervised phase the model critiques its own responses against a principle and revises them, and it's fine-tuned on the revisions.
-In an RL phase a model compares pairs of responses using a principle, a preference model is trained on those AI comparisons, and RL runs against it, which they call RL from AI feedback (RLAIF).
-Helpfulness labels still came from people.
-The result was an assistant that was less harmful at a given level of helpfulness than their RLHF models, and that almost never gave evasive answers: it engaged with harmful requests by explaining its objections.
-The labels are only as good as the model applying the principles, but the principles are written down where anyone can read them, and applying them costs model time instead of people's.
+Training has two phases.
 
-Another line of work asks what happens when the supervisor is weaker than the student, which is the position people would be in with a model better than them at a task.
-[Burns et al. (2023)](https://arxiv.org/abs/2312.09390) at OpenAI studied it with models standing in for both: a small model labels the data, and a much stronger model is fine-tuned on those labels.
+- **Supervised phase.** The model critiques its own responses against a principle and revises them. Then it's fine-tuned on the revisions.
+- **RL phase.** A model compares pairs of responses using a principle. A preference model is trained on those AI comparisons, and RL runs against it. They call this RL from AI feedback (RLAIF).
+
+Helpfulness labels still came from people.
+The result was an assistant that was less harmful at a given level of helpfulness than their RLHF models.
+It almost never gave evasive answers: it engaged with harmful requests by explaining its objections.
+The labels are only as good as the model applying the principles.
+But the principles are written down where anyone can read them, and applying them costs model time instead of people's.
+
+Another line of work asks what happens when the supervisor is weaker than the student.
+That's the position people would be in with a model better than them at a task.
+[Burns et al. (2023)](https://arxiv.org/abs/2312.09390) at OpenAI studied it with models standing in for both.
+A small model labels the data, and a much stronger model is fine-tuned on those labels.
+They call this setup *weak-to-strong* training.
 They measure how much of the gap between the weak supervisor and the strong model's ceiling the student closes:
 
 $$
@@ -202,24 +253,35 @@ $$
 PGR stands for performance gap recovered.
 ::::
 
-A PGR of 1 means the student did as well as if it had the true labels, and 0 means it did no better than its supervisor.
-With a GPT-2-level supervisor and GPT-4 as the student, plain fine-tuning typically recovered about half the gap on their language tasks, and an extra loss that lets the student trust its own confident predictions brought that to nearly 80%.
+A PGR of 1 means the student did as well as if it had the true labels.
+A PGR of 0 means it did no better than its supervisor.
+
+<figure class="widget demo" id="demo-pgr"></figure>
+
+With a GPT-2-level supervisor and GPT-4 as the student, plain fine-tuning typically recovered about half the gap on their language tasks.
+An extra loss that lets the student trust its own confident predictions brought that to nearly 80%.
 On reward modeling with ChatGPT's preference data it recovered roughly 10%.
 The strong student can also learn to imitate its supervisor's errors, which is the failure you'd worry about most if the supervisor were people.
 
 ## Checking a model
 
 Training choices only reduce the chance of these failures, so models also get tested.
-An evaluation is unit 7's setup with behavior in place of labels: a fixed set of prompts, a way to score the responses, and a [reference point](../07-evaluation/#a-score-needs-a-reference-point) to compare against.
+An *evaluation* is unit 7's setup with behavior in place of labels.
+It has a fixed set of prompts, a way to score the responses, and a [reference point](../07-evaluation/#a-score-needs-a-reference-point) to compare against.
 Sharma et al.'s "Are you sure?" test is one.
-Unit 6's [contamination](../06-generalization/#leakage-and-contamination) applies too: once a behavioral test circulates, it can end up in training data, and a model can learn the test rather than the behavior.
+Unit 6's [contamination](../06-generalization/#leakage-and-contamination) applies too.
+Once a behavioral test circulates, it can end up in training data, and a model can learn the test rather than the behavior.
 
 *Red teaming* goes looking for failures instead of measuring a rate on a fixed set.
 [Perez et al. (2022)](https://arxiv.org/abs/2202.03286) used one language model to write test questions for a 280-billion-parameter chatbot and a classifier to flag offensive replies.
-Of 0.5 million questions written zero-shot, 3.7% got an offensive reply, 18,444 failed test cases, and training the question writer with RL raised that rate past 40%.
+Of 0.5 million questions written zero-shot, 3.7% got an offensive reply.
+That's 18,444 failed test cases.
+Training the question writer with RL raised that rate past 40%.
 The classifier is a model with its own [confusion matrix](../07-evaluation/#the-confusion-matrix), so offensive replies it missed never got counted.
+
 [Ganguli et al. (2022)](https://arxiv.org/abs/2209.07858) had 324 crowdworkers attack models of three sizes and four kinds, and released all 38,961 attacks.
-By a preference model's harmlessness score, the RLHF models got harder to red team as they got bigger, while the other kinds stayed flat (by the red teamers' own ratings of their success, no kind showed a clear trend with size).
+By a preference model's harmlessness score, the RLHF models got harder to red team as they got bigger, while the other kinds stayed flat.
+(By the red teamers' own ratings of their success, no kind showed a clear trend with size.)
 
 > **An analogy, if you've done security work.**
 > Red teaming a model is a pentest of it.
@@ -228,10 +290,13 @@ By a preference model's harmlessness score, the RLHF models got harder to red te
 
 ## Worked example
 
-The corridor from the widget, in plain Python.
+This is the corridor from the widget, in plain Python.
 `rng` is a small random number generator that JavaScript can reproduce exactly, so the widget trains the same 140 runs and shows the same numbers.
-`outcome` doesn't sample: it tracks the probability of the agent being in each cell, step by step, and returns the exact chance of reaching the coin and of standing at the end when time runs out.
-`coin wins` counts the runs, out of 20, that ended with $w_{\text{coin}}$ above $w_{\text{end}}$, and the test columns average over the four coin positions left of the start.
+`outcome` doesn't sample.
+It tracks the probability of the agent being in each cell, step by step.
+It returns the exact chance of reaching the coin and of standing at the end when time runs out.
+`coin wins` counts the runs, out of 20, that ended with $w_{\text{coin}}$ above $w_{\text{end}}$.
+The test columns average over the four coin positions left of the start.
 
 ```python
 import math
@@ -319,14 +384,65 @@ share  coin wins  train  test: coin  at end   w_coin  w_end
 20.0%     20/20   1.00        0.99    0.00     4.25   0.86
 ```
 
-The `train` column is 1.00 on every row, so a score on levels like the training ones can't tell these policies apart, while the coin-left test success goes from 0.25 to 0.92 between 0% and 2%.
+The `train` column is 1.00 on every row.
+So a score on levels like the training ones can't tell these policies apart.
+Meanwhile the coin-left test success goes from 0.25 to 0.92 between 0% and 2%.
 As the share grows, $w_{\text{coin}}$ rises and $w_{\text{end}}$ falls, which is the policy's goal moving from the end of the level to the coin.
+
+::: real-world
+- **Shortcuts in image models.** A classifier trained on photos where cows stand on grass can learn "grass" as much as "cow", and then miss a cow on a beach. It's the coin at the end of the level again: two cues that always came together in training.
+- **Assistants that fold under pushback.** If a chatbot drops a correct answer as soon as you say "are you sure?", you're looking at sycophancy. It's why an assistant agreeing with you is weak evidence that you're right.
+- **Red team reports.** AI labs red team models before release and publish some of the results. Read those the way you'd read a pentest report: they list what the testers tried and found, and they can't prove nothing else is there.
+:::
 
 ## Where this goes next
 
 - This is the last unit. My post [Reward hacking from the ground up](../../posts/your-reward-model-is-an-attack-surface/) also ends at sycophancy and scalable oversight, and its last section points at the harder case: a model that ends up pursuing an objective of its own, or one that behaves differently when it believes it's being trained. Everything here assumed a model shaped by training with no plan of its own.
 - [Amodei et al.](https://arxiv.org/abs/1606.06565) list five concrete problems. Reward hacking and scalable oversight are two of them, goal misgeneralization fits under their distributional shift, and the other two (avoiding side effects and safe exploration) aren't covered in this course.
 - The [DeepMind post on specification gaming](https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/) links a shared spreadsheet of examples (around 60 when the post was written), a good way to get a feel for how many ways an objective can be satisfied without doing the task.
+
+::: review
+Alignment
+:   Getting a model to do what the people who build and use it actually intend.
+
+Specification gaming
+:   The objective is wrong. The model satisfies the literal objective without achieving the intended outcome, like the boat circling for points.
+
+Goal misgeneralization
+:   The objective is right, and the model learns a different goal that earned the same reward on the training data.
+
+Outer and inner alignment
+:   Hubinger et al.'s names for the two gaps: between what people want and the objective, and between the objective and what the model learns to pursue.
+
+Sycophancy
+:   A model seeks human approval in unwanted ways, such as agreeing with a user who is wrong.
+
+Scalable oversight
+:   The problem of supervising a model when checking its work properly is too expensive or too hard for people.
+
+Constitutional AI
+:   Training in which a model critiques, revises and compares responses against written principles, so AI feedback replaces some human labels.
+
+Weak-to-strong training
+:   Fine-tuning a strong model on labels from a weaker supervisor.
+
+PGR (performance gap recovered)
+:   The share of the gap between the weak supervisor and the strong ceiling that the student closes. 1 is all of it, 0 is none.
+
+Evaluation
+:   A fixed set of prompts, a way to score the responses, and a reference point.
+
+Red teaming
+:   Actively searching for inputs that make a model fail, by people or by another model.
+:::
+
+::: say
+Alignment means getting a model to do what people actually intend, and training only ever sees a number.
+The number can be wrong, which is specification gaming.
+The number can be right and the model can still learn a different goal that earned the same reward, which is goal misgeneralization.
+When the number comes from people's approval, the model can learn to agree with them, which is sycophancy.
+So people also supervise models with other models, and test them with evaluations and red teaming.
+:::
 
 ## Self-test
 

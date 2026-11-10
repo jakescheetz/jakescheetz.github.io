@@ -68,17 +68,22 @@ quiz:
     why: 'The standard error shrinks like $1 / \sqrt{n}$, so halving it takes $n$ times 4.'
 ---
 
-A trained classifier gives you a probability for every example, and sooner or later someone asks how good it is.
-The answer has to come from data the model never trained on ([unit 6](../06-generalization/#train-validation-and-test)), and it has to be a number that tracks what you care about.
-The obvious number, the share of answers that are right, can give a model that does nothing a score of 90%.
+::: why
+A teacher grades a test by counting right answers.
+You grade a model the same way, on examples it never saw in training ([unit 6](../06-generalization/#train-validation-and-test)).
+But a plain count can fool you.
+A phishing filter that never flags anything can still score 90%.
+This unit shows how to count the two kinds of mistakes separately, and how far to trust the count.
+:::
 
 ## Accuracy, and the filter that never flags anything
 
-Take a phishing filter built like the spam filter in [unit 5](../05-classification/#from-a-score-to-a-probability): it reads an email and outputs $p$, its probability that the email is phishing.
+Take a phishing filter built like the spam filter in [unit 5](../05-classification/#from-a-score-to-a-probability).
+It reads an email and outputs $p$, its probability that the email is phishing.
 It calls an email phishing when $p \ge 0.5$.
 The test set is 100 emails it never saw in training, and 10 of them are phishing.
 
-*Accuracy* is the share of the test set it labels correctly:
+*Accuracy* is the share of the test set the filter labels correctly:
 
 $$
 \text{accuracy} = \frac{\text{number labeled correctly}}{N}
@@ -88,20 +93,29 @@ $N$ is the number of emails in the test set, here 100.
 The filter gets 96 right, so its accuracy is 0.96.
 
 Now take a filter that never flags anything.
-It's right about all 90 legitimate emails and wrong about all 10 phishing ones, so its accuracy is 0.90.
-It catches no phishing at all and still scores within 6 points of the real filter.
+It's right about all 90 legitimate emails.
+It's wrong about all 10 phishing ones.
+So its accuracy is 0.90, and it catches no phishing at all.
+It still scores within 6 points of the real filter.
+
 When one class is rare, accuracy mostly measures how you handle the common one.
 With 1 phishing email in 1,000, the do-nothing filter would score 0.999.
 
 ## The confusion matrix
 
 To see which mistakes a filter makes, sort its answers into four groups.
-Phishing is the *positive* class here, since it's the one we're looking for.
+Phishing is the *positive* class here, because it's the one we're looking for.
+"Positive" or "negative" is what the filter said.
+"True" or "false" is whether the filter was right.
 
 - A *true positive* (TP) is phishing, and flagged.
 - A *false positive* (FP) is legitimate, but flagged anyway.
 - A *false negative* (FN) is phishing, but missed.
 - A *true negative* (TN) is legitimate, and left alone.
+
+Watch the 100 test emails get sorted.
+
+<figure class="widget demo" id="demo-confusion"></figure>
 
 Laid out as a grid, the four counts are the *confusion matrix*.
 For the filter at $p \ge 0.5$:
@@ -113,7 +127,8 @@ For the filter at $p \ge 0.5$:
 <figcaption>The confusion matrix for the 100 test emails. Rows are what each email really is, columns are what the filter said.</figcaption>
 </figure>
 
-Accuracy is the two correct cells over everything, $(TP + TN) / N = (7 + 89) / 100 = 0.96$.
+Accuracy is the two correct cells over everything: $(TP + TN) / N = (7 + 89) / 100 = 0.96$.
+
 The two wrong cells cost different things.
 A false negative is a phishing email sitting in someone's inbox.
 A false positive is a real email stuck in quarantine.
@@ -128,10 +143,15 @@ Both have the true positives on top and differ in what they divide by.
 $TP + FP$ is everything the filter flagged, and $TP + FN$ is every email that really is phishing.
 :::
 
-*Precision* answers "when the filter flags an email, how often is it really phishing?", here $7 / (7 + 1) = 0.875$.
-*Recall* answers "of the phishing emails, how many did the filter catch?", here $7 / (7 + 3) = 0.70$.
+*Precision* answers "when the filter flags an email, how often is it really phishing?"
+Here that's $7 / (7 + 1) = 0.875$.
+
+*Recall* answers "of the phishing emails, how many did the filter catch?"
+Here that's $7 / (7 + 3) = 0.70$.
+
 Neither one uses TN, so the 89 easy legitimate emails can't pad them.
-The never-flag filter has recall $0 / 10 = 0$, and its precision is $0 / 0$, undefined, because it never flagged anything.
+The never-flag filter has recall $0 / 10 = 0$.
+Its precision is $0 / 0$, which is undefined, because it never flagged anything.
 
 When you need a single number, the usual choice is F1:
 
@@ -139,30 +159,44 @@ $$
 F_1 = \frac{2PR}{P + R}
 $$
 
-This is the *harmonic mean* of precision $P$ and recall $R$, and unlike the plain average $(P + R)/2$ it stays close to whichever of the two is smaller, so it's only high when both are.
+This is the *harmonic mean* of precision $P$ and recall $R$.
+A harmonic mean is a kind of average that stays close to the smaller of its two inputs.
+So F1 is only high when precision and recall are both high.
 For the filter, $2 \cdot 0.875 \cdot 0.70 / (0.875 + 0.70) = 0.78$.
-A filter that flags every email has recall 1 and precision $10 / 100 = 0.10$.
-The plain average of those is 0.55, which flatters a useless filter; F1 is 0.18.
+
+Compare a filter that flags every email.
+It has recall 1 and precision $10 / 100 = 0.10$.
+The plain average $(P + R)/2$ of those is 0.55, which flatters a useless filter.
+F1 is 0.18.
 A filter that catches nothing gets an F1 of 0.
 
 ## Moving the threshold
 
 The 0.5 cutoff was a choice.
-[Unit 5](../05-classification/#the-decision-boundary-is-a-line) puts it at $p = 0.5$ because that's where the score $w \cdot x + b$ crosses zero, but nothing else is special about it.
+[Unit 5](../05-classification/#the-decision-boundary-is-a-line) puts it at $p = 0.5$ because that's where the score $w \cdot x + b$ crosses zero.
+Nothing else is special about it.
 Call the cutoff $t$, the *threshold*, and flag an email when $p \ge t$.
 
 Lowering $t$ flags more emails.
 Phishing emails with middling scores get caught, so recall goes up.
 More legitimate emails get flagged too, so precision usually goes down.
+Raising $t$ does the opposite.
+
+<figure class="widget demo" id="demo-threshold"></figure>
+
 At $t = 0.2$ the filter catches all 10 phishing emails (recall 1.00), but 5 of its 15 flags are wrong (precision 0.67).
 At $t = 0.8$ every flag is right (precision 1.00), and it catches only 3 (recall 0.30).
+
+Now drag the threshold yourself and watch all three curves at once.
 
 <figure class="widget" id="threshold">
 <figcaption>Left: the 100 test emails sorted by the filter's score p, phishing in orange. Filled dots are flagged (p ≥ t). Right: precision (blue), recall (green) and F1 (dashed) at every threshold, drawn sideways so the threshold line crosses all three at the current t. Drag t and watch which dots change state.</figcaption>
 </figure>
 
 Which $t$ to use depends on what each mistake costs you.
-If a phishing email in an inbox is much worse than a newsletter in quarantine, you want a low $t$ and accept the lower precision.
+Say a phishing email in an inbox is much worse than a newsletter in quarantine.
+Then you want a low $t$, and you accept the lower precision.
+
 On these 100 emails F1 is highest, 0.90, for any $t$ from 0.32 to 0.36.
 Choosing $t$ that way and then reporting 0.90 would be tuning on the test set, which turns it into a validation set ([unit 6](../06-generalization/#train-validation-and-test)).
 Pick $t$ on the validation set, then report what the test set says at that $t$.
@@ -170,23 +204,33 @@ Pick $t$ on the validation set, then report what the test set says at that $t$.
 ## Calibration
 
 Precision and recall only look at which side of $t$ each score lands on.
-Calibration looks at the scores themselves: when the filter says 0.8, is the email phishing about 80% of the time?
-A model is *calibrated* if, among all the examples it scores near some value $p$, a fraction close to $p$ really are positive.
+Calibration looks at the scores themselves.
+A weather forecaster who says "80% chance of rain" should see rain on about 80% of those days.
+A model is *calibrated* if the same holds for its scores: among all the examples it scores near some value $p$, a fraction close to $p$ really are positive.
 
-To check, put the examples into bins by score (0 to 0.1, 0.1 to 0.2, and so on) and compare each bin's average score with the share of its examples that are actually positive.
+To check, put the examples into bins by score (0 to 0.1, 0.1 to 0.2, and so on).
+For each bin, compare two numbers: the average score, and the share of its examples that are actually positive.
 Plotting one against the other gives a *reliability diagram*.
-A calibrated model's points sit on the diagonal, where the two are equal.
+A calibrated model's points sit on the diagonal, where the two numbers are equal.
+
 That needs many examples per bin, so the worked example below uses 10,000 emails from the same simulation.
-The filter scored 122 of them between 0.8 and 0.9; their average score was 0.85, and 85% of them were phishing.
+The filter scored 122 of them between 0.8 and 0.9.
+Their average score was 0.85, and 85% of them were phishing.
 
 Now make the filter overconfident.
 [Unit 5](../05-classification/#from-a-score-to-a-probability) computes $p = \sigma(z)$, where $z = w \cdot x + b$ is the raw score and $\sigma$ squashes it into a probability.
-Report $\sigma(2z)$ instead: doubling $z$ pushes every probability further toward 0 or 1, while keeping the emails in the same order.
-Because the order is the same, any threshold on the old scores has a matching threshold on the new ones that flags exactly the same emails, with the same precision and recall.
-Only the probabilities changed.
+Report $\sigma(2z)$ instead.
+Doubling $z$ pushes every probability further toward 0 or 1, and it keeps the emails in the same order.
 In the 0.8 to 0.9 bin the stretched filter has 88 emails averaging 0.85, and only 64% of them are phishing.
 
-One summary number for this is the *expected calibration error*, the average gap between each bin's score and its share of phishing, weighted by how many emails land in the bin:
+<figure class="widget demo" id="demo-calibration"></figure>
+
+The order of the emails didn't change.
+So any threshold on the old scores has a matching threshold on the new ones that flags exactly the same emails, with the same precision and recall.
+Only the probabilities changed.
+
+One summary number for this is the *expected calibration error* (ECE).
+It's the average gap between each bin's score and its share of phishing, weighted by how many emails land in the bin:
 
 $$
 \text{ECE} = \sum_{m} \frac{n_m}{N} \, \big| \, \text{phish}_m - \text{score}_m \big|
@@ -199,19 +243,28 @@ $n_m / N$ is the share of all $N$ emails that land in bin $m$, so a bin with 5 e
 :::
 
 A perfectly calibrated model has ECE 0.
+The widget below shows every bin at once, for any amount of stretch.
 
 <figure class="widget" id="reliability">
 <figcaption>Each blue dot is one bin of scores: across is the bin's average score, up is the share of its emails that were phishing. The dashed diagonal is perfect calibration and the orange bars are the gaps. The stretch k multiplies z before the sigmoid: k = 1 is the calibrated filter, k = 2 the overconfident one from the text. "New 10,000 emails" redraws the simulation, so you can see how much each bin moves by chance.</figcaption>
 </figure>
 
-Calibration matters whenever someone uses $p$ as a probability: a person deciding how much to trust "92% phishing", or a threshold worked out from the cost of each mistake.
+Calibration matters whenever someone uses $p$ as a probability.
+One case is a person deciding how much to trust "92% phishing".
+Another is a threshold worked out from the cost of each mistake.
+
 [Guo et al.](https://arxiv.org/abs/1706.04599) found modern neural networks poorly calibrated and their ResNet overconfident, like the stretched filter.
-Their fix, *temperature scaling*, divides every $z$ by one number fitted on the validation set; for the stretched filter that number would be 2.
+Their fix is called *temperature scaling*.
+It divides every $z$ by one number fitted on the validation set.
+For the stretched filter that number would be 2.
 
 ## How much to trust one number
 
-The 0.96 came from 100 emails, and a different 100 would have given a different number.
-Each email is either labeled right (1) or wrong (0), so accuracy is an average of 100 samples, and [unit 3](../03-probability/#expectation-spread-and-sampling) showed how far an average like that typically misses the true value.
+The 0.96 came from 100 emails.
+A different 100 would have given a different number.
+
+Each email is either labeled right (1) or wrong (0), so accuracy is an average of 100 samples.
+[Unit 3](../03-probability/#expectation-spread-and-sampling) showed how far an average like that typically misses the true value.
 For a test set of $n$ examples and a true accuracy $a$, that distance is:
 
 $$
@@ -224,14 +277,20 @@ A single right-or-wrong result is 1 with probability $a$ and 0 otherwise, so its
 The $a(1-a)$ is largest at $a = 0.5$ and shrinks to 0 for a model that's always right or always wrong.
 :::
 
-SE is the *standard error*, the typical distance between the accuracy you measure and the one you'd get on unlimited data.
-The $n$ under the square root means a test set 4 times as big halves the error.
+SE is the *standard error*.
+It's the typical distance between the accuracy you measure and the one you'd get on unlimited data.
+The $n$ sits under a square root, so a test set 4 times as big halves the error.
+
+<figure class="widget demo" id="demo-stderr"></figure>
 
 For $a = 0.94$ and $n = 100$ the SE is about 0.024.
 The worked example checks this by splitting its 10,000 emails into 100 test sets of 100.
-Their accuracies run from 0.87 to 0.98 with a standard deviation of 0.024, and 96 of the 100 land within two standard errors of the accuracy on all 10,000, which is 0.939.
+Their accuracies run from 0.87 to 0.98 with a standard deviation of 0.024.
+The accuracy on all 10,000 is 0.939, and 96 of the 100 test sets land within two standard errors of it.
 So the test set's 0.96 was a lucky draw.
-Two filters that score 0.94 and 0.96 on the same 100 emails differ by less than one standard error, and that test can't tell them apart.
+
+Two filters that score 0.94 and 0.96 on the same 100 emails differ by less than one standard error.
+That test can't tell them apart.
 
 Recall is noisier still, because only the 10 phishing emails count toward it.
 With $a = 0.70$ and $n = 10$ the same formula gives about 0.14.
@@ -239,11 +298,17 @@ With $a = 0.70$ and $n = 10$ the same formula gives about 0.14.
 ## A score needs a reference point
 
 An accuracy of 0.96 or an F1 of 0.78 means little on its own.
-The never-flag filter at 0.90 is one reference point, the score you get for doing nothing.
-Others are the model you're replacing, and people doing the same job on the same examples.
-A *benchmark* fixes the test set, the metric and the rules, so scores from different models can be compared, and it only works while its test examples stay out of everyone's training data ([unit 6](../06-generalization/#leakage-and-contamination)).
+You need something to compare it with.
 
-For the phishing filter that means the 0.96 is worth 0.06 over doing nothing, and that gap, not the 0.96, is what the model earned.
+- The never-flag filter at 0.90 is one reference point: the score you get for doing nothing.
+- The model you're replacing is another.
+- So are people doing the same job on the same examples.
+
+A *benchmark* fixes the test set, the metric and the rules, so scores from different models can be compared.
+It only works while its test examples stay out of everyone's training data ([unit 6](../06-generalization/#leakage-and-contamination)).
+
+For the phishing filter, the 0.96 is worth 0.06 over doing nothing.
+That gap is what the model earned.
 
 ## Worked example
 
@@ -294,8 +359,17 @@ calibrated     emails scored 0.8-0.9: 122  mean score 0.85  actually phishing 0.
 overconfident  emails scored 0.8-0.9:  88  mean score 0.85  actually phishing 0.64
 ```
 
-Accuracy barely moves between $t = 0.2$ and $t = 0.8$ (0.95 to 0.93) while recall falls from 1.00 to 0.30, a change accuracy hides.
-The labels were drawn from the model's own probabilities, so the calibrated line comes out at 0.85 and 0.85, and the spread from 0.87 to 0.98 is one model on test sets that differ only by chance.
+Accuracy barely moves between $t = 0.2$ and $t = 0.8$ (0.95 to 0.93).
+Recall falls from 1.00 to 0.30 over the same range, a change accuracy hides.
+
+The labels were drawn from the model's own probabilities, so the calibrated line comes out at 0.85 and 0.85.
+The spread from 0.87 to 0.98 is one model on test sets that differ only by chance.
+
+::: real-world
+- **Security alerts.** An intrusion detection system or a phishing filter with low precision buries analysts in false alarms. Teams tune the threshold to trade missed attacks against wasted analyst time.
+- **Medical screening.** Doctors call recall "sensitivity". A screening test for a rare disease can be very accurate overall and still be wrong about most of the people it flags, because healthy people far outnumber sick ones.
+- **Model leaderboards.** A benchmark score for a language model is an accuracy on a fixed test set. A small gap between two models can be less than one standard error.
+:::
 
 ## Where this shows up later
 
@@ -303,6 +377,46 @@ The labels were drawn from the model's own probabilities, so the calibrated line
 - Unit 14: temperature divides the logits by $T$ before the softmax, the same operation as temperature scaling here.
 - Unit 16: a reward model is checked by how often it agrees with held-out human picks between two answers. InstructGPT's labelers agreed with each other 72.6% of the time, which is the reference point for that number.
 - Unit 17: once a measured score becomes the thing you optimize, it stops tracking what it was built to measure.
+
+::: review
+Accuracy
+:   The share of test examples the model labels correctly. It misleads when one class is rare.
+
+Confusion matrix
+:   The four counts TP, FP, FN and TN laid out as a grid.
+
+False positive (FP)
+:   A negative example the model flagged anyway. Here, a legitimate email in quarantine.
+
+False negative (FN)
+:   A positive example the model missed. Here, a phishing email in the inbox.
+
+Precision, $TP / (TP + FP)$
+:   Of everything the model flagged, the share that really was positive.
+
+Recall, $TP / (TP + FN)$
+:   Of everything that really was positive, the share the model caught.
+
+F1
+:   The harmonic mean of precision and recall. It's only high when both are.
+
+Threshold, $t$
+:   The cutoff on the score. Lowering it raises recall and usually lowers precision.
+
+Calibrated
+:   Among examples scored near $p$, about a fraction $p$ are positive.
+
+Standard error
+:   How far a measured accuracy typically sits from the true one. It shrinks like $1 / \sqrt{n}$.
+:::
+
+::: say
+Accuracy counts right answers, and it flatters a model when the thing you're looking for is rare.
+Precision asks how many of the flags were right, and recall asks how many of the real cases got flagged.
+Moving the threshold trades one for the other.
+Calibration checks whether a score of 0.8 means 80%.
+Any score from a small test set is noisy, so compare the gap between two models with the standard error.
+:::
 
 ## Self-test
 

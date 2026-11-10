@@ -68,13 +68,21 @@ quiz:
     why: 'A slightly wrong gradient (a transposed matrix, a missing factor of 2) often still lowers the loss. The finite-difference check catches it.'
 ---
 
-A neural network is a stack of the matrix-vector products from [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products), with a simple function applied between them.
-Training one with [gradient descent](../04-gradient-descent/#walk-downhill) needs the gradient of the loss with respect to every weight, and the procedure that computes it is called *backpropagation*.
+::: why
+You already know the two pieces of a neural network.
+One is the matrix-vector product from [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products).
+The other is [gradient descent](../04-gradient-descent/#walk-downhill) from unit 4.
+A neural network stacks several matrix-vector products, with a simple function applied between them.
+To train it, gradient descent needs the gradient of the loss for every weight, and the procedure that computes it is called *backpropagation*.
 Every model in the rest of this route is trained with it.
+:::
 
 ## One neuron
 
-A neuron takes an input vector $x$, computes a weighted sum of its entries using a weight vector $w$, adds a number $b$ called the bias, and passes the result through a nonlinearity:
+A *neuron* takes an input vector $x$ and does three small things.
+It computes a weighted sum of the entries of $x$, using a weight vector $w$.
+It adds a number $b$ called the *bias*.
+Then it passes the result through a *nonlinearity*, a simple function whose graph is not one straight line:
 
 $$
 z = w \cdot x + b, \qquad h = \mathrm{ReLU}(z) = \max(0, z)
@@ -85,21 +93,28 @@ $w$ and $b$ are the neuron's parameters, and training is what sets them.
 The first part, $z$, is the same score $w \cdot x + b$ that logistic regression computes in [unit 5](../05-classification/#from-a-score-to-a-probability), where it went through the sigmoid to become a probability.
 :::
 
-The nonlinearity here is *ReLU* (short for rectified linear unit), which keeps positive numbers as they are and turns negative ones into zero.
+The nonlinearity here is *ReLU* (short for rectified linear unit).
+It keeps positive numbers as they are and turns negative ones into zero.
 
 Take $w = (0.5, -0.5)$ and $b = 0$.
 For $x = (1, 0)$ the weighted sum is $z = 0.5$, so $h = 0.5$.
 For $x = (0, 1)$ it's $z = -0.5$, so $h = 0$.
 
+<figure class="widget demo" id="demo-neuron"></figure>
+
 The weighted sum is a dot product, so the reading from [unit 1](../01-vectors/#the-dot-product) applies: $z$ is large when $x$ points along $w$.
-So a neuron works like a detector: it stays at zero until $w \cdot x$ gets past a threshold, which the bias sets, and then grows in a straight line.
+So a neuron works like a detector.
+It stays at zero until $w \cdot x$ gets past a threshold, which the bias sets.
+Past the threshold, its output grows in a straight line.
 
 With two inputs, the points where $z = 0$ form a line across the plane.
-On one side the neuron outputs zero, and on the other its output rises with distance from the line, so I picture ReLU as folding the plane along that line.
+On one side the neuron outputs zero.
+On the other side its output rises with distance from the line.
+I picture ReLU as folding the plane along that line.
 
 ## Layers, and why the bend matters
 
-A layer is many neurons reading the same input.
+A *layer* is many neurons reading the same input.
 Stack their weight vectors as the rows of a matrix $W$ and their biases into a vector $b$, and the whole layer is one line:
 
 $$
@@ -111,14 +126,14 @@ ReLU is applied to each entry separately.
 If $W$ is $m \times n$, the input has $n$ entries and the layer outputs $m$ of them, one per neuron.
 :::
 
-A multi-layer perceptron (MLP) is a few layers in a row, each one reading the previous one's output.
+A *multi-layer perceptron* (MLP) is a few layers in a row, each one reading the previous one's output.
 The network in this unit has two layers:
 
 $$
 h = \mathrm{ReLU}(W_1 x + b_1), \qquad \hat y = W_2 h + b_2
 $$
 
-The entries of $h$ are called hidden units, since you never see them in the input or the output.
+The entries of $h$ are called *hidden units*, because you never see them in the input or the output.
 The last layer has no ReLU, so the output $\hat y$ can be any number, including a negative one.
 
 To see why the ReLU has to be there, take it out and expand:
@@ -128,13 +143,18 @@ W_2 (W_1 x + b_1) + b_2 = (W_2 W_1)\, x + (W_2 b_1 + b_2)
 $$
 
 That's one matrix times $x$ plus one bias, which is a single linear layer.
-The same expansion works for any number of layers, so a stack of linear layers can never compute anything that one linear layer can't.
+The same expansion works for any number of layers.
+So a stack of linear layers can never compute anything that one linear layer can't.
 
 XOR is the standard example of something a linear function can't do.
-It takes two inputs that are each 0 or 1 and outputs 1 when exactly one of them is 1.
+It takes two inputs that are each 0 or 1.
+It outputs 1 when exactly one of them is 1.
+
 Suppose a linear function $f(x) = a \cdot x + c$ fit it, with outputs above 0.5 meaning 1 and below meaning 0.
-Adding up its values at the two corners where XOR is 1 gives $f(0, 1) + f(1, 0) = a_1 + a_2 + 2c$, which must be above 1.
-Adding up the other two corners gives $f(0, 0) + f(1, 1) = a_1 + a_2 + 2c$, the same number, which must be below 1.
+Add up its values at the two corners where XOR is 1: $f(0, 1) + f(1, 0) = a_1 + a_2 + 2c$.
+Both values are above 0.5, so this sum must be above 1.
+Now add up the other two corners: $f(0, 0) + f(1, 1) = a_1 + a_2 + 2c$.
+That's the same number, and this time it must be below 1.
 Both can't be true, so no linear function fits XOR.
 
 Two ReLU units are enough.
@@ -149,24 +169,35 @@ Set $h_1 = \mathrm{ReLU}(x_1 + x_2)$, $h_2 = \mathrm{ReLU}(x_1 + x_2 - 1)$ and $
 <figcaption>A hand-built XOR network. h2 stays at zero until both inputs are on, then cancels h1.</figcaption>
 </figure>
 
-In practice you start from random weights and let gradient descent find good ones, which needs the gradient.
+Both hidden units read the same sum $x_1 + x_2$, so you can draw the whole network along that one axis.
+
+<figure class="widget demo" id="demo-xor"></figure>
+
+Nobody builds networks by hand like this.
+In practice you start from random weights and let gradient descent find good ones, and that needs the gradient.
 
 ## Backpropagation
 
 Gradient descent needs $\partial L / \partial \theta$ for every parameter $\theta$ (every entry of $W_1$, $b_1$, $W_2$ and $b_2$).
-The loss $L$ here is the squared error $(\hat y - y)^2$ between the output $\hat y$ and the target $y$ for a single input, the squared miss that the [mean squared error](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong) in unit 4 averages over points.
-Unit 5 trained its classifier with [log loss](../05-classification/#log-loss) because its output was a probability; this network's output can be any number, so squared error is the simpler fit.
-The [chain rule](../02-gradients/#the-rules-you-need) says how to get the gradient: a nudge to a weight propagates forward through the network, and the rates of change along the way multiply.
 
-To use the chain rule mechanically, break the network into a computational graph.
-Each node computes one simple thing from the nodes feeding into it: a weighted sum, a ReLU, the loss.
+The loss $L$ here is the squared error $(\hat y - y)^2$ between the output $\hat y$ and the target $y$ for a single input.
+It's the squared miss that the [mean squared error](../04-gradient-descent/#a-loss-is-one-number-for-how-wrong) in unit 4 averages over points.
+Unit 5 trained its classifier with [log loss](../05-classification/#log-loss) because its output was a probability.
+This network's output can be any number, so squared error is the simpler fit.
+
+The [chain rule](../02-gradients/#the-rules-you-need) says how to get the gradient.
+A nudge to a weight travels forward through the network, and the rates of change along the way multiply.
+
+To use the chain rule step by step, break the network into a *computational graph*.
+Each node in the graph computes one simple thing from the nodes feeding into it: a weighted sum, a ReLU, the loss.
+
 Take the two-layer network from above with two hidden units.
 $W_1$ has rows $(0.5, -0.5)$ and $(-1, 1)$, $b_1 = (0, 0.5)$, $W_2$ is the single row $(1, 0.5)$, and $b_2 = 0$.
 The input is $x = (1, 0)$ and the target is $y = 1$.
 
-The forward pass computes every node from left to right and keeps each value.
-The backward pass then starts at the loss with $\partial L / \partial L = 1$ and moves right to left.
-Each node takes the gradient arriving from the node after it and multiplies by its own local derivative:
+The *forward pass* computes every node from left to right and keeps each value.
+The *backward pass* then starts at the loss with $\partial L / \partial L = 1$ and moves right to left.
+Each node takes the gradient arriving from the node after it and multiplies by its own *local derivative*, the rate at which its output changes when one of its inputs changes:
 
 $$
 \frac{\partial L}{\partial h_1} = \frac{\partial L}{\partial \hat y}\,\frac{\partial \hat y}{\partial h_1}
@@ -176,21 +207,26 @@ $$
 Read it right to left through the network: $\partial L / \partial \hat y$ is the gradient that has already arrived at the output, $\partial \hat y / \partial h_1$ is the output node's local derivative with respect to the hidden unit $h_1$, and their product is how much the loss changes per unit change in $h_1$.
 :::
 
-The local derivative of the loss is $2(\hat y - y)$.
-For a weighted sum, the derivative with respect to an input is that input's weight, and with respect to a weight it's the input that weight multiplies.
-For ReLU it's 1 if $z > 0$ and 0 otherwise.
+There are only three local derivatives to know.
+
+- For the loss, it's $2(\hat y - y)$.
+- For a weighted sum, the derivative with respect to an input is that input's weight. With respect to a weight, it's the input that weight multiplies.
+- For ReLU, it's 1 if $z > 0$ and 0 otherwise.
 
 <figure class="widget" id="backprop-steps">
 <figcaption>Step through the forward pass (blue numbers above each node) and then the backward pass (orange numbers below, each one ∂L/∂node). Underlined values are forward results that a backward step reads again.</figcaption>
 </figure>
 
 Two things make this cheap.
-First, every local derivative uses a value the forward pass already computed: the ReLU step reads $z$, the gradient for $W_2$ reads $h$, the gradient for $W_1$ reads $x$.
-Second, each node's gradient is computed once and then shared by everything to its left, so one backward pass gets every weight's gradient for a small multiple of the cost of one forward pass.
+First, every local derivative uses a value the forward pass already computed.
+The ReLU step reads $z$, the gradient for $W_2$ reads $h$, and the gradient for $W_1$ reads $x$.
+Second, each node's gradient is computed once and then shared by everything to its left.
+So one backward pass gets every weight's gradient for a small multiple of the cost of one forward pass.
 
-At step 13 in the widget, the gradient into $z_2$ is 0 because $z_2$ was negative and ReLU passed nothing on.
+At step 13 in the widget, the gradient into $z_2$ is 0, because $z_2$ was negative and ReLU passed nothing on.
 So neither weight into $z_2$ learns anything from this example.
-A hidden unit whose $z$ is negative for every training input gets no gradient at all and can never recover, which is called a *dead unit*.
+A hidden unit whose $z$ is negative for every training input gets no gradient at all and can never recover.
+That's called a *dead unit*.
 
 Written for a whole layer at once, the backward pass is four lines:
 
@@ -213,30 +249,47 @@ The fourth gives each weight in $W_1$ the gradient at its $z$ times the input it
 :::
 
 They're the local-derivative rules above, applied to every unit of a layer at once.
-The bias gradients are $\partial L / \partial \hat y$ and $\partial L / \partial z$ themselves, and the worked example below is these four lines in NumPy.
+The bias gradients are $\partial L / \partial \hat y$ and $\partial L / \partial z$ themselves.
+The worked example below is these four lines in NumPy.
 
 ## Checking the gradient, then training
 
-Backprop code is easy to get slightly wrong (a transposed matrix, a missing factor of 2), and a slightly wrong gradient often still lowers the loss, so watching the loss won't catch the bug.
+Backprop code is easy to get slightly wrong (a transposed matrix, a missing factor of 2).
+A slightly wrong gradient often still lowers the loss, so watching the loss won't catch the bug.
 To catch it, compare against the [central difference](../02-gradients/#checking-a-gradient-with-nudges) on a few weights:
 
 $$
 \frac{\partial L}{\partial \theta_i} \approx \frac{L(\theta_i + \varepsilon) - L(\theta_i - \varepsilon)}{2\varepsilon}
 $$
 
-It nudges one parameter $\theta_i$ up and down by a tiny $\varepsilon$, leaving the rest alone, and divides the change in the loss by the $2\varepsilon$ distance between the two nudges.
-That costs two forward passes per parameter, so it's fine for spot-checking a few weights and far too slow for training.
+It nudges one parameter $\theta_i$ up and down by a tiny $\varepsilon$ and leaves the rest alone.
+Then it divides the change in the loss by $2\varepsilon$, the distance between the two nudges.
+That costs two forward passes per parameter.
+It's fine for spot-checking a few weights and far too slow for training.
 
-Training then repeats three steps: forward pass on all four XOR inputs, backward pass, and the [update rule](../04-gradient-descent/#walk-downhill) $\theta \leftarrow \theta - \eta \nabla L$, which moves every parameter a step of size $\eta$ (the learning rate) against its gradient.
+The demo runs the check on one weight of the backprop network above: the first entry of $W_1$, which starts at 0.5.
+Backprop said its gradient is −1.
+
+<figure class="widget demo" id="demo-gradcheck"></figure>
+
+Training then repeats three steps.
+Run the forward pass on all four XOR inputs.
+Run the backward pass.
+Apply the [update rule](../04-gradient-descent/#walk-downhill) $\theta \leftarrow \theta - \eta \nabla L$, which moves every parameter a step of size $\eta$ (the learning rate) against its gradient.
 
 <figure class="widget" id="xor-training">
 <figcaption>The worked example's network and η = 0.1, training live. Blue shading is where the output is above 0.5, orange below, and dashed lines are the hidden units' folds (where z = 0). Try 1 and 2 hidden units, pressing New start a few times at each.</figcaption>
 </figure>
 
-The output is a sum of folded planes, so the blue region always has straight edges that only bend where a dashed line crosses.
+The output is a sum of folded planes.
+So the blue region always has straight edges that only bend where a dashed line crosses.
+
 With one hidden unit it never fits.
-The output only changes as you move along one direction in the plane, so the 0.5 boundary is a single straight line, and the XOR argument above showed no line works.
-Two units are enough in principle (the hand-built network uses two), but from a random start gradient descent often gets stuck with a dead unit or a bad fold.
+The output only changes as you move along one direction in the plane, so the 0.5 boundary is a single straight line.
+The XOR argument above showed no line works.
+
+Two units are enough in principle (the hand-built network uses two).
+But from a random start, gradient descent often gets stuck with a dead unit or a bad fold.
 When I pressed New start 20 times at each size and ran 1,000 steps, the network solved it 4 times with two hidden units, 12 times with three, and all 20 times with eight.
 
 ## Worked example
@@ -303,7 +356,14 @@ backprop: 0.062015460943072497  finite difference: 0.06201546093320687
 ```
 
 The two gradients agree to ten decimal places, so the backward pass is right before any training happens.
-The loss falls from 0.374618 to below 0.0001 by step 300, and the four outputs round to 0, 1, 1, 0, which is XOR.
+The loss falls from 0.374618 to below 0.0001 by step 300.
+The four outputs round to 0, 1, 1, 0, which is XOR.
+
+::: real-world
+- **One line in PyTorch.** When training code calls `loss.backward()`, the library runs backpropagation over the computational graph it recorded during the forward pass. Nobody writes the backward pass by hand anymore.
+- **Inside language models.** Each block of a GPT-style transformer contains a two-layer MLP like this unit's, applied to every token's vector.
+- **Adversarial examples.** The same backward pass can give the gradient of the loss with respect to the input instead of the weights. Attackers use that gradient to find small input changes that flip a classifier's answer.
+:::
 
 ## Where this shows up later
 
@@ -311,6 +371,49 @@ The loss falls from 0.374618 to below 0.0001 by step 300, and the four outputs r
 - Unit 11: the last layer outputs one number per vocabulary token, and the backward pass starts from the cross-entropy loss instead of $(\hat y - y)^2$.
 - Unit 13: each transformer block contains a two-layer MLP like this one, applied to every token's vector (GPT-2 uses GELU, a smooth version of ReLU).
 - Unit 15: a reward from the environment isn't a node you can backprop through, so reinforcement learning needs another way to get a gradient.
+
+::: review
+Neuron
+:   A weighted sum of the inputs plus a bias, passed through a nonlinearity: $h = \mathrm{ReLU}(w \cdot x + b)$.
+
+Bias, $b$
+:   The number added to the weighted sum. It sets where the neuron switches on.
+
+ReLU
+:   $\max(0, z)$. It keeps positive numbers and turns negative ones into zero.
+
+Layer
+:   Many neurons reading the same input: $h = \mathrm{ReLU}(Wx + b)$.
+
+Multi-layer perceptron (MLP)
+:   A few layers in a row, each reading the previous one's output.
+
+Hidden unit
+:   One entry of a middle layer's output $h$.
+
+Computational graph
+:   The network broken into nodes that each compute one simple thing.
+
+Forward pass
+:   Computing every node from input to loss, and keeping the values.
+
+Backpropagation (backward pass)
+:   Going from the loss back to the input, multiplying each arriving gradient by a local derivative. One pass gives every weight's gradient.
+
+Dead unit
+:   A hidden unit whose $z$ is negative for every training input. It gets no gradient and can't recover.
+
+Gradient check
+:   Comparing a backprop gradient with the central difference on a few weights.
+:::
+
+::: say
+A neuron takes a dot product, adds a bias, and zeroes out the result if it's negative.
+A layer is a matrix of those neurons, and a network is a few layers in a row.
+Without the ReLU between them, the layers would collapse into one linear layer, which can't even fit XOR.
+Backpropagation runs the chain rule from the loss back to the input and gets the gradient for every weight in one pass.
+Check that gradient against a finite difference before you trust it.
+:::
 
 ## Self-test
 

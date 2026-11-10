@@ -174,3 +174,162 @@
     toggle.textContent = player.playing ? "Pause" : "Play";
   });
 })();
+
+// Step-through: the toy's true reward curve, the reward model's straight line, and the error between them.
+(function () {
+  const X = (v) => 50 + (v + 6) * 22, Y = (v) => 290 - (v + 4) * 16.25;
+  const truth = (x) => x - x * x / 10;
+  Learn.demo(document.getElementById("demo-proxy"), {
+    height: 340,
+    label: "The true reward curve, the reward model's straight line, and the gap between them at x = 2, 5 and 10",
+    steps: [
+      { s: { tr: 0, ln: 0, mk: 0, mx: 2 }, cap: "Each response is one number x, something like length. π0 writes x near 0, with a standard deviation of 3. About 95% of its answers have x below 5." },
+      { s: { tr: 1 }, cap: "The orange curve is the true reward, what people think: x − x²/10. It rises to 2.5 at x = 5, then falls." },
+      { s: { ln: 1 }, cap: "The blue line is the reward model's score. It learned \"more x is better\" from π0's answers, so it is a straight line: score = x (plus noise, left out here)." },
+      { s: { mk: 1 }, cap: "At x = 2 the score is 2 and the true reward is 1.6. The error is 0.4. Near π0's answers the line and the curve agree." },
+      { s: { mx: 5 }, cap: "At x = 5 the score is 5 and the true reward is 2.5. The error has grown to 2.5." },
+      { s: { mx: 10 }, cap: "At x = 10 the score is 10 and the true reward is 0. The error is 10. π0 almost never writes here, so no comparison ever corrected the line." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(X(-6), Y(0), X(12), Y(0), c.muted, 1.5);
+      d.line(X(0), 30, X(0), 290, c.muted, 1.5);
+      for (const v of [-5, 5, 10]) { d.line(X(v), Y(0) - 4, X(v), Y(0) + 4, c.muted, 1.5); d.text(String(v).replace("-", "−"), X(v), 304, { c: c.muted, s: 12, a: "center" }); }
+      d.text("0", X(0), 304, { c: c.muted, s: 12, a: "center" });
+      d.text("x", X(12), 322, { c: c.muted, s: 12, a: "right" });
+      // π0's bell, drawn up from the bottom edge
+      ctx.fillStyle = c.soft; ctx.strokeStyle = c.muted; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(X(-6), 290);
+      for (let v = -6; v <= 12.01; v += 0.25) ctx.lineTo(X(v), 290 - 60 * Math.exp(-v * v / 18));
+      ctx.lineTo(X(12), 290); ctx.closePath(); ctx.fill(); ctx.stroke();
+      d.text("π0's answers", X(0), 274, { c: c.muted, s: 12, a: "center" });
+      ctx.save(); ctx.beginPath(); ctx.rect(X(-6), 30, X(12) - X(-6), 260); ctx.clip();
+      if (s.tr > 0.01) {
+        ctx.globalAlpha = s.tr; ctx.strokeStyle = c.orange; ctx.lineWidth = 3; ctx.beginPath();
+        for (let v = -3.2; v <= 12.01; v += 0.2) { if (v === -3.2) ctx.moveTo(X(v), Y(truth(v))); else ctx.lineTo(X(v), Y(truth(v))); }
+        ctx.stroke();
+      }
+      if (s.ln > 0.01) { ctx.globalAlpha = s.ln; d.line(X(-4), Y(-4), X(12), Y(12), c.blue, 3, [8, 5]); }
+      ctx.restore();
+      if (s.tr > 0.01) { ctx.globalAlpha = s.tr; d.text("true reward", X(5), 209, { c: c.orange, s: 13, a: "center", w: 700 }); }
+      if (s.ln > 0.01) { ctx.globalAlpha = s.ln; d.text("reward model score", 368, 66, { c: c.blue, s: 13, a: "right", w: 700 }); }
+      if (s.mk > 0.01) {
+        ctx.globalAlpha = s.mk;
+        const x = s.mx, t = truth(x);
+        d.line(X(x), Y(x), X(x), Y(t), c.red, 4);
+        d.dot(X(x), Y(x), 6, c.blue); d.dot(X(x), Y(t), 6, c.orange);
+        d.panel(c, 462, 30, 166, 130);
+        d.text(`x = ${d.fmt(x, 1)}`, 476, 52, { c: c.ink, w: 700 });
+        d.text(`score  ${d.fmt(x, 1)}`, 476, 82, { c: c.blue });
+        d.text(`true   ${d.fmt(t, 1)}`, 476, 106, { c: c.orange });
+        d.text(`error  ${d.fmt(x - t, 1)}`, 476, 136, { c: c.red, w: 700 });
+      }
+      ctx.globalAlpha = 1;
+    },
+  });
+})();
+
+// Step-through: best-of-n on the toy with a fixed set of draws, from n = 4 up to n = 4096.
+(function () {
+  const X = (v) => 50 + (v + 6) * 22, Y = (v) => 290 - (v + 4) * 15;
+  const truth = (x) => x - x * x / 10;
+  // Seeded draws (mulberry32 + Box–Muller): x from π0 = N(0, 3²), score = x + N(0, 1).
+  let a = 1796;
+  const rnd = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const norm = () => Math.sqrt(-2 * Math.log(1 - rnd())) * Math.cos(2 * Math.PI * rnd());
+  const P = [], best = [];
+  for (let i = 0; i < 4096; i++) { const x = 3 * norm(); P.push([x, x + norm()]); best.push(i === 0 || P[i][1] > P[best[i - 1]][1] ? i : best[i - 1]); }
+  Learn.demo(document.getElementById("demo-pick"), {
+    height: 340,
+    label: "Draws from π0 plotted by x and reward model score, with the top scorer marked, for n = 4, 16, 256 and 4096",
+    steps: [
+      { s: { ln: 2, sc: 0, win: 0, cv: 0 }, cap: "Best-of-4. Draw 4 responses from π0. Their x values are 2.9, −3.4, −1.9 and −2." },
+      { s: { sc: 1 }, cap: "The reward model scores each one: x plus a little noise. The scores are 3.4, −2.6, −1.4 and −1.8." },
+      { s: { win: 1 }, cap: "Keep the top scorer and throw the rest away. Best-of-4 returns the response with x = 2.9 and score 3.4." },
+      { s: { cv: 1 }, cap: "The orange curve is what people think. They would give this pick 2.0. The score and the true reward are still close." },
+      { s: { ln: 4 }, cap: "Best-of-16: 12 more draws. The top scorer now has x = 5.3 and score 6.7. Its true reward is 2.5, right at the top of the curve." },
+      { s: { ln: 8 }, cap: "Best-of-256. The top scorer has x = 7.5 and score 9.2. Its true reward has dropped to 1.9. The pick is past the peak." },
+      { s: { ln: 12 }, cap: "Best-of-4096. The top scorer has x = 10.9 and score 11.5, the highest yet. People would give it −1.0. The search found where the reward model is most wrong." },
+    ],
+    draw(ctx, s, c, d) {
+      const n = Math.max(1, Math.min(4096, Math.round(Math.pow(2, s.ln)))), w = P[best[n - 1]];
+      d.line(X(-6), Y(0), X(12), Y(0), c.muted, 1.5);
+      d.line(X(0), 35, X(0), 290, c.muted, 1.5);
+      for (const v of [-5, 5, 10]) { d.line(X(v), Y(0) - 4, X(v), Y(0) + 4, c.muted, 1.5); d.text(String(v).replace("-", "−"), X(v), 304, { c: c.muted, s: 12, a: "center" }); }
+      d.text("x", X(12), 322, { c: c.muted, s: 12, a: "right" });
+      d.text("score", X(0) - 8, 44, { c: c.muted, s: 12, a: "right" });
+      ctx.save(); ctx.beginPath(); ctx.rect(X(-6), 30, X(12) - X(-6), 262); ctx.clip();
+      if (s.cv > 0.01) {
+        ctx.globalAlpha = s.cv; ctx.strokeStyle = c.orange; ctx.lineWidth = 3; ctx.beginPath();
+        for (let v = -3.2; v <= 12.01; v += 0.2) { if (v === -3.2) ctx.moveTo(X(v), Y(truth(v))); else ctx.lineTo(X(v), Y(truth(v))); }
+        ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      const r = n <= 16 ? 5 : n <= 256 ? 3 : 1.5;
+      ctx.fillStyle = c.blue; ctx.globalAlpha = n <= 16 ? 1 : 0.6;
+      for (let i = 0; i < n; i++) ctx.fillRect(X(P[i][0]) - r, Y(P[i][1] * s.sc) - r, 2 * r, 2 * r);
+      ctx.globalAlpha = 1;
+      ctx.restore();
+      if (s.win > 0.01) {
+        ctx.globalAlpha = s.win;
+        const wx = X(w[0]), wy = Y(w[1] * s.sc);
+        if (s.cv > 0.01) { ctx.globalAlpha = s.win * s.cv; d.line(wx, wy, wx, Y(truth(w[0])), c.red, 3); d.dot(wx, Y(truth(w[0])), 6, c.orange); ctx.globalAlpha = s.win; }
+        d.rect(wx - 9, wy - 9, 18, 18, null, c.ink, 2);
+        d.panel(c, 462, 30, 166, 130);
+        d.text(`n = ${n}`, 476, 52, { c: c.ink, w: 700 });
+        d.text(`pick x ${d.fmt(w[0], 1)}`, 476, 82, { c: c.ink });
+        d.text(`score  ${d.fmt(w[1], 1)}`, 476, 106, { c: c.blue });
+        ctx.globalAlpha = s.win * s.cv;
+        d.text(`true   ${d.fmt(truth(w[0]), 1)}`, 476, 136, { c: c.orange, w: 700 });
+      }
+      ctx.globalAlpha = 1;
+    },
+  });
+})();
+
+// Step-through: the worked example's averages at each n, placed by KL: score rises, true reward peaks and falls.
+(function () {
+  const N = [1, 4, 16, 64, 256, 1024, 4096];
+  const KL = N.map((n) => Math.log(n) - (n - 1) / n);
+  const PROXY = [-0.09, 3.22, 5.59, 7.42, 8.97, 10.29, 11.47];   // from the worked example's output
+  const TRUE = [-0.99, 1.60, 2.17, 1.97, 1.34, 0.50, -0.50];
+  const NOISE = [-0.80, 1.52, 2.03, 2.20, 2.27, 2.30, 2.33];
+  const X = (kl) => 60 + kl * 50, Y = (v) => 280 - (v + 1.5) * 18.5;
+  Learn.demo(document.getElementById("demo-curve"), {
+    height: 330,
+    label: "Average reward model score and true reward for best-of-n, plotted against KL from π0",
+    steps: [
+      { s: { k: 0, no: 0 }, cap: "Best-of-1 is π0 itself, 0 nats away. In the worked example's run its average score is −0.09 and its average true reward is −0.99." },
+      { s: { k: 1 }, cap: "Best-of-4 is 0.64 nats from π0. The average pick is x = 2.90. The score rises to 3.22 and the true reward to 1.60. Both go up together." },
+      { s: { k: 2 }, cap: "Best-of-16 is 1.84 nats away. The average pick is x = 5.01, the top of the true curve. The score is 5.59 and the true reward is 2.17, its peak." },
+      { s: { k: 3 }, cap: "Best-of-64 is 3.17 nats away. The score climbs to 7.42, but the true reward slips to 1.97. The search has gone past the peak." },
+      { s: { k: 6 }, cap: "Best-of-4096 is 7.32 nats away. The score is 11.47, the best yet. The true reward is −0.50. The reward model says these are great answers, and people would rate them below 0." },
+      { s: { no: 1 }, cap: "Green: a reward model whose only error is noise. Its true reward rises at every n, to 2.33 at n = 4096 (the maximum is 2.5). Noise slows the search down. The straight line is what made the true reward fall." },
+    ],
+    draw(ctx, s, c, d) {
+      const k = d.clamp(s.k, 0, 6), i0 = Math.round(k);
+      d.line(X(0), 30, X(0), 290, c.muted, 1.5);
+      d.line(X(0), Y(0), X(7.5), Y(0), c.muted, 1.5);
+      for (const v of [5, 10]) { d.line(X(0) - 4, Y(v), X(0), Y(v), c.muted, 1.5); d.text(String(v), X(0) - 8, Y(v), { c: c.muted, s: 12, a: "right" }); }
+      d.text("0", X(0) - 8, Y(0), { c: c.muted, s: 12, a: "right" });
+      N.forEach((n, i) => { d.line(X(KL[i]), 286, X(KL[i]), 294, c.muted, 1.5); d.text(String(n), X(KL[i]), 304, { c: i === i0 ? c.ink : c.muted, s: 12, a: "center", w: i === i0 ? 700 : 500 }); });
+      d.text("n, placed by KL from π0", X(7.5), 322, { c: c.muted, s: 12, a: "right" });
+      const series = (vals, color, upto) => {
+        ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(X(KL[0]), Y(vals[0]));
+        for (let i = 1; i <= 6; i++) {
+          if (i <= upto) ctx.lineTo(X(KL[i]), Y(vals[i]));
+          else if (i - 1 < upto) { const f = upto - (i - 1); ctx.lineTo(X(KL[i - 1] + (KL[i] - KL[i - 1]) * f), Y(vals[i - 1] + (vals[i] - vals[i - 1]) * f)); }
+        }
+        ctx.stroke();
+        for (let i = 0; i <= 6; i++) if (i <= upto + 0.01) d.dot(X(KL[i]), Y(vals[i]), i === i0 ? 6 : 4, color);
+      };
+      if (s.no > 0.01) { ctx.globalAlpha = s.no; series(NOISE, c.green, 6); ctx.globalAlpha = 1; }
+      series(PROXY, c.blue, k);
+      series(TRUE, c.orange, k);
+      d.panel(c, 462, 30, 166, s.no > 0.01 ? 160 : 130);
+      d.text(`n = ${N[i0]}`, 476, 52, { c: c.ink, w: 700 });
+      d.text(`KL    ${d.fmt(KL[i0], 2)}`, 476, 78, { c: c.muted });
+      d.text(`score ${d.fmt(PROXY[i0], 2)}`, 476, 104, { c: c.blue, w: 700 });
+      d.text(`true  ${d.fmt(TRUE[i0], 2)}`, 476, 130, { c: c.orange, w: 700 });
+      if (s.no > 0.01) { ctx.globalAlpha = s.no; d.text(`noise only ${d.fmt(NOISE[i0], 2)}`, 476, 162, { c: c.green, s: 13, w: 700 }); ctx.globalAlpha = 1; }
+    },
+  });
+})();

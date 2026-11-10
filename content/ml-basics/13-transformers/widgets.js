@@ -228,3 +228,199 @@
     toggle.textContent = "Play";
   });
 })();
+
+// Step-through: one token's lane through two blocks. Every sublayer adds a vector to the stream.
+(function () {
+  const h0 = [1, -2, 0.5, 3];
+  const adds = [
+    { name: "block 1 attn", sym: "a1", v: [0.5, 0, -1, 0.5], attn: true },
+    { name: "block 1 MLP", sym: "m1", v: [-1, 1.5, 0, 0.5], attn: false },
+    { name: "block 2 attn", sym: "a2", v: [0, 1, 0.5, -1], attn: true },
+    { name: "block 2 MLP", sym: "m2", v: [1, 0, 1.5, 0], attn: false },
+  ];
+  const stream = [h0];
+  for (const add of adds) stream.push(stream[stream.length - 1].map((v, k) => v + add.v[k]));
+  const rowY = (i) => 312 - i * 58;
+  Learn.demo(document.getElementById("demo-residual"), {
+    height: 376,
+    label: "One token's vector moving up through two transformer blocks, with each sublayer's output added to it",
+    steps: [
+      { s: { pc: 0, n: 0, sum: 0 }, cap: "One token's lane starts at the bottom with its embedding, h0 = (1, −2, 0.5, 3). The lane runs upward." },
+      { s: { pc: 1 }, cap: "Block 1's attention reads the lane and computes a vector, a1 = (0.5, 0, −1, 0.5). It has not touched the lane yet." },
+      { s: { n: 1 }, cap: "Add a1 to the lane, entry by entry: (1, −2, 0.5, 3) + (0.5, 0, −1, 0.5) = (1.5, −2, −0.5, 3.5). The old numbers were added to, not replaced." },
+      { s: { pc: 2, n: 2 }, cap: "Block 1's MLP reads the new lane and adds m1 = (−1, 1.5, 0, 0.5). The lane is now (0.5, −0.5, −0.5, 4). That finishes block 1." },
+      { s: { pc: 4, n: 4 }, cap: "Block 2 does the same two moves. Its attention adds a2 and its MLP adds m2. The lane ends at (1.5, 0.5, 1.5, 3)." },
+      { s: { sum: 1 }, cap: "The top vector is the embedding plus everything the sublayers added. Check the first entry: 1 + 0.5 − 1 + 0 + 1 = 1.5." },
+    ],
+    draw(ctx, s, c, d) {
+      d.text("sublayer adds", 222, 34, { c: c.muted, s: 13, a: "center" });
+      d.text("stream h (one token)", 497, 34, { c: c.muted, s: 13, a: "center" });
+      const cells = (v, x0, pitch, w, y, stroke, bold) => {
+        for (let k = 0; k < 4; k++) {
+          d.rect(x0 + k * pitch, y - 17, w, 34, c.bg, stroke, 2);
+          d.text(d.fmt(v[k], 1), x0 + k * pitch + w / 2, y, { c: c.ink, a: "center", w: bold ? 700 : 500 });
+        }
+      };
+      for (let i = 0; i <= 4; i++) {
+        const y = rowY(i);
+        const rowAlpha = i === 0 ? 1 : d.clamp(s.n - (i - 1), 0, 1);
+        if (i > 0) {
+          const add = adds[i - 1], color = add.attn ? c.orange : c.green;
+          const pieceAlpha = d.clamp(s.pc - (i - 1), 0, 1);
+          if (pieceAlpha > 0.02) {
+            ctx.globalAlpha = pieceAlpha;
+            d.text(add.name, 14, y - 8, { c: color, s: 13, w: 700 });
+            d.text(add.sym, 14, y + 10, { c: c.muted, s: 13 });
+            cells(add.v, 124, 50, 46, y, color, false);
+          }
+          if (rowAlpha > 0.02) {
+            ctx.globalAlpha = rowAlpha;
+            d.text("+", 348, y, { c: color, s: 20, a: "center", w: 700 });
+            d.arrow(497, rowY(i - 1) - 19, 497, y + 19, c.blue, 2);
+          }
+        } else {
+          d.text("embedding", 14, y - 8, { c: c.blue, s: 13, w: 700 });
+          d.text("h0", 14, y + 10, { c: c.muted, s: 13 });
+        }
+        if (rowAlpha > 0.02) {
+          ctx.globalAlpha = rowAlpha;
+          cells(stream[i], 384, 58, 54, y, c.blue, true);
+        }
+        ctx.globalAlpha = 1;
+      }
+      if (s.sum > 0.02) {
+        ctx.globalAlpha = s.sum;
+        d.text("h_top = h0 + a1 + m1 + a2 + m2", 320, 356, { c: c.ink, s: 16, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();
+
+// Step-through: layer norm on one token's vector, then on the same vector made 10 times longer.
+(function () {
+  const x = [2, 4, 4, 10], MEAN = 5, STD = 3; // mean and standard deviation of x
+  const y0 = 230, U = 20;
+  Learn.demo(document.getElementById("demo-layernorm"), {
+    height: 340,
+    label: "Layer norm on a four-entry vector: subtract the mean, then divide by the standard deviation",
+    steps: [
+      { s: { k: 1, mean: 0, sub: 0, div: 0, gb: 0 }, cap: "One token's vector has 4 entries: (2, 4, 4, 10). Layer norm works on these 4 numbers and ignores every other token." },
+      { s: { mean: 1 }, cap: "Find the mean of the entries: (2 + 4 + 4 + 10) ÷ 4 = 5. The dashed line marks it." },
+      { s: { sub: 1 }, cap: "Subtract the mean from every entry: (−3, −1, −1, 5). The entries now average 0." },
+      { s: { div: 1 }, cap: "Find the standard deviation: square the entries, average them, take the square root. √((9 + 1 + 1 + 25) ÷ 4) = 3. Divide every entry by 3: (−1, −0.33, −0.33, 1.67)." },
+      { s: { k: 10 }, cap: "Now suppose many blocks have added to the stream and the vector is 10 times longer: (20, 40, 40, 100). Its mean is 50 and its standard deviation is 30. The output is the same four numbers." },
+      { s: { gb: 1 }, cap: "Last, layer norm multiplies each entry by a learned γ and adds a learned β. Here γ = 1 and β = 0, so nothing moves. Training can change them." },
+    ],
+    draw(ctx, s, c, d) {
+      const shrink = 1 + s.div * (1 / (STD * s.k) - 1);
+      const w = x.map((v) => (s.k * v - s.sub * s.k * MEAN) * shrink);
+      const curMean = s.k * MEAN * (1 - s.sub) * shrink;
+      // Left: the numbers.
+      d.text("input h", 20, 50, { c: c.muted, s: 13 });
+      d.text(`(${x.map((v) => d.fmt(v * s.k, 0)).join(", ")})`, 20, 74, { c: c.blue, w: 700 });
+      if (s.mean > 0.02) {
+        ctx.globalAlpha = s.mean;
+        d.text(`mean = ${d.fmt(MEAN * s.k, 0)}`, 20, 116, { c: c.ink });
+      }
+      if (s.div > 0.02) {
+        ctx.globalAlpha = s.div;
+        d.text(`std  = ${d.fmt(STD * s.k, 0)}`, 20, 142, { c: c.ink });
+        d.text("LN(h)", 20, 192, { c: c.muted, s: 13 });
+        d.text("(−1, −0.33, −0.33, 1.67)", 20, 216, { c: c.orange, s: 13, w: 700 });
+      }
+      if (s.gb > 0.02) {
+        ctx.globalAlpha = s.gb;
+        d.text("then × γ, + β (learned)", 20, 258, { c: c.muted, s: 13 });
+      }
+      ctx.globalAlpha = 1;
+      // Right: the working values as bars around zero.
+      d.line(270, y0, 620, y0, c.muted, 1.5);
+      d.text("0", 262, y0, { c: c.muted, s: 13, a: "right" });
+      const color = s.div > 0.5 ? c.orange : c.blue;
+      for (let i = 0; i < 4; i++) {
+        const bx = 290 + i * 76, top = y0 - w[i] * U;
+        d.rect(bx, Math.min(y0, top), 50, Math.abs(w[i] * U), color);
+        d.text(d.fmt(w[i], 2), bx + 25, w[i] >= 0 ? top - 12 : top + 14, { c: c.ink, s: 13, a: "center", w: 700 });
+      }
+      if (s.mean > 0.02) {
+        ctx.globalAlpha = s.mean;
+        const my = y0 - curMean * U;
+        d.line(270, my, 620, my, c.ink, 1.5, [6, 5]);
+        d.text(`mean ${d.fmt(curMean, 1)}`, 632, my - 12, { c: c.ink, s: 13, a: "right" });
+        ctx.globalAlpha = 1;
+      }
+      d.text(s.div > 0.5 ? "after dividing by the std" : s.sub > 0.5 ? "after subtracting the mean" : "the entries of h", 445, 326, { c: c.muted, s: 13, a: "center" });
+    },
+  });
+})();
+
+// Step-through: attention at the final "." in two sentences, without and with position vectors.
+(function () {
+  const E = { dog: [2, 0], bites: [0, 2], man: [1, 1], ".": [1, 0] };
+  const P = [[0.5, 0], [0, 0.5], [-0.5, 0], [0, -0.5]];
+  const sentences = [["dog", "bites", "man", "."], ["man", "bites", "dog", "."]];
+  const tops = [44, 204];
+  function attend(sentence, pos) {
+    const v = sentence.map((t, i) => [E[t][0] + pos * P[i][0], E[t][1] + pos * P[i][1]]);
+    const q = v[3];
+    const e = v.map((k) => Math.exp(q[0] * k[0] + q[1] * k[1]));
+    const total = e.reduce((a, b) => a + b, 0);
+    const w = e.map((x) => x / total);
+    const out = [0, 1].map((j) => v.reduce((sum, vec, i) => sum + w[i] * vec[j], 0));
+    return { v, w, out };
+  }
+  Learn.demo(document.getElementById("demo-position"), {
+    height: 360,
+    label: "Attention weights and output at the last token of two sentences, before and after adding position vectors",
+    steps: [
+      { s: { w: 0, out: 0, pos: 0, hl: 0 }, cap: "Two sentences with the same four tokens. Only dog and man trade places. Under each token is its vector, and the same token has the same vector in both sentences." },
+      { s: { w: 1 }, cap: "Attention at the final \".\" scores each token with a dot product, and softmax turns the scores into weights (orange bars). dog gets 0.53 and man gets 0.2 in both sentences, wherever they sit." },
+      { s: { out: 1 }, cap: "The output is the weighted sum of the vectors. Both sentences give (1.46, 0.34). From this output, the model can't tell who bit whom." },
+      { s: { pos: 1 }, cap: "Now add a position vector to each token first. dog in position 1 becomes (2.5, 0). dog in position 3 becomes (1.5, 0). The same word now has a different vector in each sentence." },
+      { s: { hl: 1 }, cap: "The weights change with it: dog gets 0.72 in the top sentence and 0.41 in the bottom one. The outputs are (2.03, 0) and (1.3, 0.15), so later layers can tell the sentences apart." },
+    ],
+    draw(ctx, s, c, d) {
+      const results = sentences.map((sentence) => attend(sentence, s.pos));
+      sentences.forEach((sentence, r) => {
+        const T = tops[r], { v, w, out } = results[r];
+        sentence.forEach((token, i) => {
+          const bx = 20 + i * 112;
+          if (s.pos > 0.02) {
+            ctx.globalAlpha = s.pos;
+            d.text(`position ${i + 1}`, bx + 50, T - 12, { c: c.purple, s: 12, a: "center" });
+            ctx.globalAlpha = 1;
+          }
+          d.rect(bx, T, 100, 34, i === 3 ? c.soft : c.bg, i === 3 ? c.blue : c.ink, 2);
+          d.text(token, bx + 50, T + 17, { c: i === 3 ? c.blue : c.ink, s: 15, a: "center", w: 700 });
+          d.text(`(${d.fmt(v[i][0], 1)}, ${d.fmt(v[i][1], 1)})`, bx + 50, T + 48, { c: c.muted, s: 12, a: "center" });
+          if (s.w > 0.02) {
+            ctx.globalAlpha = s.w;
+            d.rect(bx, T + 60, 100, 12, c.soft);
+            d.rect(bx, T + 60, 100 * w[i], 12, c.orange);
+            d.text(d.fmt(w[i], 2), bx + 50, T + 86, { c: c.ink, s: 13, a: "center", w: 700 });
+            ctx.globalAlpha = 1;
+          }
+        });
+        if (s.out > 0.02) {
+          ctx.globalAlpha = s.out;
+          d.panel(c, 480, T, 148, 72);
+          d.text("output at \".\"", 492, T + 20, { c: c.muted, s: 13 });
+          d.text(`(${d.fmt(out[0], 2)}, ${d.fmt(out[1], 2)})`, 492, T + 48, { c: c.blue, s: 15, w: 700 });
+          ctx.globalAlpha = 1;
+        }
+      });
+      if (s.out > 0.02) {
+        const same = s.pos < 0.02;
+        ctx.globalAlpha = s.out * (same ? 1 : Math.max(s.pos, 0.02));
+        d.text(same ? "no position vectors: the two outputs match" : "with position vectors: the two outputs differ", 320, 332, { c: same ? c.red : c.blue, s: 14, a: "center", w: 700 });
+        ctx.globalAlpha = 1;
+      }
+      if (s.hl > 0.02) {
+        ctx.globalAlpha = s.hl;
+        for (const T of tops) d.rect(476, T - 4, 156, 80, null, c.orange, 2);
+        ctx.globalAlpha = 1;
+      }
+    },
+  });
+})();

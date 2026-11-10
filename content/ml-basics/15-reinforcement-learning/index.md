@@ -68,19 +68,28 @@ quiz:
     why: 'The state is the prompt plus the tokens so far and the action is the next token. The whole response is the episode.'
 ---
 
-In unit 11 the model learned from text, so for every position the correct next token was right there to copy.
-Reinforcement learning is for when there is no correct answer to copy, only a score for what the model did.
-The simplest algorithm that learns from a score is REINFORCE, and a three-armed slot machine is enough to build it.
+::: why
+You can teach a dog to sit without ever showing it the "right answer".
+You wait for it to try something, and you hand over a treat when it does well.
+Reinforcement learning trains a model the same way.
+Unit 11 could copy the correct next token from the text, but here the model only gets a score for what it did.
+The simplest method that learns from a score is called REINFORCE, and a slot machine with three arms is enough to build it.
 Unit 16 uses the same idea to train a language model against a reward model, which is the RL in RLHF.
+:::
 
 ## Agents, rewards and returns
 
-Reinforcement learning describes a loop between two parts.
+Reinforcement learning (RL) describes a loop between two parts.
 The *agent* is the part that learns and makes choices.
 The *environment* is everything else.
-It shows the agent a *state* $s$, the agent picks an *action* $a$, and the environment answers with a *reward* $r$ (a single number) and a new state.
 
-One run of this loop from start to finish is an *episode*, and the *return* is the total reward collected along the way:
+The loop goes like this.
+The environment shows the agent a *state* $s$, which is the situation right now.
+The agent picks an *action* $a$.
+The environment answers with a *reward* $r$ (a single number) and a new state.
+
+One run of this loop from start to finish is an *episode*.
+The *return* is the total reward collected along the way:
 
 $$
 G = r_1 + r_2 + \cdots + r_T
@@ -90,7 +99,8 @@ $$
 $r_1$ is the reward after the first step, $r_2$ after the second, and so on, and $T$ is the number of steps in the episode.
 :::
 
-Many setups shrink later rewards by a discount factor a little below 1 before adding them up; I'll leave that out here.
+Many setups shrink later rewards by a discount factor a little below 1 before adding them up.
+I'll leave that out here.
 
 In chess the state is the board, an action is a move, and an episode is one game.
 The reward can be 0 after every move and +1 or −1 when the game ends.
@@ -98,19 +108,29 @@ Then the whole return arrives at the very end, and the agent has to work out whi
 
 The running example is the smallest version of all: a three-armed bandit.
 The name comes from slot machines, nicknamed one-armed bandits.
-There's one state, three arms A, B and C, and an episode is a single pull.
-Each arm pays a random reward: on average 4 for A, 5 for B and 6 for C, plus noise from a [normal distribution](../03-probability/#random-variables-and-distributions) with standard deviation 1.
+There's one state and three arms, A, B and C.
+An episode is a single pull.
+
+Each arm pays a random reward.
+The average is 4 for A, 5 for B and 6 for C, plus noise from a [normal distribution](../03-probability/#random-variables-and-distributions) with standard deviation 1.
 The agent doesn't know those averages.
 All it ever sees is the arm it pulled and the number that came back.
+
+<figure class="widget demo" id="demo-rl-loop"></figure>
 
 ## A policy picks actions with probabilities
 
 The *policy* is the part of the agent that decides.
-Written $\pi_\theta(a \mid s)$, it's the [conditional probability](../03-probability/#conditional-probability-and-bayes-rule) of taking action $a$ given state $s$, and $\theta$ is its parameters.
-The agent acts by sampling from those probabilities, so the same state can lead to different actions.
+It's written $\pi_\theta(a \mid s)$.
+Read that as the [conditional probability](../03-probability/#conditional-probability-and-bayes-rule) of taking action $a$ given state $s$.
+The $\theta$ stands for the policy's parameters, the numbers training will change.
+
+The agent acts by sampling from those probabilities.
+So the same state can lead to different actions.
 
 The bandit has only one state, so I'll drop $s$ and write $\pi_\theta(a)$.
-The parameters are three logits $\theta = (\theta_A, \theta_B, \theta_C)$, one per arm, and the policy is their softmax, as in [unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities):
+The parameters are three logits $\theta = (\theta_A, \theta_B, \theta_C)$, one per arm.
+The policy is their softmax, as in [unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities):
 
 $$
 \pi_\theta(a) = \frac{e^{\theta_a}}{e^{\theta_A} + e^{\theta_B} + e^{\theta_C}}
@@ -123,9 +143,14 @@ The numerator is $e$ raised to the chosen arm's logit, and the denominator is th
 Starting from $\theta = (0, 0, 0)$, each arm gets probability 1/3.
 
 A language model is a policy too.
-The state is the prompt plus the tokens written so far, the action is the next token, and $\pi_\theta$ is the softmax output from unit 11.
+The state is the prompt plus the tokens written so far.
+The action is the next token.
+And $\pi_\theta$ is the softmax output from unit 11.
+
 An episode is one whole response $y = (y_1, \dots, y_m)$ to a prompt $x$.
-Its probability is the product of the per-token probabilities, so its log is a sum, as in [unit 3](../03-probability/#why-models-work-in-log-probabilities):
+Its probability is the product of the per-token probabilities.
+A response of three tokens with probabilities 0.5, 0.2 and 0.1 has probability $0.5 \times 0.2 \times 0.1 = 0.01$.
+The log of a product is a sum, as in [unit 3](../03-probability/#why-models-work-in-log-probabilities):
 
 $$
 \log \pi_\theta(y \mid x) = \sum_{t=1}^{m} \log \pi_\theta(y_t \mid x, y_1, \dots, y_{t-1})
@@ -138,7 +163,8 @@ On the right, term $t$ is the log-probability of token $y_t$ given the prompt an
 
 In RLHF the reward usually comes once, after the last token, from a reward model (unit 16).
 
-Whatever the setting, the goal is to choose $\theta$ so the [expected](../03-probability/#expectation-spread-and-sampling) return is as high as possible:
+Whatever the setting, the goal is the same.
+Choose $\theta$ so the [expected](../03-probability/#expectation-spread-and-sampling) return is as high as possible:
 
 $$
 J(\theta) = \mathbb{E}_{a \sim \pi_\theta}[\,r\,]
@@ -150,23 +176,28 @@ $\mathbb{E}_{a \sim \pi_\theta}[\,r\,]$ is unit 3's expectation of the reward $r
 
 $J(\theta)$ is the *objective*, the number training tries to raise.
 For the bandit that's $J(\theta) = 4\,\pi_\theta(A) + 5\,\pi_\theta(B) + 6\,\pi_\theta(C)$.
-At the start it's 5, and the best possible is 6, by always pulling C.
+At the start it's 5.
+The best possible is 6, by always pulling C.
 
 ## Why you can't backprop through the reward
 
-In unit 11 the loss was a formula in the logits, so the [chain rule](../02-gradients/#the-rules-you-need) could carry its gradient back to every parameter.
+In unit 11 the loss was a formula in the logits.
+So the [chain rule](../02-gradients/#the-rules-you-need) could carry its gradient back to every parameter.
 Here two links in that chain are missing.
 
 The first is the sampling.
-The action is a discrete pick.
-Nudge $\theta$ a tiny bit and the policy still picks B, or it suddenly picks C, and there's no slope in between to follow.
+The action is a discrete pick: B or C, with nothing in between.
+Nudge $\theta$ a tiny bit and the policy still picks B, or it suddenly picks C.
+There's no slope to follow.
 
 The second is the environment.
 The reward comes from a slot machine, a game engine or a person, and none of them hand you a derivative.
-Even when the reward is a neural network, as in unit 16, it scores a response made of sampled tokens, so the first problem is still there.
+Even when the reward is a neural network, as in unit 16, it scores a response made of sampled tokens.
+So the first problem is still there.
 
-What does depend smoothly on $\theta$ is the probability of each action.
-So instead of asking how the reward changes when $\theta$ changes, REINFORCE asks which probabilities to raise.
+One thing does depend smoothly on $\theta$: the probability of each action.
+So REINFORCE skips the question of how the reward changes when $\theta$ changes.
+It asks which probabilities to raise.
 
 ## REINFORCE: raise the probability of what did well
 
@@ -183,8 +214,9 @@ The right one takes the gradient $\nabla$ (the vector of derivatives with respec
 :::
 
 That's exact, but it needs $R(a)$ for every action, and the agent doesn't know any of them.
-The way around it is one line of calculus.
-The derivative of $\log \pi$ is $\nabla \pi / \pi$, so $\nabla \pi = \pi \, \nabla \log \pi$, and substituting that in gives
+One line of calculus gets around this.
+The derivative of $\log \pi$ is $\nabla \pi / \pi$, so $\nabla \pi = \pi \, \nabla \log \pi$.
+Substitute that in:
 
 $$
 \begin{aligned}
@@ -198,8 +230,10 @@ The first line is the exact sum after substituting.
 Its weights are the policy's own probabilities $\pi_\theta(a)$, and the second line writes that weighted sum as an expectation.
 :::
 
-So the gradient is an average over the actions the policy itself picks, and an average like that can be estimated by sampling, the [Monte Carlo estimate](../03-probability/#expectation-spread-and-sampling) from unit 3.
-Pull an arm, see the reward $r$, and $r\, \nabla \log \pi_\theta(a)$ is one noisy estimate of the gradient.
+So the gradient is an average over the actions the policy itself picks.
+You can estimate an average like that by sampling, the [Monte Carlo estimate](../03-probability/#expectation-spread-and-sampling) from unit 3.
+Pull an arm and see the reward $r$.
+Then $r\, \nabla \log \pi_\theta(a)$ is one noisy estimate of the gradient.
 (Using the reward you saw in place of $R(a)$ is fine, because on average it equals $R(a)$.)
 
 [Unit 4](../04-gradient-descent/#walk-downhill) stepped downhill on a loss with $\theta \leftarrow \theta - \eta \nabla L$.
@@ -213,18 +247,24 @@ $$
 $\eta$ is the learning rate, as in unit 4, $r$ is the reward from this pull, and $\nabla \log \pi_\theta(a)$ points in the direction that raises the probability of the action just taken.
 :::
 
-Each pull raises the probability of the action just taken, in proportion to its reward: a high reward pushes it up hard and a small one barely moves it.
-That's REINFORCE (Williams, 1992).
+Each pull raises the probability of the action just taken, in proportion to its reward.
+A high reward pushes it up hard, and a small one barely moves it.
+That's *REINFORCE* (Williams, 1992).
 
 For a softmax policy, $\nabla \log \pi_\theta(a)$ is the one-hot vector for $a$ minus the probabilities $\pi_\theta$.
 It's unit 11's [cross-entropy gradient](../11-next-token-prediction/#the-gradient-is-p-y) $p - \text{onehot}$ with the sign flipped, since cross-entropy is $-\log p$.
 So the pulled arm's logit goes up by $\eta\, r\, (1 - \pi_\theta(a))$, and every other arm $k$ goes down by $\eta\, r\, \pi_\theta(k)$.
 
-The same update also reads as ordinary next-token training from unit 11, on a sample the model wrote itself, with the loss multiplied by the reward.
+You can also read the same update as ordinary next-token training from unit 11.
+The training text is a sample the model wrote itself, and the loss is multiplied by the reward.
 
-One step with real numbers.
+Here is one step with real numbers.
 Start at equal probabilities with the learning rate $\eta = 0.1$, pull B, and get a reward of 5.2.
-$\theta_B$ goes up by $0.1 \times 5.2 \times 2/3 \approx 0.35$, $\theta_A$ and $\theta_C$ go down by $0.1 \times 5.2 \times 1/3 \approx 0.17$, and the probabilities become (0.27, 0.46, 0.27).
+$\theta_B$ goes up by $0.1 \times 5.2 \times 2/3 \approx 0.35$.
+$\theta_A$ and $\theta_C$ go down by $0.1 \times 5.2 \times 1/3 \approx 0.17$.
+The probabilities become (0.27, 0.46, 0.27).
+
+<figure class="widget demo" id="demo-reinforce"></figure>
 
 B isn't the best arm, but its probability went from 0.33 to 0.46 anyway.
 Every arm pays around 5, so every pull pushes its own arm up.
@@ -233,7 +273,7 @@ But each single step is mostly noise sitting on top of that small difference.
 
 ## A baseline: compare with the average
 
-The fix is to subtract a baseline $b$ from the reward before using it:
+The fix is to subtract a number $b$, called the *baseline*, from the reward before using it:
 
 $$
 \theta \leftarrow \theta + \eta\, (r - b)\, \nabla \log \pi_\theta(a)
@@ -241,8 +281,13 @@ $$
 
 It's the same update with $r$ replaced by $r - b$.
 The difference $r - b$ is called the *advantage*: how much better this pull did than usual.
-With $b = 5$, the pull of B that paid 5.2 has an advantage of 0.2 and barely moves anything (the probabilities become (0.331, 0.338, 0.331)).
-A pull of A that pays 4.1 has an advantage of −0.9 and pushes A down, and a pull of C that pays 6 pushes C up.
+
+Take $b = 5$.
+The pull of B that paid 5.2 has an advantage of 0.2 and barely moves anything (the probabilities become (0.331, 0.338, 0.331)).
+A pull of A that pays 4.1 has an advantage of −0.9 and pushes A down.
+A pull of C that pays 6 pushes C up.
+
+<figure class="widget demo" id="demo-baseline"></figure>
 
 On average, the baseline adds nothing to the update, because the probabilities always add up to 1:
 
@@ -261,20 +306,28 @@ The gradient of a sum is the sum of the gradients, so that's $b$ times the gradi
 The total is always 1, a constant, and the gradient of a constant is 0.
 :::
 
-So $b$ can be any number that doesn't depend on which action was taken, and the average direction of training stays the same.
+So $b$ can be any number that doesn't depend on which action was taken.
+The average direction of training stays the same.
 What changes is how noisy each single estimate is, in [unit 3's](../03-probability/#expectation-spread-and-sampling) sense of standard deviation.
 In the worked example below, subtracting the average reward makes each one-pull estimate four to five times less spread out.
 
-A simple choice, and the one used here, is a running average of recent rewards: after each pull, $b \leftarrow b + 0.1\,(r - b)$, starting from the first reward.
-Larger setups usually train a second network instead, a *value function*, that predicts the expected return from the current state and serves as $b$.
+A simple choice, and the one used here, is a running average of recent rewards.
+After each pull, $b \leftarrow b + 0.1\,(r - b)$, starting from the first reward.
+Larger setups usually train a second network instead, called a *value function*.
+It predicts the expected return from the current state and serves as $b$.
+
+The widget runs the whole thing for 300 pulls at a time, with the baseline on or off.
 
 <figure class="widget" id="bandit">
 <figcaption>Each bar is the policy's probability of pulling that arm, with the arm's average payout underneath. The lines on the right follow those probabilities through one run of 300 pulls, then a new run starts. The number above the outlined bar is the advantage of the last pull. With the baseline off it's always positive and some runs settle on A or B; switch it on and watch the tally.</figcaption>
 </figure>
 
-Plain REINFORCE uses each batch of samples for one gradient step and then throws it away, and one unlucky large step can wreck a policy that took a long time to train.
-PPO, proximal policy optimization ([Schulman et al., 2017](https://arxiv.org/abs/1707.06347)), keeps the same update direction and adds a clip.
-Within one round of updates, the clipped objective stops rewarding any change that moves an action's probability more than about 20% away from where it was under the policy that collected the samples (0.2 is the setting the paper suggests).
+Plain REINFORCE uses each batch of samples for one gradient step and then throws it away.
+One unlucky large step can also wreck a policy that took a long time to train.
+
+*PPO*, proximal policy optimization ([Schulman et al., 2017](https://arxiv.org/abs/1707.06347)), keeps the same update direction and adds a clip.
+Within one round of updates, the clipped objective stops rewarding any change that moves an action's probability more than about 20% away from where it started.
+"Where it started" means its probability under the policy that collected the samples, and 0.2 is the setting the paper suggests.
 That makes it safe to reuse each batch for several gradient steps.
 InstructGPT used PPO for its RL step, and unit 16 picks up from there.
 
@@ -332,13 +385,66 @@ baseline False: C above 0.9 in 78% of runs, C below 0.1 in 18%
 baseline True: C above 0.9 in 100% of runs, C below 0.1 in 0%
 ```
 
-Both sets of one-pull estimates average out to the exact gradient $(-1/3, 0, 1/3)$, but with $b = 5$ each one has a spread of about 0.55 instead of 2.2 to 2.6.
-Over 200 training runs of 300 pulls, every run with the baseline ended with more than 0.9 of its probability on C, while without it 18% of runs ended with C below 0.1, stuck on a worse arm.
+Both sets of one-pull estimates average out to the exact gradient $(-1/3, 0, 1/3)$.
+With $b = 5$, each one has a spread of about 0.55, down from 2.2 to 2.6.
+
+The second part runs 200 training runs of 300 pulls each.
+Every run with the baseline ended with more than 0.9 of its probability on C.
+Without it, 18% of runs ended with C below 0.1, stuck on a worse arm.
+
+::: real-world
+- **Game-playing systems.** DeepMind's AlphaGo improved by playing Go against itself. The reward was winning or losing the game, and policy gradients like the one in this unit were part of its training.
+- **Chat assistants.** OpenAI's InstructGPT, a forerunner of ChatGPT, was tuned with PPO. People compared pairs of responses, a reward model learned from those comparisons, and RL raised the probability of high-scoring responses (unit 16).
+- **Reward hacking.** RL raises whatever number you give it. In a well-known OpenAI example, a boat-racing agent learned to circle the same spot collecting bonus points and never finished the race. Security and safety teams check what a reward can be tricked into paying for.
+:::
 
 ## Where this shows up later
 
 - Unit 16: the policy is a language model, an episode is one response, the reward comes from a reward model trained on people's comparisons, and the update is PPO with a KL penalty that keeps the policy close to $\pi_0$.
 - Unit 17: REINFORCE raises the probability of whatever scores well. When the score comes from a learned reward model, that includes responses that only score well because the reward model is wrong about them.
+
+::: review
+Agent and environment
+:   The agent learns and picks actions. The environment is everything else, and it hands back rewards.
+
+State, action, reward
+:   The situation the agent sees, the choice it makes, and the single number it gets back.
+
+Episode
+:   One run of the loop from start to finish: one game, one pull, or one whole response.
+
+Return, $G$
+:   The total reward collected over one episode.
+
+Policy, $\pi_\theta(a \mid s)$
+:   The probability of taking action $a$ in state $s$. The agent acts by sampling from it.
+
+Objective, $J(\theta)$
+:   The expected return under the policy. Training tries to raise it.
+
+REINFORCE
+:   Sample an action, see the reward, and step $\theta$ by $\eta\, r\, \nabla \log \pi_\theta(a)$. Actions that scored well become more likely.
+
+Baseline, $b$
+:   A number subtracted from the reward, such as the average recent reward. It cuts the noise and leaves the average update unchanged.
+
+Advantage, $r - b$
+:   How much better the reward was than the baseline.
+
+Value function
+:   A second network that predicts the expected return from a state. Larger setups use it as the baseline.
+
+PPO
+:   REINFORCE's update direction plus a clip that limits how far one round of updates can move the policy.
+:::
+
+::: say
+Reinforcement learning is for when there's a score but no right answer to copy.
+A policy gives each action a probability, and the agent acts by sampling.
+REINFORCE tries an action, looks at the reward, and raises that action's probability in proportion to the reward.
+Subtracting a baseline means only better-than-usual actions get pushed up, which makes training far less noisy.
+A language model is a policy whose actions are tokens, and unit 16 trains it this way.
+:::
 
 ## Self-test
 

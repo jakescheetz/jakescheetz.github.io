@@ -68,18 +68,28 @@ quiz:
     why: 'Dividing every logit by the same positive number keeps them in the same order. Only the gaps shrink.'
 ---
 
-A language model doesn't output text.
-At each position it outputs a [probability distribution](../03-probability/#random-variables-and-distributions) over its vocabulary, one probability per token (unit 11), and something outside the model has to pick one.
-That picking step is the loop that turns one prediction into a whole response, and it's where the settings every chat API exposes (temperature, top-k, top-p) come in.
-The last three units depend on it, because RL training learns from responses the model samples itself.
+::: why
+A chatbot gives you a different answer when you ask the same question twice.
+The model didn't change between the two tries.
+A language model never outputs text, only a list of probabilities, one for every token it knows (unit 11).
+Something outside the model has to pick one token from that list, again and again.
+This unit covers that picking step and the settings that control it: temperature, top-k and top-p.
+The last units depend on it, because RL training learns from responses the model samples itself.
+:::
 
 ## The generation loop
 
 Start with a prompt, split into tokens $x_1, \dots, x_n$.
-Run the model on it and take the logits at the last position: $V$ numbers $z$, one per vocabulary token.
-[Softmax](../11-next-token-prediction/#softmax-turns-scores-into-probabilities) turns them into probabilities $p$.
-Pick one token using $p$, append it as $x_{n+1}$, and run the model again on the longer sequence.
-Repeat until the model picks an end-of-text token or you hit a length limit.
+Then repeat these steps:
+
+1. Run the model on the tokens and take the logits at the last position. That's $V$ numbers $z$, one per vocabulary token.
+2. [Softmax](../11-next-token-prediction/#softmax-turns-scores-into-probabilities) turns the logits into probabilities $p$.
+3. Pick one token using $p$.
+4. Append it as $x_{n+1}$ and go back to step 1 with the longer sequence.
+
+The loop stops when the model picks an end-of-text token or you hit a length limit.
+
+<figure class="widget demo" id="demo-loop"></figure>
 
 <figure>
 <pre>step  context                             pick
@@ -90,14 +100,17 @@ Repeat until the model picks an end-of-text token or you hit a length limit.
 <figcaption>Each pick is appended to the context for the next step. The picks here are made up for illustration.</figcaption>
 </figure>
 
-Each new token costs one forward pass, which is why long answers stream out a piece at a time.
-Real implementations save the keys and values (unit 12) from earlier positions, so each step only processes the newest token and the output matches a full rerun.
+Each new token costs one forward pass.
+That's why long answers stream out a piece at a time.
+Real implementations save the keys and values (unit 12) from earlier positions.
+Then each step only processes the newest token, and the output matches a full rerun.
 
-The model's job is the same at every step: map a context to $p$.
-The picking rule is a separate piece called the *decoding strategy*.
+The model's job is the same at every step: turn a context into $p$.
+The rule that picks from $p$ is a separate piece called the *decoding strategy*.
 It has no trained parameters, and you choose it when you generate.
 
-For the examples below, the context is "The cat sat on the", and I've cut the vocabulary down to eight candidates with made-up logits.
+For the examples below, the context is "The cat sat on the".
+I've cut the vocabulary down to eight candidates with made-up logits.
 
 | token | logit $z$ | $p$ at $T = 1$ |
 |---|---:|---:|
@@ -110,17 +123,25 @@ For the examples below, the context is "The cat sat on the", and I've cut the vo
 | dog | −0.5 | 0.013 |
 | moon | −1.5 | 0.005 |
 
-A real model spreads its probability over its whole vocabulary (50,257 tokens for GPT-2); eight keeps the numbers readable.
+A real model spreads its probability over its whole vocabulary (50,257 tokens for GPT-2).
+Eight keeps the numbers readable.
 
 ## Greedy decoding, and why it repeats itself
 
-The simplest rule is to always take the most likely token, $\arg\max_i p_i$, which reads "the index $i$ whose $p_i$ is largest."
-This is *greedy decoding*, and for the example it picks "mat".
+The simplest rule is to always take the most likely token.
+In symbols that's $\arg\max_i p_i$, which reads "the index $i$ whose $p_i$ is largest."
+This rule is called *greedy decoding*.
+For the example it picks "mat".
 
-Greedy is deterministic: the same context always gets the same continuation.
-That's handy when you want reproducible output and bad for long text.
-Holtzman et al. found that each time a phrase repeats, the model gives the next repetition a higher probability.
-Once a loop has started, repeating is likely to stay the top choice, and greedy always takes the top choice, so it stays in the loop.
+Greedy is *deterministic*: the same context always gets the same continuation.
+That helps when you want output you can reproduce.
+It hurts on long text, because greedy gets stuck in loops.
+
+Holtzman et al. found the reason.
+Each time a phrase repeats, the model gives the next repetition a higher probability.
+So once a loop starts, repeating is likely to stay the top choice.
+Greedy always takes the top choice, so it stays in the loop.
+
 The Hugging Face post linked at the end shows GPT-2 doing this with greedy decoding from the prompt "I enjoy walking with my cute dog".
 The start of its output:
 
@@ -131,15 +152,17 @@ With greedy decoding, 73.66% of them ended in a phrase repeated at least three t
 Human-written text did that 0.28% of the time.
 
 Human text also isn't the most probable text.
-Scored token by token, a human-written passage keeps landing on tokens the model rated unlikely, so a decoder that always takes the top token writes more predictably than any person.
+Score a human-written passage token by token, and it keeps landing on tokens the model rated unlikely.
+So a decoder that always takes the top token writes more predictably than any person.
 
 ## Temperature
 
-The alternative is *sampling*: draw the next token at random, with probabilities $p$, the same kind of draw as rolling the die in [unit 3](../03-probability/#expectation-spread-and-sampling).
-For the example, that gives "mat" 44.4% of the time, "floor" 22.1%, and "moon" about once in 200 draws.
-Because it doesn't always take the top token, sampling can leave a loop.
+The other option is *sampling*: draw the next token at random, using the probabilities $p$.
+It's the same kind of draw as rolling the die in [unit 3](../03-probability/#expectation-spread-and-sampling).
+For the example, sampling gives "mat" 44.4% of the time, "floor" 22.1%, and "moon" about once in 200 draws.
+Sampling doesn't always take the top token, so it can leave a loop.
 
-*Temperature* $T$ controls how spread out $p$ is before the draw.
+*Temperature* $T$ is a number that controls how spread out $p$ is before the draw.
 Divide every logit by $T$, then take the softmax as usual:
 
 $$
@@ -152,7 +175,9 @@ The denominator adds up the same quantity for all $V$ tokens in the vocabulary, 
 :::
 
 With $T = 1$ this is exactly the softmax from unit 11, and you get the model's own distribution.
-What the division does is easiest to see in the ratio of two probabilities, where the denominator cancels:
+
+To see what the division does, compare two tokens.
+Divide one probability by the other and the denominator cancels:
 
 $$
 \frac{p_i}{p_j} = e^{(z_i - z_j) / T}
@@ -160,26 +185,40 @@ $$
 
 The ratio depends only on the gap between the two logits, $z_i - z_j$, divided by $T$.
 "mat" and "floor" are 0.7 apart in logit.
-At $T = 1$, mat is $e^{0.7} \approx 2.01$ times as likely as floor.
-At $T = 0.5$ the gap counts double, $e^{1.4} \approx 4.06$.
-At $T = 2$ it counts half, $e^{0.35} \approx 1.42$.
+
+- At $T = 1$, mat is $e^{0.7} \approx 2.01$ times as likely as floor.
+- At $T = 0.5$ the gap counts double: $e^{1.4} \approx 4.06$.
+- At $T = 2$ the gap counts half: $e^{0.35} \approx 1.42$.
 
 So $T < 1$ sharpens the distribution toward the top token, and $T > 1$ flattens it.
-As $T$ goes to 0, all the probability moves onto the top token and sampling turns into greedy decoding, which is why a temperature of 0 is usually taken to mean greedy.
+
+<figure class="widget demo" id="demo-temperature"></figure>
+
+As $T$ goes to 0, all the probability moves onto the top token.
+Sampling turns into greedy decoding, which is why a temperature of 0 is usually taken to mean greedy.
 As $T$ grows, every token heads toward probability $1/V$.
-The order never changes: dividing by a positive number keeps the logits in the same order, so the most likely token stays the most likely at every temperature.
+
+The order never changes.
+Dividing by a positive number keeps the logits in the same order, so the most likely token stays the most likely at every temperature.
 
 ## Cutting off the tail: top-k and top-p
 
-Lowering the temperature is a blunt way to avoid bad tokens, because it also shrinks the variety among the good ones.
+Lowering the temperature is a blunt way to avoid bad tokens.
+It also shrinks the variety among the good ones.
 Holtzman et al. found that sampling at temperatures below 0.9 sharply increased repetition.
 
-The bad tokens live in the tail.
-In the example, the four least likely tokens hold 0.097 of the probability at $T = 1$, so about one draw in ten lands on roof, table, dog or moon.
-A real model has tens of thousands of tail tokens, and the paper found that together they get more probability than they deserve (it calls this the unreliable tail).
-A bad draw stays in the context, and every later token is predicted with it there; in the paper, pure sampling from GPT-2 drifts away from the prompt and even invents a word, "umidauda".
+The bad tokens live in the *tail*, the long list of unlikely tokens.
+In the example, the four least likely tokens hold 0.097 of the probability at $T = 1$.
+So about one draw in ten lands on roof, table, dog or moon.
 
-*Top-k sampling* keeps only the $k$ most likely tokens, calls that set $S$, and renormalizes so the kept probabilities add up to 1 again.
+A real model has tens of thousands of tail tokens.
+The paper found that together they get more probability than they deserve (it calls this the unreliable tail).
+A bad draw also sticks around.
+It stays in the context, and the model predicts every later token with it there.
+In the paper, pure sampling from GPT-2 drifts away from the prompt and even invents a word, "umidauda".
+
+*Top-k sampling* keeps only the $k$ most likely tokens and calls that set $S$.
+Then it *renormalizes*: it divides each kept probability by their total, so they add up to 1 again.
 The distribution you actually sample from is $q$:
 
 $$
@@ -191,24 +230,34 @@ For a kept token, $q_i$ is its old probability $p_i$ divided by the total probab
 Every token outside $S$ gets $q_i = 0$, so it can't be drawn.
 :::
 
-With $k = 3$ the example keeps mat, floor and bed, which hold 0.813 together, and renormalizing gives 0.547, 0.271 and 0.182.
+With $k = 3$ the example keeps mat, floor and bed.
+They hold 0.813 together, and renormalizing gives 0.547, 0.271 and 0.182.
 
 A fixed $k$ ignores how sure the model is.
 After "The United", one token deserves nearly all the probability, and $k = 40$ still keeps 39 that don't.
 In a context with hundreds of reasonable continuations, $k = 40$ throws some of them away.
 
-*Top-p*, which Holtzman et al. call *nucleus sampling*, picks the size of $S$ from the distribution itself.
-Sort the tokens most likely first and keep the smallest set $S$ whose probabilities add up to at least a threshold, here 0.9:
+*Top-p* picks the size of $S$ from the distribution itself.
+Holtzman et al. call it *nucleus sampling*.
+Sort the tokens most likely first.
+Then keep the smallest set $S$ whose probabilities add up to at least a threshold, here 0.9:
 
 $$
 \sum_{i \in S} p_i \ge 0.9
 $$
 
-then renormalize the same way.
-For the example at $T = 1$ the running totals are 0.444, 0.665, 0.813, 0.903, and the fourth token takes the total past 0.9, so top-p 0.9 keeps mat, floor, bed and couch.
-When the model is confident, one or two tokens reach 0.9 on their own and that's all that survives.
-When it's unsure, the set grows; in the paper it ranged from one token to about a thousand.
+Then renormalize the same way.
 
+For the example at $T = 1$ the running totals are 0.444, 0.665, 0.813, 0.903.
+The fourth token takes the total past 0.9, so top-p 0.9 keeps mat, floor, bed and couch.
+
+When the model is confident, one or two tokens reach 0.9 by themselves and that's all that survives.
+When it's unsure, the set grows.
+In the paper it ranged from one token to about a thousand.
+
+<figure class="widget demo" id="demo-cut"></figure>
+
+Now set the cuts yourself.
 The widget applies temperature first, then top-k, then top-p on what top-k left.
 Order changes the result.
 A higher temperature flattens $p$, so it takes more tokens to reach 0.9: at $T = 2$, top-p 0.9 keeps six of the eight.
@@ -220,13 +269,17 @@ A higher temperature flattens $p$, so it takes more tokens to reach 0.9: at $T =
 ## Same model, different behavior
 
 Everything above happens after the model has produced $p$.
-The weights are identical whether you decode greedily or sample at $T = 1.2$ with top-p 0.95; only the draw changes.
+The weights are identical whether you decode greedily or sample at $T = 1.2$ with top-p 0.95.
+Only the draw changes.
 Holtzman et al. make this point in their abstract: decoding strategy alone can change the quality of the text a lot, from exactly the same model.
 
 So any behavior you observe belongs to the model plus its decoding settings.
 Red-teaming a model runs straight into this.
 If you test a prompt once at $T = 0$, you've seen one path through the distribution.
-If a bad answer has probability 0.02 per attempt at $T = 1$, greedy decoding may never show it, while someone who can resample will see it about twice per hundred tries, since the [expected count](../03-probability/#expectation-spread-and-sampling) in 100 independent tries is $100 \times 0.02 = 2$.
+
+Say a bad answer has probability 0.02 per attempt at $T = 1$.
+Greedy decoding may never show it.
+Someone who can resample will see it about twice per hundred tries, since the [expected count](../03-probability/#expectation-spread-and-sampling) in 100 independent tries is $100 \times 0.02 = 2$.
 
 ## Worked example
 
@@ -274,14 +327,61 @@ floor mat mat mat bed couch floor floor floor couch bed mat bed mat floor mat be
 greedy picks: mat
 ```
 
-From $T = 0.5$ to $T = 2$, "mat" falls from 0.706 to 0.278 and "moon" rises from below 0.001 (printed as 0) to 0.029, with the order unchanged.
-Top-p 0.9 keeps four tokens and divides each by 0.903; in the 20 draws "mat" came up 8 times against an expected $20 \times 0.492 \approx 9.8$, ordinary noise for 20 samples.
+From $T = 0.5$ to $T = 2$, "mat" falls from 0.706 to 0.278.
+"moon" rises from below 0.001 (printed as 0) to 0.029.
+The order stays the same.
+
+Top-p 0.9 keeps four tokens and divides each by 0.903.
+In the 20 draws "mat" came up 8 times against an expected $20 \times 0.492 \approx 9.8$, which is ordinary noise for 20 samples.
+
+::: real-world
+- **API settings.** Chat APIs from OpenAI, Anthropic and others let you set `temperature` and `top_p`, and some add `top_k`. Those are the settings from this unit, applied to the model's real vocabulary.
+- **Regenerate buttons.** When you click "regenerate" in a chat app and get a different answer, the weights are the same. The app drew again from the same probabilities.
+- **Red teaming.** One test of a prompt at temperature 0 shows one path. Security testers run the same prompt many times with sampling on, because an answer with a 1% chance per try shows up about 63% of the time in 100 tries.
+:::
 
 ## Where this shows up later
 
 - Unit 15: a language model is a policy, and sampling is how it takes actions. The policy gradient needs samples drawn from the policy itself, so RL training samples rather than decoding greedily.
 - Unit 16: people compare two responses sampled from $\pi_0$ for the same prompt. Greedy decoding would only ever give one.
 - Unit 17: best-of-n is a decoding strategy too: sample $n$ responses and keep the one the reward model scores highest.
+
+::: review
+Generation loop
+:   Run the model, pick one token from its probabilities, append it, and run again.
+
+Decoding strategy
+:   The rule that picks a token from $p$. It has no trained parameters, and you choose it when you generate.
+
+Greedy decoding
+:   Always pick the most likely token. Same context, same output, and it tends to loop.
+
+Sampling
+:   Draw the next token at random, using the probabilities $p$.
+
+Temperature, $T$
+:   Divide every logit by $T$ before the softmax. Below 1 sharpens the distribution, above 1 flattens it, and the order never changes.
+
+Tail
+:   The long list of unlikely tokens. Together they hold enough probability to derail a sample.
+
+Top-k
+:   Keep the $k$ most likely tokens and drop the rest.
+
+Top-p (nucleus sampling)
+:   Keep the smallest set of most likely tokens whose probabilities add up to at least $p$.
+
+Renormalize
+:   Divide the kept probabilities by their total so they add up to 1 again.
+:::
+
+::: say
+A language model outputs probabilities, and a separate rule picks each token.
+Greedy decoding always takes the top token, which is repeatable but falls into loops.
+Sampling draws at random, and temperature sets how much the draw favors the top tokens.
+Top-k and top-p cut off the unlikely tail before the draw.
+The same weights can behave very differently under different settings, so report the settings with any result.
+:::
 
 ## Self-test
 

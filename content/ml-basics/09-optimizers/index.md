@@ -68,16 +68,23 @@ quiz:
     why: 'Halfway, $\cos(\pi/2) = 0$, so $\eta = \frac{1}{2} \cdot 0.1 \cdot (1 + 0) = 0.05$.'
 ---
 
-[Unit 4](../04-gradient-descent/#walk-downhill) fit a line to four points with plain gradient descent, and it took 84 steps, most of them spent crawling along the flat floor of a stretched bowl.
-Large networks are rarely trained with that plain update, $\theta \leftarrow \theta - \eta \nabla L(\theta)$, which moves the parameters $\theta$ a step of size $\eta$ against the gradient of the loss $L$.
+::: why
+[Unit 4](../04-gradient-descent/#walk-downhill) fit a line to four points with plain gradient descent.
+It took 84 steps, and most of them were spent crawling along the flat floor of a stretched bowl.
+Large networks are rarely trained with that plain update, $\theta \leftarrow \theta - \eta \nabla L(\theta)$.
 They use Adam or AdamW, on mini-batches, with a learning rate that rises and then falls over the run.
-Each is a few extra lines around that update, and I'll use unit 4's four points and bowl to show what each one does.
+Each of those is a few extra lines around the plain update.
+I'll use unit 4's four points and bowl to show what each one does.
+:::
 
 ## Mini-batch gradients are noisy
 
 The gradient in [unit 4's update](../04-gradient-descent/#walk-downhill) was an average over all four points.
-A [mini-batch](../04-gradient-descent/#mini-batches) averages over a random few instead, and a batch of one uses a single point's gradient.
-For one point $(x_i, y_i)$ the miss is $e_i = w x_i + b - y_i$, and the gradient of that point's squared miss $e_i^2$ is
+A [mini-batch](../04-gradient-descent/#mini-batches) averages over a random few instead.
+A batch of one uses a single point's gradient.
+
+For one point $(x_i, y_i)$ the miss is $e_i = w x_i + b - y_i$.
+The gradient of that point's squared miss $e_i^2$ is
 
 $$
 2 e_i\,(x_i,\ 1)
@@ -88,29 +95,50 @@ The first entry is $\partial / \partial w$ and the second is $\partial / \partia
 The miss $e_i$ says how wrong the line is at that point, $x_i$ and $1$ are how much a nudge to $w$ or $b$ moves the prediction there, and the 2 comes from squaring the miss.
 :::
 
-At the starting line from unit 4, $w = -1$ and $b = 3$, the four single-point gradients are $(0, 4)$, $(-2, -2)$, $(-12, -6)$ and $(-42, -14)$.
+Take the starting line from unit 4, $w = -1$ and $b = 3$.
+The four single-point gradients are $(0, 4)$, $(-2, -2)$, $(-12, -6)$ and $(-42, -14)$.
 Their average is the full gradient, $(-14, -4.5)$.
-The first point says lower $b$ while the full gradient says raise it, and the last points roughly the right way but is three times as long.
-So a single step can go the wrong way, but averaged over which point you drew it's the full-gradient step, and early in training, when the full gradient is big, that's enough to make progress.
 
-Near the bottom it causes trouble: at the best line, $w = 1.9$ and $b = 0.9$, the full gradient is zero, but the single-point gradients are $(0, -0.2)$, $(-0.4, -0.4)$, $(2.8, 1.4)$ and $(-2.4, -0.8)$.
+The four don't agree with each other.
+The first point says lower $b$, while the full gradient says raise it.
+The last one points roughly the right way but is three times as long.
+So a single step can go the wrong way.
+Averaged over which point you drew, though, it's the full-gradient step.
+Early in training the full gradient is big, and that's enough to make progress.
+
+Near the bottom the noise causes trouble.
+At the best line, $w = 1.9$ and $b = 0.9$, the full gradient is zero.
+But the single-point gradients are $(0, -0.2)$, $(-0.4, -0.4)$, $(2.8, 1.4)$ and $(-2.4, -0.8)$.
 Each step still gets a kick of up to about 3, times $\eta$.
-With a fixed $\eta$ the parameters never settle at the bottom; they keep bouncing around it, and a bigger $\eta$ means bigger bounces.
+
+<figure class="widget demo" id="demo-noise"></figure>
+
+With a fixed $\eta$ the parameters never settle at the bottom.
+They keep bouncing around it, and a bigger $\eta$ means bigger bounces.
 
 A bigger batch averages more of those kicks together.
 [Unit 3](../03-probability/#expectation-spread-and-sampling) showed that an average of $N$ samples misses its expected value by about $\sigma / \sqrt{N}$, where $\sigma$ is the standard deviation of one sample.
-A batch gradient is an average of $B$ single-example gradients, so its noise shrinks like $1 / \sqrt{B}$: four times the batch for half the noise, at four times the compute per step.
+A batch gradient is an average of $B$ single-example gradients, so its noise shrinks like $1 / \sqrt{B}$.
+Four times the batch buys half the noise, at four times the compute per step.
 
-A small batch gives many cheap, noisy steps, and a large batch gives fewer, cleaner ones.
-Past some size the cleaner gradient stops helping much, because the direction is already accurate and the step is limited by $\eta$ and the shape of the bowl.
+A small batch gives many cheap, noisy steps.
+A large batch gives fewer, cleaner ones.
+Past some size the cleaner gradient stops helping much.
+The direction is already accurate, and the step is limited by $\eta$ and the shape of the bowl.
 [McCandlish et al. (2018)](https://arxiv.org/abs/1812.06162) measured where that happens: the largest useful batch differs a lot between tasks, and a statistic of the gradient's noise predicts it.
+
 Below that size, a GPU works through a batch's examples in parallel, so a bigger batch often costs little extra time per step.
 That's why large models use big batches: [LLaMA](https://arxiv.org/abs/2302.13971)'s were 4 million tokens per step.
 
 ## Momentum
 
-[Unit 4's stretched bowl](../04-gradient-descent/#the-learning-rate) had two problems at once: the steep direction zig-zags, and the flat direction crawls.
-*Momentum* keeps a running total of past gradients, called the *velocity* $v$, and steps along that instead of the latest gradient alone:
+[Unit 4's stretched bowl](../04-gradient-descent/#the-learning-rate) had two problems at once.
+The steep direction zig-zags, and the flat direction crawls.
+
+Think of a heavy ball rolling down the bowl.
+It doesn't turn the instant the slope changes, because it carries speed from the slopes it already rolled over.
+*Momentum* gives gradient descent that memory.
+It keeps a running total of past gradients, called the *velocity* $v$, and steps along that instead of the latest gradient alone:
 
 $$
 v \leftarrow \beta v + \nabla L(\theta), \qquad \theta \leftarrow \theta - \eta v
@@ -121,34 +149,47 @@ $v$ has one entry per parameter and starts at zero.
 Each step multiplies the old velocity by $\beta$, a number between 0 and 1, and adds the new gradient $\nabla L(\theta)$; then $\theta$ moves against $v$, scaled by the learning rate $\eta$ as before.
 :::
 
-$\beta$, the fraction of the old velocity each step keeps, is usually 0.9.
-With $\beta = 0$ the velocity is just the gradient and this is plain gradient descent.
+$\beta$ is the fraction of the old velocity each step keeps.
+It's usually 0.9.
+With $\beta = 0$ the velocity is just the gradient, and this is plain gradient descent.
 
-Unrolling the first update, with $g_t$ for the gradient at step $t$, shows what the velocity holds after step $t$:
+Unroll the first update, writing $g_t$ for the gradient at step $t$.
+This is what the velocity holds after step $t$:
 
 $$
 v_t = g_t + \beta\, g_{t-1} + \beta^2 g_{t-2} + \cdots
 $$
 
 It's every gradient so far, with one from $k$ steps ago weighted by $\beta^k$.
-With $\beta = 0.9$, a gradient from 10 steps ago still counts about a third ($0.9^{10} \approx 0.35$), and one from 50 steps ago counts for almost nothing ($0.005$).
+With $\beta = 0.9$, a gradient from 10 steps ago still counts about a third ($0.9^{10} \approx 0.35$).
+One from 50 steps ago counts for almost nothing ($0.005$).
 
 Two cases cover the bowl.
-If the gradient keeps pointing the same way, the sum is a geometric series and $v$ grows to $g / (1 - \beta)$, so the step is $1 / (1 - \beta)$ times bigger: 2 times for $\beta = 0.5$, 10 times for $\beta = 0.9$.
-If the gradient flips sign every step, the terms alternate and partly cancel, and $v$ settles at $g / (1 + \beta)$, smaller than a single gradient.
+
+- **The gradient keeps pointing the same way.** The sum is a geometric series, and $v$ grows to $g / (1 - \beta)$. The step is $1 / (1 - \beta)$ times bigger: 2 times for $\beta = 0.5$, 10 times for $\beta = 0.9$.
+- **The gradient flips sign every step.** The terms alternate and partly cancel, and $v$ settles at $g / (1 + \beta)$, smaller than a single gradient.
+
+<figure class="widget demo" id="demo-momentum"></figure>
+
 On the stretched bowl the flat direction is the steady case, so the crawl along the floor gets the bigger step.
-In the steep direction a step that big overshoots and flips the gradient's sign, which is the cancelling case, so the zig-zag across the valley stays under control.
-With $\eta = 0.1$ and $\beta = 0.5$ it gets within 0.0001 of the lowest loss in 36 steps, where plain gradient descent needs 84.
+In the steep direction a step that big overshoots and flips the gradient's sign.
+That's the cancelling case, so the zig-zag across the valley stays under control.
+With $\eta = 0.1$ and $\beta = 0.5$ momentum gets within 0.0001 of the lowest loss in 36 steps, where plain gradient descent needs 84.
 
 More momentum isn't automatically better.
-At the same $\eta$, $\beta = 0.9$ takes 101 steps: ten times the step along the floor carries it past the bottom, and it swings back and forth across it several times before settling.
-With $\beta = 0.9$ you'd normally lower $\eta$; at $\eta = 0.05$ it takes 67 steps, against 171 for plain gradient descent at that rate.
+At the same $\eta$, $\beta = 0.9$ takes 101 steps.
+Ten times the step along the floor carries it past the bottom, and it swings back and forth across it several times before settling.
+With $\beta = 0.9$ you'd normally lower $\eta$.
+At $\eta = 0.05$ it takes 67 steps, against 171 for plain gradient descent at that rate.
 
 ## Adam
 
 Momentum still uses one $\eta$ for every parameter, and the steep direction decides how big it can be.
-On unit 4's line the starting gradient is $(-14, -4.5)$, three times bigger for $w$ than for $b$, and an $\eta$ that's safe for the parameters with big gradients is slow for the rest.
-*Adam* gives each parameter its own scale by keeping two running averages: $m$ of its gradient $g$, and $s$ of the squared gradient:
+On unit 4's line the starting gradient is $(-14, -4.5)$, three times bigger for $w$ than for $b$.
+An $\eta$ that's safe for the parameters with big gradients is slow for the rest.
+
+*Adam* gives each parameter its own scale.
+It keeps two running averages per parameter: $m$ of its gradient $g$, and $s$ of the squared gradient:
 
 $$
 m \leftarrow \beta_1 m + (1 - \beta_1)\, g, \qquad s \leftarrow \beta_2 s + (1 - \beta_2)\, g^2
@@ -175,54 +216,79 @@ $\hat m$ and $\hat s$ are the averages after bias correction, explained below.
 The Adam paper writes $\alpha$ for $\eta$ and $v$ for $s$.
 :::
 
-The fraction is the average gradient divided by the typical gradient size, entry by entry, with a tiny $\varepsilon$ underneath only to keep it from dividing by zero.
-When a parameter's gradient keeps pointing the same way the fraction is close to $\pm 1$, and when it flips or is noisy the fraction is closer to 0.
-So each parameter moves about $\eta$ per step at most, however large or small its gradients are.
-The Adam paper calls this being "invariant to diagonal rescaling of the gradients": multiply one parameter's gradients by any positive constant and its steps don't change (ignoring $\varepsilon$).
-Its defaults are $\eta = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$ and $\varepsilon = 10^{-8}$.
+The fraction is the average gradient divided by the typical gradient size, entry by entry.
+The tiny $\varepsilon$ underneath only keeps it from dividing by zero.
 
-The hats on $\hat m$ and $\hat s$ are *bias correction*, which is there because $m$ and $s$ start at zero.
+When a parameter's gradient keeps pointing the same way, the fraction is close to $\pm 1$.
+When the gradient flips or is noisy, the fraction is closer to 0.
+So each parameter moves about $\eta$ per step at most, however large or small its gradients are.
+The Adam paper calls this being "invariant to diagonal rescaling of the gradients".
+Multiply one parameter's gradients by any positive constant and its steps don't change (ignoring $\varepsilon$).
+The paper's defaults are $\eta = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$ and $\varepsilon = 10^{-8}$.
+
+The hats on $\hat m$ and $\hat s$ are *bias correction*.
+It's there because $m$ and $s$ start at zero.
 After the first step $m = 0.1g$ and $s = 0.001g^2$, both far too small.
 Uncorrected, the step would be $\eta \cdot 0.1g / \sqrt{0.001g^2} \approx 3.16\eta$.
-Dividing by $1 - 0.9 = 0.1$ and $1 - 0.999 = 0.001$ gives back $\hat m = g$ and $\hat s = g^2$, so the first step is exactly $\eta$ in each entry, in the direction against the gradient.
-The correction fades as $\beta^t$ shrinks with the step number $t$, but slowly for $s$: after 100 steps, $1 - 0.999^{100} \approx 0.095$, so $s$ is still being multiplied by about 10.5.
+Dividing by $1 - 0.9 = 0.1$ and $1 - 0.999 = 0.001$ gives back $\hat m = g$ and $\hat s = g^2$.
+So the first step is exactly $\eta$ in each entry, in the direction against the gradient.
 
-Back on unit 4's line, with that starting gradient of $(-14, -4.5)$, plain gradient descent's first step at $\eta = 0.1$ moves $w$ by 1.4 and $b$ by 0.45, and Adam's moves both by exactly 0.1.
+The correction fades as $\beta^t$ shrinks with the step number $t$, but slowly for $s$.
+After 100 steps, $1 - 0.999^{100} \approx 0.095$, so $s$ is still being multiplied by about 10.5.
+
+Back on unit 4's line, the starting gradient is $(-14, -4.5)$.
+Plain gradient descent's first step at $\eta = 0.1$ moves $w$ by 1.4 and $b$ by 0.45.
+Adam's moves both by exactly 0.1.
+
+<figure class="widget demo" id="demo-adam"></figure>
 
 That evenness pays off when the scales are far apart.
 Measure $x$ in different units, so the points sit at $x = 0, 10, 20, 30$.
-The best line is the same line in the new units (slope 0.19, intercept 0.9, lowest loss 0.175), but the steep curvature jumps to about 701 while the flat one is 0.71, a ratio of 984 instead of 14.
-Gradient descent has to keep $\eta$ below $2 / 701 \approx 0.00285$, and at $\eta = 0.0025$ it needs 2,722 steps; momentum needs 1,356.
+The best line is the same line in the new units (slope 0.19, intercept 0.9, lowest loss 0.175).
+But the steep curvature jumps to about 701 while the flat one is 0.71, a ratio of 984 instead of 14.
+
+Gradient descent has to keep $\eta$ below $2 / 701 \approx 0.00285$.
+At $\eta = 0.0025$ it needs 2,722 steps, and momentum needs 1,356.
 Adam, with $\eta$ still 0.1, needs 358, and its first step is still $(0.1, 0.1)$.
 
 On the original points, though, Adam takes 117 steps, more than plain gradient descent's 84.
 Its per-parameter scaling can only undo stretch that lines up with the parameter axes.
 Multiplying every $x$ by 10 stretched the bowl almost purely along $w$ (the steep direction is within 2.5° of the $w$ axis).
-If the bowl is stretched along a diagonal, both parameters see the same mix of big and small gradients, and no per-parameter division separates them.
+If the bowl is stretched along a diagonal, both parameters see the same mix of big and small gradients.
+No per-parameter division can separate them.
+
+The widget races all three on a bowl you can reshape.
 
 <figure class="widget" id="optimizer-race">
 <figcaption>Gradient descent (GD, blue), momentum (orange) and Adam (purple) start from w = −1, b = 3 on a bowl with its bottom at the green cross. One η drives all three, and β is momentum's. Stretch and tilt reshape the bowl (unit 4's bowl is 14× and 25°). Try the three bowl buttons, or click anywhere to start from there.</figcaption>
 </figure>
 
 At the starting settings the widget reproduces the 36, 84 and 117 steps above.
-Press "1000× along w" for a bowl shaped like the $x \times 10$ case: after 600 steps gradient descent and momentum are still 0.0068 and 0.0025 above the lowest loss, and Adam got there in 77 steps.
-"1000× tilted 45°" keeps the same stretch and only turns it, and now Adam doesn't get there in 600 steps either.
+Press "1000× along w" for a bowl shaped like the $x \times 10$ case.
+After 600 steps gradient descent and momentum are still 0.0068 and 0.0025 above the lowest loss, and Adam got there in 77 steps.
+"1000× tilted 45°" keeps the same stretch and only turns it.
+Now Adam doesn't get there in 600 steps either.
 
 ## Weight decay and AdamW
 
-[Unit 6](../06-generalization/#weight-decay-early-stopping-and-more-data) kept weights small by adding a penalty $\frac{\lambda}{2}\|\theta\|^2$ to the loss: $\|\theta\|^2$ is the sum of the squared parameters, $\lambda$ sets how much they cost, and the penalty's gradient is $\lambda\theta$.
+[Unit 6](../06-generalization/#weight-decay-early-stopping-and-more-data) kept weights small by adding a penalty $\frac{\lambda}{2}\|\theta\|^2$ to the loss.
+$\|\theta\|^2$ is the sum of the squared parameters, and $\lambda$ sets how much they cost.
+The penalty's gradient is $\lambda\theta$.
 In plain gradient descent the update becomes
 
 $$
 \theta \leftarrow \theta - \eta\,(\nabla L + \lambda\theta) = (1 - \eta\lambda)\,\theta - \eta \nabla L
 $$
 
-The left form is the usual step on the loss plus penalty, and the right form regroups it: shrink every weight by the factor $1 - \eta\lambda$, then take the normal step on the loss alone.
+The left form is the usual step on the loss plus penalty.
+The right form regroups it: shrink every weight by the factor $1 - \eta\lambda$, then take the normal step on the loss alone.
 That steady shrinking is why it's called *weight decay*.
 
 In Adam the two forms stop being the same.
 If you add $\lambda\theta$ to the gradient, it flows into $m$ and $s$ and gets divided by $\sqrt{\hat s}$ along with everything else.
-A weight whose gradients are usually large has a large $\hat s$, so its decay gets divided down a lot, and a weight with small gradients gets decayed hard.
+A weight whose gradients are usually large has a large $\hat s$, so its decay gets divided down a lot.
+A weight with small gradients gets decayed hard.
+
 Loshchilov and Hutter pointed this out and proposed *AdamW*, which takes the decay back out of the gradient:
 
 $$
@@ -230,25 +296,36 @@ $$
 $$
 
 The fraction is Adam's step from above, and here $m$ and $s$ only see the loss's gradient.
-The $\lambda\theta$ sits outside the division, so every weight shrinks by the same factor $1 - \eta\lambda$ per step, as it does in plain gradient descent.
+The $\lambda\theta$ sits outside the division.
+So every weight shrinks by the same factor $1 - \eta\lambda$ per step, as it does in plain gradient descent.
 This is the form PyTorch's `AdamW` uses.
-At $\eta = 3 \times 10^{-4}$ and $\lambda = 0.1$ (LLaMA's peak learning rate for its smaller models, and its weight decay), the factor is $1 - 0.00003$, and 10,000 steps of that alone would shrink a weight to 0.74 of its size.
+
+Take $\eta = 3 \times 10^{-4}$ and $\lambda = 0.1$ (LLaMA's peak learning rate for its smaller models, and its weight decay).
+The factor is $1 - 0.00003$.
+10,000 steps of that alone would shrink a weight to 0.74 of its size.
 
 ## Learning-rate schedules
 
-A schedule lets $\eta$ change with the step number, written $\eta_t$.
+A *schedule* lets $\eta$ change with the step number, written $\eta_t$.
 Most language model runs use two pieces.
-The first is *warmup*, where $\eta$ climbs in a straight line from near zero to its peak $\eta_{\max}$ over the first $W$ steps:
+
+The first is *warmup*.
+$\eta$ climbs in a straight line from near zero to its peak $\eta_{\max}$ over the first $W$ steps:
 
 $$
 \eta_t = \eta_{\max}\, \frac{t}{W} \qquad (t \le W)
 $$
 
 At step $t$ you're the fraction $t / W$ of the way through warmup, and you get that fraction of the peak.
-At the start the weights are random, the gradients are large and change quickly, and Adam's $\hat s$ is an average over only a few steps.
-[Liu et al. (2019)](https://arxiv.org/abs/1908.03265) argue that this is what warmup fixes: with so few gradients behind it, $\sqrt{\hat s}$ is a shaky estimate, so the step size $\eta / \sqrt{\hat s}$ swings a lot from step to step, and small steps until the averages settle keep that from pushing training somewhere bad early on.
 
-After warmup, $\eta$ comes down again, and a common shape is *cosine decay* over the remaining steps, down to a floor $\eta_{\min}$ at the last step $T$:
+Warmup is there because the start of training is rough.
+The weights are random, the gradients are large and change quickly, and Adam's $\hat s$ is an average over only a few steps.
+[Liu et al. (2019)](https://arxiv.org/abs/1908.03265) argue that this last part is what warmup fixes.
+With so few gradients behind it, $\sqrt{\hat s}$ is a shaky estimate, so the step size $\eta / \sqrt{\hat s}$ swings a lot from step to step.
+Small steps until the averages settle keep that from pushing training somewhere bad early on.
+
+After warmup, $\eta$ comes down again.
+A common shape is *cosine decay* over the remaining steps, down to a floor $\eta_{\min}$ at the last step $T$:
 
 $$
 \eta_t = \eta_{\min} + \frac{1}{2}\,(\eta_{\max} - \eta_{\min}) \left( 1 + \cos\!\left( \pi\, \frac{t - W}{T - W} \right) \right)
@@ -262,7 +339,11 @@ Over that range the cosine goes from 1 to −1, so the bracket goes from 2 to 0 
 It falls slowly at first, fastest in the middle, and levels off at the end.
 LLaMA used AdamW with $\beta_1 = 0.9$ and $\beta_2 = 0.95$, 2,000 warmup steps, and cosine decay to 10% of the peak.
 
-The decay is the fix for the bouncing from the first section: the bounce grows with $\eta$, so lowering $\eta$ toward the end lets the parameters settle into the bottom.
+<figure class="widget demo" id="demo-schedule"></figure>
+
+The decay is the fix for the bouncing from the first section.
+The bounce grows with $\eta$, so lowering $\eta$ toward the end lets the parameters settle into the bottom.
+The widget shows that on unit 4's four points.
 
 <figure class="widget" id="sgd-schedule">
 <figcaption>Left: 200 steps of mini-batch gradient descent on unit 4's four points, with each batch drawn at random. Right: the learning rate over the run (purple), and where the run is now (orange). The readout averages the last ten runs' final loss, so you can compare settings over several runs.</figcaption>
@@ -270,8 +351,13 @@ The decay is the fix for the bouncing from the first section: the bounce grows w
 
 I ran the widget's setup 1,000 times with a batch of one point and a peak $\eta$ of 0.05.
 With a constant rate the runs ended on average 0.085 above the lowest loss, and with cosine decay 0.012.
-With all four points in the batch there's no noise, and the comparison flips: the constant rate reaches the bottom in 171 steps, while cosine decay ends 0.007 above it because it slowed down before arriving.
-Warmup barely changes this bowl's numbers (0.012 either way), since a two-parameter bowl has none of the random weights or short $\hat s$ history it's meant for.
+
+With all four points in the batch there's no noise, and the comparison flips.
+The constant rate reaches the bottom in 171 steps.
+Cosine decay ends 0.007 above it, because it slowed down before arriving.
+
+Warmup barely changes this bowl's numbers (0.012 either way).
+A two-parameter bowl has none of the random weights or short $\hat s$ history that warmup is meant for.
 
 ## Worked example
 
@@ -330,7 +416,15 @@ x times 10: gradient at the start [-770.   -31.5]
 ```
 
 Adam's first step is $(0.1, 0.1)$ both times, even though the gradient on the second problem is 55 times bigger in $w$.
-Gradient descent's step follows the gradient's size, so on the second problem it had to drop $\eta$ by a factor of 40 and slowed down by a factor of 32, while Adam used the same $\eta$ for both and slowed down by a factor of 3.
+Gradient descent's step follows the gradient's size.
+On the second problem it had to drop $\eta$ by a factor of 40, and it slowed down by a factor of 32.
+Adam used the same $\eta$ for both and slowed down by a factor of 3.
+
+::: real-world
+- **The default optimizer.** `torch.optim.AdamW` with warmup and a decaying learning rate is the usual starting point for training or fine-tuning a transformer.
+- **Training recipes in papers.** Model papers list the batch size, peak learning rate, warmup steps, $\beta$ values and weight decay. LLaMA's line reads AdamW, $\beta_1 = 0.9$, $\beta_2 = 0.95$, weight decay 0.1 and 2,000 warmup steps.
+- **Adversarial attacks.** An attack that searches for an input to fool a model runs an optimizer too. It takes repeated gradient steps on the input instead of the weights, and some attacks add momentum.
+:::
 
 ## Where this shows up later
 
@@ -338,6 +432,46 @@ Gradient descent's step follows the gradient's size, so on the second problem it
 - Unit 13: a transformer's embedding table, attention matrices and layer-norm parameters are all updated by one AdamW optimizer, each parameter with its own $\hat s$.
 - Unit 15: reinforcement learning estimates its gradient from sampled episodes, and those estimates are much noisier than a mini-batch gradient on labeled data.
 - Unit 16: the reward model and the RLHF policy are trained with these same optimizers; only the loss changes.
+
+::: review
+Mini-batch gradient
+:   The gradient averaged over a random few examples. It's a noisy estimate of the full gradient, and the noise shrinks like $1 / \sqrt{B}$ for batch size $B$.
+
+Momentum
+:   Stepping along a decaying sum of past gradients. Steady gradients add up and flipping ones cancel.
+
+Velocity, $v$
+:   Momentum's running total of gradients.
+
+$\beta$
+:   The fraction of the old velocity (or old average) each step keeps. Usually 0.9 for momentum.
+
+Adam
+:   An optimizer that divides each parameter's average gradient $m$ by its typical gradient size $\sqrt{s}$, so every parameter moves about $\eta$ per step at most.
+
+Bias correction
+:   Dividing $m$ and $s$ by $1 - \beta^t$ to make up for starting them at zero.
+
+Weight decay
+:   Shrinking every weight by the factor $1 - \eta\lambda$ each step.
+
+AdamW
+:   Adam with weight decay applied outside the division by $\sqrt{\hat s}$, so every weight shrinks by the same factor.
+
+Warmup
+:   Raising $\eta$ in a straight line from near zero to its peak over the first $W$ steps.
+
+Cosine decay
+:   Lowering $\eta$ from its peak to a floor along half a cosine wave.
+:::
+
+::: say
+A mini-batch gradient is a noisy copy of the full gradient, and that noise keeps the parameters bouncing near the bottom.
+Momentum remembers past gradients, so it speeds up where they agree and slows down where they flip.
+Adam divides each parameter's gradient by its usual size, so every parameter takes steps of about the same length.
+AdamW adds weight decay that shrinks every weight by the same factor.
+A schedule warms the learning rate up at the start and decays it at the end so the run can settle.
+:::
 
 ## Self-test
 

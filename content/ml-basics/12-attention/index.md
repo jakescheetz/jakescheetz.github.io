@@ -68,10 +68,14 @@ quiz:
     why: 'Scaling multiplies every score, so the gaps between them grow too. Bigger gaps push the softmax to put more weight on the top score.'
 ---
 
+::: why
+Read this sentence: "the cat sat on the mat because it was tired."
+You know "it" means the cat, because you looked back at the earlier words.
 After unit 10 every token has a vector, but each vector only describes its own token.
 The vector for "it" is the same row of the embedding table whether "it" refers to a cat or a mat.
 Attention is the step where each position looks back at the earlier positions and mixes some of their vectors into its own.
 It's the only place in a transformer (unit 13) where information moves from one token to another.
+:::
 
 ## Mixing in earlier tokens
 
@@ -80,7 +84,8 @@ In the first layer these are the embedding rows from unit 10.
 In later layers they're whatever the layers below produced.
 
 For each position $i$ I want a new vector that carries information from positions 1 to $i$.
-The simplest way to get one is a weighted average, with a weight $a_{ij}$ for how much position $i$ takes from position $j$:
+The simplest way to get one is a weighted average.
+Give each earlier position $j$ a weight $a_{ij}$ that says how much position $i$ takes from it:
 
 $$
 o_i = a_{i1} h_1 + a_{i2} h_2 + \cdots + a_{ii} h_i
@@ -91,12 +96,15 @@ Each term is the weight $a_{ij}$ times $h_j$, a vector scaled by a number, and t
 :::
 
 The weights are at least 0 and add up to 1, so $o_i$ is a blend of the vectors it can see.
+A small example: with weights 0.75 and 0.25, the blend of $(4, 0)$ and $(0, 4)$ is $(3, 1)$.
+It's like a course grade where the final exam counts for more than the quiz.
 
 Equal weights would give every earlier word the same say.
 In "the cat sat on the mat because it was tired", the new vector for "it" should take most of its weight from "cat", and "mat" should get almost none.
 So the weights have to depend on the tokens themselves.
 
-Softmax ([unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities)) turns any list of scores into weights that are positive and add up to 1, so what's left is where the scores come from.
+Softmax ([unit 11](../11-next-token-prediction/#softmax-turns-scores-into-probabilities)) turns any list of scores into weights that are positive and add up to 1.
+What's left is where the scores come from.
 
 ## Queries, keys and values
 
@@ -113,6 +121,7 @@ $W_V$ makes the value vectors $v_i$, and in this unit they have $d_k$ entries to
 :::
 
 $d_k$ is the *key size*, and it's usually much smaller than $d$.
+The three vectors have three jobs.
 
 - **Query** $q_i$: what position $i$ is looking for.
 - **Key** $k_j$: what position $j$ offers, written in the same $d_k$ numbers so the two can be compared with a [dot product](../01-vectors/#the-dot-product).
@@ -120,7 +129,8 @@ $d_k$ is the *key size*, and it's usually much smaller than $d$.
 
 > **An analogy.** It's a soft version of a search. The query is what you type, each key is what a document is filed under, and the value is the document's contents. A normal search hands back the best match; attention hands back a blend of every value, weighted by how well its key matched the query.
 
-The score of position $j$ for the query at position $i$ is a scaled dot product, large when $i$'s query and $j$'s key point the same way:
+The *score* of position $j$ for the query at position $i$ is a scaled dot product.
+It's large when $i$'s query and $j$'s key point the same way:
 
 $$
 s_{ij} = \frac{q_i \cdot k_j}{\sqrt{d_k}}
@@ -131,7 +141,8 @@ The top is the dot product of $i$'s query with $j$'s key.
 The bottom divides by the square root of the key size, for a reason the next section explains.
 :::
 
-The weights are the softmax of those scores over the positions $i$ is allowed to see, $j = 1, \dots, i$, and the output is the weighted sum of the values:
+The weights are the softmax of those scores over the positions $i$ is allowed to see, $j = 1, \dots, i$.
+The output is the weighted sum of the values:
 
 $$
 \begin{aligned}
@@ -145,20 +156,27 @@ The first formula is softmax from [unit 11](../11-next-token-prediction/#softmax
 The second is the weighted average from the first section, with the values $v_j$ in place of the raw vectors $h_j$.
 :::
 
-Scoring with $h_i \cdot h_j$ directly would make one vector play all three roles.
-What "it" is looking for (a noun that could be the subject) is different from what "it" offers to the words after it, and both are different from the information it should pass along.
+Why not score with $h_i \cdot h_j$ directly?
+That would make one vector play all three roles.
+What "it" is looking for (a noun that could be the subject) is different from what "it" offers to the words after it.
+Both are different from the information it should pass along.
 With three matrices, training can tune each role on its own.
 
-<figure class="widget" id="attention-picker">
-<figcaption>Orange bars are the weights from the blue query token to every token up to and including it. Tokens after the query are masked. Click a word or use the slider to change the query, and drag the score scale to see the softmax sharpen or flatten. The query and key vectors are four numbers I picked by hand, not taken from a trained model.</figcaption>
-</figure>
-
-In the widget, $d_k$ is 4 and I gave the four entries rough meanings: animal noun, thing noun, verb, pronoun.
+Here is the whole recipe for one query, with small numbers.
+I set $d_k$ to 4 and gave the four entries rough meanings: animal noun, thing noun, verb, pronoun.
 "it" has the query $q = (3, -1, 0, 0)$, which reads as "looking for an animal, not a thing."
 "cat" has the key $k = (2, 0, 0, 0)$, so its score is $6 / \sqrt{4} = 3$.
 "mat" has $k = (0, 2, 0, 0)$ and scores $-2 / 2 = -1$.
 Most other keys are zero vectors and score 0.
 After the softmax, "it" puts 0.76 of its weight on "cat" and 0.01 on "mat".
+
+<figure class="widget demo" id="demo-qkv"></figure>
+
+The widget below uses the same vectors and lets you pick any word as the query.
+
+<figure class="widget" id="attention-picker">
+<figcaption>Orange bars are the weights from the blue query token to every token up to and including it. Tokens after the query are masked. Click a word or use the slider to change the query, and drag the score scale to see the softmax sharpen or flatten. The query and key vectors are four numbers I picked by hand, not taken from a trained model.</figcaption>
+</figure>
 
 In a trained model nobody picks these numbers.
 $W_Q$ and $W_K$ are learned by gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)), and their entries don't come with names.
@@ -166,20 +184,30 @@ $W_Q$ and $W_K$ are learned by gradient descent ([unit 4](../04-gradient-descent
 The score scale slider multiplies every score by the same number.
 At 0 every score is 0, so the weights are all equal.
 At 2, "it" puts 0.99 on "cat".
-Bigger scores push more of the weight onto the top score, and the $\sqrt{d_k}$ in the score formula is there to keep scores from getting that big.
+Bigger scores push more of the weight onto the top score.
+The $\sqrt{d_k}$ in the score formula is there to keep scores from getting that big.
 
 ## Why divide by the square root of the key size
 
 Suppose the entries of $q$ and $k$ are independent ([unit 3](../03-probability/#conditional-probability-and-bayes-rule)) random numbers with mean 0 and variance 1 ([unit 3](../03-probability/#expectation-spread-and-sampling)).
-Each product $q_m k_m$ of matching entries then has variance 1, and $q \cdot k$ adds up $d_k$ of them.
-Variances of independent terms add, so the variance of $q \cdot k$ is $d_k$ and its typical size (the standard deviation, the square root of the variance) is $\sqrt{d_k}$.
+Each product $q_m k_m$ of matching entries then has variance 1.
+The dot product $q \cdot k$ adds up $d_k$ of them.
+Variances of independent terms add, so the variance of $q \cdot k$ is $d_k$.
+Its typical size is the standard deviation, the square root of the variance: $\sqrt{d_k}$.
 At $d_k = 64$, the head size in GPT-2 and in the original paper, raw dot products are typically around 8 in size.
 
 Softmax reacts to differences between scores, and differences of 8 are huge for it.
 Scores $(1, 0)$ give weights $(0.73, 0.27)$.
 Scores $(8, 0)$ give $(0.9997, 0.0003)$.
-When one weight is almost 1, nudging the scores barely changes the weights, so the gradient that reaches $W_Q$ and $W_K$ is tiny and they learn slowly.
-That's the explanation Vaswani et al. offer in the paper, and dividing by $\sqrt{d_k}$ brings the typical score back to about 1 for any key size.
+
+When one weight is almost 1, nudging the scores barely changes the weights.
+So the gradient that reaches $W_Q$ and $W_K$ is tiny, and they learn slowly.
+That's the explanation Vaswani et al. offer in the paper.
+Dividing by $\sqrt{d_k}$ brings the typical score back to about 1 for any key size.
+
+<figure class="widget demo" id="demo-scale"></figure>
+
+The widget below runs the same test with random vectors and eight keys.
 
 <figure class="widget" id="scaling">
 <figcaption>One random query against eight random keys, all entries drawn with mean 0 and variance 1. Blue bars are the scores (clipped at ±20, a notch marks a clipped bar), orange bars their softmax weights. "Scaling" divides every score by √d_k. Raise d_k with scaling off and the largest weight heads to 1. Turn scaling on and the scores stay within a few units of 0 at every d_k.</figcaption>
@@ -189,10 +217,12 @@ That's the explanation Vaswani et al. offer in the paper, and dividing by $\sqrt
 
 During training, every position predicts its next token in parallel (unit 11).
 If position $i$ could attend to position $i + 1$, it could read the answer it's supposed to predict.
+That's like taking a test with the answer key open.
 So position $i$ only gets to see positions $1$ to $i$.
+This rule is called the *causal mask*.
 
 In practice you compute all $n \times n$ scores at once and overwrite the ones where $j > i$ with $-\infty$.
-Since $e^{-\infty} = 0$, those positions get zero weight and the softmax spreads all the weight over the rest.
+Since $e^{-\infty} = 0$, those positions get zero weight, and the softmax spreads all the weight over the rest.
 For four tokens the score grid looks like this, with one row per query and one column per key:
 
 <figure>
@@ -203,6 +233,8 @@ For four tokens the score grid looks like this, with one row per query and one c
   q4    <span class="blue">s41</span>    <span class="blue">s42</span>    <span class="blue">s43</span>    <span class="blue">s44</span></pre>
 <figcaption>Scores on and below the diagonal are kept. The ones above it are set to −∞, so their weight is 0.</figcaption>
 </figure>
+
+<figure class="widget demo" id="demo-mask"></figure>
 
 Stack the $q_i$ as the rows of a matrix $Q$ (shape $n \times d_k$), and the same for $K$ and $V$.
 Then all the scores are one matrix product, $Q K^\top$, and the whole layer is
@@ -222,16 +254,20 @@ The mask leaves nothing above the diagonal, so it's lower-triangular, and every 
 
 The mask also helps when generating text.
 The keys and values of earlier positions never depend on later tokens, so they can be computed once and stored.
-Each new token only needs its own query, key and value, and inference servers keep the stored ones in what's called a KV cache.
+Each new token only needs its own query, key and value.
+Inference servers keep the stored ones in what's called a *KV cache*.
 
 ## Several heads
 
 One set of $W_Q, W_K, W_V$ gives each position one set of weights.
-A sentence usually needs more than one way of looking back, for example one that finds the noun "it" refers to and another that follows the previous word.
+A sentence usually needs more than one way of looking back.
+For example, one way finds the noun "it" refers to, and another follows the previous word.
 
-Multi-head attention runs several of these in parallel, called heads, each with its own three matrices and a smaller key size.
+*Multi-head attention* runs several of these in parallel.
+Each one is called a *head*, and it has its own three matrices and a smaller key size.
 In GPT-2 small, $d = 768$ and there are 12 heads with $d_k = 64$ each.
-Each head produces its own output vector with 64 entries, the 12 outputs are joined end to end into one vector of 768, and a final learned $d \times d$ matrix $W_O$ mixes them.
+Each head produces its own output vector with 64 entries.
+The 12 outputs are joined end to end into one vector of 768, and a final learned $d \times d$ matrix $W_O$ mixes them.
 Because each head is smaller, 12 heads cost about the same as one head with $d_k = 768$.
 
 ## Worked example
@@ -279,15 +315,62 @@ print(V[0])
 ```
 
 The weight matrix is lower-triangular and each row sums to 1.
-The first token can only see itself, so its output is exactly its own value vector, and the last token spreads its weight over all four, with the most (0.519) on token 2.
+The first token can only see itself, so its output is exactly its own value vector.
+The last token spreads its weight over all four, with the most (0.519) on token 2.
 Dividing the random matrices by $\sqrt{d}$ keeps the entries of $q$ and $k$ near variance 1.
 If you delete those three divisions, rows 2 and 4 put 1.0 and 0.998 of their weight on a single token.
+
+::: real-world
+- **Long prompts cost more.** Attention scores every token against every earlier token, so the grid has $n \times n$ entries. Doubling the length of a prompt makes that grid four times as big.
+- **Streaming replies.** The KV cache is why a chat model can add one token after another without redoing the work for the whole conversation each time.
+- **Prompt injection.** Attention mixes every token in the context by the same rule. Nothing in it marks one token as an instruction and another as data, which is one reason text pasted from a web page can steer a model.
+:::
 
 ## Where this shows up later
 
 - Unit 13: an attention layer and a small neural network (unit 8) together make a transformer block. Nothing in a score $q_i \cdot k_j$ says how far apart positions $i$ and $j$ are, so unit 13 also adds position information.
 - Unit 13 again: the mask is what lets a transformer train on every position of a sequence at once, with the cross-entropy loss from unit 11.
 - Unit 14: generating text one token at a time, where each new token attends over the cached keys and values of everything before it.
+
+::: review
+Attention
+:   The step where each position blends in vectors from the positions before it. It is how information moves between tokens.
+
+Attention weight, $a_{ij}$
+:   How much position $i$ takes from position $j$. Each row of weights is at least 0 and adds up to 1.
+
+Query, $q_i$
+:   What position $i$ is looking for.
+
+Key, $k_j$
+:   What position $j$ offers. The query is compared with it by a dot product.
+
+Value, $v_j$
+:   What position $j$ hands over. The output is the weighted sum of the values.
+
+Key size, $d_k$
+:   The number of entries in each query and key. 64 per head in GPT-2 small.
+
+Score, $s_{ij}$
+:   $q_i \cdot k_j / \sqrt{d_k}$. Softmax turns a row of scores into a row of weights.
+
+Causal mask
+:   Sets the scores for later positions to $-\infty$, so position $i$ only sees positions 1 to $i$.
+
+Head
+:   One set of $W_Q$, $W_K$, $W_V$. Multi-head attention runs several side by side and joins their outputs.
+
+KV cache
+:   The stored keys and values of earlier positions, reused for each new token during generation.
+:::
+
+::: say
+Attention lets each token pull in information from the tokens before it.
+Every token makes a query, a key and a value.
+The dot product of one token's query with another token's key gives a score, and softmax turns the scores into weights.
+The output is the weighted sum of the values.
+The causal mask hides later tokens, so the model can't read the answer it is trained to predict.
+:::
 
 ## Self-test
 

@@ -248,3 +248,152 @@
   });
   ctl.addEventListener("input", stop);
 })();
+
+// Step-through: a secant line on x² turning into the tangent as the gap h shrinks.
+(function () {
+  const X = (x) => 60 + x * 100, Y = (y) => 320 - y * 10;
+  Learn.demo(document.getElementById("demo-secant"), {
+    height: 350,
+    label: "A secant line on the curve x squared turning into the tangent line at x = 3 as the gap shrinks",
+    steps: [
+      { s: { lh: Math.log10(2), tri: 1, tan: 0 }, cap: "The curve is f(x) = x². The blue point sits at x = 3. The orange point sits a gap h = 2 to the right. The line through both is a secant. Its slope is rise ÷ run = 16 ÷ 2 = 8." },
+      { s: { lh: 0 }, cap: "Shrink the gap to h = 1. The slope drops to 7." },
+      { s: { lh: Math.log10(0.5) }, cap: "Shrink it to h = 0.5. The slope is now 6.5." },
+      { s: { lh: -1 }, cap: "At h = 0.1 the slope is 6.1. The slope keeps closing in on one number." },
+      { s: { lh: -2, tan: 1, tri: 0 }, cap: "At h = 0.01 the two points nearly touch. The secant has become the tangent line (dashed). Its slope, 6, is the derivative of x² at x = 3." },
+    ],
+    draw(ctx, s, c, d) {
+      const h = Math.pow(10, s.lh), m = 6 + h;
+      d.line(X(0), Y(0), X(5.6), Y(0), c.muted, 1.5);
+      d.line(X(0), Y(0), X(0), Y(30), c.muted, 1.5);
+      for (let i = 1; i <= 5; i++) { d.line(X(i), Y(0), X(i), Y(0) + 5, c.muted); d.text(String(i), X(i), Y(0) + 16, { c: c.muted, s: 12, a: "center" }); }
+      for (let j = 10; j <= 30; j += 10) { d.line(X(0) - 5, Y(j), X(0), Y(j), c.muted); d.text(String(j), X(0) - 9, Y(j), { c: c.muted, s: 12, a: "right" }); }
+      d.text("x", X(5.6) + 8, Y(0), { c: c.muted, s: 13 });
+      ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5; ctx.beginPath();
+      for (let x = 0; x <= 5.45; x += 0.05) { if (x === 0) ctx.moveTo(X(x), Y(x * x)); else ctx.lineTo(X(x), Y(x * x)); }
+      ctx.stroke();
+      d.text("f(x) = x²", X(4.45), Y(25), { c: c.ink, w: 700, a: "right" });
+      ctx.save(); ctx.beginPath(); ctx.rect(X(0), Y(30), X(5.6) - X(0), Y(0) - Y(30)); ctx.clip();
+      if (s.tan > 0.01) { ctx.globalAlpha = s.tan; d.line(X(1), Y(9 - 12), X(5.5), Y(9 + 6 * 2.5), c.blue, 2, [7, 6]); ctx.globalAlpha = 1; }
+      d.line(X(0.8), Y(9 + m * (0.8 - 3)), X(5.6), Y(9 + m * 2.6), c.orange, 2.5);
+      ctx.restore();
+      const qx = 3 + h, qy = qx * qx;
+      if (s.tri > 0.01) {
+        ctx.globalAlpha = s.tri;
+        d.line(X(3), Y(9), X(qx), Y(9), c.muted, 1.5, [4, 4]);
+        d.line(X(qx), Y(9), X(qx), Y(qy), c.muted, 1.5, [4, 4]);
+        if (h > 0.3) {
+          d.text("run = h", (X(3) + X(qx)) / 2, Y(9) + 14, { c: c.muted, s: 12, a: "center" });
+          d.text("rise", X(qx) + 8, (Y(9) + Y(qy)) / 2, { c: c.muted, s: 12 });
+        }
+        ctx.globalAlpha = 1;
+      }
+      d.dot(X(3), Y(9), 6, c.blue);
+      d.dot(X(qx), Y(qy), 6, c.orange);
+      d.panel(c, 80, 24, 210, 82);
+      d.text(`gap h = ${h >= 0.1 ? d.fmt(h, 2) : d.fmt(h, 3)}`, 96, 48, { c: c.ink });
+      d.text(`slope = ${m.toFixed(2)}`, 96, 80, { c: c.orange, s: 19, w: 700 });
+      if (s.tan > 0.01) { ctx.globalAlpha = s.tan; d.text("tangent slope = 6", 300, 150, { c: c.blue, w: 700, a: "right" }); ctx.globalAlpha = 1; }
+    },
+  });
+})();
+
+// Step-through: the chain rule on L = (2w − 3)², values forward and rates backward.
+(function () {
+  const nodes = [{ x: 90, name: "w", value: "1", role: "knob" }, { x: 320, name: "u", value: "−1", role: "middle step" }, { x: 550, name: "L", value: "1", role: "loss" }];
+  const Yn = 130;
+  Learn.demo(document.getElementById("demo-chain"), {
+    height: 330,
+    label: "The chain rule: w flows to u flows to L, then the two rates multiply going backward",
+    steps: [
+      { s: { v: 0, fw: 0, r1: 0, r2: 0, prod: 0, bw: 0, chk: 0 }, cap: "The loss L depends on the knob w, but not directly. First, w turns into a middle value u = 2w − 3. Then u turns into the loss L = u²." },
+      { s: { v: 1, fw: 1 }, cap: "Push a value forward. Start at w = 1. Then u = 2(1) − 3 = −1. Then L = (−1)² = 1." },
+      { s: { r1: 1 }, cap: "Find the rate of link 1. When w moves by 1, u = 2w − 3 moves by 2. So du/dw = 2." },
+      { s: { r2: 1 }, cap: "Find the rate of link 2. For L = u², the power rule gives dL/du = 2u = 2 × (−1) = −2. If u grows a little, L shrinks twice as much." },
+      { s: { prod: 1, bw: 1 }, cap: "Now go backward and multiply the rates: dL/dw = (−2) × 2 = −4. That is the chain rule." },
+      { s: { chk: 1 }, cap: "Check it. Nudge w from 1 to 1.01. L drops from 1 to 0.9604, a change of about −0.04 = −4 × 0.01. The negative slope says: raise w to lower the loss." },
+    ],
+    draw(ctx, s, c, d) {
+      d.arrow(nodes[0].x + 42, Yn, nodes[1].x - 44, Yn, c.muted, 2);
+      d.arrow(nodes[1].x + 42, Yn, nodes[2].x - 44, Yn, c.muted, 2);
+      d.text("u = 2w − 3", (nodes[0].x + nodes[1].x) / 2, Yn - 22, { c: c.ink, s: 15, a: "center" });
+      d.text("L = u²", (nodes[1].x + nodes[2].x) / 2, Yn - 22, { c: c.ink, s: 15, a: "center" });
+      nodes.forEach((node, k) => {
+        d.rect(node.x - 38, Yn - 38, 76, 76, c.bg, k === 2 ? c.red : c.blue, 2.5);
+        d.text(node.name, node.x, Yn - (s.v > 0.01 ? 10 : 0), { c: c.ink, s: 22, w: 700, a: "center" });
+        if (s.v > 0.01) { ctx.globalAlpha = s.v; d.text(`= ${node.value}`, node.x, Yn + 14, { c: c.ink, s: 15, a: "center" }); ctx.globalAlpha = 1; }
+        d.text(node.role, node.x, Yn + 54, { c: c.muted, s: 12, a: "center" });
+      });
+      const span = nodes[2].x - nodes[0].x;
+      if (s.fw > 0.01 && s.fw < 0.99) d.dot(nodes[0].x + span * s.fw, Yn, 8, c.blue);
+      if (s.bw > 0.01 && s.bw < 0.99) d.dot(nodes[2].x - span * s.bw, Yn, 8, c.orange);
+      const show = (alpha, fn) => { if (alpha > 0.01) { ctx.globalAlpha = alpha; fn(); ctx.globalAlpha = 1; } };
+      show(s.r1, () => d.text("du/dw = 2", (nodes[0].x + nodes[1].x) / 2, 218, { c: c.orange, s: 16, a: "center", w: 700 }));
+      show(s.r2, () => d.text("dL/du = 2u = −2", (nodes[1].x + nodes[2].x) / 2, 218, { c: c.orange, s: 16, a: "center", w: 700 }));
+      show(s.prod, () => { d.panel(c, 150, 244, 340, 40); d.text("dL/dw = (−2) × 2 = −4", 320, 264, { c: c.ink, s: 18, a: "center", w: 700 }); });
+      show(s.chk, () => d.text("Check: w 1 → 1.01 moves L 1 → 0.9604 (about −0.04)", 320, 308, { c: c.muted, s: 13, a: "center" }));
+    },
+  });
+})();
+
+// Step-through: the gradient on a contour map of x² + 3y², then a few steps downhill.
+(function () {
+  const O = { x: 330, y: 180 }, S = 100;
+  const X = (x) => O.x + x * S, Y = (y) => O.y - y * S;
+  const path = [[1, 1]];
+  for (let k = 0; k < 6; k++) { const q = path[path.length - 1]; path.push([q[0] - 0.1 * 2 * q[0], q[1] - 0.1 * 6 * q[1]]); }
+  const at = (kf) => {
+    const a = Math.floor(kf), b = Math.min(path.length - 1, a + 1), t = kf - a;
+    return [path[a][0] + (path[b][0] - path[a][0]) * t, path[a][1] + (path[b][1] - path[a][1]) * t];
+  };
+  Learn.demo(document.getElementById("demo-gradient"), {
+    height: 360,
+    label: "A contour map of a bowl, the gradient arrow at the point (1, 1), and steps downhill toward the center",
+    steps: [
+      { s: { k: 0, pt: 0, ga: 0, da: 0 }, cap: "This is a top-down map of the bowl f(x, y) = x² + 3y². Each ring is a contour: every point on one ring has the same height. The bottom of the bowl is the center, (0, 0)." },
+      { s: { pt: 1 }, cap: "Stand at the point (1, 1). Its height is 1² + 3 × 1² = 4." },
+      { s: { ga: 1 }, cap: "The gradient here is (2x, 6y) = (2, 6). The red arrow shows it. It points uphill. It leans toward y because the bowl is steeper in the y direction." },
+      { s: { da: 1 }, cap: "To go downhill, step the opposite way. Use a small step: new point = (1, 1) − 0.1 × (2, 6) = (0.8, 0.4). The blue arrow is that step." },
+      { s: { k: 1 }, cap: "Take the step. The height drops from 4 to 1.12. At the new point the gradient is different, so work it out again." },
+      { s: { k: 2 }, cap: "Repeat from the new point with its own gradient. The height drops to about 0.49." },
+      { s: { k: 5 }, cap: "Three more steps. The point is close to the bottom, with a height of about 0.11. This loop is called gradient descent. Unit 4 covers it." },
+    ],
+    draw(ctx, s, c, d) {
+      d.line(20, O.y, 620, O.y, c.line);
+      d.line(O.x, 15, O.x, 345, c.line);
+      for (const level of [0.25, 1, 2, 4, 6]) {
+        ctx.beginPath(); ctx.ellipse(O.x, O.y, Math.sqrt(level) * S, Math.sqrt(level / 3) * S, 0, 0, 7);
+        ctx.strokeStyle = c.muted; ctx.globalAlpha = 0.55; ctx.lineWidth = 1.3; ctx.stroke(); ctx.globalAlpha = 1;
+        if (level === 1 || level === 4 || level === 6) d.text(`height ${level}`, O.x, O.y - Math.sqrt(level / 3) * S - 9, { c: c.muted, s: 12, a: "center" });
+      }
+      d.dot(O.x, O.y, 4, c.ink);
+      d.text("bottom (0, 0)", O.x + 8, O.y + 14, { c: c.ink, s: 12 });
+      if (s.pt < 0.01) return;
+      ctx.globalAlpha = s.pt;
+      const p = at(s.k), done = Math.floor(s.k);
+      ctx.strokeStyle = c.blue; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(X(path[0][0]), Y(path[0][1]));
+      for (let i = 1; i <= done; i++) ctx.lineTo(X(path[i][0]), Y(path[i][1]));
+      ctx.lineTo(X(p[0]), Y(p[1])); ctx.stroke(); ctx.setLineDash([]);
+      ctx.globalAlpha = s.pt * 0.5;
+      for (let j = 0; j <= done; j++) d.dot(X(path[j][0]), Y(path[j][1]), 3.5, c.blue);
+      const gx = 2 * p[0], gy = 6 * p[1];
+      if (s.ga > 0.01) {
+        ctx.globalAlpha = s.ga * s.pt;
+        d.arrow(X(p[0]), Y(p[1]), X(p[0] + 0.07 * gx), Y(p[1] + 0.07 * gy), c.red, 3);
+        if (s.k < 0.5) d.text("gradient (uphill)", X(p[0] + 0.07 * gx) + 10, Y(p[1] + 0.07 * gy) + 4, { c: c.red, s: 13, w: 700 });
+      }
+      if (s.da > 0.01) {
+        ctx.globalAlpha = s.da * s.pt;
+        d.arrow(X(p[0]), Y(p[1]), X(p[0] - 0.1 * gx), Y(p[1] - 0.1 * gy), c.blue, 3);
+        if (s.k < 0.5) d.text("step (downhill)", X(p[0] - 0.1 * gx) - 12, Y(p[1] - 0.1 * gy) + 16, { c: c.blue, s: 13, w: 700, a: "right" });
+      }
+      ctx.globalAlpha = s.pt;
+      d.dot(X(p[0]), Y(p[1]), 7, c.orange);
+      d.panel(c, 14, 14, 218, 92);
+      d.text(`point (${d.fmt(p[0], 2)}, ${d.fmt(p[1], 2)})`, 26, 36, { c: c.ink, s: 13 });
+      d.text(`height ${d.fmt(p[0] * p[0] + 3 * p[1] * p[1], 2)}`, 26, 60, { c: c.ink, s: 13 });
+      d.text(`gradient (${d.fmt(gx, 2)}, ${d.fmt(gy, 2)})`, 26, 84, { c: c.red, s: 13 });
+    },
+  });
+})();

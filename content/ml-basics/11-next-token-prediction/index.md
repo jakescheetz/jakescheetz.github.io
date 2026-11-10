@@ -68,14 +68,19 @@ quiz:
     why: 'Equal logits give every token $p = 1/1000$, so the loss is $-\log(1/1000) = \log 1000$. Its perplexity is 1,000, the vocabulary size.'
 ---
 
-A language model is trained on a single task: given the tokens so far, put a probability on every token that could come next.
-The probabilities come from a softmax over scores called logits, training grades them with cross-entropy loss, and the gradient of that loss is where every training step starts.
+::: why
+Your phone keyboard guesses your next word as you type.
+A language model does the same job, and it is the only job it is trained on.
+Given the tokens so far, it puts a probability on every token that could come next.
+Training then grades those probabilities against the token that really came next.
 Sampling in unit 14 and the RL units after it all work with these same probabilities.
+:::
 
 ## One score per token
 
-At the end of the network, each position in the sequence has a vector $h$ of width $d$ (unit 13 covers how it gets built).
-To make a prediction, the model multiplies $h$ by an *unembedding matrix* $W_U$ that has one row per vocabulary token, so $V$ rows and $d$ columns:
+At the end of the network, each position in the sequence has a vector $h$ with $d$ entries (unit 13 covers how it gets built).
+To make a prediction, the model multiplies $h$ by an *unembedding matrix* $W_U$.
+This matrix has one row per vocabulary token, so $V$ rows and $d$ columns:
 
 $$
 z = W_U\, h
@@ -85,14 +90,19 @@ $$
 From [unit 1](../01-vectors/#a-matrix-is-a-stack-of-dot-products), $W_U h$ is "score $h$ against every row of $W_U$", so entry $i$ of $z$ is the dot product of $h$ with token $i$'s row.
 :::
 
-The result $z$ has $V$ entries, one score per token, and they're called *logits*.
+The result $z$ has $V$ entries, one score per token.
+These scores are called *logits*.
 GPT-2 reuses its embedding table $E$ from unit 10 as $W_U$, so a token's logit there is its own embedding dotted with $h$.
 With GPT-2's vocabulary that's 50,257 logits at every position.
 
 A logit can be any real number.
-Higher means "more likely next", but logits aren't probabilities yet: they can be negative and they don't add up to 1.
+Higher means "more likely next".
+But logits aren't probabilities yet: they can be negative, and they don't add up to 1.
 
-For a running example, the text so far is "the cat sat on the", the vocabulary is shrunk to five tokens (mat, floor, sofa, dog and ran), and the model outputs
+Here is the running example for this unit.
+The text so far is "the cat sat on the".
+The vocabulary is shrunk to five tokens: mat, floor, sofa, dog and ran.
+The model outputs
 
 $$
 z = (2.0,\ 1.0,\ 0.5,\ -1.0,\ -2.0)
@@ -102,8 +112,10 @@ in that order, so it already leans toward "mat".
 
 ## Softmax turns scores into probabilities
 
-Softmax turns the $V$ logits into a categorical distribution ([unit 3](../03-probability/#random-variables-and-distributions)): one probability per token, each between 0 and 1, adding up to 1.
-It raises $e$ to each logit, then divides by the total:
+*Softmax* is the function that turns the $V$ logits into probabilities.
+The result is a categorical distribution ([unit 3](../03-probability/#random-variables-and-distributions)): one probability per token, each between 0 and 1, adding up to 1.
+The recipe has two moves.
+Raise $e$ to each logit, then divide by the total:
 
 $$
 p_i = \frac{e^{z_i}}{\sum_{j=1}^{V} e^{z_j}}
@@ -115,15 +127,22 @@ The bottom adds up the same exponential for every token $j$ in the vocabulary, s
 We write the whole vector as $p = \mathrm{softmax}(z)$.
 :::
 
-The exponential makes every entry positive and keeps the order (a bigger logit always gets a bigger probability), and dividing by the sum makes the entries add up to 1.
+The exponential makes every entry positive.
+It also keeps the order, so a bigger logit always gets a bigger probability.
+Dividing by the sum makes the entries add up to 1.
 
 For the example, $e^{2.0} = 7.39$ and the five exponentials add up to 12.26, so $p_{\text{mat}} = 7.39 / 12.26 = 0.60$.
 All five come out to $p = (0.60,\ 0.22,\ 0.13,\ 0.03,\ 0.01)$.
 
+<figure class="widget demo" id="demo-softmax"></figure>
+
 Only the differences between logits matter.
-Adding the same number $c$ to every logit multiplies every $e^{z_i}$ by $e^c$, and that factor cancels between the top and the bottom.
+Adding the same number $c$ to every logit multiplies every $e^{z_i}$ by $e^c$.
+That factor sits on the top and the bottom of the fraction, so it cancels.
 Code uses this to subtract the largest logit before exponentiating, which keeps $e^{z}$ from overflowing and leaves $p$ unchanged.
-It also gives logits a concrete meaning: two tokens whose logits differ by 1 have probabilities in the ratio $e \approx 2.72$.
+
+It also gives logits a concrete meaning.
+Two tokens whose logits differ by 1 have probabilities in the ratio $e \approx 2.72$.
 Mat and floor differ by 1 in the example, and $0.603 / 0.222 \approx 2.72$.
 
 Softmax is the many-class version of the sigmoid from [unit 5](../05-classification/#from-a-score-to-a-probability).
@@ -143,13 +162,15 @@ the negative log of the probability the model gave the right answer, with $\log$
 For the example that's $-\log 0.60 = 0.51$.
 It's the same rule as log loss in [unit 5](../05-classification/#log-loss), with $V$ possible answers instead of two.
 
-This is called *cross-entropy*.
-The general formula compares the model's distribution $p$ with a target distribution $y$ as $-\sum_i y_i \log p_i$: for every token $i$, the target's probability $y_i$ times the log of the model's probability $p_i$, summed and negated.
-Here $y$ is one-hot (1 for the correct token, 0 for the rest), so every term but one drops out and you're left with $-\log p_c$.
+This loss is called *cross-entropy*.
+The general formula compares the model's distribution $p$ with a target distribution $y$ as $-\sum_i y_i \log p_i$.
+In words: for every token $i$, multiply the target's probability $y_i$ by the log of the model's probability $p_i$, add them all up and flip the sign.
+Here $y$ is *one-hot*: 1 for the correct token and 0 for the rest.
+So every term but one drops out, and you're left with $-\log p_c$.
 Unit 5's binary cross-entropy is the same sum with two classes, where $y$ and $1 - y$ play the part of the one-hot target.
 
 The log is what makes confident mistakes expensive.
-The loss for a few values of $p_c$:
+Here is the loss for a few values of $p_c$:
 
 | $p_c$ | 0.9 | 0.5 | 0.1 | 0.01 | 0.001 |
 |---|---|---|---|---|---|
@@ -157,11 +178,17 @@ The loss for a few values of $p_c$:
 
 Being sure and right costs almost nothing.
 Every time the probability on the right answer drops by a factor of 10, the loss goes up by another 2.30, with no ceiling.
-A model that puts 0.001 on the token that really came next, because it was confident about something else, pays far more than one that spread its bets.
+Think of a weather forecaster who says "0.1% chance of rain" on a day it pours.
+A model that puts 0.001 on the token that really came next pays far more than one that spread its bets.
 
 There's a second reason for the log, covered in [unit 3](../03-probability/#why-models-work-in-log-probabilities).
 The probability of a whole text is the product of its next-token probabilities, and the log turns that product into a sum.
-So adding up $-\log p_c$ over every token is the same as maximizing the probability the model assigns to the training text, and it avoids a product that underflows to zero.
+So adding up $-\log p_c$ over every token is the same as maximizing the probability the model assigns to the training text.
+It also avoids a product that underflows to zero.
+
+<figure class="widget demo" id="demo-loss"></figure>
+
+Now move the logits yourself and watch the probabilities and the loss change together.
 
 <figure class="widget" id="softmax-loss">
 <figcaption>Drag the logits and watch the probabilities (mat in blue) and the loss. The curve on the right is −log p, with the dot at p(mat). Step does one gradient step on the logits, z ← z − (p − y); Train keeps stepping. Try pushing floor up and mat down to see how fast the loss climbs.</figcaption>
@@ -169,7 +196,9 @@ So adding up $-\log p_c$ over every token is the same as maximizing the probabil
 
 ## The gradient is p − y
 
-To train, we need the gradient of $L$ with respect to the logits ([unit 2](../02-gradients/#the-gradient-points-uphill)), so that gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)) can step against it.
+To train, we need the gradient of $L$ with respect to the logits ([unit 2](../02-gradients/#the-gradient-points-uphill)).
+It tells us how the loss changes when each logit goes up a little.
+Gradient descent ([unit 4](../04-gradient-descent/#walk-downhill)) then steps the other way.
 Writing out the softmax inside the log splits the loss into two terms:
 
 $$
@@ -192,22 +221,32 @@ $$
 Entry $i$, $\partial L / \partial z_i$, is $p_i - 1$ for the correct token and $p_i$ for every other one.
 It's the same "predicted minus actual" that log loss gives for the sigmoid in [unit 5](../05-classification/#training-with-gradient-descent), one entry per token.
 For the example that's $(-0.40,\ 0.22,\ 0.13,\ 0.03,\ 0.01)$.
-A gradient step with learning rate $\eta$ raises the correct token's logit by $\eta\,(1 - p_c)$ and lowers every other logit by $\eta$ times its own probability.
+
+A gradient step with learning rate $\eta$ subtracts $\eta$ times the gradient from the logits.
+The correct token's logit goes up by $\eta\,(1 - p_c)$.
+Every other logit goes down by $\eta$ times its own probability.
 So the wrong token that grabbed the most probability gets pushed down the hardest, and a token the model already ignores barely moves.
-The entries always add up to zero, because $p$ and $y$ both add up to 1.
+
+<figure class="widget demo" id="demo-gradient"></figure>
+
+The entries of the gradient always add up to zero, because $p$ and $y$ both add up to 1.
 The gradient is zero only at $p = y$, which softmax can approach but never reach with finite logits.
 
 The −log also keeps the gradient large when the model is wrong, for the same reason squared error stalls in [unit 5](../05-classification/#log-loss).
 The pull on the correct logit is $1 - p_c$, which approaches 1 when the model is badly wrong.
-If the loss were $1 - p_c$ instead, the pull would be $p_c(1 - p_c)$, which shrinks toward zero exactly when $p_c$ is tiny, so the model would learn slowest from its worst mistakes.
+Suppose the loss were $1 - p_c$ instead.
+Then the pull would be $p_c(1 - p_c)$, which shrinks toward zero exactly when $p_c$ is tiny.
+The model would learn slowest from its worst mistakes.
 
 In a real model the logits aren't free parameters.
-They come from the parameters $\theta$ through $z = W_U h$, and backpropagation ([unit 8](../08-neural-networks/#backpropagation)) starts from $p - y$ and carries it back through every weight.
+They come from the parameters $\theta$ through $z = W_U h$.
+Backpropagation ([unit 8](../08-neural-networks/#backpropagation)) starts from $p - y$ and carries it back through every weight.
 The Step button in the widget above skips that and moves the logits directly, which is enough to see which way they want to go.
 
 ## Every position is a training example
 
-Training text gives you a prediction at every position, and the labels are free: the target at each position is just the next token of the text.
+Training text gives you a prediction at every position, and the labels are free.
+The target at each position is just the next token of the text.
 
 <figure>
 <pre>position   1     2     3     4     5
@@ -219,7 +258,8 @@ loss       <span class="orange">3.91</span>  <span class="orange">1.20</span>  <
 <figcaption>Position t sees the input tokens 1 to t and is graded on token t + 1. The probabilities are made up; the losses are −log of them.</figcaption>
 </figure>
 
-A sequence of tokens $x_1, \dots, x_n$ gives $n - 1$ predictions, and the training loss is the average of their $-\log p$:
+A sequence of tokens $x_1, \dots, x_n$ gives $n - 1$ predictions.
+The training loss is the average of their $-\log p$:
 
 $$
 L = -\frac{1}{n-1} \sum_{t=1}^{n-1} \log p_\theta(x_{t+1} \mid x_1, \dots, x_t)
@@ -232,16 +272,22 @@ The bar reads "given", as in [conditional probability](../03-probability/#condit
 The sum is the log-probability of the text from [unit 3](../03-probability/#why-models-work-in-log-probabilities), leaving out the first token, so $L$ is minus that log-probability divided by $n - 1$.
 :::
 
-The figure's text, "the cat sat on the mat", is six tokens, so it gives five predictions and $L = (3.91 + 1.20 + 0.80 + 0.16 + 0.51)/5 = 1.32$.
+The figure's text, "the cat sat on the mat", is six tokens.
+So it gives five predictions, and $L = (3.91 + 1.20 + 0.80 + 0.16 + 0.51)/5 = 1.32$.
 
 All $n - 1$ predictions come out of one forward pass.
-The model computes a vector $h$ at every position at once, and each position is only allowed to look at tokens up to its own (unit 12 shows how attention enforces that).
+The model computes a vector $h$ at every position at once.
+Each position is only allowed to look at tokens up to its own (unit 12 shows how attention enforces that).
 So a single training sequence of 1,024 tokens, GPT-2's context length, gives 1,023 graded predictions for the price of one pass.
 
-You'll often see the loss reported as *perplexity*, which is $e^{L}$, $e$ raised to the average loss.
-For the figure, $e^{1.3176} \approx 3.73$: on average the model was as unsure as if it were choosing evenly between 3.73 tokens.
-A model whose logits are all equal gives every token probability $1/V$, so its loss is $\log V$ and its perplexity is $V$.
-For GPT-2's vocabulary that's $\log 50257 = 10.82$, roughly where a freshly initialized model starts, since its logits begin close to zero.
+You'll often see the loss reported as *perplexity*, which is $e^{L}$: $e$ raised to the average loss.
+For the figure, $e^{1.3176} \approx 3.73$.
+On average the model was as unsure as if it were choosing evenly between 3.73 tokens.
+
+A model whose logits are all equal gives every token probability $1/V$.
+Its loss is $\log V$ and its perplexity is $V$.
+For GPT-2's vocabulary that's $\log 50257 = 10.82$.
+A freshly initialized model starts roughly there, since its logits begin close to zero.
 
 ## Worked example
 
@@ -303,8 +349,15 @@ print(np.log(50257))
 10.82490511970208
 ```
 
-The finite difference for floor, 0.22173, matches $p_{\text{floor}} = 0.222$ from $p - y$, and the gradient's sum of $-6 \times 10^{-17}$ is zero up to floating-point rounding.
+The finite difference for floor, 0.22173, matches $p_{\text{floor}} = 0.222$ from $p - y$.
+The gradient's sum of $-6 \times 10^{-17}$ is zero up to floating-point rounding.
 Each step raises mat and lowers the others, floor most of all, and the loss falls from 0.506 to 0.1755 in three steps.
+
+::: real-world
+- **Chatbots and autocomplete.** A chat model writes its reply one token at a time. Each token comes from the probabilities in this unit, and then the model runs again with that token added to the text.
+- **Training logs.** The "loss" printed while a language model trains is this average cross-entropy. Papers often report the same number as perplexity.
+- **Spotting odd text.** Some defenses score an incoming prompt's perplexity under a language model. Machine-generated attack strings often look like gibberish, so they score far higher than normal prose.
+:::
 
 ## Where this shows up later
 
@@ -313,6 +366,37 @@ Each step raises mat and lowers the others, floor most of all, and the loss fall
 - Unit 14: sampling picks the next token from $p$, and temperature divides $z$ before the softmax.
 - Unit 15: a language model is a policy over tokens, $\pi_\theta$, and the policy gradient needs $\nabla \log \pi_\theta$, which for the logits is $y - p$ (this unit's gradient with the sign flipped) with $y$ the one-hot vector for the sampled token.
 - Unit 16: the reward model's loss, $-\log \sigma(r_w - r_l)$, is cross-entropy over a choice between two answers.
+
+::: review
+Logit, $z_i$
+:   The model's raw score for token $i$. Any real number, higher means more likely.
+
+Unembedding matrix, $W_U$
+:   A $V \times d$ matrix. Multiplying it by $h$ gives one logit per vocabulary token.
+
+Softmax
+:   Raise $e$ to each logit and divide by the total. The results are positive and add up to 1.
+
+Cross-entropy loss
+:   $-\log p_c$, the negative log of the probability the model gave the correct token $c$.
+
+One-hot target, $y$
+:   A vector with a 1 for the correct token and 0 for every other token.
+
+Gradient of the loss, $p - y$
+:   How the loss changes with each logit. A step raises the correct logit and lowers each wrong one by its own probability.
+
+Perplexity
+:   $e$ raised to the average loss. It reads as "choosing evenly between this many tokens."
+:::
+
+::: say
+A language model ends with one score per token, called a logit.
+Softmax turns the logits into probabilities that add up to 1.
+The loss is the negative log of the probability the model gave the token that really came next, so a confident mistake costs a lot.
+The gradient of that loss with respect to the logits is p minus y, and every training step starts from it.
+One pass over a text grades a prediction at every position.
+:::
 
 ## Self-test
 

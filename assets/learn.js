@@ -152,6 +152,168 @@
 
   const fmt = (v, digits = 2) => (Object.is(Math.round(v * 10 ** digits) / 10 ** digits, -0) ? 0 : v).toFixed(digits);
 
+  // Step-through animations ------------------------------------------------------------------
+  // demo(figure, { height, label, steps, draw }) turns an empty <figure class="widget demo">
+  // into a canvas with a caption and Back / Next / Play buttons.
+  //   steps: [{ s: { name: number, ... }, cap: "one or two plain sentences" }, ...]
+  //          Each step's `s` only lists what changes; values carry over from earlier steps.
+  //   draw(ctx, s, c, d): paint one frame on a 640 x `height` drawing area. `s` is the current
+  //          state (numbers are eased between steps), `c` the theme colors, `d` the helpers
+  //          below (text, line, arrow, panel, dot, rect, clamp, fmt).
+  const DEMO_W = 640;
+  const demoPainters = [];
+
+  function demoColors() {
+    const css = getComputedStyle(document.documentElement);
+    const get = (name) => css.getPropertyValue(name).trim();
+    return {
+      ink: get("--text-color"), muted: get("--text-color-alt"), bg: get("--background-color"),
+      soft: get("--background-color-alt"), line: get("--demo-line"),
+      blue: get("--accent-blue"), orange: get("--accent-orange"), green: get("--accent-green"),
+      purple: get("--accent-purple"), cyan: get("--accent-cyan"), red: get("--accent-red"),
+    };
+  }
+
+  // Numbers with a real minus sign and no "-0".
+  function demoFmt(v, digits = 2) {
+    let r = Number(v.toFixed(digits));
+    if (Math.abs(r) < 10 ** -digits) r = 0;
+    return r < 0 ? "−" + Math.abs(r) : String(r);
+  }
+
+  function demoTools(ctx, fontScale) {
+    const tools = {
+      clamp: (v, a, b) => Math.max(a, Math.min(b, v)),
+      fmt: demoFmt,
+      // text(str, x, y, { c: color, s: size, w: weight, a: align, b: baseline })
+      text(str, x, y, o = {}) {
+        ctx.font = `${o.w || 500} ${(o.s || 14) * fontScale}px "JetBrains Mono", ui-monospace, monospace`;
+        ctx.fillStyle = o.c || "#888";
+        ctx.textAlign = o.a || "left";
+        ctx.textBaseline = o.b || "middle";
+        ctx.fillText(str, x, y);
+      },
+      line(x1, y1, x2, y2, color, width = 1, dash) {
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = "butt";
+        ctx.setLineDash(dash || []);
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+        ctx.setLineDash([]);
+      },
+      arrow(x1, y1, x2, y2, color, width = 3) {
+        const angle = Math.atan2(y2 - y1, x2 - x1), length = Math.hypot(x2 - x1, y2 - y1);
+        if (length < 2) return;
+        const head = Math.min(13, length * 0.45);
+        ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = width; ctx.lineCap = "butt";
+        ctx.beginPath(); ctx.moveTo(x1, y1);
+        ctx.lineTo(x2 - Math.cos(angle) * head * 0.7, y2 - Math.sin(angle) * head * 0.7); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x2, y2);
+        ctx.lineTo(x2 - head * Math.cos(angle - 0.42), y2 - head * Math.sin(angle - 0.42));
+        ctx.lineTo(x2 - head * Math.cos(angle + 0.42), y2 - head * Math.sin(angle + 0.42));
+        ctx.closePath(); ctx.fill();
+      },
+      // A filled rectangle; pass `stroke` for an outline as well.
+      rect(x, y, w, h, fill, stroke, width = 2) {
+        if (fill) { ctx.fillStyle = fill; ctx.fillRect(x, y, w, h); }
+        if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = width; ctx.strokeRect(x, y, w, h); }
+      },
+      // A boxed area for numbers, in the site's square bordered style.
+      panel(c, x, y, w, h) { tools.rect(x, y, w, h, c.bg, c.ink, 2); },
+      dot(x, y, r, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); },
+    };
+    return tools;
+  }
+
+  function demo(figure, { height, label, steps, draw }) {
+    if (!figure) return;
+    const canvas = el("canvas", { role: "img", "aria-label": label || "" }, figure);
+    const ctx = canvas.getContext("2d");
+    const cap = el("p", { class: "demo-cap", "aria-live": "polite" }, figure);
+    const row = el("div", { class: "buttons demo-buttons" }, figure);
+    const count = el("span", { class: "demo-count muted" }, row);
+    const back = button(row, "Back", () => { stop(); go(index - 1); });
+    const next = button(row, "Next", () => { stop(); go(index + 1); });
+    const play = button(row, "Play", () => {
+      if (timer) { stop(); return; }
+      go(index === steps.length - 1 ? 0 : index + 1);
+      timer = setInterval(() => { if (index >= steps.length - 1) stop(); else go(index + 1); }, 3600);
+      ui();
+    });
+
+    // Each step's full state: its own values on top of everything before it.
+    const full = [];
+    let acc = {};
+    for (const step of steps) { acc = { ...acc, ...step.s }; full.push(acc); }
+    let index = 0, cur = { ...full[0] }, from = cur, to = cur, t0 = 0, raf = 0, timer = 0;
+    let scale = 1, offsetY = 0, fontScale = 1;
+
+    function paint() {
+      const ratio = window.devicePixelRatio || 1;
+      ctx.setTransform(scale * ratio, 0, 0, scale * ratio, 0, offsetY * ratio);
+      ctx.clearRect(0, -offsetY / scale, DEMO_W, canvas.height / (scale * ratio));
+      ctx.globalAlpha = 1;
+      draw(ctx, cur, demoColors(), demoTools(ctx, fontScale));
+      ctx.globalAlpha = 1;
+    }
+    // Fill the panel's width; round the height up to whole text lines and center the drawing.
+    function size() {
+      const width = canvas.clientWidth;
+      const lineHeight = gridCellDimensions().height; // from index.js
+      if (!width || !lineHeight) return;
+      scale = width / DEMO_W;
+      const rows = Math.max(1, Math.ceil(height * scale / lineHeight - 0.01));
+      offsetY = (rows * lineHeight - height * scale) / 2;
+      // Labels shrink with the drawing; give some of that back on a phone-sized canvas.
+      fontScale = Math.min(1.15, Math.max(1, 0.72 / scale));
+      const ratio = window.devicePixelRatio || 1;
+      canvas.style.height = `${rows * lineHeight}px`;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(rows * lineHeight * ratio);
+      // Reserve room for the longest caption so the buttons don't jump between steps.
+      cap.style.minHeight = "";
+      let tallest = 0;
+      for (const step of steps) { cap.textContent = step.cap; tallest = Math.max(tallest, cap.offsetHeight); }
+      cap.style.minHeight = `${Math.ceil(tallest / lineHeight - 0.01) * lineHeight}px`;
+      cap.textContent = steps[index].cap;
+      paint();
+    }
+    function ui() {
+      cap.textContent = steps[index].cap;
+      count.textContent = `Step ${index + 1}/${steps.length}`;
+      back.disabled = index === 0;
+      next.disabled = index === steps.length - 1;
+      play.textContent = timer ? "Pause" : index === steps.length - 1 ? "Replay" : "Play";
+    }
+    const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
+    function blend(a, b, t) {
+      const out = {};
+      for (const key in b) out[key] = typeof b[key] === "number" && typeof a[key] === "number" ? a[key] + (b[key] - a[key]) * t : b[key];
+      return out;
+    }
+    function frame(now) {
+      const t = Math.max(0, Math.min(1, (now - t0) / 950));
+      cur = blend(from, to, ease(t));
+      paint();
+      raf = t < 1 ? requestAnimationFrame(frame) : 0;
+    }
+    function go(n) {
+      if (n < 0 || n >= steps.length) return;
+      cancelAnimationFrame(raf);
+      from = { ...cur }; to = full[n]; index = n; ui();
+      if (reducedMotion) { cur = { ...to }; paint(); return; }
+      t0 = performance.now(); raf = requestAnimationFrame(frame);
+    }
+    function stop() { clearInterval(timer); timer = 0; ui(); }
+
+    ui();
+    new ResizeObserver(size).observe(canvas);
+    size();
+    demoPainters.push(paint);
+  }
+
+  const repaintDemos = () => demoPainters.forEach((paint) => paint());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(repaintDemos);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", repaintDemos);
+
   // Progress -------------------------------------------------------------------------------
 
   function isDone(slug) {
@@ -297,5 +459,5 @@
   }
   document.querySelectorAll("section.quiz").forEach(setupQuiz);
 
-  window.Learn = { reducedMotion, ROW, el, svg, stage, controls, slider, button, buttons, readout, arrow, loop, fmt };
+  window.Learn = { reducedMotion, ROW, el, svg, stage, controls, slider, button, buttons, readout, arrow, loop, fmt, demo };
 })();

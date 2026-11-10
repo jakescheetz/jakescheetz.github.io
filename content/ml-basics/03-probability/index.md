@@ -68,31 +68,38 @@ quiz:
     why: 'The flagged legit emails drop from 0.0495 to 0.0099 of all email, so the 0.009 that''s phishing becomes $0.009 / 0.0189 \approx 0.48$ of the flagged pile.'
 ---
 
-Every prediction a language model makes is a list of probabilities, one for each token in its vocabulary.
-The loss in unit 11, the sampling settings in unit 14 and the reward averages in unit 15 are all arithmetic on lists like that.
+::: why
+A language model doesn't output one answer.
+It outputs a list of chances, one for every possible next *token* (a word or a piece of a word).
+Scoring the model, picking its words, and rewarding it are all arithmetic on those lists.
 The arithmetic is small, and two examples carry it here: a six-sided die and a phishing filter.
+:::
 
 ## Random variables and distributions
 
 Roll a fair die and call the result $X$.
-$X$ is a *random variable*: a number whose value comes out of a random process.
-Its *distribution* lists every value it can take and the probability of each.
-For the die that's $P(X = k) = 1/6$ for each face $k$ from 1 to 6, where $P(X = k)$ reads "the probability that $X$ comes out as $k$."
+$X$ is a *random variable*: a number that comes out of a random process.
 
-Every distribution follows two rules.
-Each probability is between 0 and 1, and all of them add up to exactly 1, because some outcome always happens.
+Its *distribution* lists every value it can take, with the chance of each.
+For the die that's $P(X = k) = 1/6$ for each face $k$ from 1 to 6.
+Read $P(X = k)$ as "the probability that $X$ comes out as $k$."
+
+Two rules always hold.
+Every probability is between 0 and 1.
+All of them add up to exactly 1, because some outcome always happens.
 
 The outcomes don't have to be numbers.
 After "I'd like a cup of", a model might give tea 0.5, coffee 0.4 and water 0.1.
-That's a categorical distribution: one probability for each label in a fixed set.
-A language model outputs one of these at every position, with one label per token in its vocabulary (unit 11 builds it).
+That's a *categorical distribution*: one probability for each label in a fixed set.
+A language model makes one of these at every position, and the labels are all the tokens it knows (unit 11 builds it).
 
-Some quantities can land anywhere on a continuous scale, like a person's height or a model's raw score.
-For those, the distribution is a curve called a density, written $p(x)$.
-The probability of landing in a range is the area under the curve over that range, and the total area is 1, which is the "adds up to 1" rule again.
-A single exact value has probability 0, since a single point has no width.
+Some values are smooth measurements, like a person's height or a model's raw score.
+For these the distribution is a curve called a *density*, written $p(x)$.
+The chance of landing in a range is the area under the curve over that range.
+The total area is 1, which is the "adds up to 1" rule again.
+The chance of one exact value, like exactly 170.000… cm, is 0, because a single point has no width.
 
-The density you'll see most is the normal distribution, the bell curve:
+The density you'll see most is the *normal distribution*, the bell curve:
 
 $$
 p(x) = \frac{1}{\sigma\sqrt{2\pi}}\; e^{-(x - \mu)^2 / (2\sigma^2)}
@@ -107,16 +114,19 @@ The factor in front, $1/(\sigma\sqrt{2\pi})$, is only there to make the total ar
 A wider bell is lower, so the area stays the same.
 :::
 
-It has two settings: $\mu$ (mu) is the center of the bell, and $\sigma$ (sigma) is its width.
+It has two settings.
+$\mu$ (mu) is the center of the bell, and $\sigma$ (sigma) is its width.
 The next section names them properly as the mean and the standard deviation.
 
-The usual shorthand is $\mathcal{N}(\mu, \sigma^2)$, and "$X \sim \mathcal{N}(0, 3^2)$" reads "$X$ is drawn from a normal distribution centered at 0 with width 3."
-The second number is $\sigma^2$, not $\sigma$, which is easy to trip on.
-About 68% of the area lies within one $\sigma$ of $\mu$, and about 95% within two.
+The usual shorthand is $\mathcal{N}(\mu, \sigma^2)$.
+"$X \sim \mathcal{N}(0, 3^2)$" reads "$X$ is drawn from a normal distribution centered at 0 with width 3."
+Watch out: the second number is $\sigma$ squared, not $\sigma$.
+About 68% of values land within one $\sigma$ of the center, and about 95% land within two.
 
 ## Expectation, spread and sampling
 
-The *expectation* of a random variable, also called its *mean*, is the average of its values with each one weighted by its probability:
+The *expectation* of a random variable, also called its *mean*, is a weighted average.
+Multiply each value by its chance, then add:
 
 $$
 \mathbb{E}[X] = \sum_x x \, P(X = x)
@@ -128,14 +138,16 @@ Each term is a value times how likely it is, so likely values pull the answer to
 :::
 
 For the die every face has weight $1/6$, so $\mathbb{E}[X] = (1 + 2 + 3 + 4 + 5 + 6)/6 = 3.5$.
-No roll ever comes up 3.5.
-It's the number the average of many rolls settles toward, which the widget below shows.
+You can never roll a 3.5.
+The mean doesn't have to be a possible value.
+It's the number the average of many rolls settles toward.
 
 The same sum works for anything computed from $X$.
 Swap the value $x$ for $f(x)$ and you get $\mathbb{E}[f(X)] = \sum_x f(x)\,P(X = x)$, the average of $f$ over the distribution.
 In unit 15 the outcome is an action and $f$ is the reward it earns, and training pushes the expected reward up.
 
-The expectation says nothing about spread.
+The mean tells you the center.
+It doesn't tell you how spread out the values are.
 A variable that's always exactly 3.5 has the same mean as the die.
 The *variance* measures spread as the average squared distance from the mean:
 
@@ -149,15 +161,17 @@ Squaring makes misses on both sides count as positive, and the outer $\mathbb{E}
 :::
 
 For the die the squared distances from 3.5 are $6.25, 2.25, 0.25, 0.25, 2.25, 6.25$, and their average is $17.5 / 6 \approx 2.92$.
-Squaring also squares the units, so the usual measure of spread is the square root of the variance, the standard deviation $\sigma = \sqrt{2.92} \approx 1.71$.
+Squaring also squares the units.
+So we take the square root to get the *standard deviation*, $\sigma = \sqrt{2.92} \approx 1.71$, which is back in normal units.
 That's the same $\sigma$ as the [normal distribution's width](#random-variables-and-distributions).
 
-Drawing a value at random from a distribution is called sampling.
-Roll the die $N$ times and average the results, and you have an estimate of $\mathbb{E}[X]$.
-As $N$ grows, the average closes in on 3.5.
-Estimating an expectation by averaging samples like this is called a Monte Carlo estimate.
+Drawing a value at random from a distribution is called *sampling*.
+Sometimes you can't add up every outcome to find a mean, because there are too many.
+The fix is a *Monte Carlo estimate*: take many samples and average them.
+Roll the die $N$ times, average the results, and you have an estimate of $\mathbb{E}[X]$.
+The more rolls, the closer it gets to 3.5.
 
-How close it gets has a formula.
+How much closer?
 If the samples don't influence each other (independent, defined in the next section), the average of $N$ of them misses the true mean by a typical amount of
 
 $$
@@ -165,12 +179,18 @@ $$
 $$
 
 where $\sigma$ is the standard deviation of a single sample.
-More spread-out samples give a noisier average, and more samples give a steadier one, but only by the square root.
+More samples give a steadier average, but only by the square root.
 With 100 rolls the average typically misses 3.5 by about $1.71 / 10 = 0.17$, and with 10,000 rolls by about 0.017.
-Each extra digit of accuracy costs 100 times as many samples.
+So 100 times more samples buys only 10 times more accuracy.
+
+<figure class="widget demo" id="demo-montecarlo"></figure>
 
 For a die you'd skip all this and do the sum.
-For a language model you can't: the possible responses to one prompt are every sequence of tokens, far too many to list, so expected values over responses are always estimated from samples.
+For a language model you can't.
+The possible replies to one prompt are every sequence of tokens, far too many to list.
+So expected values over replies are always estimated from samples.
+
+Now roll it yourself, and try the loaded die.
 
 <figure class="widget" id="dice">
 <figcaption>Rolls of a die. Left: the share of rolls that landed on each face (blue) against the true probabilities (orange ticks). Right: the running mean after N rolls, on a log scale, against E[X] (orange). The dashed curves sit at E[X] ± σ/√N, the typical miss after N rolls. Press play, roll by hand, or switch to a die that lands on 6 half the time.</figcaption>
@@ -182,9 +202,12 @@ After 10,000 rolls the typical miss is 0.017 for the fair die and 0.018 for the 
 
 ## Conditional probability and Bayes' rule
 
-The phishing filter from the intro: 1% of the email it sees is phishing, it flags 90% of the phishing, and it also flags 5% of the legit email.
-Each email has two random facts attached, phishing or legit, and flagged or not.
-The joint probability $P(A, B)$ is the probability that both $A$ and $B$ happen.
+Now the phishing filter.
+1% of the email it sees is phishing.
+It flags 90% of the phishing, and it also flags 5% of the legit email by mistake.
+
+Each email has two facts attached: phishing or legit, and flagged or not.
+The *joint probability* $P(A, B)$ is the chance that $A$ and $B$ both happen.
 The four combinations cover every email, so their joint probabilities add up to 1:
 
 |          | flagged | not flagged | total |
@@ -193,7 +216,10 @@ The four combinations cover every email, so their joint probabilities add up to 
 | legit    |  0.0495 |    0.9405   |  0.99 |
 | total    |  0.0585 |    0.9415   |  1    |
 
-A conditional probability $P(A \mid B)$, read "$A$ given $B$," is the probability of $A$ counting only the cases where $B$ happened:
+A *conditional probability* $P(A \mid B)$ is the chance of $A$ given that $B$ happened.
+Read the bar as "given."
+Here is the easy way to think about it.
+Throw away every case where $B$ didn't happen, then ask what share of the cases left over are $A$.
 
 $$
 P(A \mid B) = \frac{P(A, B)}{P(B)}
@@ -207,13 +233,16 @@ In the table, that means staying inside one row or column.
 $P(\text{flag} \mid \text{phish}) = 0.009 / 0.01 = 0.9$, the catch rate.
 Rearranged, $P(A, B) = P(A \mid B)\,P(B)$, which is how I filled in the table: 90% of the 1% is 0.009.
 
-Two events are independent when knowing one happened doesn't change the probability of the other, $P(A \mid B) = P(A)$.
-Put that into the rearranged formula and you get $P(A, B) = P(A)\,P(B)$: for independent events, the joint probability is the product.
+Two events are *independent* when knowing one tells you nothing about the other, $P(A \mid B) = P(A)$.
+Then the joint probability is the product, $P(A, B) = P(A)\,P(B)$.
 Two dice are independent, so the chance both show 6 is $1/6 \times 1/6 = 1/36$.
 Flags and phishing are not independent, and shouldn't be: 5.85% of all email gets flagged, but 90% of phishing does.
 
-When the filter flags an email, the number you want is the reverse of the catch rate, $P(\text{phish} \mid \text{flag})$.
-The joint probability can be split either way, $P(A \mid B)\,P(B) = P(B \mid A)\,P(A)$, and dividing both sides by $P(B)$ gives Bayes' rule:
+Often you know one conditional but need the reverse.
+The filter's maker can tell you the catch rate, $P(\text{flag} \mid \text{phish})$.
+When an email gets flagged, you care about the opposite: how likely is it phishing?
+That's $P(\text{phish} \mid \text{flag})$, and *Bayes' rule* flips one into the other.
+The joint probability can be split either way, $P(A \mid B)\,P(B) = P(B \mid A)\,P(A)$, and dividing both sides by $P(B)$ gives the rule:
 
 $$
 P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}
@@ -224,8 +253,14 @@ $P(A)$ is what you'd believe before seeing $B$, and $P(A \mid B)$ is what you be
 $P(B \mid A)$ says how likely the evidence is when $A$ is true, and $P(B)$ is how likely the evidence is overall.
 :::
 
-It turns a probability you know in one direction into the other direction, from the *prior* $P(A)$ to the *posterior* $P(A \mid B)$.
-For the filter, $P(\text{flag})$ is the "flagged" column total, the flagged phishing plus the flagged legit:
+$P(A)$ is the *prior*: your belief before the evidence.
+$P(A \mid B)$ is the *posterior*: your belief after it.
+The formula is easiest to follow with counts instead of percentages.
+
+<figure class="widget demo" id="demo-bayes"></figure>
+
+Here is the same answer from the formula.
+$P(\text{flag})$ is the "flagged" column total, the flagged phishing plus the flagged legit:
 
 $$
 \begin{aligned}
@@ -235,8 +270,11 @@ P(\text{phish} \mid \text{flag}) &= \frac{0.9 \times 0.01}{0.9 \times 0.01 + 0.0
 $$
 
 So a flagged email is phishing only about 15% of the time, even though the filter catches 90% of phishing.
-Out of 10,000 emails, 100 are phishing and 90 of those get flagged, while 9,900 are legit and 495 of those get flagged.
-Only 90 of the 585 flagged emails are phishing, because the 5% false-alarm rate applies to 99 times as many emails as the 90% catch rate does.
+This is called the *base-rate trap*.
+When the thing you hunt for is rare, a small false-alarm rate hits a huge pile of normal items.
+The 5% false-alarm rate applies to 99 times as many emails as the 90% catch rate does, so most alarms are false.
+
+Change the three rates yourself and watch the flagged pile change.
 
 <figure class="widget" id="bayes">
 <figcaption>1,000 emails, one square each (counts rounded to whole emails). Orange squares are phishing, solid if the filter flagged them and faint if it missed them. Solid blue squares are legit emails it flagged, and faint grey ones are legit and left alone. The flagged pile is all the solid squares, and P(phish | flag) is the orange share of it. Base rate is P(phish), catch rate is P(flag | phish), and false alarms is P(flag | legit).</figcaption>
@@ -256,12 +294,17 @@ $$
 Each factor is the probability of token $x_t$ given every token before it.
 :::
 
-Each factor is one next-token prediction, exactly what a language model outputs, so multiplying its predictions along a text gives the probability of the whole text.
+Each factor is one next-token prediction, which is exactly what a language model outputs.
+So multiplying its predictions along a text gives the probability of the whole text.
 If the model gives "of" probability 0.6 after "I'd like a cup" and "tea" probability 0.5 after "I'd like a cup of", the two tokens together get $0.6 \times 0.5 = 0.3$.
 
-A real response is hundreds or thousands of tokens, and every factor is below 1.
-A 1,000-token text where every token got probability 0.5 has probability about $9.3 \times 10^{-302}$, and at 2,000 tokens the product drops below the smallest number a 64-bit float can hold (about $5 \times 10^{-324}$) and comes out as exactly 0.
-The text didn't become impossible; the computer just can't represent its probability.
+A real reply is hundreds or thousands of tokens, and every factor is below 1.
+The product shrinks very fast.
+A 1,000-token text where every token got probability 0.5 has probability about $9.3 \times 10^{-302}$.
+At 2,000 tokens the product drops below the smallest number a 64-bit float can hold (about $5 \times 10^{-324}$) and comes out as exactly 0.
+This is called *underflow*.
+The text didn't become impossible.
+The computer just can't store its probability.
 
 Logs fix this, because the log of a product is the sum of the logs:
 
@@ -274,11 +317,17 @@ Each term is the log of one next-token probability, and the sum adds them up ove
 Logs here are natural logs (base $e$).
 :::
 
+The log of a probability is called a *log-probability*.
 A probability between 0 and 1 has a log between $-\infty$ and 0, with $\log 1 = 0$ and $\log 0.5 \approx -0.69$.
 The 2,000-token text's log-probability is $2000 \times \log 0.5 \approx -1386.3$, an ordinary number.
-And since the log only goes up as its input goes up, whatever has the highest probability also has the highest log-probability, so making one bigger makes the other bigger.
 
-So ML code rarely handles the raw probability of a whole text: libraries return log-probabilities, and unit 11's training loss is the average of $-\log p$ over the tokens.
+<figure class="widget demo" id="demo-logprob"></figure>
+
+The log also only goes up when its input goes up.
+So if text A beats text B in probability, A also beats B in log-probability, and the ranking stays the same.
+
+That's why ML code rarely handles the raw probability of a whole text.
+Libraries return log-probabilities, and unit 11's training loss is the average of $-\log p$ over the tokens.
 
 ## Worked example
 
@@ -325,6 +374,12 @@ print(np.prod(probs[:1_000]), np.prod(probs), np.sum(np.log(probs)))
 In each sample-size row, the second number is one run's average, the third is how spread out the 1,000 averages were, and the fourth is $\sigma / \sqrt{N}$; the last two agree to within a few percent at every size, and each tenfold increase in rolls shrinks them by about $\sqrt{10} \approx 3.2$.
 The first line's `0.9999999999999999` is six copies of $1/6$ added up in floating point, and the last line shows the product of 2,000 halves underflowing to 0 while the sum of their logs stays at $-1386.29$.
 
+::: real-world
+- **Alert fatigue.** A security team that watches for rare attacks sees the base-rate trap every day. Even a good detector produces mostly false alarms, so analysts ask how many flags are real, not only how many attacks get caught.
+- **Medical screening.** A positive result on a screening test for a rare disease is often a false alarm, for the same reason. Doctors follow up with a second test.
+- **Chatbot settings.** The "temperature" setting on a chatbot reshapes the token distribution before the model samples from it (unit 14). APIs that return "logprobs" are handing you the log-probabilities from this unit.
+:::
+
 ## Where this shows up later
 
 - Unit 5: logistic regression outputs the probability of a yes/no class, and its loss is a negative log-probability.
@@ -333,6 +388,51 @@ The first line's `0.9999999999999999` is six copies of $1/6$ added up in floatin
 - Unit 14: generating text means sampling from that distribution, one token at a time.
 - Unit 15: reinforcement learning maximizes an expected reward, estimated by averaging over sampled actions.
 - Unit 16: the Bradley–Terry model gives the probability that people prefer one answer over another.
+
+::: review
+Random variable, $X$
+:   A number that comes from a random process.
+
+Distribution
+:   Every possible value with its chance. Chances are 0 to 1 and add up to 1.
+
+Categorical distribution
+:   One chance per label. A language model makes one per position.
+
+Density, $p(x)$
+:   For smooth values. The chance of a range is the area under the curve.
+
+Normal distribution, $\mathcal{N}(\mu, \sigma^2)$
+:   The bell curve. About 68% of values land within $1\sigma$ and 95% within $2\sigma$.
+
+Expectation (mean), $\mathbb{E}[X]$
+:   The weighted average of the values.
+
+Variance and standard deviation, $\sigma$
+:   How spread out the values are. $\sigma$ is the square root of the variance.
+
+Monte Carlo estimate
+:   Average many samples to estimate a mean. The error shrinks like $\sigma / \sqrt{N}$.
+
+Conditional probability, $P(A \mid B)$
+:   The chance of $A$, counting only cases where $B$ happened.
+
+Independence
+:   Knowing $B$ doesn't change the chance of $A$, so you can multiply.
+
+Bayes' rule
+:   Turns $P(B \mid A)$ into $P(A \mid B)$. It updates a prior into a posterior.
+
+Log-probability
+:   The log of a chance. Sums of logs replace products and avoid underflow.
+:::
+
+::: say
+A language model outputs a probability distribution over tokens, and it scores a text by chaining conditional probabilities.
+We add log-probabilities because multiplying thousands of small numbers underflows to zero.
+Bayes' rule shows the base-rate trap: when the thing you detect is rare, most alerts are false, even with a good detector.
+That matters for any security classifier.
+:::
 
 ## Self-test
 

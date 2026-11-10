@@ -68,15 +68,27 @@ quiz:
     why: 'Each parameter gets nudged both ways, $+h$ and $-h$, so two evaluations per parameter. That''s why it''s only used to spot-check.'
 ---
 
-Training a model means changing its parameters so that one number, the loss, goes down.
-To do that you need to know, for each parameter, which way to nudge it and how much the loss will respond.
-A derivative answers that for one input, and a gradient answers it for all the inputs at once.
-Unit 4 uses the gradient to walk downhill, and unit 8 computes it for a whole network.
+::: why
+Training asks one question over and over: "If I turn this knob a tiny bit, does the loss go up or down, and by how much?"
+The knobs are the model's parameters, and the *loss* is one number that says how wrong the model is.
+A derivative answers the question for one knob.
+A gradient answers it for every knob at the same time.
+Without gradients there is no training.
+:::
 
 ## The slope at a point
 
+A *derivative* tells you how much the output changes when you nudge the input.
+On a graph it is the *slope* of the curve.
+
+There's a catch.
+A straight line has the same slope everywhere, but a curve doesn't.
+Its slope changes from point to point.
+And you need two points to measure a slope, so how do you measure it at just one?
+
+Here is the trick.
 Take $f(x) = x^2$ and stand at $x = 3$, where $f(3) = 9$.
-Step a little to the right, to $3 + h$, and measure how much $f$ changed per unit of step:
+Pick a second point a small gap $h$ to the right, and measure how much $f$ changed per unit of step:
 
 $$
 \frac{f(3 + h) - f(3)}{h}
@@ -88,11 +100,14 @@ The top is how much $f$ changed, and the bottom is the size of the step, so the 
 
 With $h = 1$ that's $(16 - 9)/1 = 7$.
 With $h = 0.1$ it's $(9.61 - 9)/0.1 = 6.1$, and with $h = 0.01$ it's $6.01$.
-As the step shrinks, the answer settles on 6.
+As the gap shrinks, the answer settles on 6.
 
 Each of those numbers is the slope of a line through two points on the curve, called a *secant line*.
-As $h$ shrinks, the second point slides onto the first, and the secant turns into the *tangent*: the line that just touches the curve at $x = 3$.
-The tangent's slope is the *derivative*, written $f'(x)$ or $\frac{df}{dx}$:
+Shrink the gap and the secant turns into the *tangent*: the line that just touches the curve at $x = 3$.
+
+<figure class="widget demo" id="demo-secant"></figure>
+
+The tangent's slope is the derivative, written $f'(x)$ or $\frac{df}{dx}$:
 
 $$
 f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
@@ -103,8 +118,10 @@ This is the same ratio as before at a general point $x$.
 The $\lim_{h \to 0}$ in front reads "the value the ratio settles on as $h$ shrinks toward 0," which is what the 7, 6.1, 6.01 sequence was doing.
 :::
 
-For $x^2$ you can see where the 6 comes from by expanding.
-$(x + h)^2 - x^2 = 2xh + h^2$, so the ratio is exactly $2x + h$, and letting $h$ go to zero leaves $f'(x) = 2x$.
+For $x^2$ the algebra is clean.
+$(x + h)^2 - x^2 = 2xh + h^2$, so the ratio is exactly $2x + h$.
+Let $h$ go to zero and you're left with $f'(x) = 2x$.
+At $x = 3$ that's 6, which matches the animation.
 
 In practice I use a derivative as an exchange rate.
 Nudge the input by a small $h$, and the output moves by about $f'(x)$ times the nudge.
@@ -119,10 +136,15 @@ On the right, $f(x)$ is where you started and $f'(x)\,h$ is the exchange rate ti
 The $\approx$ is there because the tangent line only matches the curve near $x$, so the approximation gets better as $h$ gets smaller.
 :::
 
-At $x = 3$, a nudge of 0.01 should move $x^2$ by about $6 \times 0.01 = 0.06$, and the exact change is 0.0601.
-The sign tells you which way $f$ moves when $x$ increases.
+At $x = 3$, a nudge of 0.01 should move $x^2$ by about $6 \times 0.01 = 0.06$.
+The exact change is 0.0601.
+
+The sign matters most.
+A positive slope means "raise the input and the output goes up."
+A negative slope means "raise the input and the output goes down."
 At $x = -2$ the slope is $-4$, so increasing $x$ makes $f$ go down.
 At $x = 0$ the slope is 0, which is what the bottom of a valley looks like.
+Training uses exactly this: find the slope of the loss, then move the knob in the direction that goes down.
 
 <figure class="widget" id="tangent">
 <figcaption>The curve is f(x) = x². The blue line is the tangent at x, with slope 2x. The orange line goes through the points at x and x + h, and its slope is the dashed rise divided by the dashed run h. Shrink h and the orange slope closes in on the blue one. Press play to slide x along the curve and watch the blue slope change sign at the bottom.</figcaption>
@@ -130,14 +152,26 @@ At $x = 0$ the slope is 0, which is what the bottom of a valley looks like.
 
 ## The rules you need
 
-You rarely need the limit itself, because a few rules cover nearly everything in this route.
+Doing the limit every time is slow.
+A few shortcut rules cover nearly everything in this course.
 
-The *power rule*: the derivative of $x^n$ is $n x^{n-1}$, where $n$ is any fixed number.
+The *power rule*: the derivative of $x^n$ is $n x^{n-1}$.
+Bring the power down in front, then lower the power by 1.
 So $x^2$ gives $2x$, $x^3$ gives $3x^2$, and $x$ gives 1.
-A constant on its own has derivative 0, since it doesn't move when $x$ does.
-Constant factors stay in front and sums split up, so $x^3 + 5x$ has derivative $3x^2 + 5$.
 
-The chain rule handles one function fed into another.
+Three small rules go with it.
+A plain number (a constant) has derivative 0, because it never changes.
+A number multiplied in front stays in front.
+A sum is handled one piece at a time.
+So $x^3 + 5x$ has derivative $3x^2 + 5$.
+
+The *chain rule* handles one function fed into another.
+Think of gears.
+Gear A turns gear B 2 times per turn, and gear B turns gear C 3 times per turn.
+So gear A turns gear C $2 \times 3 = 6$ times per turn.
+Rates along a chain multiply.
+
+Here is a real example.
 Take a model with a single weight $w$ that predicts $2w$ for an input of 2.
 The right answer is 3, and the loss is the squared error
 
@@ -161,16 +195,20 @@ On the left is the rate we want, the loss's response to $w$.
 The first factor is the rate of the second step and the second factor is the rate of the first step.
 :::
 
+<figure class="widget demo" id="demo-chain"></figure>
+
 At $w = 1$ we get $u = -1$ and $\frac{dL}{dw} = -4$.
-To check it, move $w$ from 1 to 1.01.
-Then $u$ goes from $-1$ to $-0.98$, a change of 0.02.
-$L$ goes from 1 to 0.9604, a change of $-0.0396$, which is close to $-4 \times 0.01$.
 The sign is negative because $w = 1$ is below the best weight, 1.5, so increasing $w$ lowers the loss.
+
+Notice the direction in the animation.
+The values flowed forward, from $w$ to $L$.
+The rates were combined backward, from $L$ to $w$.
 
 A neural network is the same thing with many more steps.
 Each layer's output feeds the next, and the loss sits at the end.
-The effect of one weight on the loss is the local rates along the way, multiplied together (and when a value feeds into several later steps, the contributions from each route add up).
-Unit 8 computes these products efficiently by starting at the loss and working backward, which is what backpropagation means.
+The effect of one weight on the loss is the rates along the way, multiplied together.
+When a value feeds into several later steps, you multiply along each route and add the routes up.
+Unit 8 computes these products efficiently by starting at the loss and working backward, which is what *backpropagation* means.
 
 ## More than one input
 
@@ -181,10 +219,12 @@ $$
 f(x, y) = x^2 + 3y^2
 $$
 
-Its graph is a bowl with its lowest point at $(0, 0)$, stretched so the sides are steeper in the $y$ direction than in $x$.
+Its graph is a bowl with its lowest point at $(0, 0)$.
+The bowl is stretched, so the sides are steeper in the $y$ direction than in $x$.
 
-A *partial derivative* changes one input and holds the others fixed.
-For $\frac{\partial f}{\partial x}$, treat $y$ as a constant, so $3y^2$ contributes nothing and $\frac{\partial f}{\partial x} = 2x$.
+A *partial derivative* nudges one input and freezes all the others.
+For $\frac{\partial f}{\partial x}$, treat $y$ as a constant.
+Then $3y^2$ contributes nothing, and $\frac{\partial f}{\partial x} = 2x$.
 In the same way, $\frac{\partial f}{\partial y} = 6y$.
 The curly $\partial$ is a reminder that there are other inputs and they're being held still.
 
@@ -200,13 +240,24 @@ The $\nabla$ is read "nabla" or "del", and each entry is one partial derivative 
 
 So the gradient is a vector, in the [unit 1 sense](../01-vectors/#a-vector-is-a-list-of-numbers), with one entry per input.
 At the point $(1, 1)$ that's $(2, 6)$.
-For a model with parameters $\theta$ and loss $L$, the gradient $\nabla L$ has one entry per parameter, so a model with a billion parameters has a gradient with a billion entries.
+For a model, the gradient of the loss has one entry per parameter.
+A model with a billion parameters has a gradient with a billion entries.
 
 ## The gradient points uphill
 
-The exchange-rate picture works with several inputs too.
+The gradient has three key facts.
+
+- **It points uphill.** It is the direction where the function climbs fastest. To go downhill fastest, step the opposite way.
+- **Its length is the steepness.** At $(1, 1)$ the gradient $(2, 6)$ has length $\sqrt{4 + 36} = \sqrt{40} \approx 6.32$.
+- **It crosses contour lines at a right angle.** A *contour line* is a curve where the height stays the same, like a line on a hiking map.
+
+<figure class="widget demo" id="demo-gradient"></figure>
+
+Why is the gradient the steepest direction?
+This ties back to unit 1.
 Start at a point $v$ and take a small step $s = (s_1, s_2)$.
-The $x$ part of the step changes $f$ by about $\frac{\partial f}{\partial x} s_1$, the $y$ part changes it by about $\frac{\partial f}{\partial y} s_2$, and for small steps the two changes add:
+The $x$ part of the step changes $f$ by about $\frac{\partial f}{\partial x} s_1$, and the $y$ part changes it by about $\frac{\partial f}{\partial y} s_2$.
+For small steps the two changes add:
 
 $$
 f(v + s) \approx f(v) + \nabla f \cdot s
@@ -218,17 +269,19 @@ On the right, $f(v)$ is the starting value, and $\nabla f \cdot s$ is the [dot p
 It's the one-input approximation $f(x + h) \approx f(x) + f'(x)\,h$ again, with the gradient in place of $f'(x)$ and the step vector in place of $h$.
 :::
 
+So the change in height is a dot product of the gradient with the step.
+A dot product is biggest when the two vectors point the same way.
 Fix the step's length at 1 and only choose its direction.
 The [angle form of the dot product](../01-vectors/#the-dot-product) says $\nabla f \cdot s = \|\nabla f\|\,\|s\|\cos\varphi$, where $\|\cdot\|$ is the [length of a vector](../01-vectors/#a-vector-is-a-list-of-numbers) and $\varphi$ (phi) is the angle between the step and the gradient.
-With $\|s\| = 1$ this is just $\|\nabla f\|\cos\varphi$, and only $\cos\varphi$ depends on the direction.
-This is largest when $\varphi = 0$.
-So stepping in the gradient's direction raises $f$ faster than any other direction, and the rate you get is $\|\nabla f\|$, the gradient's length.
-Stepping the opposite way, along $-\nabla f$, lowers $f$ the fastest, and that's the direction unit 4 steps in.
+With $\|s\| = 1$ this is $\|\nabla f\|\cos\varphi$, and it is largest when $\varphi = 0$.
 
-At $\varphi = 90°$ the change is zero, so $f$ stays the same to first order.
-The directions where $f$ stays the same run along the contour line through the point, the curve where $f$ has the same value everywhere (like the lines on a hiking map).
-So the gradient is always perpendicular to the contour line it starts from.
-At $(1, 1)$ the gradient $(2, 6)$ has length $\sqrt{40} \approx 6.32$, so that's the steepest rate available there.
+So stepping along the gradient raises $f$ faster than any other direction, at a rate of $\|\nabla f\|$.
+Stepping the opposite way, along $-\nabla f$, lowers $f$ the fastest.
+That's the direction unit 4 steps in.
+
+At $\varphi = 90°$ the change is zero.
+Walking along a contour line doesn't change your height, so the contour runs in exactly that zero-change direction.
+That's why the gradient always crosses the contour at a right angle.
 
 <figure class="widget" id="gradient">
 <figcaption>Contour lines of f(x, y) = x² + 3y². The orange ellipse is the contour through the point, and the blue arrow is the gradient there, drawn at a fifth of its length. The green arrow is a step s of length 1 in the direction you choose, and the readout shows how fast f changes along it. Drag the point, click anywhere on the map, or press play.</figcaption>
@@ -241,8 +294,8 @@ Unit 4 shows what this does to gradient descent in a stretched bowl.
 ## Checking a gradient with nudges
 
 Gradients worked out by hand are easy to get wrong, and so is code that computes them.
-The definition gives you a cheap test: nudge one input by a small $h$, evaluate $f$ again, and divide.
-It's more accurate to nudge both ways and take the slope across the middle:
+You can check one with plain numbers, no rules needed.
+Nudge one input a little to the left and a little to the right, see how much $f$ changed, and divide by the gap:
 
 $$
 \frac{\partial f}{\partial x} \approx \frac{f(x + h, y) - f(x - h, y)}{2h}
@@ -253,13 +306,17 @@ The top is the change in $f$ from $x - h$ to $x + h$ with $y$ held fixed, and th
 :::
 
 This is called a *central difference*.
+Checking both sides is more accurate than checking one.
 The one-sided version is off by an amount proportional to $h$ (for $x^2$ it's off by exactly $h$, which is the 6.1 from earlier).
 The central version is off by an amount proportional to $h^2$, which is much smaller.
 In the worked example below, with $h = 10^{-5}$, the estimate for $L$ lands within about $4 \times 10^{-12}$ of the exact $-4$, and that leftover is floating-point rounding.
 
-It's too expensive to compute gradients this way for training.
-A central difference takes two evaluations of $f$ for every input, so for a model with a million parameters, one gradient costs two million passes through the model.
-So it's only used to spot-check a few entries, and the real gradient comes from the chain rule.
+So why not train this way?
+Cost.
+Each knob needs 2 extra runs of the model.
+A model with a million parameters would need two million runs for a single gradient.
+Backpropagation gets every partial derivative for about the cost of one extra run.
+So the nudge test is only used to spot-check a few entries, and the real gradient comes from the chain rule.
 
 ## Worked example
 
@@ -310,12 +367,57 @@ print(2 * (2 * 1.0 - 3) * 2, (L(1.0 + 1e-5) - L(1.0 - 1e-5)) / 2e-5)
 The secant slopes come out as $6 + h$, apart from floating-point noise in the last digits.
 The hand-derived gradient $(2, 6)$ and the central-difference estimate agree to every digit NumPy prints, and the chain-rule answer of $-4$ for $L$ matches its nudge estimate to about twelve digits.
 
+::: real-world
+- **Every training run.** When PyTorch code calls `loss.backward()`, it runs the chain rule backward through the model and fills in the gradient for every parameter.
+- **Debugging.** People who write a new layer by hand compare its gradient with a central-difference estimate. PyTorch ships this test as `torch.autograd.gradcheck`.
+- **Adversarial examples.** An attacker can take the gradient of the loss with respect to the input image, not the weights, and nudge the pixels uphill. A change too small to see can flip the model's answer.
+:::
+
 ## Where this shows up later
 
 - Unit 4: gradient descent repeats the update $\theta \leftarrow \theta - \eta \nabla L$: the parameters $\theta$ move a small step, scaled by a step size $\eta$ (eta), along $-\nabla L$.
 - Unit 8: backpropagation is the chain rule run backward through a network, and a central-difference check like the one above is how you test it.
 - Unit 11: the gradient of the next-token loss with respect to the model's outputs works out, by the chain rule, to the predicted probabilities minus a vector with a 1 at the correct token.
 - Unit 15: the policy gradient is the gradient of expected reward with respect to the policy's parameters, estimated from samples.
+
+::: review
+Derivative, $f'(x)$ or $\frac{df}{dx}$
+:   How fast the output changes per unit of input change. The slope of the tangent line.
+
+Secant and tangent
+:   A secant passes through two points on a curve. Shrink the gap and it becomes the tangent, which touches at one point.
+
+Limit
+:   The value a number settles toward as the step shrinks to zero.
+
+Power rule
+:   $x^n$ becomes $n x^{n-1}$.
+
+Chain rule
+:   For a chain of steps, multiply the rate of each link.
+
+Partial derivative, $\frac{\partial f}{\partial x}$
+:   The derivative for one input while the others stay frozen.
+
+Gradient, $\nabla f$
+:   The vector of all partial derivatives. It points uphill, and its length is the steepness.
+
+Contour line
+:   A curve of equal height. The gradient crosses it at a right angle.
+
+Central difference
+:   A slope estimate from one point on each side. Good for checks, too slow for training.
+
+Backpropagation
+:   The chain rule run backward from the loss. It gets every gradient for about one extra run.
+:::
+
+::: say
+The gradient is the vector of partial derivatives of the loss.
+It points uphill, so training steps the opposite way.
+Models are chains of functions, so the chain rule multiplies local rates along each path, and backpropagation applies that backward from the loss.
+We use it instead of nudging each parameter because nudging costs two runs of the model per parameter.
+:::
 
 ## Self-test
 

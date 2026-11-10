@@ -68,22 +68,38 @@ quiz:
     why: 'Cosine similarity ignores length and only compares direction. Unit 10 shows real examples from GPT-2.'
 ---
 
-Almost everything a language model does comes down to lists of numbers getting multiplied and added together.
-Two operations show up in every unit after this one: the dot product, which compares two vectors, and matrix-vector multiplication, which is a pile of dot products done at once.
+::: why
+A computer can't read a word or look at a house.
+It can only work with numbers.
+So the first step in machine learning is always the same: turn each thing into a list of numbers.
+Then the model needs a way to compare two lists.
+That tool is the dot product, and it shows up in every unit after this one.
+:::
 
 ## A vector is a list of numbers
 
-A vector is an ordered list of numbers, like $a = (3, 1)$.
-The order matters, so $(3, 1)$ and $(1, 3)$ are different vectors.
+A *vector* is an ordered list of numbers, like $a = (3, 1)$.
+"Ordered" means each position has a job, so $(3, 1)$ and $(1, 3)$ are different vectors.
 
-There are two ways to picture one, and it helps to keep both in your head.
-The first is an arrow: $(3, 1)$ is an arrow from the origin to the point 3 across and 1 up.
-The second is a description, where each position holds one measurement of something.
-A house could be (square feet, bedrooms, age).
-In unit 10 every word gets a vector of a few thousand numbers, and nobody decides what each position means; training works that out.
+There are two ways to picture a vector.
+Both describe the same thing.
 
-You can add two vectors position by position, $(3, 1) + (1, 2) = (4, 3)$, and scale one by multiplying every entry, $2 \cdot (3, 1) = (6, 2)$.
-The length of a vector, written $\|a\|$, is the length of its arrow, which comes from Pythagoras:
+- **As an arrow.** The vector $(3, 1)$ means: start at the origin, go 3 steps right, then 1 step up.
+- **As a list of measurements.** A house could be (2,000 square feet, 3 bedrooms, 15 years old).
+
+The arrow picture only works for 2 or 3 numbers.
+Real models use vectors with hundreds or thousands of numbers.
+You can't draw those, but the math works the same way.
+In unit 10 every word gets a vector, and nobody decides what each position means.
+Training works that out.
+
+You can do simple math with vectors.
+To add two vectors, add the matching parts: $(3, 1) + (1, 2) = (4, 3)$.
+To scale a vector, multiply every part by the same number: $2 \cdot (3, 1) = (6, 2)$.
+
+The *length* of a vector is how long its arrow is.
+It's written $\|a\|$, and people also call it the *norm*.
+To find it, use the Pythagorean theorem from geometry class:
 
 $$
 \|a\| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2}
@@ -94,12 +110,14 @@ Here $a_1, a_2, \dots, a_n$ are the entries of $a$ and $n$ is how many there are
 For two entries this is Pythagoras for a right triangle with sides $a_1$ and $a_2$, and the same recipe works for any number of entries.
 :::
 
-Square each entry, add the squares, and take the square root of the total.
-So $\|(3, 1)\| = \sqrt{3^2 + 1^2} = \sqrt{10} \approx 3.16$.
+Square each part, add the squares, and take the square root.
+So $\|(3, 4)\| = \sqrt{9 + 16} = 5$, and $\|(3, 1)\| = \sqrt{9 + 1} = \sqrt{10} \approx 3.16$.
 
 ## The dot product
 
-The dot product multiplies two vectors position by position and adds up the results:
+The *dot product* answers one question: how much do two vectors point the same way?
+The recipe is short.
+Multiply the matching parts, then add everything up:
 
 $$
 a \cdot b = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
@@ -110,11 +128,22 @@ Each term $a_i b_i$ is the $i$-th entry of $a$ times the $i$-th entry of $b$, an
 :::
 
 Both vectors need the same number of entries.
-For $a = (3, 1)$ and $b = (1, 2)$ that's $3 \cdot 1 + 1 \cdot 2 = 5$, a single number, not a vector.
+For $a = (3, 1)$ and $b = (1, 2)$ that's $3 \cdot 1 + 1 \cdot 2 = 5$.
+The answer is a single number, not a list.
 
 The formula is easy.
 What it means took me longer.
-The same number can also be written using the angle $\theta$ between the two arrows:
+The picture that helped is a shadow.
+Shine a light straight down onto the line that $a$ sits on.
+Vector $b$ casts a shadow on that line.
+A long shadow in $a$'s direction means a big positive dot product.
+No shadow means zero.
+A shadow that falls backward means a negative number.
+
+<figure class="widget demo" id="demo-dot"></figure>
+
+A second formula explains why the shadow works.
+The dot product also equals the two lengths times the cosine of the angle $\theta$ between the arrows:
 
 $$
 a \cdot b = \|a\|\,\|b\|\cos\theta
@@ -125,11 +154,11 @@ The first two factors are the [lengths](#a-vector-is-a-list-of-numbers) of $a$ a
 Lengths are never negative, so the sign of the dot product comes entirely from $\cos\theta$.
 :::
 
-Cosine is 1 at 0°, 0 at 90°, and −1 at 180°, so the dot product is large and positive when the vectors point the same way, zero when they're perpendicular, and negative when they point away from each other.
+Cosine is 1 at 0°, 0 at 90°, and −1 at 180°.
+That's why the sign of the dot product tells you the direction: positive when the vectors point the same way, zero at a right angle, negative when they point apart.
 
-The picture I use: drop a line from the tip of $b$ straight down onto the line through $a$.
-The stretch of that line that $b$ covers is $b$'s shadow on $a$, and the dot product is the shadow's length times the length of $a$.
-If $b$ leans backward, the shadow lands behind the origin and the dot product goes negative.
+Now try it yourself.
+Turn $b$ and change its length, and watch the shadow and the number move together.
 
 <figure class="widget" id="dot-product">
 <figcaption>The orange segment is b's shadow on the line through a. Its signed length times |a| is the dot product. Drag the sliders, or let b rotate and watch the sign flip as b passes 90° from a.</figcaption>
@@ -137,9 +166,9 @@ If $b$ leans backward, the shadow lands behind the origin and the dot product go
 
 ## Cosine similarity
 
-The dot product mixes two things together: how aligned the vectors are, and how long they are.
-A very long vector gets a big dot product with almost anything.
-When you only care about direction, divide the lengths out:
+The dot product has one problem.
+It grows when the vectors get longer, so a very long vector gets a big dot product with almost anything.
+To compare direction only, divide by both lengths:
 
 $$
 \cos\theta = \frac{a \cdot b}{\|a\|\,\|b\|}
@@ -151,31 +180,34 @@ The numerator is the dot product, and the denominator is the product of the two 
 :::
 
 This ratio is called *cosine similarity*.
-It's always between −1 and 1, and it's the standard way to ask "do these two embeddings mean similar things?", which comes up in unit 10.
+It always sits between −1 and 1.
+
+- **1** means same direction (very similar).
+- **0** means a right angle (unrelated).
+- **−1** means opposite directions.
+
+It's the standard way to ask "do these two things mean something similar?", which comes up in unit 10.
 
 ## A matrix is a stack of dot products
 
-A matrix is a grid of numbers, and one with $m$ rows and $n$ columns is called $m \times n$.
-Multiplying an $m \times n$ matrix by a vector with $n$ entries gives a vector with $m$ entries, and each entry is one row of the matrix dotted with the vector:
+A *matrix* is a grid of numbers.
+One with $m$ rows and $n$ columns is called $m \times n$, so a $3 \times 2$ matrix has 3 rows and 2 columns.
 
-<figure>
-<pre>        W           a        Wa
-   ┌         ┐    ┌   ┐    ┌    ┐
-   │ <span class="blue"> 2   0</span>  │    │ 3 │    │ <span class="blue"> 6</span> │  ◄─ <span class="blue">(2,  0)</span> · (3, 1)
-   │ <span class="green"> 1   1</span>  │ ×  │ 1 │ =  │ <span class="green"> 4</span> │  ◄─ <span class="green">(1,  1)</span> · (3, 1)
-   │ <span class="orange"> 0  -1</span>  │    └   ┘    │ <span class="orange">-1</span> │  ◄─ <span class="orange">(0, -1)</span> · (3, 1)
-   └         ┘             └    ┘</pre>
-<figcaption>Each output is one row of W dotted with a.</figcaption>
-</figure>
+To multiply a matrix $W$ by a vector $a$, take each row of $W$ and dot it with $a$.
+Each answer becomes one number in the output.
+Watch it happen one row at a time.
+
+<figure class="widget demo" id="demo-matrix"></figure>
 
 So you can read $Wa$ as "score $a$ against every row of $W$."
-Each row works like a detector, and its output says how much $a$ points in that row's direction.
+Each row works like a detector.
+It has its own direction, and its output says how much $a$ points that way.
 A layer of a neural network (unit 8) is exactly this, followed by a simple function applied to each output.
 
-The shapes have to line up: the number of columns in $W$ has to equal the length of $a$.
-A $3 \times 2$ matrix times a 2-entry vector works and gives 3 entries.
+There is one shape rule: the number of columns in $W$ has to equal the number of entries in $a$.
+A $3 \times 2$ matrix takes 2 numbers in and gives 3 numbers out.
 A $3 \times 2$ matrix times a 3-entry vector doesn't work at all.
-Most of the shape errors you'll hit in NumPy or PyTorch are this rule.
+Most of the shape errors you'll hit in NumPy or PyTorch come from breaking this rule.
 
 ## Worked example
 
@@ -207,11 +239,44 @@ print(W @ a)                                  # one dot product per row of W
 The angle comes out to 45° (the trailing `...01` is floating-point rounding): the cosine is $5 / (\sqrt{10}\sqrt{5}) = 5 / \sqrt{50} = 1/\sqrt{2}$.
 In NumPy, `@` is the dot product for two vectors and matrix multiplication when one side is a matrix.
 
+::: real-world
+- **Search and chatbots.** A search tool turns your question and every document into vectors, then ranks the documents by cosine similarity to the question. That's how it finds text that means the same thing without sharing the same words.
+- **Recommendations.** A music or shopping app keeps one vector for you and one for each item. A high dot product means "this person will probably like this."
+- **Shape errors.** When PyTorch says the shapes of two matrices cannot be multiplied, it's telling you the columns of one don't match the entries of the other.
+:::
+
 ## Where this shows up later
 
 - Unit 8: a neural network layer is a matrix times a vector, plus a bias, passed through a nonlinearity.
 - Unit 10: word embeddings are vectors, and cosine similarity is how you compare them.
 - Unit 12: attention scores are dot products between a "query" vector and a set of "key" vectors. That unit is mostly this one plus a softmax.
+
+::: review
+Vector
+:   An ordered list of numbers. Picture it as an arrow.
+
+Length (norm), $\|a\|$
+:   How long the arrow is, found with the Pythagorean theorem.
+
+Dot product, $a \cdot b$
+:   Multiply matching parts and add. One number: positive means the vectors point the same way, zero means a right angle, negative means they point apart.
+
+Cosine similarity
+:   The dot product divided by both lengths. It measures direction only, from −1 to 1.
+
+Matrix
+:   A grid of numbers with $m$ rows and $n$ columns.
+
+Matrix-vector product, $Wa$
+:   One dot product per row of $W$. The columns of $W$ must equal the length of $a$.
+:::
+
+::: say
+Models represent words and data as vectors.
+The dot product measures how much two vectors point the same way.
+Cosine similarity divides out the lengths, so it compares direction only.
+A neural network layer is a matrix times a vector, which is one dot product per row.
+:::
 
 ## Self-test
 

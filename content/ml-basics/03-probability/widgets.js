@@ -211,3 +211,164 @@
   slider(ctl, { label: "catch rate", min: 0.5, max: 1, step: 0.01, value: hit, format: pct }, (v) => { hit = v; draw(); });
   slider(ctl, { label: "false alarms", min: 0, max: 0.3, step: 0.005, value: falseAlarm, format: pct }, (v) => { falseAlarm = v; draw(); });
 })();
+
+// A small seeded generator, so the step-through pictures are the same on every visit.
+function demoRng(seed) {
+  return function () {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Step-through: the running average of die rolls settling toward 3.5 inside the σ/√N funnel.
+(function () {
+  const random = demoRng(15), N = 10000, avg = new Float64Array(N + 1), sigma = Math.sqrt(17.5 / 6);
+  let sum = 0;
+  for (let i = 1; i <= N; i++) { sum += 1 + Math.floor(random() * 6); avg[i] = sum / i; }
+  const X = (lg) => 70 + lg / 4 * 520, Y = (v) => 300 - (v - 2) / 3 * 265;
+  const miss = (n) => (sigma / Math.sqrt(n)).toFixed(3);
+  Learn.demo(document.getElementById("demo-montecarlo"), {
+    height: 350,
+    label: "The running average of die rolls settling toward 3.5 inside a narrowing funnel",
+    steps: [
+      { s: { lg: 1, fun: 0 }, cap: `Roll a fair die and keep a running average. The dashed line is the true mean, 3.5. After 10 rolls the average is ${avg[10].toFixed(2)}, and it still jumps around a lot.` },
+      { s: { lg: 2 }, cap: `After 100 rolls the average is ${avg[100].toFixed(2)}. At this point it usually lands within about 0.17 of 3.5.` },
+      { s: { lg: 3, fun: 1 }, cap: `After 1,000 rolls it reads ${avg[1000].toFixed(2)}. The shaded funnel shows the typical miss, σ ÷ √N. It narrows as N grows.` },
+      { s: { lg: 4 }, cap: `After 10,000 rolls it reads ${avg[10000].toFixed(3)}. The typical miss is now only about 0.017.` },
+      { s: { lg: 4.0001 }, cap: "Compare 100 rolls with 10,000 rolls. 100 times more rolls gave only 10 times more accuracy. That is the square-root rule." },
+    ],
+    draw(ctx, s, c, d) {
+      const n = Math.min(N, Math.max(1, Math.round(Math.pow(10, s.lg))));
+      ctx.save(); ctx.beginPath(); ctx.rect(X(0), Y(5), X(4) - X(0), Y(2) - Y(5)); ctx.clip();
+      if (s.fun > 0.01) {
+        ctx.globalAlpha = s.fun * 0.3; ctx.fillStyle = c.blue; ctx.beginPath();
+        for (let lg = 0; lg <= 4.0001; lg += 0.02) { const e = sigma / Math.sqrt(Math.pow(10, lg)); if (lg === 0) ctx.moveTo(X(lg), Y(3.5 + e)); else ctx.lineTo(X(lg), Y(3.5 + e)); }
+        for (let lg = 4; lg >= -0.0001; lg -= 0.02) { const l = Math.max(0, lg); ctx.lineTo(X(l), Y(3.5 - sigma / Math.sqrt(Math.pow(10, l)))); }
+        ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1;
+      }
+      d.line(X(0), Y(3.5), X(4), Y(3.5), c.ink, 1.5, [6, 5]);
+      ctx.strokeStyle = c.orange; ctx.lineWidth = 2; ctx.beginPath();
+      for (let k = 1; k <= n; k++) { const x = X(Math.log10(k)), y = Y(avg[k]); if (k === 1) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+      ctx.stroke();
+      ctx.restore();
+      d.dot(X(Math.log10(n)), Y(avg[n]), 5, c.orange);
+      d.line(X(0), Y(2), X(4), Y(2), c.muted, 1.5);
+      d.line(X(0), Y(2), X(0), Y(5), c.muted, 1.5);
+      ["1", "10", "100", "1,000", "10,000"].forEach((name, k) => { d.line(X(k), Y(2), X(k), Y(2) + 5, c.muted); d.text(name, X(k), Y(2) + 17, { c: c.muted, s: 12, a: "center" }); });
+      for (const v of [2, 3, 3.5, 4, 5]) d.text(String(v), X(0) - 8, Y(v), { c: v === 3.5 ? c.ink : c.muted, s: 12, a: "right", w: v === 3.5 ? 700 : 500 });
+      d.text("number of rolls (N)", X(2), 338, { c: c.muted, s: 12, a: "center" });
+      d.panel(c, 388, 40, 240, 88);
+      d.text(`rolls N = ${n.toLocaleString("en-US")}`, 402, 60, { c: c.ink, s: 13 });
+      d.text(`average = ${avg[n].toFixed(3)}`, 402, 84, { c: c.orange, s: 13, w: 700 });
+      d.text(`typical miss = ${miss(n)}`, 402, 108, { c: c.blue, s: 13 });
+    },
+  });
+})();
+
+// Step-through: Bayes' rule as counts on a grid of 10,000 emails.
+(function () {
+  // 0 normal, 1 normal and flagged, 2 phishing and missed, 3 phishing and caught.
+  const type = new Uint8Array(10000), normals = [];
+  for (let r = 0; r < 100; r++) for (let k = 0; k < 100; k++) {
+    const i = r * 100 + k;
+    if (r < 10 && k < 10) type[i] = r < 9 ? 3 : 2; else normals.push(i);
+  }
+  const random = demoRng(5);
+  for (let i = normals.length - 1; i > 0; i--) { const j = Math.floor(random() * (i + 1)); [normals[i], normals[j]] = [normals[j], normals[i]]; }
+  for (let f = 0; f < 495; f++) type[normals[f]] = 1;
+  const CELL = 3.1, GX = 14, GY = 20;
+  Learn.demo(document.getElementById("demo-bayes"), {
+    height: 350,
+    label: "10,000 emails as a grid: the phishing ones, the ones the filter caught, the false alarms, and the share of flagged emails that are phishing",
+    steps: [
+      { s: { pa: 0, ca: 0, fa: 0, dim: 0, res: 0 }, cap: "Each tiny square is one email. There are 10,000 of them." },
+      { s: { pa: 1 }, cap: "1% of email is phishing. That is 100 emails, shown in red in the top-left corner." },
+      { s: { ca: 1 }, cap: "The filter catches 90% of phishing, so 90 phishing emails get flagged. The 10 it missed fade out." },
+      { s: { fa: 1 }, cap: "The filter also flags 5% of normal email by mistake. 5% of 9,900 is 495 false alarms, shown in orange." },
+      { s: { dim: 1 }, cap: "Now keep only the flagged emails and ignore the rest. That leaves 90 + 495 = 585 flagged emails." },
+      { s: { res: 1 }, cap: "Of the 585 flagged emails, only 90 are phishing. 90 ÷ 585 ≈ 15%. That is P(phish | flag). Most flags are false alarms because phishing is rare." },
+    ],
+    draw(ctx, s, c, d) {
+      const cells = (which, color, alpha) => {
+        if (alpha < 0.01) return;
+        ctx.globalAlpha = alpha; ctx.fillStyle = color;
+        for (let k = 0; k < 10000; k++) if (type[k] === which) ctx.fillRect(GX + (k % 100) * CELL, GY + Math.floor(k / 100) * CELL, CELL - 0.6, CELL - 0.6);
+        ctx.globalAlpha = 1;
+      };
+      const keep = 1 - 0.85 * s.dim;
+      cells(0, c.muted, 0.4 * keep);
+      cells(1, c.muted, 0.4 * (1 - s.fa));
+      cells(1, c.orange, s.fa);
+      cells(2, c.muted, 0.4 * (1 - s.pa) * keep);
+      cells(2, c.red, s.pa * (1 - 0.75 * s.ca) * keep);
+      cells(3, c.muted, 0.4 * (1 - s.pa));
+      cells(3, c.red, s.pa);
+      const x = 340;
+      let y = 36;
+      const row = (alpha, swatch, name, value) => {
+        ctx.globalAlpha = alpha;
+        if (swatch) d.rect(x, y - 6, 12, 12, swatch);
+        d.text(name, x + 20, y, { c: c.ink, s: 13 });
+        d.text(value, 630, y, { c: c.ink, s: 14, a: "right", w: 700 });
+        ctx.globalAlpha = 1; y += 34;
+      };
+      row(1, c.muted, "All emails", "10,000");
+      row(Math.max(0.3, s.pa), c.red, "Phishing (1%)", "100");
+      row(Math.max(0.3, s.ca), c.red, "Caught (90%)", "90");
+      row(Math.max(0.3, s.fa), c.orange, "False alarms (5%)", "495");
+      row(Math.max(0.3, s.dim), null, "All flagged", "585");
+      if (s.res > 0.01) {
+        ctx.globalAlpha = s.res;
+        d.panel(c, 340, 214, 290, 104);
+        d.text("P(phish | flag)", 354, 238, { c: c.muted, s: 13 });
+        d.text("= 90 ÷ 585", 354, 264, { c: c.ink, s: 16 });
+        d.text("≈ 15%", 354, 294, { c: c.red, s: 24, w: 700 });
+      }
+    },
+  });
+})();
+
+// Step-through: multiplying probabilities underflows; adding log-probabilities doesn't.
+(function () {
+  const LOG10_HALF = Math.log10(0.5), LN_HALF = Math.log(0.5);
+  const superscript = (n) => String(n).split("").map((ch) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[+ch]).join("");
+  const product = (n) => {
+    if (n <= 3) return String(Math.pow(0.5, n));
+    const e = n * LOG10_HALF, exp = Math.floor(e);
+    return `${Math.pow(10, e - exp).toFixed(1)} × 10⁻${superscript(-exp)}`;
+  };
+  Learn.demo(document.getElementById("demo-logprob"), {
+    height: 340,
+    label: "A product of probabilities shrinking to zero next to a sum of log-probabilities growing steadily",
+    steps: [
+      { s: { lg: 0 }, cap: "One token with a 0.5 chance. The probability is 0.5. Its log is −0.69." },
+      { s: { lg: 1 }, cap: "10 tokens. Multiply 0.5 ten times and you get about 0.001. Add ten logs instead and you get about −6.9." },
+      { s: { lg: 2 }, cap: "100 tokens. The product is about 7.9 × 10⁻³¹, far too small for the bar to show. The log sum is −69.3, a normal number." },
+      { s: { lg: 3 }, cap: "1,000 tokens. The product is about 9.3 × 10⁻³⁰². That is near the smallest number a computer can store. The log sum is −693.1." },
+      { s: { lg: Math.log10(2000) }, cap: "2,000 tokens. The product is too small to store, so the computer rounds it to 0. Every long text would tie at 0. The log sum, −1386.3, still works and ranks texts the same way." },
+    ],
+    draw(ctx, s, c, d) {
+      const n = Math.max(1, Math.round(Math.pow(10, s.lg))), under = n > 1074;
+      d.text("Multiply the chances", 160, 22, { c: c.ink, s: 15, w: 700, a: "center" });
+      d.text("Add the logs", 480, 22, { c: c.ink, s: 15, w: 700, a: "center" });
+      d.text(`tokens: ${n.toLocaleString("en-US")}`, 320, 322, { c: c.muted, a: "center" });
+      d.line(320, 14, 320, 300, c.line);
+      const base = 290, tall = 210, p = Math.pow(0.5, n);
+      d.line(90, base, 230, base, c.muted, 1.5);
+      d.rect(110, base - tall * p, 100, tall * p, c.orange);
+      ctx.setLineDash([4, 4]); d.rect(110, base - tall, 100, tall, null, c.muted, 1); ctx.setLineDash([]);
+      d.text("1.0", 104, base - tall, { c: c.muted, s: 12, a: "right" });
+      d.text(under ? "stored as 0" : product(n), 160, base - tall - 18, { c: under ? c.red : c.ink, s: 16, a: "center", w: 700 });
+      if (under) d.text("underflow!", 160, base - 40, { c: c.red, s: 16, w: 700, a: "center" });
+      const top = 80, deep = 200;
+      d.line(410, top, 550, top, c.muted, 1.5);
+      d.rect(430, top, 100, deep * n / 2000, c.blue);
+      ctx.setLineDash([4, 4]); d.rect(430, top, 100, deep, null, c.muted, 1); ctx.setLineDash([]);
+      d.text("0", 402, top, { c: c.muted, s: 12, a: "right" });
+      d.text("−1386", 424, top + deep, { c: c.muted, s: 12, a: "right" });
+      d.text(`sum = ${d.fmt(n * LN_HALF, 1)}`, 480, top - 22, { c: c.blue, s: 16, a: "center", w: 700 });
+    },
+  });
+})();

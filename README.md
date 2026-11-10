@@ -39,6 +39,13 @@ The build fails with a message if a question is missing a field.
 Put the term-by-term reading of a display equation in a `::: formula` fenced div right after it; it renders as a smaller, muted aside, so the main text has to make sense without it.
 A `::: done-when` div holds the unit's "You're done when" checklist.
 
+Units are written at an eighth-grade to high-school reading level and share one shape: a `::: why` box ("Why this matters") in place of an intro, the concept sections, a worked example, a `::: real-world` box ("Where you'll see it"), "Where this shows up later", a `::: review` box holding a definition list of the key terms, a `::: say` box ("The short version"), then the self-test, the done-when list and further reading.
+Other units link to section anchors, so don't rename a `##` heading without updating those links.
+
+A step-through animation is an empty `<figure class="widget demo" id="demo-name"></figure>` filled by `Learn.demo(figure, { height, label, steps, draw })` in the unit's `widgets.js`.
+Each step has a caption and the state values that change; the player eases numbers between steps and adds Back, Next and Play buttons.
+`draw(ctx, s, c, d)` paints one frame on a 640-wide canvas with the theme colors `c` and the helpers `d` (see `assets/learn.js`).
+
 Widgets are plain JavaScript on top of the `window.Learn` helpers in `assets/learn.js` (SVG stage, sliders, buttons, readout, animation loop that respects reduced motion); styles and color classes are in `assets/learn.css`.
 `content/ml-basics/01-vectors/` is the reference unit.
 

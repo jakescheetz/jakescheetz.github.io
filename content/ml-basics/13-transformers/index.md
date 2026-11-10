@@ -68,23 +68,28 @@ quiz:
     why: 'Each position predicts the token right after it, so only the last position predicts the token that comes next. Training uses all of them; generation uses one.'
 ---
 
+::: why
 Unit 12 built attention, the step that lets one token's vector pull in information from earlier tokens.
-A language model is attention plus a few more parts, wrapped into a block that gets stacked a dozen or a hundred times.
-The parts go from token IDs at the bottom to the logits of unit 11 at the top.
-Every model in the rest of the route uses this architecture.
+A full language model needs a few more parts around attention.
+Together those parts make one *block*, and a model stacks the same block a dozen or a hundred times.
+Token IDs go in at the bottom, and the logits from unit 11 come out at the top.
+Every model in the rest of this course is built this way.
+:::
 
 ## The residual stream
 
 Start with the input.
-Each token $x_i$ becomes a vector $h$ of width $d$: its row of the embedding table $E$ from unit 10, plus a vector that encodes its position (more on that below).
+Each token $x_i$ becomes a vector $h$ with $d$ numbers in it.
+That vector is the token's row of the embedding table $E$ from unit 10, plus a vector for its position (more on that below).
 For GPT-2 small, $d = 768$.
 
 Now picture each token's vector as a lane running straight up through the model.
 Each block reads the vector in a lane, computes something, and adds the result back into the same lane.
-It never replaces the vector, only adds to it.
-This lane is called the residual stream, and the addition is called a residual connection.
+A block never replaces the vector.
+It only adds to it.
+This lane is called the *residual stream*, and each addition is called a *residual connection*.
 
-Written out, with $f$ standing for whatever a sublayer computes:
+Here it is as a formula, where $f$ stands for whatever one part of a block computes:
 
 $$
 h \leftarrow h + f(h)
@@ -94,7 +99,9 @@ $$
 Read the arrow as "replace with": the new $h$ is the old $h$ plus $f(h)$, the sublayer's output computed from the old $h$.
 :::
 
-After $N$ blocks, each with an attention part that adds $a$ and an MLP part that adds $m$, the vector at the top is a plain sum:
+A block has two parts, called *sublayers*.
+The attention sublayer adds a vector $a$, and the MLP sublayer adds a vector $m$.
+So after $N$ blocks, the vector at the top is a plain sum:
 
 $$
 h_{\text{top}} = h_0 + a_1 + m_1 + a_2 + m_2 + \cdots + a_N + m_N
@@ -108,24 +115,35 @@ $h_0$ is the embedding the lane started with, $a_j$ is what block $j$'s attentio
 > The stream works like a shared notepad.
 > Every sublayer reads the whole notepad and writes a note at the bottom, and nobody erases anything.
 
+Follow one token's lane through two blocks.
+The vector here has only 4 numbers, and I made the numbers up so the sums are easy to check.
+
+<figure class="widget demo" id="demo-residual"></figure>
+
+The widget below does the same thing with a real (tiny) transformer, for four tokens at once.
+
 <figure class="widget" id="residual-stream">
 <figcaption>Four tokens flow up through two blocks of a tiny transformer with random weights, computed live in this page. Each row is every token's vector (8 numbers as bars) after one more sublayer. The faint bar is what came in, the colored piece is what that sublayer added (orange for attention, green for the MLP), and the tick is the new value. Orange lines show the selected token's attention weights to earlier tokens. Click a column or use the sliders.</figcaption>
 </figure>
 
-Two things to look for in the widget.
-Only the attention rows draw lines between columns, because attention is the only part that moves information between positions; the MLP rows work on each column alone.
-And every row is the row below plus a colored piece, so the bottom row's numbers are still in there at the top.
+Look for two things in the widget.
+First, only the attention rows draw lines between columns.
+Attention is the only part that moves information from one position to another.
+The MLP rows work on each column alone.
+Second, every row is the row below plus a colored piece.
+So the bottom row's numbers are still in there at the top.
 
-There's a training reason for the additions too.
+The additions also help training.
 In unit 8, [backprop](../08-neural-networks/#backpropagation) multiplied gradients through every layer on the way down.
-With $h + f(h)$, the derivative of the output with respect to $h$ is the identity (the derivative of $h$ itself) plus the derivative of $f$, so the gradient always has a direct path back to the embeddings, however many blocks sit on top.
+With $h + f(h)$, the derivative of the output with respect to $h$ is the identity (the derivative of $h$ itself) plus the derivative of $f$.
+The identity part gives the gradient a direct path back to the embeddings, however many blocks sit on top.
 It's a big part of why stacks as deep as GPT-3's 96 blocks still train.
 
 ## Inside one block
 
-A block has two sublayers, one after the other.
-First attention, which mixes information across positions.
-Then an MLP (the small network from [unit 8](../08-neural-networks/#layers-and-why-the-bend-matters)), which processes each position on its own.
+A block runs its two sublayers one after the other.
+First comes attention, which mixes information across positions.
+Then comes an *MLP*, the small network from [unit 8](../08-neural-networks/#layers-and-why-the-bend-matters), which works on each position by itself.
 Each sublayer reads a normalized copy of the stream and adds its output back:
 
 $$
@@ -149,41 +167,68 @@ In the first, $f$ is attention applied to $\mathrm{LN}(h)$; in the second, $f$ i
 </figure>
 
 $\mathrm{LN}$ is *layer norm*.
-It works on one token's vector at a time: subtract the [mean](../03-probability/#expectation-spread-and-sampling) of its $d$ entries, divide by their standard deviation, then multiply entry by entry by a learned vector $\gamma$ (gamma) and add a learned vector $\beta$ (beta).
-The stream tends to get longer as blocks keep adding to it, and layer norm hands each sublayer an input at the same scale no matter how long the stream has gotten.
+It works on one token's vector at a time, in three moves.
+Subtract the [mean](../03-probability/#expectation-spread-and-sampling) of the vector's $d$ entries.
+Divide by their standard deviation.
+Then multiply entry by entry by a learned vector $\gamma$ (gamma) and add a learned vector $\beta$ (beta).
 
-Placing layer norm at the input of each sublayer is called *pre-norm*.
-The original 2017 transformer normalized after the addition instead, $\mathrm{LN}(h + f(h))$, which puts a normalization on the main path.
-GPT-2 moved it to the sublayer inputs, and most models since do the same, so the stream itself only ever gets additions.
+Take the vector $(2, 4, 4, 10)$.
+Its mean is 5 and its standard deviation is 3, so the first two moves give $(-1, -0.33, -0.33, 1.67)$.
+
+The reason is scale.
+The stream tends to get longer as blocks keep adding to it.
+Layer norm hands each sublayer an input at the same scale, no matter how long the stream has gotten.
+
+<figure class="widget demo" id="demo-layernorm"></figure>
+
+Putting layer norm at the input of each sublayer is called *pre-norm*.
+The original 2017 transformer normalized after the addition instead, $\mathrm{LN}(h + f(h))$.
+That puts a normalization on the main path.
+GPT-2 moved it to the sublayer inputs, and most models since do the same.
+So the stream itself only ever gets additions.
 
 $\mathrm{Attn}$ is unit 12's [attention](../12-attention/#queries-keys-and-values), with one more matrix at the end.
-Each head produces a vector of size $d_k$, the heads' outputs are placed side by side, and an output matrix $W_O$ ($d \times d$) maps that back to width $d$ so it can be added to the stream.
+Each head produces a vector of size $d_k$.
+The heads' outputs are placed side by side, and an output matrix $W_O$ ($d \times d$) maps the result back to width $d$.
+Now it can be added to the stream.
 
-$\mathrm{MLP}$ is two layers: a matrix that widens the vector from $d$ to $4d$, a nonlinearity, and a matrix that brings it back to $d$.
+$\mathrm{MLP}$ has two layers.
+A matrix widens the vector from $d$ to $4d$, a nonlinearity bends it, and a second matrix brings it back to $d$.
 GPT-2 uses GELU, a smoothed version of ReLU, as the nonlinearity.
-Per block, attention has about $4d^2$ weights and the MLP about $8d^2$, so two thirds of a block's weights sit in its MLP.
+
+Per block, attention has about $4d^2$ weights and the MLP about $8d^2$.
+So two thirds of a block's weights sit in its MLP.
 
 ## Telling positions apart
 
-Attention on its own has no idea what order the tokens are in.
-The scores are dot products between vectors, and the output is a weighted sum, and neither one looks at where a vector sits in the sequence.
+Attention by itself has no idea what order the tokens are in.
+The scores are dot products between vectors, and the output is a weighted sum.
+Neither one looks at where a vector sits in the sequence.
 
 Take "dog bites man ." and "man bites dog .".
 At the final ".", the first attention layer sees the same four vectors in both sentences, just in a different order.
 Without position information its output there is identical, even though the two sentences mean different things.
-(The causal mask does let later layers recover some order, because each position sees a different number of tokens, but models don't leave it to that.)
+(The causal mask does let later layers recover some order, because each position sees a different number of tokens. Models don't leave it to that.)
 
-GPT-2's fix is a second learned table $P$, one row per position, 1024 rows of width $d$.
-The input to the first block is $h_0 = E_{x_i} + P_i$: row $x_i$ of $E$ (the token's embedding, as in unit 10) plus row $i$ of $P$ (its position's embedding).
+GPT-2's fix is a second learned table $P$ with one row per position: 1024 rows of width $d$.
+The input to the first block is $h_0 = E_{x_i} + P_i$.
+That's row $x_i$ of $E$ (the token's embedding, as in unit 10) plus row $i$ of $P$ (the *position embedding*).
 Training shapes $P$ the same way it shapes $E$.
 
-Many newer models, Llama among them, skip the position table and rotate each query and key vector by an angle that depends on its position, inside every attention layer.
-The rotation is set up so that $q \cdot k$ depends on how far apart the two tokens are, not on their absolute positions.
-Either way, position has to be put in on purpose.
+The demo runs one attention step at the "." for both sentences, first without $P$ and then with it.
+Every vector has 2 made-up numbers, and the attention is the plainest kind: each score is the dot product of the "." vector with a token's vector.
+
+<figure class="widget demo" id="demo-position"></figure>
+
+Many newer models, Llama among them, skip the position table.
+They rotate each query and key vector by an angle that depends on its position, inside every attention layer.
+The rotation is set up so that $q \cdot k$ depends on how far apart the two tokens are, and their absolute positions drop out.
+Either way, someone has to put position in on purpose.
 
 ## From the top of the stream to a prediction
 
-After the last block comes one more layer norm, then the unembedding matrix $W_U$ ($V \times d$) from unit 11 turns each position's vector into $V$ logits:
+After the last block comes one more layer norm.
+Then the *unembedding matrix* $W_U$ ($V \times d$) from unit 11 turns each position's vector into $V$ logits, one per vocabulary token:
 
 $$
 z = W_U \, \mathrm{LN}(h_{\text{top}})
@@ -193,18 +238,20 @@ $$
 $h_{\text{top}}$ is one position's vector after the last block, $\mathrm{LN}$ is that final layer norm, and $z$ is the list of $V$ logits, one score per vocabulary token.
 :::
 
-GPT-2 reuses the embedding table here, $W_U = E$, so it adds no new parameters.
-A [softmax](../11-next-token-prediction/#softmax-turns-scores-into-probabilities) gives the probabilities for the next token, as in unit 11.
+GPT-2 reuses the embedding table here, $W_U = E$, so this step adds no new parameters.
+A [softmax](../11-next-token-prediction/#softmax-turns-scores-into-probabilities) turns the logits into probabilities for the next token, as in unit 11.
 
 Every position gets its own logits.
-Position $i$ predicts token $x_{i+1}$, and because of the causal mask in every attention layer, nothing at position $i$ has seen $x_{i+1}$ or anything after it.
-So one forward pass over $n$ tokens gives $n$ predictions, none of which saw its answer, and the training loss averages the [cross-entropy](../11-next-token-prediction/#the-loss-log-of-the-right-answers-probability) over all of them.
-When generating text (unit 14), only the last position's logits get used.
+Position $i$ predicts token $x_{i+1}$.
+Because of the causal mask in every attention layer, nothing at position $i$ has seen $x_{i+1}$ or anything after it.
+So one forward pass over $n$ tokens gives $n$ predictions, and none of them saw its answer.
+The training loss averages the [cross-entropy](../11-next-token-prediction/#the-loss-log-of-the-right-answers-probability) over all of them.
+When generating text (unit 14), the model uses only the last position's logits.
 
 ## Worked example
 
-One pre-norm block on 4 tokens of width 8, with random weights.
-It uses a single attention head with $d_k = d = 8$ and ReLU in the MLP to stay close to units 8 and 12.
+This is one pre-norm block on 4 tokens of width 8, with random weights.
+It uses a single attention head with $d_k = d = 8$ and ReLU in the MLP, to stay close to units 8 and 12.
 It prints the shape at each step and the length $\|h\|$ of each token's vector, then counts parameters.
 
 ```python
@@ -274,15 +321,62 @@ GPT-2 small, one block: 7087872
 GPT-2 small, total: 124439808
 ```
 
-Every step keeps the shape at (4, 8), one row per token, which is what lets blocks stack.
-The count $12d^2 + 13d$ is four $d \times d$ attention matrices ($4d^2$), the two MLP matrices ($8d^2$ together), and $13d$ for the biases and layer norm vectors: four attention biases of size $d$, the MLP's biases of size $4d$ and $d$, and two layer norms with a $\gamma$ and a $\beta$ each.
-At GPT-2 small's sizes it gives 124,439,808 parameters, the commonly quoted "124M", and only about 39 million of those are the embedding table.
+Every step keeps the shape at (4, 8), one row per token.
+That's what lets blocks stack.
+
+The count $12d^2 + 13d$ has three pieces.
+The four $d \times d$ attention matrices give $4d^2$.
+The two MLP matrices give $8d^2$ together.
+The last $13d$ covers the biases and layer norm vectors: four attention biases of size $d$, the MLP's biases of size $4d$ and $d$, and two layer norms with a $\gamma$ and a $\beta$ each.
+
+At GPT-2 small's sizes the total is 124,439,808 parameters, the commonly quoted "124M".
+Only about 39 million of those are the embedding table.
+
+::: real-world
+- **Chat models.** The GPT models, Claude, Gemini and Llama are all stacks of transformer blocks. They differ in size, in training data, and in details such as how they encode position.
+- **Model sizes.** When a model is described as "124M" or "7B", that's its parameter count. For GPT-2 small you can rebuild the number from this unit: 12 blocks of $12d^2 + 13d$, plus the embedding and position tables.
+- **Looking inside a model.** The top of the stream is a plain sum, so researchers can measure how much each sublayer pushed toward a given output. Safety and security teams use this to trace where a behavior, such as a refusal, comes from inside the model.
+:::
 
 ## Where this shows up later
 
 - Unit 14: generation runs this stack, takes the last position's logits, picks a token, appends it, and runs again.
 - Unit 15: the policy $\pi_\theta(y \mid x)$ is this whole stack, and $\theta$ is every weight in it.
 - Unit 16: a reward model is usually the same kind of transformer with $W_U$ replaced by a layer that outputs one number.
+
+::: review
+Residual stream
+:   Each token's vector, pictured as a lane running up through the model. Every sublayer reads it and adds to it.
+
+Residual connection
+:   The addition $h \leftarrow h + f(h)$. The sublayer's output is added to the stream and nothing is erased.
+
+Block
+:   One attention sublayer followed by one MLP sublayer. A model is a stack of blocks.
+
+Layer norm, $\mathrm{LN}$
+:   Subtract the mean of one token's entries, divide by their standard deviation, then scale by $\gamma$ and shift by $\beta$.
+
+Pre-norm
+:   Layer norm sits at the input of each sublayer, so the stream itself only gets additions.
+
+MLP
+:   A two-layer network that widens the vector from $d$ to $4d$ and brings it back. It works on each position alone.
+
+Position embedding, $P_i$
+:   A learned vector for position $i$, added to the token's embedding before the first block.
+
+Unembedding matrix, $W_U$
+:   The $V \times d$ matrix that turns a position's final vector into $V$ logits.
+:::
+
+::: say
+Each token's vector is a lane called the residual stream.
+A block reads the lane twice, once with attention and once with an MLP, and adds each result back in.
+Layer norm gives each sublayer an input at a steady scale.
+Attention can't see order, so the model adds a position vector to each token at the start.
+At the top, the unembedding matrix turns each position's vector into logits for the next token.
+:::
 
 ## Self-test
 
