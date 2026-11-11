@@ -1,0 +1,6 @@
+# A2″ pilot (experiment-e1.md §9 "A2′ pilot" → A2″): one A2pp run on D1, 5M steps, tiles-CNN, normal core.
+# Reward: ΔT + progress bonus on BFS walking distance (pokered/walkdist.py); needs ~/roms/walkgrid.json on
+# the VM (gcloud compute scp, like the states; never in the repo or a bucket). Pass = M2 in >= 1 D1 eval
+# episode. Fail → screen-CNN A2″ (1 seed, 5M) per §9; both fail → no-go.
+#   gcp/run.sh gcp/plans/pilot-a2pp.txt --vm e1-a --envs 8
+--arm A2pp --state D1 --seed 0 --steps 5000000 --run-id A2pp-D1-s0 --envs {envs}

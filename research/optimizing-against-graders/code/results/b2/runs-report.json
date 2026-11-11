@@ -1,0 +1,2007 @@
+{
+ "runs": [
+  {
+   "run": "b2-A0-D1-s1",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 457.1,
+   "sps_ratio": 1.112,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "72 eval rows ok, sps ratio 1.112"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 31.7125,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 41.1397,
+     "train_T": 0.0,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 43.7125,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 117.5563,
+     "train_T": 1.8125,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 72.2751,
+     "eval_T": 0.5,
+     "train_n": 32,
+     "train_P": 112.9719,
+     "train_T": 1.6875,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 124.8375,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 129.4035,
+     "train_T": 1.75,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 71.575,
+     "eval_T": 0.625,
+     "train_n": 24,
+     "train_P": 117.5273,
+     "train_T": 1.2917,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 121.0375,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 149.3259,
+     "train_T": 1.9219,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 123.575,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 147.1344,
+     "train_T": 1.8906,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 448.0,
+   "sps_ratio": 1.176,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 1.176"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 12.975,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 15.375,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 16.7638,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 27.7812,
+     "train_T": 0.4375,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 41.8751,
+     "eval_T": 2.125,
+     "train_n": 32,
+     "train_P": 33.8167,
+     "train_T": 1.3438,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 37.7223,
+     "eval_T": 2.125,
+     "train_n": 64,
+     "train_P": 30.6089,
+     "train_T": 2.0,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 10.9377,
+     "eval_T": 0.375,
+     "train_n": 56,
+     "train_P": 38.7457,
+     "train_T": 2.7321,
+     "collapsed": true
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 4.075,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 36.9057,
+     "train_T": 2.6094,
+     "collapsed": true
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 25.425,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 33.8384,
+     "train_T": 2.2031,
+     "collapsed": false
+    }
+   ],
+   "collapsed": [
+    3000320,
+    4000768
+   ]
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 425.7,
+   "sps_ratio": 1.036,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "72 eval rows ok, sps ratio 1.036"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 45.85,
+     "eval_T": 0.375,
+     "train_n": 8,
+     "train_P": 64.3445,
+     "train_T": 0.5,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 28.875,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 103.7062,
+     "train_T": 1.375,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 92.2875,
+     "eval_T": 1.875,
+     "train_n": 32,
+     "train_P": 118.1,
+     "train_T": 1.6562,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 91.8625,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 117.6711,
+     "train_T": 1.5156,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 56.3,
+     "eval_T": 0.0,
+     "train_n": 24,
+     "train_P": 147.6,
+     "train_T": 2.0417,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 117.8,
+     "eval_T": 1.625,
+     "train_n": 64,
+     "train_P": 142.9375,
+     "train_T": 1.8906,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 115.55,
+     "eval_T": 2.25,
+     "train_n": 64,
+     "train_P": 142.9234,
+     "train_T": 1.9375,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D2-s1",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 303.1,
+   "sps_ratio": 0.796,
+   "C": {
+    "status": "trip",
+    "reasons": [
+     "sps 303.1 < 85% of 381"
+    ],
+    "detail": "sps 303.1 < 85% of 381"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 22.025,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 13.325,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 12.0375,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 32.6668,
+     "train_T": 0.5,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 3.65,
+     "eval_T": 0.0,
+     "train_n": 32,
+     "train_P": 19.5452,
+     "train_T": 0.5625,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 27.5375,
+     "eval_T": 1.375,
+     "train_n": 64,
+     "train_P": 29.2537,
+     "train_T": 1.3906,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 21.95,
+     "eval_T": 1.25,
+     "train_n": 56,
+     "train_P": 36.2819,
+     "train_T": 2.125,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 30.625,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 37.3242,
+     "train_T": 2.9375,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 28.4125,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 29.2383,
+     "train_T": 2.5156,
+     "collapsed": false
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 380.4,
+   "sps_ratio": 0.926,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.926"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 74.6375,
+     "eval_T": 0.875,
+     "train_n": 8,
+     "train_P": 69.9754,
+     "train_T": 1.125,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 23.4,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 96.9062,
+     "train_T": 1.0625,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 97.4375,
+     "eval_T": 1.75,
+     "train_n": 32,
+     "train_P": 88.4581,
+     "train_T": 1.0625,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 96.825,
+     "eval_T": 0.875,
+     "train_n": 64,
+     "train_P": 120.6813,
+     "train_T": 1.7188,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 32.4625,
+     "eval_T": 0.25,
+     "train_n": 56,
+     "train_P": 127.3701,
+     "train_T": 1.9107,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 112.925,
+     "eval_T": 1.625,
+     "train_n": 64,
+     "train_P": 132.0292,
+     "train_T": 1.7656,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 130.3449,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 143.9001,
+     "train_T": 1.8125,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D1-s2",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 365.2,
+   "sps_ratio": 0.959,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.959"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 3.2625,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 14.975,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 19.477,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 9.575,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 24.25,
+     "eval_T": 1.0,
+     "train_n": 32,
+     "train_P": 38.775,
+     "train_T": 1.3125,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 5.0625,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 42.9995,
+     "train_T": 2.2656,
+     "collapsed": true
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 14.6625,
+     "eval_T": 0.0,
+     "train_n": 56,
+     "train_P": 35.1651,
+     "train_T": 2.1071,
+     "collapsed": true
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 40.825,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 21.2407,
+     "train_T": 0.7969,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 0.775,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 12.4681,
+     "train_T": 0.9219,
+     "collapsed": true
+    }
+   ],
+   "collapsed": [
+    2000896,
+    3000320,
+    5000192
+   ]
+  },
+  {
+   "run": "b2-A0-D2-s2",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 410.4,
+   "sps_ratio": 0.999,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.999"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 86.3875,
+     "eval_T": 0.875,
+     "train_n": 8,
+     "train_P": 43.5312,
+     "train_T": 0.0,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 23.2625,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 117.6877,
+     "train_T": 1.875,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 91.8375,
+     "eval_T": 1.875,
+     "train_n": 32,
+     "train_P": 113.917,
+     "train_T": 1.5312,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 138.45,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 142.6301,
+     "train_T": 2.2188,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 35.55,
+     "eval_T": 0.375,
+     "train_n": 56,
+     "train_P": 138.0375,
+     "train_T": 2.3214,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 127.925,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 140.282,
+     "train_T": 2.3438,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 135.575,
+     "eval_T": 2.125,
+     "train_n": 64,
+     "train_P": 142.9996,
+     "train_T": 2.1719,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D2-s2",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 380.7,
+   "sps_ratio": 0.999,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.999"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 3.4,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 13.3125,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 2.0625,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 2.9375,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 19.4225,
+     "eval_T": 0.0,
+     "train_n": 32,
+     "train_P": 4.9963,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 55.2768,
+     "eval_T": 2.625,
+     "train_n": 64,
+     "train_P": 34.6011,
+     "train_T": 1.0781,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 35.7176,
+     "eval_T": 2.0,
+     "train_n": 56,
+     "train_P": 46.6152,
+     "train_T": 2.375,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 25.2145,
+     "eval_T": 1.0,
+     "train_n": 64,
+     "train_P": 32.174,
+     "train_T": 1.5625,
+     "collapsed": true
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 23.7465,
+     "eval_T": 0.5,
+     "train_n": 64,
+     "train_P": 39.3182,
+     "train_T": 1.6875,
+     "collapsed": true
+    }
+   ],
+   "collapsed": [
+    4000768,
+    5000192
+   ]
+  },
+  {
+   "run": "b2-A0-D1-s3",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 389.2,
+   "sps_ratio": 0.947,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.947"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 17.3125,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 87.921,
+     "train_T": 1.875,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 67.6629,
+     "eval_T": 1.0,
+     "train_n": 16,
+     "train_P": 72.8187,
+     "train_T": 0.6875,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 113.15,
+     "eval_T": 1.625,
+     "train_n": 32,
+     "train_P": 108.7608,
+     "train_T": 1.5312,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 96.175,
+     "eval_T": 1.5,
+     "train_n": 64,
+     "train_P": 123.2539,
+     "train_T": 1.5469,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 95.9875,
+     "eval_T": 1.875,
+     "train_n": 56,
+     "train_P": 141.0977,
+     "train_T": 1.8036,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 101.4625,
+     "eval_T": 0.875,
+     "train_n": 64,
+     "train_P": 143.936,
+     "train_T": 1.875,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 92.975,
+     "eval_T": 0.875,
+     "train_n": 64,
+     "train_P": 147.5979,
+     "train_T": 1.9844,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 366.8,
+   "sps_ratio": 0.963,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.963"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 9.675,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 12.1625,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 22.0649,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 17.1573,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 9.0,
+     "eval_T": 0.0,
+     "train_n": 32,
+     "train_P": 38.6192,
+     "train_T": 1.375,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 19.8358,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 32.0944,
+     "train_T": 1.875,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 36.8625,
+     "eval_T": 2.25,
+     "train_n": 56,
+     "train_P": 21.3297,
+     "train_T": 1.0,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 29.3638,
+     "eval_T": 2.5,
+     "train_n": 64,
+     "train_P": 45.698,
+     "train_T": 2.2344,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 1.675,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 30.6244,
+     "train_T": 1.9219,
+     "collapsed": true
+    }
+   ],
+   "collapsed": [
+    5000192
+   ]
+  },
+  {
+   "run": "b2-A0-D2-s3",
+   "vm": "e1-a",
+   "arm": "A0",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 408.2,
+   "sps_ratio": 0.993,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.993"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 52.4125,
+     "eval_T": 1.75,
+     "train_n": 8,
+     "train_P": 59.85,
+     "train_T": 0.25,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 88.4877,
+     "eval_T": 1.0,
+     "train_n": 16,
+     "train_P": 81.2856,
+     "train_T": 1.4375,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 57.0375,
+     "eval_T": 1.125,
+     "train_n": 32,
+     "train_P": 115.0891,
+     "train_T": 1.75,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 117.275,
+     "eval_T": 1.875,
+     "train_n": 64,
+     "train_P": 100.9885,
+     "train_T": 1.1719,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 116.05,
+     "eval_T": 1.75,
+     "train_n": 56,
+     "train_P": 133.0183,
+     "train_T": 1.7679,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 124.25,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 122.4929,
+     "train_T": 1.4062,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 76.0875,
+     "eval_T": 0.625,
+     "train_n": 64,
+     "train_P": 144.6172,
+     "train_T": 1.9062,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "vm": "e1-a",
+   "arm": "A2pp",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 378.8,
+   "sps_ratio": 0.994,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.994"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 2.475,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 23.4875,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 20.7625,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 4.4062,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 30.4469,
+     "eval_T": 1.125,
+     "train_n": 32,
+     "train_P": 28.1371,
+     "train_T": 0.9688,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 26.475,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 35.4811,
+     "train_T": 1.2188,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 45.2668,
+     "eval_T": 2.5,
+     "train_n": 56,
+     "train_P": 33.6856,
+     "train_T": 1.5536,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 28.175,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 43.5868,
+     "train_T": 2.6875,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 1.025,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 15.9364,
+     "train_T": 1.1406,
+     "collapsed": true
+    }
+   ],
+   "collapsed": [
+    5000192
+   ]
+  },
+  {
+   "run": "b2-A0-D1-s4",
+   "vm": "e1-b",
+   "arm": "A0",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 345.5,
+   "sps_ratio": 0.979,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "72 eval rows ok, sps ratio 0.979"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 73.525,
+     "eval_T": 2.125,
+     "train_n": 8,
+     "train_P": 56.7904,
+     "train_T": 0.125,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 82.525,
+     "eval_T": 2.25,
+     "train_n": 16,
+     "train_P": 93.8335,
+     "train_T": 1.1875,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 47.275,
+     "eval_T": 0.0,
+     "train_n": 32,
+     "train_P": 117.5375,
+     "train_T": 1.6875,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 101.75,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 113.9828,
+     "train_T": 1.3438,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 87.25,
+     "eval_T": 1.125,
+     "train_n": 24,
+     "train_P": 139.4417,
+     "train_T": 1.75,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 125.7375,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 145.4775,
+     "train_T": 1.9219,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 89.275,
+     "eval_T": 0.75,
+     "train_n": 64,
+     "train_P": 141.81,
+     "train_T": 2.0938,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 342.6,
+   "sps_ratio": 1.008,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 1.008"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 21.5806,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 18.8625,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 14.3818,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 14.295,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 29.575,
+     "eval_T": 1.0,
+     "train_n": 32,
+     "train_P": 33.1167,
+     "train_T": 1.0,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 58.8008,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 35.7001,
+     "train_T": 1.8125,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 10.325,
+     "eval_T": 0.0,
+     "train_n": 56,
+     "train_P": 39.9141,
+     "train_T": 2.4643,
+     "collapsed": true
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 13.3667,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 25.3523,
+     "train_T": 1.5625,
+     "collapsed": true
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 16.6625,
+     "eval_T": 1.25,
+     "train_n": 64,
+     "train_P": 25.2528,
+     "train_T": 1.1719,
+     "collapsed": true
+    }
+   ],
+   "collapsed": [
+    3000320,
+    4000768,
+    5000192
+   ]
+  },
+  {
+   "run": "b2-A0-D2-s4",
+   "vm": "e1-b",
+   "arm": "A0",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 348.6,
+   "sps_ratio": 0.988,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "72 eval rows ok, sps ratio 0.988"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 61.0968,
+     "eval_T": 1.0,
+     "train_n": 8,
+     "train_P": 95.3952,
+     "train_T": 1.875,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 71.025,
+     "eval_T": 0.5,
+     "train_n": 16,
+     "train_P": 94.5886,
+     "train_T": 1.125,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 77.8003,
+     "eval_T": 1.25,
+     "train_n": 32,
+     "train_P": 113.8625,
+     "train_T": 1.5,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 134.0625,
+     "eval_T": 1.875,
+     "train_n": 64,
+     "train_P": 124.4208,
+     "train_T": 1.5781,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 45.225,
+     "eval_T": 0.25,
+     "train_n": 24,
+     "train_P": 145.6667,
+     "train_T": 1.9583,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 102.875,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 143.9002,
+     "train_T": 2.2344,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 123.1875,
+     "eval_T": 2.75,
+     "train_n": 64,
+     "train_P": 149.3853,
+     "train_T": 2.1875,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 337.6,
+   "sps_ratio": 0.993,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.993"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 12.7875,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 22.7307,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 8.8125,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 8.7375,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 6.85,
+     "eval_T": 0.375,
+     "train_n": 32,
+     "train_P": 22.5625,
+     "train_T": 0.4688,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 6.7875,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 21.8869,
+     "train_T": 1.2656,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 22.8953,
+     "eval_T": 1.5,
+     "train_n": 56,
+     "train_P": 20.5148,
+     "train_T": 0.7143,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 23.1125,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 20.6117,
+     "train_T": 0.8438,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 35.2125,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 32.7406,
+     "train_T": 2.3906,
+     "collapsed": false
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A0-D1-s5",
+   "vm": "e1-b",
+   "arm": "A0",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 347.6,
+   "sps_ratio": 0.985,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.985"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 1.5125,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 70.408,
+     "train_T": 0.625,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 105.8,
+     "eval_T": 2.0,
+     "train_n": 16,
+     "train_P": 74.8929,
+     "train_T": 0.75,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 38.8625,
+     "eval_T": 0.125,
+     "train_n": 32,
+     "train_P": 121.4125,
+     "train_T": 1.7188,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 110.075,
+     "eval_T": 1.375,
+     "train_n": 64,
+     "train_P": 136.3321,
+     "train_T": 1.7812,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 65.7625,
+     "eval_T": 0.75,
+     "train_n": 56,
+     "train_P": 152.1201,
+     "train_T": 1.9821,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 143.1225,
+     "eval_T": 2.75,
+     "train_n": 64,
+     "train_P": 159.6701,
+     "train_T": 2.0625,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 127.0375,
+     "eval_T": 1.75,
+     "train_n": 64,
+     "train_P": 158.7421,
+     "train_T": 2.1094,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D1-s5",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "D1",
+   "trained_to": 5000192,
+   "sps": 327.2,
+   "sps_ratio": 0.962,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.962"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 4.6875,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 25.05,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 26.2,
+     "eval_T": 0.25,
+     "train_n": 16,
+     "train_P": 20.9125,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 23.1898,
+     "eval_T": 1.5,
+     "train_n": 32,
+     "train_P": 50.3834,
+     "train_T": 2.4688,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 33.425,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 27.9826,
+     "train_T": 1.7344,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 28.7625,
+     "eval_T": 2.75,
+     "train_n": 56,
+     "train_P": 34.0375,
+     "train_T": 2.6071,
+     "collapsed": false
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 29.9,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 22.3687,
+     "train_T": 2.0,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 34.725,
+     "eval_T": 2.625,
+     "train_n": 64,
+     "train_P": 30.4442,
+     "train_T": 2.8906,
+     "collapsed": false
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A0-D2-s5",
+   "vm": "e1-b",
+   "arm": "A0",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 338.8,
+   "sps_ratio": 0.96,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.96"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 24.5625,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 59.3438,
+     "train_T": 0.875,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": 73.6625,
+     "eval_T": 1.0,
+     "train_n": 16,
+     "train_P": 117.7007,
+     "train_T": 1.875,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 80.9,
+     "eval_T": 0.875,
+     "train_n": 32,
+     "train_P": 121.8261,
+     "train_T": 1.625,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 116.35,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 125.3368,
+     "train_T": 1.7188,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 62.0875,
+     "eval_T": 0.375,
+     "train_n": 56,
+     "train_P": 121.2838,
+     "train_T": 1.8036,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 30.625,
+     "eval_T": 0.0,
+     "train_n": 64,
+     "train_P": 148.9,
+     "train_T": 2.0469,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 158.0625,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 159.6785,
+     "train_T": 1.9844,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-D2-s5",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "D2",
+   "trained_to": 5000192,
+   "sps": 304.4,
+   "sps_ratio": 0.895,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "64 eval rows ok, sps ratio 0.895"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": 8.15,
+     "eval_T": 0.0,
+     "train_n": 8,
+     "train_P": 20.5625,
+     "train_T": 0.0,
+     "collapsed": false
+    },
+    {
+     "mark": 500736,
+     "eval_P": 2.1625,
+     "eval_T": 0.0,
+     "train_n": 16,
+     "train_P": 20.6736,
+     "train_T": 0.1875,
+     "collapsed": false
+    },
+    {
+     "mark": 1000448,
+     "eval_P": 6.3,
+     "eval_T": 0.0,
+     "train_n": 32,
+     "train_P": 34.8003,
+     "train_T": 1.4688,
+     "collapsed": false
+    },
+    {
+     "mark": 2000896,
+     "eval_P": 25.8625,
+     "eval_T": 2.0,
+     "train_n": 64,
+     "train_P": 28.8916,
+     "train_T": 1.75,
+     "collapsed": false
+    },
+    {
+     "mark": 3000320,
+     "eval_P": 7.175,
+     "eval_T": 0.125,
+     "train_n": 56,
+     "train_P": 36.6752,
+     "train_T": 2.7679,
+     "collapsed": true
+    },
+    {
+     "mark": 4000768,
+     "eval_P": 41.4375,
+     "eval_T": 2.625,
+     "train_n": 64,
+     "train_P": 35.8189,
+     "train_T": 2.125,
+     "collapsed": false
+    },
+    {
+     "mark": 5000192,
+     "eval_P": 26.8875,
+     "eval_T": 3.0,
+     "train_n": 64,
+     "train_P": 40.2359,
+     "train_T": 2.4062,
+     "collapsed": false
+    }
+   ],
+   "collapsed": [
+    3000320
+   ]
+  },
+  {
+   "run": "b2-A2pp-HA-s1",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "HA",
+   "trained_to": 5000192,
+   "sps": 323.5,
+   "sps_ratio": 0.951,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "from 128 dev D1/D2 rows (own state HA is sealed)"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-HA-s2",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "HA",
+   "trained_to": 5000192,
+   "sps": 331.0,
+   "sps_ratio": 0.974,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "from 128 dev D1/D2 rows (own state HA is sealed)"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  },
+  {
+   "run": "b2-A2pp-HA-s3",
+   "vm": "e1-b",
+   "arm": "A2pp",
+   "state": "HA",
+   "trained_to": 5000192,
+   "sps": 317.4,
+   "sps_ratio": 0.934,
+   "C": {
+    "status": "pass",
+    "reasons": [],
+    "detail": "from 128 dev D1/D2 rows (own state HA is sealed)"
+   },
+   "resumes": [],
+   "resume_rule": {
+    "status": "none",
+    "resumes": 0
+   },
+   "marks": [
+    {
+     "mark": 250880,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 500736,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 1000448,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 2000896,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 3000320,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 4000768,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    },
+    {
+     "mark": 5000192,
+     "eval_P": null,
+     "eval_T": null,
+     "train_n": null,
+     "train_P": null,
+     "train_T": null,
+     "collapsed": null
+    }
+   ],
+   "collapsed": []
+  }
+ ],
+ "trips": [
+  [
+   "1",
+   "C (sps) at e1-a's ckpt-0 read (pilot b2-A0-D1-s0)",
+   "2026-11-07 21:34 UTC",
+   "r1, false alarm: the interim read starved the trainer; reads now freeze the trainer (code dbd7fa34)"
+  ],
+  [
+   "2",
+   "A-1 on b2-A0-D1-s4 at 1M",
+   "2026-11-08 01:11 UTC",
+   "r1 after the H9 diagnostic (snapshot vs training gap)"
+  ],
+  [
+   "3",
+   "A-2 on b2-A0-D1-s1 at 2.5M",
+   "2026-11-08 01:57 UTC",
+   "r1, ruled with trip 2"
+  ],
+  [
+   "4",
+   "C (sps 0.80\u00d7) at b2-A2pp-D2-s1's closing read, e1-a",
+   "2026-11-08 16:45 UTC",
+   "r1 for validity; e1-a stop/start to a new host (Jake's OK), 17:08 UTC"
+  ]
+ ]
+}

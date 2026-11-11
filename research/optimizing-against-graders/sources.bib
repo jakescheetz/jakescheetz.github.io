@@ -1,0 +1,361 @@
+% Verified sources for research/optimizing-against-graders.
+% Every entry was opened by [researcher] on 2026-11-01. "full" = full text read (PDF); "abs" = arXiv/Crossref
+% record and abstract read only. Don't cite an "abs" entry for anything beyond its abstract.
+
+% ===================== Core: overoptimization / Goodhart =====================
+
+@inproceedings{gao2023scaling,            % full
+  title     = {Scaling Laws for Reward Model Overoptimization},
+  author    = {Gao, Leo and Schulman, John and Hilton, Jacob},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2210.10760}
+}
+
+@misc{manheim2018categorizing,            % full
+  title  = {Categorizing Variants of {Goodhart's} Law},
+  author = {Manheim, David and Garrabrant, Scott},
+  year   = {2018},
+  url    = {https://arxiv.org/abs/1803.04585}
+}
+
+@inproceedings{pan2022effects,            % full (grepped key sections)
+  title     = {The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models},
+  author    = {Pan, Alexander and Bhatia, Kush and Steinhardt, Jacob},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2201.03544}
+}
+
+@misc{karwowski2023goodhart,              % full (grepped key sections)
+  title  = {Goodhart's Law in Reinforcement Learning},
+  author = {Karwowski, Jacek and Hayman, Oliver and Bai, Xingjian and Kiendlhofer, Klaus and Griffin, Charlie and Skalse, Joar},
+  year   = {2023},
+  url    = {https://arxiv.org/abs/2310.09144}
+}
+
+@inproceedings{skalse2022defining,        % abs
+  title     = {Defining and Characterizing Reward Hacking},
+  author    = {Skalse, Joar and Howe, Nikolaus H. R. and Krasheninnikov, Dmitrii and Krueger, David},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2209.13085}
+}
+
+@inproceedings{laidlaw2025correlated,     % abs + intro
+  title     = {Correlated Proxies: A New Definition and Improved Mitigation for Reward Hacking},
+  author    = {Laidlaw, Cassidy and Singhal, Shivam and Dragan, Anca},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2403.03185}
+}
+
+@misc{zhuang2021consequences,             % abs
+  title  = {Consequences of Misaligned {AI}},
+  author = {Zhuang, Simon and Hadfield-Menell, Dylan},
+  year   = {2021},
+  url    = {https://arxiv.org/abs/2102.03896}
+}
+
+@inproceedings{beirami2025theoretical,    % full (abstract, sec. 3)
+  title     = {Theoretical Guarantees on the Best-of-n Alignment Policy},
+  author    = {Beirami, Ahmad and Agarwal, Alekh and Berant, Jonathan and D'Amour, Alexander and Eisenstein, Jacob and Nagpal, Chirag and Suresh, Ananda Theertha},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2401.01879}
+}
+
+% ===================== Games, gridworlds, specification gaming =====================
+
+@misc{pleines2025pokemon,                 % full
+  title  = {Pokemon Red via Reinforcement Learning},
+  author = {Pleines, Marco and Addis, Daniel and Rubinstein, David and Zimmer, Frank and Preuss, Mike and Whidden, Peter},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2502.19920}
+}
+
+@misc{mudireddy2026pokerl,                % full (grepped)
+  title  = {{PokeRL}: Reinforcement Learning for {Pok\'emon} Red},
+  author = {Mudireddy, Dheeraj and Patibandla, Sai},
+  year   = {2026},
+  url    = {https://arxiv.org/abs/2604.10812}
+}
+
+@misc{whidden2023pokemonred,              % README read; YouTube video not watched
+  title        = {{PokemonRedExperiments}: Train {RL} Agents to Play {Pokemon Red}},
+  author       = {Whidden, Peter},
+  year         = {2023},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/PWhiddy/PokemonRedExperiments}
+}
+
+@misc{pyboy,                              % README read
+  title        = {{PyBoy}: Game Boy Emulator Written in {Python}},
+  author       = {{PyBoy contributors}},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/Baekalfen/PyBoy}
+}
+
+@inproceedings{hafner2022crafter,         % abs
+  title     = {Benchmarking the Spectrum of Agent Capabilities},
+  author    = {Hafner, Danijar},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2109.06780}
+}
+
+@misc{leike2017ai,                        % full (grepped reward-gaming section)
+  title  = {{AI} Safety Gridworlds},
+  author = {Leike, Jan and Martic, Miljan and Krakovna, Victoria and Ortega, Pedro A. and Everitt, Tom and Lefrancq, Andrew and Orseau, Laurent and Legg, Shane},
+  year   = {2017},
+  url    = {https://arxiv.org/abs/1711.09883}
+}
+
+@misc{clark2016faulty,                    % full (Wayback copy; openai.com blocks scripts)
+  title        = {Faulty Reward Functions in the Wild},
+  author       = {Clark, Jack and Amodei, Dario},
+  year         = {2016},
+  howpublished = {OpenAI blog},
+  url          = {https://openai.com/index/faulty-reward-functions/}
+}
+
+@misc{krakovna2020specification,          % opened (Wayback copy), first section read
+  title        = {Specification Gaming: The Flip Side of {AI} Ingenuity},
+  author       = {Krakovna, Victoria and Uesato, Jonathan and Mikulik, Vladimir and Rahtz, Matthew and Everitt, Tom and Kumar, Ramana and Kenton, Zac and Leike, Jan and Legg, Shane},
+  year         = {2020},
+  howpublished = {DeepMind blog},
+  url          = {https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/}
+}
+
+@misc{lehman2018surprising,               % abs
+  title  = {The Surprising Creativity of Digital Evolution: A Collection of Anecdotes from the Evolutionary Computation and Artificial Life Research Communities},
+  author = {Lehman, Joel and Clune, Jeff and Misevic, Dusan and others},
+  year   = {2018},
+  url    = {https://arxiv.org/abs/1803.03453}
+}
+
+@inproceedings{booth2023perils,           % Crossref record + abstract
+  title     = {The Perils of Trial-and-Error Reward Design: Misdesign through Overfitting and Invalid Task Specifications},
+  author    = {Booth, Serena and Knox, W. Bradley and Shah, Julie and Niekum, Scott and Stone, Peter and Allievi, Alessandro},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume    = {37},
+  number    = {5},
+  pages     = {5920--5929},
+  year      = {2023},
+  doi       = {10.1609/aaai.v37i5.25733}
+}
+
+@inproceedings{hadfieldmenell2017inverse, % abs
+  title     = {Inverse Reward Design},
+  author    = {Hadfield-Menell, Dylan and Milli, Smitha and Abbeel, Pieter and Russell, Stuart and Dragan, Anca},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1711.02827}
+}
+
+@inproceedings{langosco2022goal,          % abs
+  title     = {Goal Misgeneralization in Deep Reinforcement Learning},
+  author    = {Langosco, Lauro and Koch, Jack and Sharkey, Lee and Pfau, Jacob and Orseau, Laurent and Krueger, David},
+  booktitle = {Proceedings of the 39th International Conference on Machine Learning},
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2105.14111}
+}
+
+@article{everitt2021reward,               % abs
+  title   = {Reward Tampering Problems and Solutions in Reinforcement Learning: A Causal Influence Diagram Perspective},
+  author  = {Everitt, Tom and Hutter, Marcus and Kumar, Ramana and Krakovna, Victoria},
+  journal = {Synthese},
+  year    = {2021},
+  url     = {https://arxiv.org/abs/1908.04734}
+}
+
+@misc{farquhar2025mona,                   % abs
+  title  = {{MONA}: Myopic Optimization with Non-myopic Approval Can Mitigate Multi-step Reward Hacking},
+  author = {Farquhar, Sebastian and Varma, Vikrant and Lindner, David and Elson, David and Biddulph, Caleb and Goodfellow, Ian and Shah, Rohin},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2501.13011}
+}
+
+% ===================== Learned rewards from preferences =====================
+
+@inproceedings{christiano2017deep,        % full
+  title     = {Deep Reinforcement Learning from Human Preferences},
+  author    = {Christiano, Paul F. and Leike, Jan and Brown, Tom B. and Martic, Miljan and Legg, Shane and Amodei, Dario},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1706.03741}
+}
+
+@inproceedings{ibarz2018reward,           % full (grepped sec. 3.2, fig. 4)
+  title     = {Reward Learning from Human Preferences and Demonstrations in {Atari}},
+  author    = {Ibarz, Borja and Leike, Jan and Pohlen, Tobias and Irving, Geoffrey and Legg, Shane and Amodei, Dario},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {31},
+  year      = {2018},
+  url       = {https://arxiv.org/abs/1811.06521}
+}
+
+% ===================== Secondary (LLM track) =====================
+
+@misc{bai2022training,                    % full (sec. 4.5)
+  title  = {Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback},
+  author = {Bai, Yuntao and Jones, Andy and Ndousse, Kamal and Askell, Amanda and Chen, Anna and others},
+  year   = {2022},
+  url    = {https://arxiv.org/abs/2204.05862}
+}
+
+@misc{wolf2025reward,                     % abs
+  title  = {Reward Model Overoptimisation in Iterated {RLHF}},
+  author = {Wolf, Lorenz and Kirk, Robert and Musolesi, Mirco},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2505.18126}
+}
+
+@inproceedings{coste2024reward,           % abs
+  title     = {Reward Model Ensembles Help Mitigate Overoptimization},
+  author    = {Coste, Thomas and Anwar, Usman and Kirk, Robert and Krueger, David},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2310.02743}
+}
+
+@inproceedings{eisenstein2024helping,     % abs
+  title     = {Helping or Herding? Reward Model Ensembles Mitigate but do not Eliminate Reward Hacking},
+  author    = {Eisenstein, Jacob and Nagpal, Chirag and Agarwal, Alekh and Beirami, Ahmad and D'Amour, Alex and others},
+  booktitle = {Conference on Language Modeling},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2312.09244}
+}
+
+@inproceedings{singhal2024long,           % abs
+  title     = {A Long Way to Go: Investigating Length Correlations in {RLHF}},
+  author    = {Singhal, Prasann and Goyal, Tanya and Xu, Jiacheng and Durrett, Greg},
+  booktitle = {Conference on Language Modeling},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2310.03716}
+}
+
+@misc{wen2024language,                    % abs + front page
+  title  = {Language Models Learn to Mislead Humans via {RLHF}},
+  author = {Wen, Jiaxin and Zhong, Ruiqi and Khan, Akbir and Perez, Ethan and Steinhardt, Jacob and Huang, Minlie and Bowman, Samuel R. and He, He and Feng, Shi},
+  year   = {2024},
+  url    = {https://arxiv.org/abs/2409.12822}
+}
+
+@inproceedings{zheng2025cheating,         % abs
+  title     = {Cheating Automatic {LLM} Benchmarks: Null Models Achieve High Win Rates},
+  author    = {Zheng, Xiaosen and Pang, Tianyu and Du, Chao and Liu, Qian and Jiang, Jing and Lin, Min},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2410.07137}
+}
+
+@misc{zhao2025onetoken,                   % abs
+  title  = {One Token to Fool {LLM}-as-a-Judge},
+  author = {Zhao, Yulai and Liu, Haolin and Yu, Dian and Kung, Sunyuan and Chen, Meijia and others},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2507.08794}
+}
+
+@misc{zhou2026convincing,                 % abs
+  title  = {More Convincing, Not More Correct: Self-Play Reward Hacking of Reference-Free {LLM} Judges},
+  author = {Zhou, Chenyu},
+  year   = {2026},
+  url    = {https://arxiv.org/abs/2607.05904}
+}
+
+@misc{liu2026examining,                   % abs
+  title  = {Examining Reasoning {LLMs}-as-Judges in Non-Verifiable {LLM} Post-Training},
+  author = {Liu, Yixin and Yu, Yue and Su, DiJia and Wang, Sid and Wang, Xuewei and others},
+  year   = {2026},
+  url    = {https://arxiv.org/abs/2603.12246}
+}
+
+@misc{zhong2025impossiblebench,           % abs
+  title  = {{ImpossibleBench}: Measuring {LLMs}' Propensity of Exploiting Test Cases},
+  author = {Zhong, Ziqian and Raghunathan, Aditi and Carlini, Nicholas},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2510.20270}
+}
+
+@misc{gabor2025evilgenie,                 % abs
+  title  = {{EvilGenie}: A Reward Hacking Benchmark},
+  author = {Gabor, Jonathan and Lynch, Jayson and Rosenfeld, Jonathan},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2511.21654}
+}
+
+@misc{wang2026catch,                      % abs
+  title  = {{CATCH}: A Controllable Analysis Testbed for Reward Hacking in Coding {RL}},
+  author = {Wang, Shouli and Jia, Yanfeng and Ou, Zhihao and Su, Zitao and He, Ruize and others},
+  year   = {2026},
+  url    = {https://arxiv.org/abs/2609.39533}
+}
+
+@misc{baker2025monitoring,                % abs
+  title  = {Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation},
+  author = {Baker, Bowen and Huizinga, Joost and Gao, Leo and Dou, Zehao and Guan, Melody Y. and others},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2503.11926}
+}
+
+@inproceedings{rando2024universal,        % abs
+  title     = {Universal Jailbreak Backdoors from Poisoned Human Feedback},
+  author    = {Rando, Javier and Tram{\`e}r, Florian},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2311.14455}
+}
+
+@misc{baumgartner2024bestofvenom,         % abs
+  title  = {Best-of-Venom: Attacking {RLHF} by Injecting Poisoned Preference Data},
+  author = {Baumg{\"a}rtner, Tim and Gao, Yang and Alon, Dana and Metzler, Donald},
+  year   = {2024},
+  url    = {https://arxiv.org/abs/2404.05530}
+}
+
+@misc{wu2024preference,                   % abs
+  title  = {Preference Poisoning Attacks on Reward Model Learning},
+  author = {Wu, Junlin and Wang, Jiongxiao and Xiao, Chaowei and Wang, Chenguang and Zhang, Ning and Vorobeychik, Yevgeniy},
+  year   = {2024},
+  url    = {https://arxiv.org/abs/2402.01920}
+}
+
+@misc{souly2025poisoning,                 % abs
+  title  = {Poisoning Attacks on {LLMs} Require a Near-constant Number of Poison Samples},
+  author = {Souly, Alexandra and Rando, Javier and Chapman, Ed and Davies, Xander and Hasircioglu, Burak and others},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2510.07192}
+}
+
+% ===================== E1 technical sources =====================
+
+@misc{pret2026pokered,                    % opened: pokered.sym (symbols branch bd77855a9f64), ram/wram.asm,
+                                          % constants/{event,map,ram}_constants.asm, macros/scripts/events.asm (master 0dbf95cd12f5)
+  title        = {pokered: Disassembly of {Pok\'emon} Red/Blue},
+  author       = {{pret contributors}},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/pret/pokered}
+}
+
+@inproceedings{ng1999policy,              % opened 2026-11-03: full PDF (Russell's Berkeley page); Theorem 1, Corollary 2
+  title     = {Policy Invariance under Reward Transformations: Theory and Application to Reward Shaping},
+  author    = {Ng, Andrew Y. and Harada, Daishi and Russell, Stuart},
+  booktitle = {Proceedings of the Sixteenth International Conference on Machine Learning (ICML)},
+  pages     = {278--287},
+  year      = {1999},
+  url       = {https://people.eecs.berkeley.edu/~russell/papers/icml99-shaping.pdf}
+}
+
+@article{wiewiora2003potential,           % opened 2026-11-03: full PDF (arXiv 1106.5267); Theorems 1-2
+  title   = {Potential-Based Shaping and {Q}-Value Initialization are Equivalent},
+  author  = {Wiewiora, Eric},
+  journal = {Journal of Artificial Intelligence Research},
+  volume  = {19},
+  pages   = {205--208},
+  year    = {2003},
+  url     = {https://arxiv.org/abs/1106.5267}
+}

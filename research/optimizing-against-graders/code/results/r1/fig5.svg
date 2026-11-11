@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 580" width="720" height="580" role="img" aria-labelledby="t5 d5"><title id="t5">Fig. 5: round 1, true progress and patched reward by term</title><desc id="d5">(a) T per checkpoint for A1 seeds 1-3 and A0 batch 2 on D1. (b) P1 by term per checkpoint, one panel per A1 seed, R0 dashed. Values in fig5.md.</desc><style>
+svg { font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; font-size: 11px; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; } .grid { stroke: #e4e3df; }
+.axis { stroke: #52514e; } .r0 { stroke: #52514e; stroke-dasharray: 4 3; }
+.A0 { stroke: #2a78d6; } .A0f { fill: #2a78d6; } .band { fill: #2a78d6; opacity: .14; stroke: none; }
+.A1 { stroke: #1baf7a; } .A1f { fill: #1baf7a; } .ring { stroke: #fcfcfb; }
+.explore { fill: #eda100; } .level { fill: #e87ba4; } .heal { fill: #6250d6; } .gap { stroke: #fcfcfb; }
+@media (prefers-color-scheme: dark) {
+  .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .ink2 { fill: #c3c2b7; } .grid { stroke: #383835; }
+  .axis { stroke: #c3c2b7; } .r0 { stroke: #c3c2b7; }
+  .A0 { stroke: #3987e5; } .A0f { fill: #3987e5; } .band { fill: #3987e5; }
+  .A1 { stroke: #199e70; } .A1f { fill: #199e70; } .ring { stroke: #1a1a19; }
+  .explore { fill: #c98500; } .level { fill: #d55181; } .heal { fill: #9085e9; } .gap { stroke: #1a1a19; }
+}
+</style>
+<rect class="bg" width="720" height="580"/>
+<text class="ink" x="10" y="22" font-weight="bold">(a) True progress T on D1 (own training state), per checkpoint</text>
+<line class="grid" x1="60" x2="530" y1="242.0" y2="242.0"/><text class="ink2" x="46" y="246.0" text-anchor="end">0</text>
+<line class="grid" x1="60" x2="530" y1="178.7" y2="178.7"/><text class="ink2" x="46" y="182.7" text-anchor="end">1</text>
+<line class="grid" x1="60" x2="530" y1="115.3" y2="115.3"/><text class="ink2" x="46" y="119.3" text-anchor="end">2</text>
+<line class="grid" x1="60" x2="530" y1="52.0" y2="52.0"/><text class="ink2" x="46" y="56.0" text-anchor="end">3</text>
+<text class="ink2" x="60.0" y="258" text-anchor="middle">0</text>
+<text class="ink2" x="154.0" y="258" text-anchor="middle">1M</text>
+<text class="ink2" x="248.0" y="258" text-anchor="middle">2M</text>
+<text class="ink2" x="342.0" y="258" text-anchor="middle">3M</text>
+<text class="ink2" x="436.0" y="258" text-anchor="middle">4M</text>
+<text class="ink2" x="530.0" y="258" text-anchor="middle">5M</text>
+<line class="axis" x1="60" x2="530" y1="242" y2="242"/><text class="ink2" x="530" y="274" text-anchor="end">training steps</text><text class="ink2" x="24" y="147.0" transform="rotate(-90 24 147.0)" text-anchor="middle">T (milestones, mean of 8 episodes)</text>
+<polygon class="band" points="83.6,151.8 107.1,121.7 154.0,150.2 248.1,124.8 342.0,150.2 436.1,94.7 530.0,123.2 530.0,180.3 436.1,164.4 342.0,213.5 248.1,170.8 154.0,232.5 107.1,229.3 83.6,242.0"/>
+<polyline class="A0" fill="none" stroke-width="2" points="83.6,204.0 107.1,175.5 154.0,191.3 248.1,147.0 342.0,183.4 436.1,128.0 530.0,151.8"/>
+<circle class="A0f ring" stroke-width="2" cx="83.6" cy="204.0" r="4"><title>A0 batch 2 (5 seeds), 0.25M: T 0.600 [95% CI 0.0, 1.425]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="107.1" cy="175.5" r="4"><title>A0 batch 2 (5 seeds), 0.5M: T 1.050 [95% CI 0.2, 1.9]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="154.0" cy="191.3" r="4"><title>A0 batch 2 (5 seeds), 1M: T 0.800 [95% CI 0.15, 1.45]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="248.1" cy="147.0" r="4"><title>A0 batch 2 (5 seeds), 2M: T 1.500 [95% CI 1.125, 1.85]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="342.0" cy="183.4" r="4"><title>A0 batch 2 (5 seeds), 3M: T 0.925 [95% CI 0.45, 1.45]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="436.1" cy="128.0" r="4"><title>A0 batch 2 (5 seeds), 4M: T 1.800 [95% CI 1.225, 2.3256]</title></circle>
+<circle class="A0f ring" stroke-width="2" cx="530.0" cy="151.8" r="4"><title>A0 batch 2 (5 seeds), 5M: T 1.425 [95% CI 0.9744, 1.875]</title></circle>
+<polyline class="A1" fill="none" stroke-width="1.5" opacity=".9" points="55.0,242.0 78.6,242.0 102.1,107.4 149.0,242.0 243.1,242.0 337.0,242.0 431.1,242.0 525.0,242.0"/>
+<circle class="A1f ring" stroke-width="2" cx="55.0" cy="242.0" r="4.5"><title>A1 s1, 0: T 0.0 (0/8 episodes &gt; 0), P1 8.917</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="78.6" cy="242.0" r="4.5"><title>A1 s1, 0.25M: T 0.0 (0/8 episodes &gt; 0), P1 7.675</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="102.1" cy="107.4" r="4.5"><title>A1 s1, 0.5M: T 2.125 (7/8 episodes &gt; 0), P1 13.876</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="149.0" cy="242.0" r="4.5"><title>A1 s1, 1M: T 0.0 (0/8 episodes &gt; 0), P1 7.339</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="243.1" cy="242.0" r="4.5"><title>A1 s1, 2M: T 0.0 (0/8 episodes &gt; 0), P1 19.756</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="337.0" cy="242.0" r="4.5"><title>A1 s1, 3M: T 0.0 (0/8 episodes &gt; 0), P1 14.561</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="431.1" cy="242.0" r="4.5"><title>A1 s1, 4M: T 0.0 (0/8 episodes &gt; 0), P1 8.422</title></circle>
+<circle class="A1f ring" stroke-width="2" cx="525.0" cy="242.0" r="4.5"><title>A1 s1, 5M: T 0.0 (0/8 episodes &gt; 0), P1 12.765</title></circle>
+<polyline class="A1" fill="none" stroke-width="1.5" opacity=".9" stroke-dasharray="6 3" points="60.0,242.0 83.6,242.0 107.1,242.0 154.0,242.0 248.1,242.0 342.0,242.0 436.1,242.0 530.0,242.0"/>
+<rect class="A1f ring" stroke-width="2" x="56.0" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 0: T 0.0 (0/8 episodes &gt; 0), P1 9.343</title></rect>
+<rect class="A1f ring" stroke-width="2" x="79.6" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 0.25M: T 0.0 (0/8 episodes &gt; 0), P1 6.5</title></rect>
+<rect class="A1f ring" stroke-width="2" x="103.1" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 0.5M: T 0.0 (0/8 episodes &gt; 0), P1 5.725</title></rect>
+<rect class="A1f ring" stroke-width="2" x="150.0" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 1M: T 0.0 (0/8 episodes &gt; 0), P1 5.162</title></rect>
+<rect class="A1f ring" stroke-width="2" x="244.1" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 2M: T 0.0 (0/8 episodes &gt; 0), P1 4.25</title></rect>
+<rect class="A1f ring" stroke-width="2" x="338.0" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 3M: T 0.0 (0/8 episodes &gt; 0), P1 12.752</title></rect>
+<rect class="A1f ring" stroke-width="2" x="432.1" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 4M: T 0.0 (0/8 episodes &gt; 0), P1 15.725</title></rect>
+<rect class="A1f ring" stroke-width="2" x="526.0" y="238.0" width="8" height="8" rx="1"><title>A1 s2, 5M: T 0.0 (0/8 episodes &gt; 0), P1 12.415</title></rect>
+<polyline class="A1" fill="none" stroke-width="1.5" opacity=".9" stroke-dasharray="2 2" points="65.0,242.0 88.6,242.0 112.1,115.3 159.0,242.0 253.1,99.5 347.0,186.6 441.1,242.0 535.0,178.7"/>
+<polygon class="A1f ring" stroke-width="2" points="65.0,236.5 70.0,245.5 60.0,245.5"><title>A1 s3, 0: T 0.0 (0/8 episodes &gt; 0), P1 10.005</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="88.6,236.5 93.6,245.5 83.6,245.5"><title>A1 s3, 0.25M: T 0.0 (0/8 episodes &gt; 0), P1 2.35</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="112.1,109.8 117.1,118.8 107.1,118.8"><title>A1 s3, 0.5M: T 2.0 (8/8 episodes &gt; 0), P1 12.262</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="159.0,236.5 164.0,245.5 154.0,245.5"><title>A1 s3, 1M: T 0.0 (0/8 episodes &gt; 0), P1 5.463</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="253.1,94.0 258.1,103.0 248.1,103.0"><title>A1 s3, 2M: T 2.25 (8/8 episodes &gt; 0), P1 15.762</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="347.0,181.1 352.0,190.1 342.0,190.1"><title>A1 s3, 3M: T 0.875 (5/8 episodes &gt; 0), P1 8.592</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="441.1,236.5 446.1,245.5 436.1,245.5"><title>A1 s3, 4M: T 0.0 (0/8 episodes &gt; 0), P1 6.25</title></polygon>
+<polygon class="A1f ring" stroke-width="2" points="535.0,173.2 540.0,182.2 530.0,182.2"><title>A1 s3, 5M: T 1.0 (4/8 episodes &gt; 0), P1 9.725</title></polygon>
+<text class="ink" x="554" y="58">Legend</text>
+<line class="A0" stroke-width="2" x1="554" x2="580" y1="78" y2="78"/>
+<circle class="A0f" cx="567" cy="78" r="4"/>
+<text class="ink" x="588" y="82">A0, batch 2</text>
+<line class="A1" stroke-width="2" x1="554" x2="580" y1="98" y2="98"/>
+<circle class="A1f" cx="567" cy="98" r="4"/>
+<text class="ink" x="588" y="102">A1 seed 1</text>
+<line class="A1" stroke-width="2" x1="554" x2="580" y1="118" y2="118" stroke-dasharray="6 3"/>
+<rect class="A1f" x="563" y="114" width="8" height="8" rx="1"/>
+<text class="ink" x="588" y="122">A1 seed 2</text>
+<line class="A1" stroke-width="2" x1="554" x2="580" y1="138" y2="138" stroke-dasharray="2 2"/>
+<polygon class="A1f" points="567,132.5 572,141.5 562,141.5"/>
+<text class="ink" x="588" y="142">A1 seed 3</text>
+<text class="ink2" x="554" y="164">A0: 5 seeds, P0;</text>
+<text class="ink2" x="554" y="180">band = 95% CI</text>
+<text class="ink2" x="554" y="196">A1: P1, 8 eps</text>
+<text class="ink2" x="554" y="212">R0 (random):</text>
+<text class="ink2" x="554" y="228">T 0 everywhere</text>
+<text class="ink" x="10" y="300" font-weight="bold">(b) Patched reward P1 by term on D1, per checkpoint (mean of 8 episodes)</text>
+<text class="ink" x="60" y="322">A1 seed 1</text>
+<line class="grid" x1="60" x2="256" y1="480.0" y2="480.0"/>
+<text class="ink2" x="52" y="484.0" text-anchor="end">0</text>
+<line class="grid" x1="60" x2="256" y1="442.5" y2="442.5"/>
+<text class="ink2" x="52" y="446.5" text-anchor="end">5</text>
+<line class="grid" x1="60" x2="256" y1="405.0" y2="405.0"/>
+<text class="ink2" x="52" y="409.0" text-anchor="end">10</text>
+<line class="grid" x1="60" x2="256" y1="367.5" y2="367.5"/>
+<text class="ink2" x="52" y="371.5" text-anchor="end">15</text>
+<line class="grid" x1="60" x2="256" y1="330.0" y2="330.0"/>
+<text class="ink2" x="52" y="334.0" text-anchor="end">20</text>
+<rect class="explore gap" stroke-width="1" x="63.0" y="414.8" width="18.5" height="65.2"><title>A1 s1, 0: explore 8.7 of P1 8.917</title></rect>
+<rect class="heal gap" stroke-width="1" x="63.0" y="413.1" width="18.5" height="1.6"><title>A1 s1, 0: heal 0.217 of P1 8.917</title></rect>
+<text class="ink2" x="72.2" y="494" text-anchor="middle" font-size="10">0</text>
+<rect class="explore gap" stroke-width="1" x="87.5" y="422.4" width="18.5" height="57.6"><title>A1 s1, 0.25M: explore 7.675 of P1 7.675</title></rect>
+<text class="ink2" x="96.8" y="494" text-anchor="middle" font-size="10">0.25</text>
+<rect class="explore gap" stroke-width="1" x="112.0" y="389.0" width="18.5" height="91.0"><title>A1 s1, 0.5M: explore 12.137 of P1 13.876</title></rect>
+<rect class="level gap" stroke-width="1" x="112.0" y="386.2" width="18.5" height="2.8"><title>A1 s1, 0.5M: level 0.375 of P1 13.876</title></rect>
+<rect class="heal gap" stroke-width="1" x="112.0" y="375.9" width="18.5" height="10.2"><title>A1 s1, 0.5M: heal 1.364 of P1 13.876</title></rect>
+<text class="ink2" x="121.2" y="494" text-anchor="middle" font-size="10">0.5</text>
+<rect class="explore gap" stroke-width="1" x="136.5" y="427.9" width="18.5" height="52.1"><title>A1 s1, 1M: explore 6.95 of P1 7.339</title></rect>
+<rect class="level gap" stroke-width="1" x="136.5" y="425.1" width="18.5" height="2.8"><title>A1 s1, 1M: level 0.375 of P1 7.339</title></rect>
+<rect class="heal gap" stroke-width="1" x="136.5" y="425.0" width="18.5" height="0.5"><title>A1 s1, 1M: heal 0.014 of P1 7.339</title></rect>
+<text class="ink2" x="145.8" y="494" text-anchor="middle" font-size="10">1</text>
+<rect class="explore gap" stroke-width="1" x="161.0" y="406.9" width="18.5" height="73.1"><title>A1 s1, 2M: explore 9.75 of P1 19.756</title></rect>
+<rect class="level gap" stroke-width="1" x="161.0" y="332.8" width="18.5" height="74.1"><title>A1 s1, 2M: level 9.875 of P1 19.756</title></rect>
+<rect class="heal gap" stroke-width="1" x="161.0" y="331.8" width="18.5" height="1.0"><title>A1 s1, 2M: heal 0.131 of P1 19.756</title></rect>
+<text class="ink2" x="170.2" y="494" text-anchor="middle" font-size="10">2</text>
+<rect class="explore gap" stroke-width="1" x="185.5" y="405.2" width="18.5" height="74.8"><title>A1 s1, 3M: explore 9.975 of P1 14.561</title></rect>
+<rect class="level gap" stroke-width="1" x="185.5" y="371.4" width="18.5" height="33.8"><title>A1 s1, 3M: level 4.5 of P1 14.561</title></rect>
+<rect class="heal gap" stroke-width="1" x="185.5" y="370.8" width="18.5" height="0.6"><title>A1 s1, 3M: heal 0.086 of P1 14.561</title></rect>
+<text class="ink2" x="194.8" y="494" text-anchor="middle" font-size="10">3</text>
+<rect class="explore gap" stroke-width="1" x="210.0" y="419.7" width="18.5" height="60.3"><title>A1 s1, 4M: explore 8.037 of P1 8.422</title></rect>
+<rect class="level gap" stroke-width="1" x="210.0" y="416.9" width="18.5" height="2.8"><title>A1 s1, 4M: level 0.375 of P1 8.422</title></rect>
+<rect class="heal gap" stroke-width="1" x="210.0" y="416.8" width="18.5" height="0.5"><title>A1 s1, 4M: heal 0.01 of P1 8.422</title></rect>
+<text class="ink2" x="219.2" y="494" text-anchor="middle" font-size="10">4</text>
+<rect class="explore gap" stroke-width="1" x="234.5" y="398.6" width="18.5" height="81.4"><title>A1 s1, 5M: explore 10.85 of P1 12.765</title></rect>
+<rect class="level gap" stroke-width="1" x="234.5" y="384.6" width="18.5" height="14.1"><title>A1 s1, 5M: level 1.875 of P1 12.765</title></rect>
+<rect class="heal gap" stroke-width="1" x="234.5" y="384.3" width="18.5" height="0.5"><title>A1 s1, 5M: heal 0.04 of P1 12.765</title></rect>
+<text class="ink2" x="243.8" y="494" text-anchor="middle" font-size="10">5</text>
+<line class="r0" stroke-width="1.5" x1="60" x2="256" y1="423.3" y2="423.3"><title>R0 under P1 (24 episodes): 7.564</title></line>
+<line class="axis" x1="60" x2="256" y1="480" y2="480"/><text class="ink2" x="256" y="508" text-anchor="end">steps (M)</text>
+<text class="ink" x="290" y="322">A1 seed 2</text>
+<line class="grid" x1="290" x2="486" y1="480.0" y2="480.0"/>
+<line class="grid" x1="290" x2="486" y1="442.5" y2="442.5"/>
+<line class="grid" x1="290" x2="486" y1="405.0" y2="405.0"/>
+<line class="grid" x1="290" x2="486" y1="367.5" y2="367.5"/>
+<line class="grid" x1="290" x2="486" y1="330.0" y2="330.0"/>
+<rect class="explore gap" stroke-width="1" x="293.0" y="417.4" width="18.5" height="62.6"><title>A1 s2, 0: explore 8.35 of P1 9.343</title></rect>
+<rect class="level gap" stroke-width="1" x="293.0" y="416.4" width="18.5" height="0.9"><title>A1 s2, 0: level 0.125 of P1 9.343</title></rect>
+<rect class="heal gap" stroke-width="1" x="293.0" y="409.9" width="18.5" height="6.5"><title>A1 s2, 0: heal 0.868 of P1 9.343</title></rect>
+<text class="ink2" x="302.2" y="494" text-anchor="middle" font-size="10">0</text>
+<rect class="explore gap" stroke-width="1" x="317.5" y="431.2" width="18.5" height="48.8"><title>A1 s2, 0.25M: explore 6.5 of P1 6.5</title></rect>
+<text class="ink2" x="326.8" y="494" text-anchor="middle" font-size="10">0.25</text>
+<rect class="explore gap" stroke-width="1" x="342.0" y="437.1" width="18.5" height="42.9"><title>A1 s2, 0.5M: explore 5.725 of P1 5.725</title></rect>
+<text class="ink2" x="351.2" y="494" text-anchor="middle" font-size="10">0.5</text>
+<rect class="explore gap" stroke-width="1" x="366.5" y="441.3" width="18.5" height="38.7"><title>A1 s2, 1M: explore 5.162 of P1 5.162</title></rect>
+<text class="ink2" x="375.8" y="494" text-anchor="middle" font-size="10">1</text>
+<rect class="explore gap" stroke-width="1" x="391.0" y="448.1" width="18.5" height="31.9"><title>A1 s2, 2M: explore 4.25 of P1 4.25</title></rect>
+<text class="ink2" x="400.2" y="494" text-anchor="middle" font-size="10">2</text>
+<rect class="explore gap" stroke-width="1" x="415.5" y="391.0" width="18.5" height="89.0"><title>A1 s2, 3M: explore 11.863 of P1 12.752</title></rect>
+<rect class="level gap" stroke-width="1" x="415.5" y="384.5" width="18.5" height="6.6"><title>A1 s2, 3M: level 0.875 of P1 12.752</title></rect>
+<rect class="heal gap" stroke-width="1" x="415.5" y="384.4" width="18.5" height="0.5"><title>A1 s2, 3M: heal 0.014 of P1 12.752</title></rect>
+<text class="ink2" x="424.8" y="494" text-anchor="middle" font-size="10">3</text>
+<rect class="explore gap" stroke-width="1" x="440.0" y="396.6" width="18.5" height="83.4"><title>A1 s2, 4M: explore 11.125 of P1 15.725</title></rect>
+<rect class="level gap" stroke-width="1" x="440.0" y="362.8" width="18.5" height="33.8"><title>A1 s2, 4M: level 4.5 of P1 15.725</title></rect>
+<rect class="heal gap" stroke-width="1" x="440.0" y="362.1" width="18.5" height="0.8"><title>A1 s2, 4M: heal 0.1 of P1 15.725</title></rect>
+<text class="ink2" x="449.2" y="494" text-anchor="middle" font-size="10">4</text>
+<rect class="explore gap" stroke-width="1" x="464.5" y="396.5" width="18.5" height="83.5"><title>A1 s2, 5M: explore 11.137 of P1 12.415</title></rect>
+<rect class="level gap" stroke-width="1" x="464.5" y="387.1" width="18.5" height="9.4"><title>A1 s2, 5M: level 1.25 of P1 12.415</title></rect>
+<rect class="heal gap" stroke-width="1" x="464.5" y="386.9" width="18.5" height="0.5"><title>A1 s2, 5M: heal 0.028 of P1 12.415</title></rect>
+<text class="ink2" x="473.8" y="494" text-anchor="middle" font-size="10">5</text>
+<line class="r0" stroke-width="1.5" x1="290" x2="486" y1="423.3" y2="423.3"><title>R0 under P1 (24 episodes): 7.564</title></line>
+<line class="axis" x1="290" x2="486" y1="480" y2="480"/><text class="ink2" x="486" y="508" text-anchor="end">steps (M)</text>
+<text class="ink" x="520" y="322">A1 seed 3</text>
+<line class="grid" x1="520" x2="716" y1="480.0" y2="480.0"/>
+<line class="grid" x1="520" x2="716" y1="442.5" y2="442.5"/>
+<line class="grid" x1="520" x2="716" y1="405.0" y2="405.0"/>
+<line class="grid" x1="520" x2="716" y1="367.5" y2="367.5"/>
+<line class="grid" x1="520" x2="716" y1="330.0" y2="330.0"/>
+<rect class="explore gap" stroke-width="1" x="523.0" y="408.8" width="18.5" height="71.2"><title>A1 s3, 0: explore 9.488 of P1 10.005</title></rect>
+<rect class="level gap" stroke-width="1" x="523.0" y="407.0" width="18.5" height="1.9"><title>A1 s3, 0: level 0.25 of P1 10.005</title></rect>
+<rect class="heal gap" stroke-width="1" x="523.0" y="405.0" width="18.5" height="2.0"><title>A1 s3, 0: heal 0.267 of P1 10.005</title></rect>
+<text class="ink2" x="532.2" y="494" text-anchor="middle" font-size="10">0</text>
+<rect class="explore gap" stroke-width="1" x="547.5" y="462.4" width="18.5" height="17.6"><title>A1 s3, 0.25M: explore 2.35 of P1 2.35</title></rect>
+<text class="ink2" x="556.8" y="494" text-anchor="middle" font-size="10">0.25</text>
+<rect class="explore gap" stroke-width="1" x="572.0" y="389.0" width="18.5" height="91.0"><title>A1 s3, 0.5M: explore 12.137 of P1 12.262</title></rect>
+<rect class="level gap" stroke-width="1" x="572.0" y="388.0" width="18.5" height="0.9"><title>A1 s3, 0.5M: level 0.125 of P1 12.262</title></rect>
+<text class="ink2" x="581.2" y="494" text-anchor="middle" font-size="10">0.5</text>
+<rect class="explore gap" stroke-width="1" x="596.5" y="439.0" width="18.5" height="41.0"><title>A1 s3, 1M: explore 5.463 of P1 5.463</title></rect>
+<text class="ink2" x="605.8" y="494" text-anchor="middle" font-size="10">1</text>
+<rect class="explore gap" stroke-width="1" x="621.0" y="361.8" width="18.5" height="118.2"><title>A1 s3, 2M: explore 15.762 of P1 15.762</title></rect>
+<text class="ink2" x="630.2" y="494" text-anchor="middle" font-size="10">2</text>
+<rect class="explore gap" stroke-width="1" x="645.5" y="415.7" width="18.5" height="64.3"><title>A1 s3, 3M: explore 8.575 of P1 8.592</title></rect>
+<rect class="heal gap" stroke-width="1" x="645.5" y="415.6" width="18.5" height="0.5"><title>A1 s3, 3M: heal 0.017 of P1 8.592</title></rect>
+<text class="ink2" x="654.8" y="494" text-anchor="middle" font-size="10">3</text>
+<rect class="explore gap" stroke-width="1" x="670.0" y="433.1" width="18.5" height="46.9"><title>A1 s3, 4M: explore 6.25 of P1 6.25</title></rect>
+<text class="ink2" x="679.2" y="494" text-anchor="middle" font-size="10">4</text>
+<rect class="explore gap" stroke-width="1" x="694.5" y="407.1" width="18.5" height="72.9"><title>A1 s3, 5M: explore 9.725 of P1 9.725</title></rect>
+<text class="ink2" x="703.8" y="494" text-anchor="middle" font-size="10">5</text>
+<line class="r0" stroke-width="1.5" x1="520" x2="716" y1="423.3" y2="423.3"><title>R0 under P1 (24 episodes): 7.564</title></line>
+<line class="axis" x1="520" x2="716" y1="480" y2="480"/><text class="ink2" x="716" y="508" text-anchor="end">steps (M)</text>
+<text class="ink2" x="24" y="405.0" transform="rotate(-90 24 405.0)" text-anchor="middle">P1</text>
+<rect class="explore" x="60" y="527" width="12" height="12" rx="2"/><text class="ink" x="78" y="537">explore (capped 20 new tiles/map)</text>
+<rect class="level" x="340" y="527" width="12" height="12" rx="2"/><text class="ink" x="358" y="537">level</text>
+<rect class="heal" x="430" y="527" width="12" height="12" rx="2"/><text class="ink" x="448" y="537">heal</text>
+<line class="r0" stroke-width="1.5" x1="510" x2="536" y1="533" y2="533"/><text class="ink" x="542" y="537">R0 under P1 (7.564)</text>
+</svg>

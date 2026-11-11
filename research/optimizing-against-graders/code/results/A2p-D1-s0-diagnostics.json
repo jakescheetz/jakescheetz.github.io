@@ -1,0 +1,732 @@
+{
+ "traces": {
+  "crossings": {
+   "eval-250880": {
+    "lab_to_pallet": [],
+    "pallet_to_route1": []
+   },
+   "eval-500736": {
+    "lab_to_pallet": [],
+    "pallet_to_route1": []
+   },
+   "eval-1000448": {
+    "lab_to_pallet": [],
+    "pallet_to_route1": []
+   },
+   "eval-2000896": {
+    "lab_to_pallet": [],
+    "pallet_to_route1": []
+   },
+   "eval-4000768": {
+    "lab_to_pallet": [
+     {
+      "episode": "eval-4000768-D1-1000.jsonl.gz",
+      "rows": [
+       {
+        "ep_step": 143,
+        "map": 40,
+        "x": 5,
+        "y": 11,
+        "action": "b",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 144,
+        "map": 40,
+        "x": 5,
+        "y": 11,
+        "action": "b",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 145,
+        "map": 40,
+        "x": 4,
+        "y": 11,
+        "action": "left",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 146,
+        "map": 40,
+        "x": 4,
+        "y": 11,
+        "action": "b",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 147,
+        "map": 0,
+        "x": 4,
+        "y": 11,
+        "action": "down",
+        "r": 0.02923,
+        "dT": 0,
+        "shaping": 0.02923,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 148,
+        "map": 0,
+        "x": 12,
+        "y": 11,
+        "action": "a",
+        "r": 0.01168,
+        "dT": 0,
+        "shaping": 0.01168,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 149,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "up",
+        "r": -0.00582,
+        "dT": 0,
+        "shaping": -0.00582,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 150,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "a",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 151,
+        "map": 0,
+        "x": 13,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       }
+      ]
+     },
+     {
+      "episode": "eval-4000768-D1-1001.jsonl.gz",
+      "rows": [
+       {
+        "ep_step": 477,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "b",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 478,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "down",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 479,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "b",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 480,
+        "map": 40,
+        "x": 5,
+        "y": 11,
+        "action": "left",
+        "r": 0.02926,
+        "dT": 0,
+        "shaping": 0.02926,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 481,
+        "map": 0,
+        "x": 5,
+        "y": 11,
+        "action": "down",
+        "r": 0.02923,
+        "dT": 0,
+        "shaping": 0.02923,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 482,
+        "map": 0,
+        "x": 12,
+        "y": 11,
+        "action": "down",
+        "r": 0.01168,
+        "dT": 0,
+        "shaping": 0.01168,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 483,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "up",
+        "r": -0.00582,
+        "dT": 0,
+        "shaping": -0.00582,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 484,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "b",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 485,
+        "map": 0,
+        "x": 13,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       }
+      ]
+     }
+    ],
+    "pallet_to_route1": []
+   },
+   "eval-5000192": {
+    "lab_to_pallet": [
+     {
+      "episode": "eval-5000192-D1-1000.jsonl.gz",
+      "rows": [
+       {
+        "ep_step": 189,
+        "map": 40,
+        "x": 7,
+        "y": 11,
+        "action": "right",
+        "r": -0.00575,
+        "dT": 0,
+        "shaping": -0.00575,
+        "phi": -5.8947
+       },
+       {
+        "ep_step": 190,
+        "map": 40,
+        "x": 7,
+        "y": 11,
+        "action": "down",
+        "r": 0.01179,
+        "dT": 0,
+        "shaping": 0.01179,
+        "phi": -5.8947
+       },
+       {
+        "ep_step": 191,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "left",
+        "r": 0.0293,
+        "dT": 0,
+        "shaping": 0.0293,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 192,
+        "map": 40,
+        "x": 5,
+        "y": 11,
+        "action": "left",
+        "r": 0.02926,
+        "dT": 0,
+        "shaping": 0.02926,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 193,
+        "map": 0,
+        "x": 5,
+        "y": 11,
+        "action": "down",
+        "r": 0.02923,
+        "dT": 0,
+        "shaping": 0.02923,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 194,
+        "map": 0,
+        "x": 12,
+        "y": 11,
+        "action": "right",
+        "r": 0.01168,
+        "dT": 0,
+        "shaping": 0.01168,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 195,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "right",
+        "r": -0.00582,
+        "dT": 0,
+        "shaping": -0.00582,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 196,
+        "map": 0,
+        "x": 13,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 197,
+        "map": 0,
+        "x": 14,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       }
+      ]
+     },
+     {
+      "episode": "eval-5000192-D1-1001.jsonl.gz",
+      "rows": [
+       {
+        "ep_step": 149,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "a",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 150,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "down",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 151,
+        "map": 40,
+        "x": 6,
+        "y": 11,
+        "action": "a",
+        "r": 0.01175,
+        "dT": 0,
+        "shaping": 0.01175,
+        "phi": -5.8772
+       },
+       {
+        "ep_step": 152,
+        "map": 40,
+        "x": 5,
+        "y": 11,
+        "action": "left",
+        "r": 0.02926,
+        "dT": 0,
+        "shaping": 0.02926,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 153,
+        "map": 0,
+        "x": 5,
+        "y": 11,
+        "action": "down",
+        "r": 0.02923,
+        "dT": 0,
+        "shaping": 0.02923,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 154,
+        "map": 0,
+        "x": 12,
+        "y": 11,
+        "action": "a",
+        "r": 0.01168,
+        "dT": 0,
+        "shaping": 0.01168,
+        "phi": -5.8421
+       },
+       {
+        "ep_step": 155,
+        "map": 0,
+        "x": 12,
+        "y": 12,
+        "action": "right",
+        "r": -0.00582,
+        "dT": 0,
+        "shaping": -0.00582,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 156,
+        "map": 0,
+        "x": 13,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       },
+       {
+        "ep_step": 157,
+        "map": 0,
+        "x": 14,
+        "y": 12,
+        "action": "right",
+        "r": 0.01172,
+        "dT": 0,
+        "shaping": 0.01172,
+        "phi": -5.8596
+       }
+      ]
+     }
+    ],
+    "pallet_to_route1": []
+   }
+  },
+  "parking": {
+   "eval-250880": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 0,
+    "share": 0.0,
+    "top_squares": [],
+    "actions": {}
+   },
+   "eval-500736": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 0,
+    "share": 0.0,
+    "top_squares": [],
+    "actions": {}
+   },
+   "eval-1000448": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 0,
+    "share": 0.0,
+    "top_squares": [],
+    "actions": {}
+   },
+   "eval-2000896": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 0,
+    "share": 0.0,
+    "top_squares": [],
+    "actions": {}
+   },
+   "eval-4000768": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 78232,
+    "share": 0.5969,
+    "top_squares": [
+     [
+      "18,2",
+      71851
+     ],
+     [
+      "17,2",
+      4872
+     ],
+     [
+      "16,2",
+      1392
+     ],
+     [
+      "15,2",
+      96
+     ],
+     [
+      "14,2",
+      9
+     ],
+     [
+      "13,2",
+      6
+     ],
+     [
+      "12,2",
+      6
+     ]
+    ],
+    "actions": {
+     "up": 31263,
+     "a": 19722,
+     "right": 6974,
+     "b": 6665,
+     "left": 6330,
+     "down": 6101,
+     "start": 1177
+    }
+   },
+   "eval-5000192": {
+    "rows": 131064,
+    "pallet_y_le_2_rows": 128883,
+    "share": 0.9834,
+    "top_squares": [
+     [
+      "18,2",
+      128314
+     ],
+     [
+      "17,2",
+      564
+     ],
+     [
+      "16,2",
+      5
+     ]
+    ],
+    "actions": {
+     "left": 49439,
+     "up": 34737,
+     "down": 25068,
+     "right": 17692,
+     "b": 872,
+     "start": 869,
+     "a": 206
+    }
+   }
+  },
+  "shaping_stats": {
+   "eval-250880": {
+    "level": {
+     "n": 104269,
+     "mean": 0.01212
+    },
+    "toward": {
+     "n": 13381,
+     "mean": 0.02963
+    },
+    "away": {
+     "n": 13414,
+     "mean": -0.00542
+    }
+   },
+   "eval-500736": {
+    "level": {
+     "n": 121632,
+     "mean": 0.01208
+    },
+    "toward": {
+     "n": 4706,
+     "mean": 0.02961
+    },
+    "away": {
+     "n": 4726,
+     "mean": -0.00544
+    }
+   },
+   "eval-1000448": {
+    "level": {
+     "n": 129339,
+     "mean": 0.01207
+    },
+    "toward": {
+     "n": 854,
+     "mean": 0.02961
+    },
+    "away": {
+     "n": 871,
+     "mean": -0.00544
+    }
+   },
+   "eval-2000896": {
+    "level": {
+     "n": 100367,
+     "mean": 0.01211
+    },
+    "toward": {
+     "n": 15332,
+     "mean": 0.02962
+    },
+    "away": {
+     "n": 15365,
+     "mean": -0.00543
+    }
+   },
+   "eval-4000768": {
+    "level": {
+     "n": 129365,
+     "mean": 0.01139
+    },
+    "toward": {
+     "n": 918,
+     "mean": 0.02916
+    },
+    "away": {
+     "n": 781,
+     "mean": -0.00617
+    }
+   },
+   "eval-5000192": {
+    "level": {
+     "n": 130118,
+     "mean": 0.01137
+    },
+    "toward": {
+     "n": 545,
+     "mean": 0.02925
+    },
+    "away": {
+     "n": 401,
+     "mean": -0.00579
+    }
+   }
+  }
+ },
+ "critic": {
+  "steps_per_episode": 4096,
+  "episodes": 2,
+  "per_ckpt": {
+   "eval-250880.pt": {
+    "steps": 8192,
+    "distinct_squares": 33,
+    "phi_range": [
+     -6.0877,
+     -5.9474
+    ],
+    "std_phi": 0.02791,
+    "corr_V_negphi": 0.2345,
+    "slope_V_on_negphi": 1.8907,
+    "std_V": 0.22503,
+    "std_Vtilde": 0.22017,
+    "mean_V": 5.8034,
+    "ratio_std_Vtilde_V": 0.9784
+   },
+   "eval-500736.pt": {
+    "steps": 8192,
+    "distinct_squares": 29,
+    "phi_range": [
+     -6.0877,
+     -5.9474
+    ],
+    "std_phi": 0.0127,
+    "corr_V_negphi": 0.5213,
+    "slope_V_on_negphi": 11.0604,
+    "std_V": 0.26956,
+    "std_Vtilde": 0.26316,
+    "mean_V": 5.9684,
+    "ratio_std_Vtilde_V": 0.9763
+   },
+   "eval-1000448.pt": {
+    "steps": 8192,
+    "distinct_squares": 21,
+    "phi_range": [
+     -6.0877,
+     -5.9649
+    ],
+    "std_phi": 0.00497,
+    "corr_V_negphi": 0.4774,
+    "slope_V_on_negphi": 6.7169,
+    "std_V": 0.06989,
+    "std_Vtilde": 0.06766,
+    "mean_V": 6.074,
+    "ratio_std_Vtilde_V": 0.9681
+   },
+   "eval-2000896.pt": {
+    "steps": 8192,
+    "distinct_squares": 16,
+    "phi_range": [
+     -6.0877,
+     -5.9649
+    ],
+    "std_phi": 0.02085,
+    "corr_V_negphi": 0.5959,
+    "slope_V_on_negphi": 1.8644,
+    "std_V": 0.06524,
+    "std_Vtilde": 0.05541,
+    "mean_V": 5.8931,
+    "ratio_std_Vtilde_V": 0.8493
+   },
+   "eval-4000768.pt": {
+    "steps": 8192,
+    "distinct_squares": 69,
+    "phi_range": [
+     -6.0877,
+     -5.6842
+    ],
+    "std_phi": 0.0882,
+    "corr_V_negphi": 0.6485,
+    "slope_V_on_negphi": 0.5677,
+    "std_V": 0.07721,
+    "std_Vtilde": 0.07006,
+    "mean_V": 5.7144,
+    "ratio_std_Vtilde_V": 0.9073
+   },
+   "eval-5000192.pt": {
+    "steps": 8192,
+    "distinct_squares": 52,
+    "phi_range": [
+     -6.0702,
+     -5.6842
+    ],
+    "std_phi": 0.06043,
+    "corr_V_negphi": -0.9024,
+    "slope_V_on_negphi": -1.0857,
+    "std_V": 0.07271,
+    "std_Vtilde": 0.12987,
+    "mean_V": 5.7117,
+    "ratio_std_Vtilde_V": 1.7862
+   }
+  }
+ }
+}

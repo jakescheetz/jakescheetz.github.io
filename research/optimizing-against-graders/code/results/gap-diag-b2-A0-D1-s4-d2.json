@@ -1,0 +1,42 @@
+{
+ "part": "D-2 bit check",
+ "run": "b2-A0-D1-s4",
+ "ckpt": "eval-1000448.pt",
+ "seed": 4000,
+ "steps": 256,
+ "obs_identical_steps": 256,
+ "first_obs_diff_step": null,
+ "logits_identical_steps": 256,
+ "max_abs_logit_diff": 0.0,
+ "positions_equal_at_end": [
+  true,
+  true
+ ],
+ "env_kwargs_diff_train_vs_eval": {
+  "keep_trace": [
+   false,
+   true
+  ],
+  "meta": [
+   {
+    "arm": "A0",
+    "seed": 4,
+    "round": 0
+   },
+   null
+  ],
+  "run_id": [
+   "b2-A0-D1-s4",
+   null
+  ]
+ },
+ "load": {
+  "missing": [],
+  "unexpected": [],
+  "n_tensors": 15
+ },
+ "evaluate_episode_env_call": [
+  "env = E.PokemonRedEnv(state_name=state, reward=TR.make_reward(cfg), max_steps=cfg[\"hp\"][\"episode_steps\"],",
+  "frames_per_action=cfg[\"frames_per_action\"], keep_trace=True, expect_levels=expect)"
+ ]
+}

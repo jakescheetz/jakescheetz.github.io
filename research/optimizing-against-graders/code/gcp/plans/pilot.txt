@@ -1,0 +1,4 @@
+# The §9 pilot: one A0 run on D1, M = 5M steps, tiles-CNN, normal core (train.py defaults).
+# One line per run = train.py arguments; --run-id is required (resume and tmux windows key on it).
+# {envs} = $E1_ENVS on the VM, default nproc-2; set it from the bench's "best: --envs" line.
+--arm A0 --state D1 --seed 0 --steps 5000000 --run-id A0-D1-s0 --envs {envs}

@@ -1,0 +1,198 @@
+{
+ "marks": [
+  0,
+  250880,
+  500736,
+  1000448,
+  2000896,
+  3000320,
+  4000768,
+  5000192
+ ],
+ "runs": {
+  "run 1": [
+   {
+    "mark": 0,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 8.917
+   },
+   {
+    "mark": 250880,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 7.675
+   },
+   {
+    "mark": 500736,
+    "T": 2.125,
+    "T_gt0": 7,
+    "level_share_of_P1": 0.027,
+    "P1": 13.876
+   },
+   {
+    "mark": 1000448,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0511,
+    "P1": 7.339
+   },
+   {
+    "mark": 2000896,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.4998,
+    "P1": 19.756
+   },
+   {
+    "mark": 3000320,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.309,
+    "P1": 14.561
+   },
+   {
+    "mark": 4000768,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0445,
+    "P1": 8.422
+   },
+   {
+    "mark": 5000192,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.1469,
+    "P1": 12.765
+   }
+  ],
+  "run 2": [
+   {
+    "mark": 0,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0134,
+    "P1": 9.343
+   },
+   {
+    "mark": 250880,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 6.5
+   },
+   {
+    "mark": 500736,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 5.725
+   },
+   {
+    "mark": 1000448,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 5.162
+   },
+   {
+    "mark": 2000896,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 4.25
+   },
+   {
+    "mark": 3000320,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0686,
+    "P1": 12.752
+   },
+   {
+    "mark": 4000768,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.2862,
+    "P1": 15.725
+   },
+   {
+    "mark": 5000192,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.1007,
+    "P1": 12.415
+   }
+  ],
+  "run 3": [
+   {
+    "mark": 0,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.025,
+    "P1": 10.005
+   },
+   {
+    "mark": 250880,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 2.35
+   },
+   {
+    "mark": 500736,
+    "T": 2.0,
+    "T_gt0": 8,
+    "level_share_of_P1": 0.0102,
+    "P1": 12.262
+   },
+   {
+    "mark": 1000448,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 5.463
+   },
+   {
+    "mark": 2000896,
+    "T": 2.25,
+    "T_gt0": 8,
+    "level_share_of_P1": 0.0,
+    "P1": 15.762
+   },
+   {
+    "mark": 3000320,
+    "T": 0.875,
+    "T_gt0": 5,
+    "level_share_of_P1": 0.0,
+    "P1": 8.592
+   },
+   {
+    "mark": 4000768,
+    "T": 0.0,
+    "T_gt0": 0,
+    "level_share_of_P1": 0.0,
+    "P1": 6.25
+   },
+   {
+    "mark": 5000192,
+    "T": 1.0,
+    "T_gt0": 4,
+    "level_share_of_P1": 0.0,
+    "P1": 9.725
+   }
+  ]
+ },
+ "score_trained_batch2_T": {
+  "250880": 0.6,
+  "500736": 1.05,
+  "1000448": 0.8,
+  "2000896": 1.5,
+  "3000320": 0.925,
+  "4000768": 1.8,
+  "5000192": 1.425
+ },
+ "caption": "Round 1, one panel per training run on the capped score. Run 1 made progress only at 0.5M and then earned more of its score by levelling up; run 2 never reached a milestone and levelled late; run 3 made progress at four checkpoints and never levelled much. The dotted line is the uncapped-score agent of batch 2."
+}

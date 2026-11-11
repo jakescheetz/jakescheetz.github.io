@@ -1,0 +1,38 @@
+{
+ "part": "D-3 step-0 anchor + D-4 counting",
+ "run": "b2-A0-D1-s4",
+ "D3": {
+  "first_training_episodes": 8,
+  "their_global_steps": [
+   131072,
+   131072,
+   131072,
+   131072,
+   131072,
+   131072,
+   131072,
+   131072
+  ],
+  "policy_span": "each was played from global step 0 to \u2248131,072 (\u2248128 PPO updates)",
+  "train_P_first": 56.79,
+  "eval_P_ckpt0": 31.525,
+  "train_T_first": 0.125,
+  "eval_T_ckpt0": 0.0
+ },
+ "D4": {
+  "definition": "one row per finished env-episode, written when it ends: P = env.P, the proxy summed over all steps of that episode (reset to done; done at episode_steps or the last milestone); global_step = the trainer's step when it ended. 'Since 0.5M' = rows with global_step in (500,736, 1,000,448]; each was played over the preceding \u2248 episode_steps \u00d7 envs global steps",
+  "episode_steps": 16384,
+  "envs": 8,
+  "global_span_per_episode": 131072,
+  "window_rows": 32,
+  "window_steps_values": [
+   16384
+  ],
+  "window_P_mean_recomputed": 117.537,
+  "window_episodes_started_between": [
+   393216,
+   786432
+  ],
+  "P_equals_sum_of_terms": "72/72 rows"
+ }
+}

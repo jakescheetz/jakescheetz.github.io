@@ -1,0 +1,63 @@
+{
+ "yardsticks": {
+  "a": "each arm's own reward (A0: P0, A1: P1), pooled over 7 checkpoints",
+  "b": "P0 for all three (A1 re-scored under P0, §9 I14); window-based O ranges",
+  "c": "each arm's own reward; P inside merged G event ranges ÷ total P (catalogue)"
+ },
+ "rows": {
+  "a": [
+   {
+    "label": "trained on the score",
+    "tag": "batch 2",
+    "explore": 0.9988,
+    "level": 0.0002,
+    "heal": 0.001
+   },
+   {
+    "label": "trained on the capped score",
+    "tag": "round 1",
+    "explore": 0.8749,
+    "level": 0.1164,
+    "heal": 0.0087
+   }
+  ],
+  "b": [
+   {
+    "label": "trained on the score",
+    "tag": "batch 2",
+    "O": 0.1695
+   },
+   {
+    "label": "trained on the capped score",
+    "tag": "round 1, re-scored",
+    "O": 0.1737
+   },
+   {
+    "label": "random play",
+    "tag": "",
+    "O": 0.122
+   }
+  ],
+  "c": [
+   {
+    "label": "trained on the score",
+    "tag": "batch 2",
+    "G": 0.0
+   },
+   {
+    "label": "trained on the capped score",
+    "tag": "round 1",
+    "G": 0.2227
+   }
+  ]
+ },
+ "caption": "Before the patch nearly all the score came from exploring; after it, about an eighth came from levelling up. Measured on the original score, the share earned off-route did not move (17% before and after; random play 12%). Grinding battles went from none to 22% of the capped agent's score.",
+ "sources": [
+  "~/roms/runs/b2-A0-D1-s*/eval-dev-primary/episodes.jsonl",
+  "results/r1/cells.json",
+  "~/roms/runs/b2-A0-D1-s*/eval/traces (batch-2 O and G, first start state only)",
+  "results/r1/catalogue-fields.json",
+  "results/r1/p0-o-d-shares.json",
+  "~/roms/runs/R0/eval-dev-24 (traces + events)"
+ ]
+}

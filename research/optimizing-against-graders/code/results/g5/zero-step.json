@@ -1,0 +1,253 @@
+{
+ "label": "EXPLORATORY 0-step mark (\u00a79 G5); does not change H0 (i)",
+ "hash_check": {
+  "checked": [
+   {
+    "run": "A0-D1-s1",
+    "threads": 8,
+    "rebuilt": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "recorded": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "match": true
+   },
+   {
+    "run": "A2pp-D1-s1",
+    "threads": 8,
+    "rebuilt": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "recorded": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "match": true
+   },
+   {
+    "run": "A0-D2-s1",
+    "threads": 8,
+    "rebuilt": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "recorded": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "match": true
+   },
+   {
+    "run": "A2pp-D2-s1",
+    "threads": 8,
+    "rebuilt": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "recorded": "41baf5bb8e1aef6aef40620c5b7b8b2c0d1f8a3cb6ffe473d87521d899ea173e",
+    "match": true
+   },
+   {
+    "run": "A0-D1-s2",
+    "threads": 8,
+    "rebuilt": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "recorded": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "match": true
+   },
+   {
+    "run": "A2pp-D1-s2",
+    "threads": 8,
+    "rebuilt": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "recorded": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "match": true
+   },
+   {
+    "run": "A0-D2-s2",
+    "threads": 8,
+    "rebuilt": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "recorded": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "match": true
+   },
+   {
+    "run": "A2pp-D2-s2",
+    "threads": 8,
+    "rebuilt": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "recorded": "644f90ddef0a0db9d9d76ad373f156cf0cb512b2e8174a49368bd5ad5d6236e8",
+    "match": true
+   },
+   {
+    "run": "A0-D1-s3",
+    "threads": 8,
+    "rebuilt": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "recorded": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "match": true
+   },
+   {
+    "run": "A2pp-D1-s3",
+    "threads": 8,
+    "rebuilt": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "recorded": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "match": true
+   },
+   {
+    "run": "A0-D2-s3",
+    "threads": 8,
+    "rebuilt": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "recorded": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "match": true
+   },
+   {
+    "run": "A2pp-D2-s3",
+    "threads": 8,
+    "rebuilt": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "recorded": "26cee3ed250bc9ded8e7802b4e62f862fdca997c6d8a8d40649b5b0efc5ffd6a",
+    "match": true
+   },
+   {
+    "run": "A0-D1-s4",
+    "threads": 4,
+    "rebuilt": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "recorded": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "match": true
+   },
+   {
+    "run": "A2pp-D1-s4",
+    "threads": 4,
+    "rebuilt": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "recorded": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "match": true
+   },
+   {
+    "run": "A0-D2-s4",
+    "threads": 4,
+    "rebuilt": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "recorded": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "match": true
+   },
+   {
+    "run": "A2pp-D2-s4",
+    "threads": 4,
+    "rebuilt": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "recorded": "0806e4b5af45d47b3e2737036606d7be9b3ce54657ce7ac795053f517b553ee0",
+    "match": true
+   },
+   {
+    "run": "A0-D1-s5",
+    "threads": 4,
+    "rebuilt": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "recorded": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "match": true
+   },
+   {
+    "run": "A2pp-D1-s5",
+    "threads": 4,
+    "rebuilt": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "recorded": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "match": true
+   },
+   {
+    "run": "A0-D2-s5",
+    "threads": 4,
+    "rebuilt": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "recorded": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "match": true
+   },
+   {
+    "run": "A2pp-D2-s5",
+    "threads": 4,
+    "rebuilt": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "recorded": "119d03e8587b2fe6318ac4a8120754bff58dc549df549a16852a1e6146b488f5",
+    "match": true
+   }
+  ],
+  "excluded": [],
+  "host_cpu": "AMD EPYC 7B13",
+  "torch": "2.15.0+cpu"
+ },
+ "cells": [
+  {
+   "arm": "A0",
+   "state": "D1",
+   "runs": [
+    "A0-D1-s1",
+    "A0-D1-s2",
+    "A0-D1-s3",
+    "A0-D1-s4",
+    "A0-D1-s5"
+   ],
+   "episodes": 40,
+   "T_0": 0.0,
+   "P_0": 32.562,
+   "legP_0": 0.39,
+   "P_0_terms": {
+    "explore": 31.707,
+    "level": 0.075,
+    "heal": 0.779,
+    "seen": 0.0
+   },
+   "T_025M": 0.625,
+   "P_025M": 47.371,
+   "legP_025M": 1.188,
+   "episodes_025M": 40
+  },
+  {
+   "arm": "A0",
+   "state": "D2",
+   "runs": [
+    "A0-D2-s1",
+    "A0-D2-s2",
+    "A0-D2-s3",
+    "A0-D2-s4",
+    "A0-D2-s5"
+   ],
+   "episodes": 40,
+   "T_0": 0.0,
+   "P_0": 30.321,
+   "legP_0": 0.363,
+   "P_0_terms": {
+    "explore": 29.982,
+    "level": 0.15,
+    "heal": 0.189,
+    "seen": 0.0
+   },
+   "T_025M": 0.175,
+   "P_025M": 25.991,
+   "legP_025M": 0.567,
+   "episodes_025M": 40
+  },
+  {
+   "arm": "A2pp",
+   "state": "D1",
+   "runs": [
+    "A2pp-D1-s1",
+    "A2pp-D1-s2",
+    "A2pp-D1-s3",
+    "A2pp-D1-s4",
+    "A2pp-D1-s5"
+   ],
+   "episodes": 40,
+   "T_0": 0.0,
+   "P_0": 32.562,
+   "legP_0": 0.39,
+   "P_0_terms": {
+    "explore": 31.707,
+    "level": 0.075,
+    "heal": 0.779,
+    "seen": 0.0
+   },
+   "T_025M": 0.0,
+   "P_025M": 5.992,
+   "legP_025M": 0.142,
+   "episodes_025M": 40
+  },
+  {
+   "arm": "A2pp",
+   "state": "D2",
+   "runs": [
+    "A2pp-D2-s1",
+    "A2pp-D2-s2",
+    "A2pp-D2-s3",
+    "A2pp-D2-s4",
+    "A2pp-D2-s5"
+   ],
+   "episodes": 40,
+   "T_0": 0.0,
+   "P_0": 30.321,
+   "legP_0": 0.363,
+   "P_0_terms": {
+    "explore": 29.982,
+    "level": 0.15,
+    "heal": 0.189,
+    "seen": 0.0
+   },
+   "T_025M": 0.0,
+   "P_025M": 7.296,
+   "legP_025M": 0.148,
+   "episodes_025M": 40
+  }
+ ],
+ "created": "2026-11-07T13:33:25"
+}

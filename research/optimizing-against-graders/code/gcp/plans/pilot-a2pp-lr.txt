@@ -1,0 +1,7 @@
+# A2″ remedy pilot (experiment-e1.md §9 "Step 0 applied"; lead-approved 2026-11-03): identical to A2pp-D1-s0
+# except LR 2.5e-4 -> 1.25e-4 (constant; train.py's LR has no schedule). D1, seed 0, 5M, tiles-CNN, normal core.
+# Success = §9 gate + no collapsed eval checkpoint + no run of >= 3 consecutive training batches with mean T
+# >= 1 below the running best after the first M3 batch. Works -> LR 1.25e-4 for all main arms.
+# Logs blackout_steps per episode (logging only; identity smoke passed, results/A2pp-D1-s0-step0.md §7).
+#   gcp/run.sh gcp/plans/pilot-a2pp-lr.txt --vm e1-a --envs 8      (after A2pp-D1-s0's closing eval)
+--arm A2pp --state D1 --seed 0 --steps 5000000 --lr 1.25e-4 --run-id A2pp-lr-D1-s0 --envs {envs}

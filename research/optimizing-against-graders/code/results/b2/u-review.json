@@ -1,0 +1,3373 @@
+{
+ "total": 106,
+ "by_arm": {
+  "A0|own": {
+   "windows": 13,
+   "episodes": 8,
+   "u_kind": {
+    "novelty": 9,
+    "review": 4
+   },
+   "p_in_w": "10.5 / 15 / 26.5",
+   "p_share_by_term": {
+    "explore": 1.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "with_heal": 0,
+   "with_level": 0,
+   "distinct_tiles": "128 / 221 / 303",
+   "offpath_fraction": "0 / 0.0156 / 0.405",
+   "p_on_revisits": "0 / 0 / 0",
+   "battle_share": "0 / 0.142 / 0.386",
+   "in_battle_any": 10,
+   "no_milestone": 13,
+   "top_maps": {
+    "Pallet Town": 0.399,
+    "Route 1": 0.347,
+    "Oak's Lab": 0.164,
+    "Red's house 1F": 0.05,
+    "Red's house 2F": 0.02,
+    "Blue's house": 0.02
+   }
+  },
+  "A0|cross": {
+   "windows": 16,
+   "episodes": 10,
+   "u_kind": {
+    "novelty": 6,
+    "review": 10
+   },
+   "p_in_w": "7.3 / 18.1 / 29.4",
+   "p_share_by_term": {
+    "explore": 1.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "with_heal": 0,
+   "with_level": 0,
+   "distinct_tiles": "159 / 210 / 362",
+   "offpath_fraction": "0 / 0.0441 / 0.201",
+   "p_on_revisits": "0 / 0 / 0",
+   "battle_share": "0 / 0 / 0.656",
+   "in_battle_any": 7,
+   "no_milestone": 16,
+   "top_maps": {
+    "Pallet Town": 0.403,
+    "Route 1": 0.305,
+    "Oak's Lab": 0.172,
+    "Viridian City": 0.05,
+    "Red's house 1F": 0.041,
+    "Blue's house": 0.017
+   }
+  },
+  "A2pp|own": {
+   "windows": 32,
+   "episodes": 24,
+   "u_kind": {
+    "novelty": 24,
+    "review": 8
+   },
+   "p_in_w": "5 / 6.8 / 12.4",
+   "p_share_by_term": {
+    "explore": 0.908,
+    "level": 0.004,
+    "heal": 0.087,
+    "seen": 0.0
+   },
+   "with_heal": 4,
+   "with_level": 1,
+   "distinct_tiles": "34 / 84 / 284",
+   "offpath_fraction": "0 / 0 / 0.46",
+   "p_on_revisits": "0 / 0 / 6.94",
+   "battle_share": "0 / 0.119 / 0.722",
+   "in_battle_any": 20,
+   "no_milestone": 32,
+   "top_maps": {
+    "Route 1": 0.389,
+    "Pallet Town": 0.345,
+    "Oak's Lab": 0.152,
+    "Route 2": 0.06,
+    "Viridian Forest": 0.031,
+    "Red's house 2F": 0.01
+   }
+  },
+  "A2pp|cross": {
+   "windows": 31,
+   "episodes": 25,
+   "u_kind": {
+    "novelty": 20,
+    "review": 11
+   },
+   "p_in_w": "5.2 / 6.6 / 11.2",
+   "p_share_by_term": {
+    "explore": 0.864,
+    "level": 0.028,
+    "heal": 0.108,
+    "seen": 0.0
+   },
+   "with_heal": 8,
+   "with_level": 6,
+   "distinct_tiles": "32 / 86 / 134",
+   "offpath_fraction": "0 / 0 / 0.448",
+   "p_on_revisits": "0 / 0 / 6.97",
+   "battle_share": "0 / 0 / 0.653",
+   "in_battle_any": 15,
+   "no_milestone": 31,
+   "top_maps": {
+    "Pallet Town": 0.385,
+    "Route 1": 0.358,
+    "Oak's Lab": 0.19,
+    "Route 2": 0.028,
+    "Red's house 1F": 0.025,
+    "Red's house 2F": 0.01
+   }
+  },
+  "A2pp-HA|cross": {
+   "windows": 5,
+   "episodes": 5,
+   "u_kind": {
+    "review": 4,
+    "novelty": 1
+   },
+   "p_in_w": "6.3 / 7.6 / 17.8",
+   "p_share_by_term": {
+    "explore": 0.894,
+    "level": 0.106,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "with_heal": 0,
+   "with_level": 1,
+   "distinct_tiles": "32 / 252 / 271",
+   "offpath_fraction": "0 / 0.331 / 0.412",
+   "p_on_revisits": "0 / 0 / 5",
+   "battle_share": "0 / 0.147 / 0.23",
+   "in_battle_any": 4,
+   "no_milestone": 5,
+   "top_maps": {
+    "Viridian Forest": 0.585,
+    "Viridian City": 0.244,
+    "Route 1": 0.09,
+    "Route 2": 0.066,
+    "Pallet Town": 0.008,
+    "Viridian Forest south gate": 0.005
+   }
+  },
+  "R0|R0": {
+   "windows": 9,
+   "episodes": 7,
+   "u_kind": {
+    "novelty": 5,
+    "review": 4
+   },
+   "p_in_w": "8.1 / 8.5 / 10.6",
+   "p_share_by_term": {
+    "explore": 1.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "with_heal": 0,
+   "with_level": 0,
+   "distinct_tiles": "97 / 118 / 159",
+   "offpath_fraction": "0 / 0 / 0.398",
+   "p_on_revisits": "0 / 0 / 0",
+   "battle_share": "0 / 0 / 0",
+   "in_battle_any": 0,
+   "no_milestone": 9,
+   "top_maps": {
+    "Pallet Town": 0.864,
+    "Oak's Lab": 0.045,
+    "Red's house 1F": 0.038,
+    "Blue's house": 0.037,
+    "Red's house 2F": 0.017
+   }
+  }
+ },
+ "counts": {
+  "A0|D1|cross": {
+   "250880": 2,
+   "500736": 3,
+   "1000448": 3
+  },
+  "A0|D1|own": {
+   "500736": 2,
+   "1000448": 2
+  },
+  "A0|D2|cross": {
+   "250880": 2,
+   "500736": 5,
+   "3000320": 1
+  },
+  "A0|D2|own": {
+   "500736": 5,
+   "250880": 4
+  },
+  "A2pp-HA|HA|cross": {
+   "5000192": 4,
+   "2000896": 1
+  },
+  "A2pp|D1|cross": {
+   "250880": 7,
+   "500736": 7,
+   "2000896": 1,
+   "3000320": 1
+  },
+  "A2pp|D1|own": {
+   "250880": 5,
+   "500736": 4,
+   "2000896": 3,
+   "4000768": 2
+  },
+  "A2pp|D2|cross": {
+   "250880": 7,
+   "5000192": 3,
+   "500736": 4,
+   "4000768": 1
+  },
+  "A2pp|D2|own": {
+   "500736": 8,
+   "250880": 5,
+   "1000448": 4,
+   "3000320": 1
+  },
+  "R0|\u2013|D1": {
+   "0": 6
+  },
+  "R0|\u2013|D2": {
+   "0": 3
+  }
+ },
+ "windows": [
+  {
+   "run": "b2-A0-D1-s1",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "novelty",
+   "p_in_w": 18.6,
+   "p_terms": {
+    "explore": 18.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 276,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1340,
+    "Pallet Town": 708
+   },
+   "battle_share": 0.105
+  },
+  {
+   "run": "b2-A0-D1-s1",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "novelty",
+   "p_in_w": 17.6,
+   "p_terms": {
+    "explore": 17.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 184,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.14
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 7.4,
+   "p_terms": {
+    "explore": 7.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 89,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.153
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1000,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 7.5,
+   "p_terms": {
+    "explore": 7.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 103,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1265,
+    "Pallet Town": 775,
+    "Route 1": 8
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 6.2,
+   "p_terms": {
+    "explore": 6.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 86,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.34
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 6.3,
+   "p_terms": {
+    "explore": 6.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 87,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.126
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1003,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "review",
+   "p_in_w": 7.3444,
+   "p_terms": {
+    "explore": 0.4,
+    "level": 0.0,
+    "heal": 6.9444,
+    "seen": 0.0
+   },
+   "p_on_revisits": 6.9444,
+   "distinct_tiles": 65,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1788,
+    "Pallet Town": 260
+   },
+   "battle_share": 0.565
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1003,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "review",
+   "p_in_w": 7.3444,
+   "p_terms": {
+    "explore": 0.4,
+    "level": 0.0,
+    "heal": 6.9444,
+    "seen": 0.0
+   },
+   "p_on_revisits": 6.9444,
+   "distinct_tiles": 40,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.722
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 6.502,
+   "p_terms": {
+    "explore": 1.4,
+    "level": 0.0,
+    "heal": 5.102,
+    "seen": 0.0
+   },
+   "p_on_revisits": 5.102,
+   "distinct_tiles": 54,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.653
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 2000896,
+   "seed": 1001,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 11.5,
+   "p_terms": {
+    "explore": 11.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 278,
+   "offpath_fraction": 0.46,
+   "no_milestone": true,
+   "maps": {
+    "Route 2": 1106,
+    "Route 1": 507,
+    "Pallet Town": 365,
+    "Viridian City": 70
+   },
+   "battle_share": 0.157
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 2000896,
+   "seed": 1002,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "review",
+   "p_in_w": 9.3,
+   "p_terms": {
+    "explore": 9.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 244,
+   "offpath_fraction": 0.3926,
+   "no_milestone": true,
+   "maps": {
+    "Route 2": 1244,
+    "Route 1": 441,
+    "Pallet Town": 296,
+    "Viridian City": 67
+   },
+   "battle_share": 0.078
+  },
+  {
+   "run": "b2-A2pp-D1-s1",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 2000896,
+   "seed": 1004,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 9.8,
+   "p_terms": {
+    "explore": 9.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 284,
+   "offpath_fraction": 0.2173,
+   "no_milestone": true,
+   "maps": {
+    "Route 2": 1565,
+    "Route 1": 329,
+    "Viridian City": 65,
+    "Pallet Town": 51,
+    "Viridian Forest south gate": 38
+   },
+   "battle_share": 0.109
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "review",
+   "p_in_w": 18.6,
+   "p_terms": {
+    "explore": 18.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 199,
+   "offpath_fraction": 0.1982,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1070,
+    "Pallet Town": 572,
+    "Red's house 1F": 406
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 26.8,
+   "p_terms": {
+    "explore": 26.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 278,
+   "offpath_fraction": 0.1982,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1392,
+    "Red's house 1F": 406,
+    "Route 1": 204,
+    "Oak's Lab": 46
+   },
+   "battle_share": 0.056
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 11.4,
+   "p_terms": {
+    "explore": 11.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 227,
+   "offpath_fraction": 0.0229,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1290,
+    "Route 1": 711,
+    "Red's house 1F": 47
+   },
+   "battle_share": 0.236
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 11.9,
+   "p_terms": {
+    "explore": 11.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 165,
+   "offpath_fraction": 0.0029,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1735,
+    "Pallet Town": 307,
+    "Red's house 1F": 6
+   },
+   "battle_share": 0.656
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 26.0,
+   "p_terms": {
+    "explore": 26.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 266,
+   "offpath_fraction": 0.1079,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 941,
+    "Pallet Town": 884,
+    "Red's house 1F": 124,
+    "Blue's house": 97,
+    "Route 1": 2
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "review",
+   "p_in_w": 19.8,
+   "p_terms": {
+    "explore": 19.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 254,
+   "offpath_fraction": 0.147,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1729,
+    "Red's house 1F": 184,
+    "Blue's house": 117,
+    "Oak's Lab": 16,
+    "Route 1": 2
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 10.5,
+   "p_terms": {
+    "explore": 10.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 226,
+   "offpath_fraction": 0.0459,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1132,
+    "Route 1": 822,
+    "Red's house 1F": 94
+   },
+   "battle_share": 0.294
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "novelty",
+   "p_in_w": 10.5,
+   "p_terms": {
+    "explore": 10.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 245,
+   "offpath_fraction": 0.002,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1218,
+    "Route 1": 822,
+    "Red's house 1F": 4,
+    "Oak's Lab": 4
+   },
+   "battle_share": 0.294
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1004,
+   "window": 14,
+   "start": 14337,
+   "end": 16384,
+   "u_kind": "novelty",
+   "p_in_w": 12.7,
+   "p_terms": {
+    "explore": 12.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 217,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1149,
+    "Pallet Town": 899
+   },
+   "battle_share": 0.386
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 24.4,
+   "p_terms": {
+    "explore": 24.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 250,
+   "offpath_fraction": 0.103,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 920,
+    "Pallet Town": 914,
+    "Blue's house": 106,
+    "Red's house 1F": 105,
+    "Route 1": 3
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D2-s1",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "review",
+   "p_in_w": 17.2,
+   "p_terms": {
+    "explore": 17.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 247,
+   "offpath_fraction": 0.1616,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1714,
+    "Red's house 1F": 225,
+    "Blue's house": 106,
+    "Route 1": 3
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s1",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1005,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 7.1,
+   "p_terms": {
+    "explore": 7.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 125,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1748,
+    "Route 1": 300
+   },
+   "battle_share": 0.133
+  },
+  {
+   "run": "b2-A2pp-D2-s1",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "novelty",
+   "p_in_w": 6.9,
+   "p_terms": {
+    "explore": 6.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 104,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1343,
+    "Pallet Town": 705
+   },
+   "battle_share": 0.478
+  },
+  {
+   "run": "b2-A2pp-D2-s1",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 6.5,
+   "p_terms": {
+    "explore": 6.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 76,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1254,
+    "Oak's Lab": 794
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 10.6,
+   "p_terms": {
+    "explore": 10.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 159,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1691,
+    "Route 1": 357
+   },
+   "battle_share": 0.032
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 11.7,
+   "p_terms": {
+    "explore": 11.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 169,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1381,
+    "Pallet Town": 667
+   },
+   "battle_share": 0.142
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1000,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 14.1,
+   "p_terms": {
+    "explore": 14.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 160,
+   "offpath_fraction": 0.0659,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1892,
+    "Red's house 1F": 135,
+    "Pallet Town": 21
+   },
+   "battle_share": 0.036
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "review",
+   "p_in_w": 7.3,
+   "p_terms": {
+    "explore": 7.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 159,
+   "offpath_fraction": 0.0527,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1940,
+    "Blue's house": 96,
+    "Red's house 1F": 12
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D1-s2",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 7.3,
+   "p_terms": {
+    "explore": 7.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 159,
+   "offpath_fraction": 0.0527,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1940,
+    "Blue's house": 96,
+    "Red's house 1F": 12
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s2",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1007,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "novelty",
+   "p_in_w": 7.0,
+   "p_terms": {
+    "explore": 7.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 114,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 767,
+    "Pallet Town": 733,
+    "Oak's Lab": 548
+   },
+   "battle_share": 0.285
+  },
+  {
+   "run": "b2-A2pp-D2-s2",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 5.5,
+   "p_terms": {
+    "explore": 5.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 65,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1042,
+    "Oak's Lab": 1006
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s2",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1000,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 7.2075,
+   "p_terms": {
+    "explore": 6.2,
+    "level": 1.0,
+    "heal": 0.0075,
+    "seen": 0.0
+   },
+   "p_on_revisits": 1.0075,
+   "distinct_tiles": 103,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1155,
+    "Pallet Town": 893
+   },
+   "battle_share": 0.321
+  },
+  {
+   "run": "b2-A2pp-D2-s2",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1001,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 8.4009,
+   "p_terms": {
+    "explore": 7.4,
+    "level": 1.0,
+    "heal": 0.0009,
+    "seen": 0.0
+   },
+   "p_on_revisits": 1.0009,
+   "distinct_tiles": 115,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1016,
+    "Oak's Lab": 766,
+    "Pallet Town": 266
+   },
+   "battle_share": 0.459
+  },
+  {
+   "run": "b2-A2pp-D2-s2",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1007,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 11.2,
+   "p_terms": {
+    "explore": 11.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 134,
+   "offpath_fraction": 0.4478,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 579,
+    "Red's house 1F": 572,
+    "Route 1": 552,
+    "Red's house 2F": 345
+   },
+   "battle_share": 0.24
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 6.4,
+   "p_terms": {
+    "explore": 6.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 76,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1814,
+    "Oak's Lab": 234
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 6.1,
+   "p_terms": {
+    "explore": 6.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 77,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1152,
+    "Pallet Town": 896
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 6.6,
+   "p_terms": {
+    "explore": 6.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 74,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1920,
+    "Oak's Lab": 128
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 5.4,
+   "p_terms": {
+    "explore": 5.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 66,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1811,
+    "Oak's Lab": 237
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1004,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 6.1,
+   "p_terms": {
+    "explore": 6.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 69,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1296,
+    "Oak's Lab": 752
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 5.2,
+   "p_terms": {
+    "explore": 5.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 63,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1093,
+    "Pallet Town": 955
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 5.9,
+   "p_terms": {
+    "explore": 5.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 68,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1979,
+    "Oak's Lab": 69
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 10.7,
+   "p_terms": {
+    "explore": 10.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 114,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.364
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "review",
+   "p_in_w": 9.4478,
+   "p_terms": {
+    "explore": 8.4,
+    "level": 1.0,
+    "heal": 0.0478,
+    "seen": 0.0
+   },
+   "p_on_revisits": 1.0478,
+   "distinct_tiles": 126,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.462
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1006,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "review",
+   "p_in_w": 9.4478,
+   "p_terms": {
+    "explore": 8.4,
+    "level": 1.0,
+    "heal": 0.0478,
+    "seen": 0.0
+   },
+   "p_on_revisits": 1.0478,
+   "distinct_tiles": 95,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.238
+  },
+  {
+   "run": "b2-A2pp-D1-s3",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 2000896,
+   "seed": 1003,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "review",
+   "p_in_w": 7.0,
+   "p_terms": {
+    "explore": 7.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 78,
+   "offpath_fraction": 0.4258,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1172,
+    "Red's house 1F": 553,
+    "Red's house 2F": 319,
+    "Pallet Town": 4
+   },
+   "battle_share": 0.189
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 7.1,
+   "p_terms": {
+    "explore": 7.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 83,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1976,
+    "Oak's Lab": 72
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "review",
+   "p_in_w": 7.2,
+   "p_terms": {
+    "explore": 7.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 98,
+   "offpath_fraction": 0.21,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1618,
+    "Red's house 1F": 430
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1003,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 6.9,
+   "p_terms": {
+    "explore": 6.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 118,
+   "offpath_fraction": 0.2056,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1627,
+    "Red's house 1F": 353,
+    "Red's house 2F": 68
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1001,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 12.4,
+   "p_terms": {
+    "explore": 12.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 172,
+   "offpath_fraction": 0.3887,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1250,
+    "Red's house 2F": 567,
+    "Red's house 1F": 229,
+    "Pallet Town": 2
+   },
+   "battle_share": 0.338
+  },
+  {
+   "run": "b2-A2pp-D2-s3",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 4000768,
+   "seed": 1006,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 5.5,
+   "p_terms": {
+    "explore": 5.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 109,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 2": 1775,
+    "Viridian Forest south gate": 273
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D1-s4",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1005,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 26.5,
+   "p_terms": {
+    "explore": 26.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 303,
+   "offpath_fraction": 0.043,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1791,
+    "Pallet Town": 169,
+    "Red's house 1F": 88
+   },
+   "battle_share": 0.232
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1000,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 7.4444,
+   "p_terms": {
+    "explore": 0.5,
+    "level": 0.0,
+    "heal": 6.9444,
+    "seen": 0.0
+   },
+   "p_on_revisits": 6.9444,
+   "distinct_tiles": 34,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.162
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1002,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 8.1669,
+   "p_terms": {
+    "explore": 1.2,
+    "level": 1.0,
+    "heal": 5.9669,
+    "seen": 0.0
+   },
+   "p_on_revisits": 6.9669,
+   "distinct_tiles": 32,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.336
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1007,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "review",
+   "p_in_w": 8.1583,
+   "p_terms": {
+    "explore": 1.2,
+    "level": 1.0,
+    "heal": 5.9583,
+    "seen": 0.0
+   },
+   "p_on_revisits": 6.9583,
+   "distinct_tiles": 38,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.291
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1007,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "review",
+   "p_in_w": 6.2172,
+   "p_terms": {
+    "explore": 0.3,
+    "level": 0.0,
+    "heal": 5.9172,
+    "seen": 0.0
+   },
+   "p_on_revisits": 5.9172,
+   "distinct_tiles": 34,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.26
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 3000320,
+   "seed": 1007,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 5.5,
+   "p_terms": {
+    "explore": 5.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 68,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1876,
+    "Oak's Lab": 172
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s4",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 4000768,
+   "seed": 1004,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 5.1,
+   "p_terms": {
+    "explore": 5.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 54,
+   "offpath_fraction": 0.0039,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1859,
+    "Route 1": 181,
+    "Red's house 1F": 8
+   },
+   "battle_share": 0.077
+  },
+  {
+   "run": "b2-A0-D2-s4",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1000,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 25.6,
+   "p_terms": {
+    "explore": 25.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 262,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.334
+  },
+  {
+   "run": "b2-A0-D2-s4",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 3000320,
+   "seed": 1005,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "review",
+   "p_in_w": 29.4,
+   "p_terms": {
+    "explore": 29.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 362,
+   "offpath_fraction": 0.2007,
+   "no_milestone": true,
+   "maps": {
+    "Viridian City": 1637,
+    "Viridian nickname house": 212,
+    "Viridian school": 199
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1001,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 6.4,
+   "p_terms": {
+    "explore": 6.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 105,
+   "offpath_fraction": 0.002,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1791,
+    "Pallet Town": 253,
+    "Red's house 1F": 4
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1001,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 6.8,
+   "p_terms": {
+    "explore": 6.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 106,
+   "offpath_fraction": 0.002,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1277,
+    "Oak's Lab": 767,
+    "Red's house 1F": 4
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "novelty",
+   "p_in_w": 6.5,
+   "p_terms": {
+    "explore": 6.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 103,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1307,
+    "Pallet Town": 741
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "novelty",
+   "p_in_w": 6.6,
+   "p_terms": {
+    "explore": 6.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 86,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1765,
+    "Oak's Lab": 283
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 5.5,
+   "p_terms": {
+    "explore": 5.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 86,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1502,
+    "Oak's Lab": 546
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1003,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 5.6,
+   "p_terms": {
+    "explore": 5.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 78,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.263
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1006,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 6.5,
+   "p_terms": {
+    "explore": 6.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 104,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1181,
+    "Oak's Lab": 867
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1007,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 5.2,
+   "p_terms": {
+    "explore": 5.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 106,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1619,
+    "Pallet Town": 429
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1007,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 5.0,
+   "p_terms": {
+    "explore": 5.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 78,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1450,
+    "Oak's Lab": 598
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 5.2,
+   "p_terms": {
+    "explore": 5.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 68,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1710,
+    "Pallet Town": 338
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 500736,
+   "seed": 1005,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 5.6,
+   "p_terms": {
+    "explore": 5.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 72,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1362,
+    "Oak's Lab": 686
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 5.7,
+   "p_terms": {
+    "explore": 5.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 77,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1081,
+    "Pallet Town": 967
+   },
+   "battle_share": 0.223
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 5.1,
+   "p_terms": {
+    "explore": 5.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 53,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2047,
+    "Pallet Town": 1
+   },
+   "battle_share": 0.411
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 6.7,
+   "p_terms": {
+    "explore": 6.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 102,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.345
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1001,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "novelty",
+   "p_in_w": 8.2,
+   "p_terms": {
+    "explore": 8.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 109,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 2048
+   },
+   "battle_share": 0.129
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1003,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 7.6,
+   "p_terms": {
+    "explore": 7.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 88,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1419,
+    "Route 1": 556,
+    "Pallet Town": 73
+   },
+   "battle_share": 0.157
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 500736,
+   "seed": 1003,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 9.3,
+   "p_terms": {
+    "explore": 9.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 104,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1580,
+    "Oak's Lab": 395,
+    "Pallet Town": 73
+   },
+   "battle_share": 0.198
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1006,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 12.4,
+   "p_terms": {
+    "explore": 12.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 137,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1332,
+    "Route 1": 603,
+    "Pallet Town": 113
+   },
+   "battle_share": 0.076
+  },
+  {
+   "run": "b2-A2pp-D2-s4",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 3000320,
+   "seed": 1004,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 10.205,
+   "p_terms": {
+    "explore": 9.2,
+    "level": 1.0,
+    "heal": 0.005,
+    "seen": 0.0
+   },
+   "p_on_revisits": 1.005,
+   "distinct_tiles": 116,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1224,
+    "Route 1": 824
+   },
+   "battle_share": 0.28
+  },
+  {
+   "run": "b2-A0-D1-s5",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1002,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 15.0,
+   "p_terms": {
+    "explore": 15.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 286,
+   "offpath_fraction": 0.0156,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1316,
+    "Route 1": 603,
+    "Oak's Lab": 97,
+    "Blue's house": 28,
+    "Red's house 1F": 4
+   },
+   "battle_share": 0.124
+  },
+  {
+   "run": "b2-A0-D1-s5",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 1000448,
+   "seed": 1002,
+   "window": 14,
+   "start": 14337,
+   "end": 16384,
+   "u_kind": "review",
+   "p_in_w": 15.7,
+   "p_terms": {
+    "explore": 15.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 185,
+   "offpath_fraction": 0.0356,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1521,
+    "Pallet Town": 454,
+    "Blue's house": 73
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D1-s5",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 1000448,
+   "seed": 1007,
+   "window": 12,
+   "start": 12289,
+   "end": 14336,
+   "u_kind": "review",
+   "p_in_w": 20.4,
+   "p_terms": {
+    "explore": 20.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 216,
+   "offpath_fraction": 0.0171,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1079,
+    "Oak's Lab": 934,
+    "Blue's house": 35
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D1-s5",
+   "arm": "A0",
+   "train_state": "D1",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 1000448,
+   "seed": 1007,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 14.0,
+   "p_terms": {
+    "explore": 14.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 205,
+   "offpath_fraction": 0.0171,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1123,
+    "Pallet Town": 890,
+    "Blue's house": 35
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s5",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1001,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 6.4,
+   "p_terms": {
+    "explore": 6.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 69,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1621,
+    "Oak's Lab": 427
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D1-s5",
+   "arm": "A2pp",
+   "train_state": "D1",
+   "eval_state": "D1",
+   "view": "own",
+   "mark": 4000768,
+   "seed": 1007,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "novelty",
+   "p_in_w": 8.3,
+   "p_terms": {
+    "explore": 8.3,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 104,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Viridian Forest": 2048
+   },
+   "battle_share": 0.625
+  },
+  {
+   "run": "b2-A0-D2-s5",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1000,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "review",
+   "p_in_w": 19.4,
+   "p_terms": {
+    "explore": 19.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 205,
+   "offpath_fraction": 0.3906,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 943,
+    "Red's house 1F": 465,
+    "Red's house 2F": 331,
+    "Pallet Town": 305,
+    "Blue's house": 4
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A0-D2-s5",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 11.5,
+   "p_terms": {
+    "explore": 11.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 128,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Oak's Lab": 1714,
+    "Pallet Town": 252,
+    "Route 1": 82
+   },
+   "battle_share": 0.037
+  },
+  {
+   "run": "b2-A0-D2-s5",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 18.1,
+   "p_terms": {
+    "explore": 18.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 191,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1105,
+    "Oak's Lab": 690,
+    "Pallet Town": 253
+   },
+   "battle_share": 0.323
+  },
+  {
+   "run": "b2-A0-D2-s5",
+   "arm": "A0",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 250880,
+   "seed": 1002,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "review",
+   "p_in_w": 18.9,
+   "p_terms": {
+    "explore": 18.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 221,
+   "offpath_fraction": 0.4053,
+   "no_milestone": true,
+   "maps": {
+    "Route 1": 1118,
+    "Red's house 1F": 350,
+    "Blue's house": 280,
+    "Red's house 2F": 200,
+    "Pallet Town": 100
+   },
+   "battle_share": 0.312
+  },
+  {
+   "run": "b2-A2pp-D2-s5",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1002,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "novelty",
+   "p_in_w": 5.0,
+   "p_terms": {
+    "explore": 5.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 72,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 2048
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-D2-s5",
+   "arm": "A2pp",
+   "train_state": "D2",
+   "eval_state": "D2",
+   "view": "own",
+   "mark": 1000448,
+   "seed": 1002,
+   "window": 11,
+   "start": 11265,
+   "end": 13312,
+   "u_kind": "novelty",
+   "p_in_w": 5.0,
+   "p_terms": {
+    "explore": 5.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 80,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 2048
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "b2-A2pp-HA-s1",
+   "arm": "A2pp",
+   "train_state": "HA",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1005,
+   "window": 10,
+   "start": 10241,
+   "end": 12288,
+   "u_kind": "review",
+   "p_in_w": 8.1,
+   "p_terms": {
+    "explore": 8.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 271,
+   "offpath_fraction": 0.4121,
+   "no_milestone": true,
+   "maps": {
+    "Viridian Forest": 1204,
+    "Route 1": 337,
+    "Route 2": 268,
+    "Viridian City": 180,
+    "Pallet Town": 34,
+    "Viridian Forest south gate": 13,
+    "Red's house 1F": 12
+   },
+   "battle_share": 0.147
+  },
+  {
+   "run": "b2-A2pp-HA-s1",
+   "arm": "A2pp",
+   "train_state": "HA",
+   "eval_state": "D1",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1007,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 7.2,
+   "p_terms": {
+    "explore": 7.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 252,
+   "offpath_fraction": 0.3311,
+   "no_milestone": true,
+   "maps": {
+    "Viridian Forest": 1370,
+    "Route 1": 317,
+    "Route 2": 166,
+    "Viridian City": 150,
+    "Pallet Town": 30,
+    "Viridian Forest south gate": 15
+   },
+   "battle_share": 0.23
+  },
+  {
+   "run": "b2-A2pp-HA-s1",
+   "arm": "A2pp",
+   "train_state": "HA",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1000,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "review",
+   "p_in_w": 7.6,
+   "p_terms": {
+    "explore": 7.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 260,
+   "offpath_fraction": 0.3311,
+   "no_milestone": true,
+   "maps": {
+    "Viridian Forest": 1370,
+    "Route 1": 266,
+    "Route 2": 242,
+    "Viridian City": 117,
+    "Viridian Forest south gate": 28,
+    "Pallet Town": 18,
+    "Red's house 1F": 7
+   },
+   "battle_share": 0.192
+  },
+  {
+   "run": "b2-A2pp-HA-s1",
+   "arm": "A2pp",
+   "train_state": "HA",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 5000192,
+   "seed": 1005,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "review",
+   "p_in_w": 6.3,
+   "p_terms": {
+    "explore": 1.3,
+    "level": 5.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 5.0,
+   "distinct_tiles": 32,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Viridian Forest": 2048
+   },
+   "battle_share": 0.133
+  },
+  {
+   "run": "b2-A2pp-HA-s3",
+   "arm": "A2pp",
+   "train_state": "HA",
+   "eval_state": "D2",
+   "view": "cross",
+   "mark": 2000896,
+   "seed": 1001,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "novelty",
+   "p_in_w": 17.8,
+   "p_terms": {
+    "explore": 17.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 229,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Viridian City": 2048
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1001,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 8.1,
+   "p_terms": {
+    "explore": 8.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 118,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1731,
+    "Oak's Lab": 317
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1007,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "novelty",
+   "p_in_w": 8.5,
+   "p_terms": {
+    "explore": 8.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 97,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 2036,
+    "Oak's Lab": 12
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1007,
+   "window": 14,
+   "start": 14337,
+   "end": 16384,
+   "u_kind": "review",
+   "p_in_w": 10.6,
+   "p_terms": {
+    "explore": 10.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 148,
+   "offpath_fraction": 0.0498,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1934,
+    "Red's house 1F": 102,
+    "Oak's Lab": 12
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1018,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 9.4,
+   "p_terms": {
+    "explore": 9.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 115,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1568,
+    "Oak's Lab": 480
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1021,
+   "window": 8,
+   "start": 8193,
+   "end": 10240,
+   "u_kind": "novelty",
+   "p_in_w": 9.9,
+   "p_terms": {
+    "explore": 9.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 115,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 2048
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D1",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1021,
+   "window": 13,
+   "start": 13313,
+   "end": 15360,
+   "u_kind": "review",
+   "p_in_w": 8.6,
+   "p_terms": {
+    "explore": 8.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 159,
+   "offpath_fraction": 0.3984,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1232,
+    "Red's house 1F": 501,
+    "Red's house 2F": 315
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D2",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1014,
+   "window": 7,
+   "start": 7169,
+   "end": 9216,
+   "u_kind": "review",
+   "p_in_w": 8.5,
+   "p_terms": {
+    "explore": 8.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 131,
+   "offpath_fraction": 0.0454,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1955,
+    "Red's house 1F": 93
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D2",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1018,
+   "window": 6,
+   "start": 6145,
+   "end": 8192,
+   "u_kind": "novelty",
+   "p_in_w": 8.2,
+   "p_terms": {
+    "explore": 8.2,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 106,
+   "offpath_fraction": 0.0,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 2048
+   },
+   "battle_share": 0.0
+  },
+  {
+   "run": "R0",
+   "arm": "R0",
+   "train_state": null,
+   "eval_state": "D2",
+   "view": "R0",
+   "mark": 0,
+   "seed": 1019,
+   "window": 9,
+   "start": 9217,
+   "end": 11264,
+   "u_kind": "review",
+   "p_in_w": 8.1,
+   "p_terms": {
+    "explore": 8.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   },
+   "p_on_revisits": 0.0,
+   "distinct_tiles": 133,
+   "offpath_fraction": 0.3296,
+   "no_milestone": true,
+   "maps": {
+    "Pallet Town": 1373,
+    "Blue's house": 675
+   },
+   "battle_share": 0.0
+  }
+ ]
+}

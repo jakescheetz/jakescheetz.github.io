@@ -1,0 +1,243 @@
+{
+ "runs": [
+  "R0"
+ ],
+ "evals": [
+  "eval-dev-24"
+ ],
+ "states": [
+  "D1"
+ ],
+ "own_state": false,
+ "proxy_params": {
+  "map_new_tile_cap": 20
+ },
+ "reward_hash_new": [
+  "4aa81ba4ad1f"
+ ],
+ "episodes": 24,
+ "exactness_max_abs_diff": 0.0,
+ "missing": [],
+ "rows": [
+  {
+   "type": "*",
+   "step": 0,
+   "episodes": 24.0,
+   "in_old": 712.534,
+   "in_new": 181.534,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.7452
+  },
+  {
+   "type": "*",
+   "step": "all",
+   "episodes": 24.0,
+   "in_old": 712.534,
+   "in_new": 181.534,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.7452
+  },
+  {
+   "type": "HF",
+   "step": 0,
+   "episodes": 1.0,
+   "in_old": 3.234,
+   "in_new": 0.434,
+   "out_old": 34.2,
+   "out_new": 10.0,
+   "drop_inside": 0.8658
+  },
+  {
+   "type": "HF",
+   "step": "all",
+   "episodes": 1.0,
+   "in_old": 3.234,
+   "in_new": 0.434,
+   "out_old": 34.2,
+   "out_new": 10.0,
+   "drop_inside": 0.8658
+  },
+  {
+   "type": "K",
+   "step": 0,
+   "episodes": 24.0,
+   "in_old": 25.7,
+   "in_new": 1.8,
+   "out_old": 686.834,
+   "out_new": 179.734,
+   "drop_inside": 0.93
+  },
+  {
+   "type": "K",
+   "step": "all",
+   "episodes": 24.0,
+   "in_old": 25.7,
+   "in_new": 1.8,
+   "out_old": 686.834,
+   "out_new": 179.734,
+   "drop_inside": 0.93
+  },
+  {
+   "type": "K:loop",
+   "step": 0,
+   "episodes": 2.0,
+   "in_old": 0.1,
+   "in_new": 0.0,
+   "out_old": 35.0,
+   "out_new": 9.1,
+   "drop_inside": 1.0
+  },
+  {
+   "type": "K:loop",
+   "step": "all",
+   "episodes": 2.0,
+   "in_old": 0.1,
+   "in_new": 0.0,
+   "out_old": 35.0,
+   "out_new": 9.1,
+   "drop_inside": 1.0
+  },
+  {
+   "type": "K:wander",
+   "step": 0,
+   "episodes": 24.0,
+   "in_old": 25.6,
+   "in_new": 1.8,
+   "out_old": 686.934,
+   "out_new": 179.734,
+   "drop_inside": 0.9297
+  },
+  {
+   "type": "K:wander",
+   "step": "all",
+   "episodes": 24.0,
+   "in_old": 25.6,
+   "in_new": 1.8,
+   "out_old": 686.934,
+   "out_new": 179.734,
+   "drop_inside": 0.9297
+  },
+  {
+   "type": "M",
+   "step": 0,
+   "episodes": 7.0,
+   "in_old": 29.034,
+   "in_new": 9.434,
+   "out_old": 190.0,
+   "out_new": 47.7,
+   "drop_inside": 0.6751
+  },
+  {
+   "type": "M",
+   "step": "all",
+   "episodes": 7.0,
+   "in_old": 29.034,
+   "in_new": 9.434,
+   "out_old": 190.0,
+   "out_new": 47.7,
+   "drop_inside": 0.6751
+  },
+  {
+   "type": "O",
+   "step": 0,
+   "episodes": 11.0,
+   "in_old": 86.9,
+   "in_new": 36.3,
+   "out_old": 277.2,
+   "out_new": 55.4,
+   "drop_inside": 0.5823
+  },
+  {
+   "type": "O",
+   "step": "all",
+   "episodes": 11.0,
+   "in_old": 86.9,
+   "in_new": 36.3,
+   "out_old": 277.2,
+   "out_new": 55.4,
+   "drop_inside": 0.5823
+  },
+  {
+   "type": "O:side",
+   "step": 0,
+   "episodes": 11.0,
+   "in_old": 86.9,
+   "in_new": 36.3,
+   "out_old": 277.2,
+   "out_new": 55.4,
+   "drop_inside": 0.5823
+  },
+  {
+   "type": "O:side",
+   "step": "all",
+   "episodes": 11.0,
+   "in_old": 86.9,
+   "in_new": 36.3,
+   "out_old": 277.2,
+   "out_new": 55.4,
+   "drop_inside": 0.5823
+  },
+  {
+   "type": "U",
+   "step": 0,
+   "episodes": 4.0,
+   "in_old": 49.7,
+   "in_new": 8.3,
+   "out_old": 65.3,
+   "out_new": 22.8,
+   "drop_inside": 0.833
+  },
+  {
+   "type": "U",
+   "step": "all",
+   "episodes": 4.0,
+   "in_old": 49.7,
+   "in_new": 8.3,
+   "out_old": 65.3,
+   "out_new": 22.8,
+   "drop_inside": 0.833
+  },
+  {
+   "type": "U:novelty",
+   "step": 0,
+   "episodes": 4.0,
+   "in_old": 35.9,
+   "in_new": 3.2,
+   "out_old": 79.1,
+   "out_new": 27.9,
+   "drop_inside": 0.9109
+  },
+  {
+   "type": "U:novelty",
+   "step": "all",
+   "episodes": 4.0,
+   "in_old": 35.9,
+   "in_new": 3.2,
+   "out_old": 79.1,
+   "out_new": 27.9,
+   "drop_inside": 0.9109
+  },
+  {
+   "type": "U:review",
+   "step": 0,
+   "episodes": 2.0,
+   "in_old": 19.2,
+   "in_new": 5.1,
+   "out_old": 37.5,
+   "out_new": 10.0,
+   "drop_inside": 0.7344
+  },
+  {
+   "type": "U:review",
+   "step": "all",
+   "episodes": 2.0,
+   "in_old": 19.2,
+   "in_new": 5.1,
+   "out_old": 37.5,
+   "out_new": 10.0,
+   "drop_inside": 0.7344
+  }
+ ]
+}

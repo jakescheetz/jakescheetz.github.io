@@ -1,0 +1,55 @@
+{
+ "cells": {
+  "D1": {
+   "episodes": 8,
+   "stuck": 0,
+   "P_mean": 417.124,
+   "P_min": 416.171,
+   "P_max": 418.2263,
+   "P_terms_mean": {
+    "explore": 408.012,
+    "level": 9.0,
+    "heal": 0.112,
+    "seen": 0.0
+   },
+   "T_mean": 5.0,
+   "legP_mean": 3.0,
+   "distinct_tiles_mean": 4080.125,
+   "blackouts": 34,
+   "dropped_targets": 198,
+   "exhausted_steps_mean": 1646.375,
+   "A0_best": 55.5,
+   "A0_best_mark": "1M",
+   "threshold": 111.0,
+   "ratio": 7.52,
+   "passes_2x": true
+  },
+  "D2": {
+   "episodes": 8,
+   "stuck": 0,
+   "P_mean": 417.159,
+   "P_min": 416.3391,
+   "P_max": 418.165,
+   "P_terms_mean": {
+    "explore": 408.025,
+    "level": 9.0,
+    "heal": 0.134,
+    "seen": 0.0
+   },
+   "T_mean": 5.0,
+   "legP_mean": 3.0,
+   "distinct_tiles_mean": 4080.25,
+   "blackouts": 21,
+   "dropped_targets": 189,
+   "exhausted_steps_mean": 2644.0,
+   "A0_best": 50.5,
+   "A0_best_mark": "0.5M",
+   "threshold": 101.0,
+   "ratio": 8.26,
+   "passes_2x": true
+  }
+ },
+ "rule": "pass if planner mean P >= 2x A0's pooled P at its best mark; (C) only if both pass",
+ "verdict": "both pass: (C) indicated",
+ "created": "2026-11-07T13:57:27"
+}

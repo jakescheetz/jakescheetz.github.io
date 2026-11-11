@@ -1,0 +1,231 @@
+{
+ "part": "D-1 training rollout path (frozen)",
+ "run": "b2-A0-D1-s4",
+ "ckpt": "eval-1000448.pt",
+ "n": 16,
+ "P_mean": 47.581,
+ "T_mean": 0.0,
+ "steps": [
+  16384
+ ],
+ "P_terms_mean": {
+  "explore": 47.581,
+  "level": 0.0,
+  "heal": 0.0
+ },
+ "load": {
+  "missing": [],
+  "unexpected": [],
+  "n_tensors": 15
+ },
+ "episodes": [
+  {
+   "env": 0,
+   "episode": 1,
+   "P": 42.9,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 42.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 1,
+   "episode": 1,
+   "P": 32.7,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 32.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 2,
+   "episode": 1,
+   "P": 60.0,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 60.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 3,
+   "episode": 1,
+   "P": 53.9,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 53.9,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 4,
+   "episode": 1,
+   "P": 54.8,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 54.8,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 5,
+   "episode": 1,
+   "P": 59.1,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 59.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 6,
+   "episode": 1,
+   "P": 44.4,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 44.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 7,
+   "episode": 1,
+   "P": 67.5,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 67.5,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 0,
+   "episode": 2,
+   "P": 31.0,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 31.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 1,
+   "episode": 2,
+   "P": 54.1,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 54.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 2,
+   "episode": 2,
+   "P": 37.1,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 37.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 3,
+   "episode": 2,
+   "P": 41.0,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 41.0,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 4,
+   "episode": 2,
+   "P": 49.7,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 49.7,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 5,
+   "episode": 2,
+   "P": 46.1,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 46.1,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 6,
+   "episode": 2,
+   "P": 48.6,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 48.6,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  },
+  {
+   "env": 7,
+   "episode": 2,
+   "P": 38.4,
+   "T": 0,
+   "steps": 16384,
+   "P_terms": {
+    "explore": 38.4,
+    "level": 0.0,
+    "heal": 0.0,
+    "seen": 0.0
+   }
+  }
+ ]
+}

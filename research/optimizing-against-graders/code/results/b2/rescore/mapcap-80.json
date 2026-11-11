@@ -1,0 +1,913 @@
+{
+ "runs": [
+  "b2-A0-D1-s1",
+  "b2-A0-D1-s2",
+  "b2-A0-D1-s3",
+  "b2-A0-D1-s4",
+  "b2-A0-D1-s5",
+  "b2-A0-D2-s1",
+  "b2-A0-D2-s2",
+  "b2-A0-D2-s3",
+  "b2-A0-D2-s4",
+  "b2-A0-D2-s5"
+ ],
+ "evals": [
+  "eval-dev-primary"
+ ],
+ "states": [
+  "D1",
+  "D2"
+ ],
+ "own_state": true,
+ "proxy_params": {
+  "map_new_tile_cap": 80
+ },
+ "reward_hash_new": [
+  "7bde65e5f426"
+ ],
+ "episodes": 560,
+ "exactness_max_abs_diff": 0.0,
+ "missing": [],
+ "rows": [
+  {
+   "type": "*",
+   "step": 1000448,
+   "episodes": 80.0,
+   "in_old": 6150.9035,
+   "in_new": 2820.5035,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5414
+  },
+  {
+   "type": "*",
+   "step": 2000896,
+   "episodes": 80.0,
+   "in_old": 9021.3,
+   "in_new": 3652.3,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5951
+  },
+  {
+   "type": "*",
+   "step": 250880,
+   "episodes": 80.0,
+   "in_old": 3752.0743,
+   "in_new": 2012.2743,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.4637
+  },
+  {
+   "type": "*",
+   "step": 3000320,
+   "episodes": 80.0,
+   "in_old": 5346.0,
+   "in_new": 2642.6,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5057
+  },
+  {
+   "type": "*",
+   "step": 4000768,
+   "episodes": 80.0,
+   "in_old": 8862.0796,
+   "in_new": 3974.7796,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5515
+  },
+  {
+   "type": "*",
+   "step": 5000192,
+   "episodes": 80.0,
+   "in_old": 9373.3597,
+   "in_new": 3940.5597,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5796
+  },
+  {
+   "type": "*",
+   "step": 500736,
+   "episodes": 80.0,
+   "in_old": 4867.3042,
+   "in_new": 2400.1042,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5069
+  },
+  {
+   "type": "*",
+   "step": "all",
+   "episodes": 560.0,
+   "in_old": 47373.0213,
+   "in_new": 21443.1213,
+   "out_old": 0.0,
+   "out_new": 0.0,
+   "drop_inside": 0.5474
+  },
+  {
+   "type": "D",
+   "step": 1000448,
+   "episodes": 19.0,
+   "in_old": 268.2,
+   "in_new": 103.7,
+   "out_old": 1514.9,
+   "out_new": 719.5,
+   "drop_inside": 0.6133
+  },
+  {
+   "type": "D",
+   "step": 2000896,
+   "episodes": 16.0,
+   "in_old": 319.0,
+   "in_new": 140.8,
+   "out_old": 1466.6,
+   "out_new": 635.0,
+   "drop_inside": 0.5586
+  },
+  {
+   "type": "D",
+   "step": 250880,
+   "episodes": 1.0,
+   "in_old": 0.7,
+   "in_new": 0.6,
+   "out_old": 86.4,
+   "out_new": 26.6,
+   "drop_inside": 0.1429
+  },
+  {
+   "type": "D",
+   "step": 3000320,
+   "episodes": 3.0,
+   "in_old": 61.5,
+   "in_new": 18.4,
+   "out_old": 160.7,
+   "out_new": 109.4,
+   "drop_inside": 0.7008
+  },
+  {
+   "type": "D",
+   "step": 4000768,
+   "episodes": 9.0,
+   "in_old": 185.7,
+   "in_new": 71.6,
+   "out_old": 926.6,
+   "out_new": 428.9,
+   "drop_inside": 0.6144
+  },
+  {
+   "type": "D",
+   "step": 5000192,
+   "episodes": 6.0,
+   "in_old": 169.7201,
+   "in_new": 52.9201,
+   "out_old": 614.3563,
+   "out_new": 294.0563,
+   "drop_inside": 0.6882
+  },
+  {
+   "type": "D",
+   "step": 500736,
+   "episodes": 1.0,
+   "in_old": 5.6,
+   "in_new": 1.9,
+   "out_old": 92.9,
+   "out_new": 53.7,
+   "drop_inside": 0.6607
+  },
+  {
+   "type": "D",
+   "step": "all",
+   "episodes": 55.0,
+   "in_old": 1010.4201,
+   "in_new": 389.9201,
+   "out_old": 4862.4563,
+   "out_new": 2267.1562,
+   "drop_inside": 0.6141
+  },
+  {
+   "type": "K",
+   "step": 1000448,
+   "episodes": 80.0,
+   "in_old": 51.7,
+   "in_new": 18.3,
+   "out_old": 6099.2035,
+   "out_new": 2802.2035,
+   "drop_inside": 0.646
+  },
+  {
+   "type": "K",
+   "step": 2000896,
+   "episodes": 80.0,
+   "in_old": 55.4,
+   "in_new": 14.0,
+   "out_old": 8965.9,
+   "out_new": 3638.3,
+   "drop_inside": 0.7473
+  },
+  {
+   "type": "K",
+   "step": 250880,
+   "episodes": 80.0,
+   "in_old": 59.1,
+   "in_new": 24.2,
+   "out_old": 3692.9743,
+   "out_new": 1988.0743,
+   "drop_inside": 0.5905
+  },
+  {
+   "type": "K",
+   "step": 3000320,
+   "episodes": 80.0,
+   "in_old": 44.1,
+   "in_new": 15.4,
+   "out_old": 5301.9,
+   "out_new": 2627.2,
+   "drop_inside": 0.6508
+  },
+  {
+   "type": "K",
+   "step": 4000768,
+   "episodes": 79.0,
+   "in_old": 65.0,
+   "in_new": 23.0,
+   "out_old": 8641.2796,
+   "out_new": 3886.9796,
+   "drop_inside": 0.6462
+  },
+  {
+   "type": "K",
+   "step": 5000192,
+   "episodes": 80.0,
+   "in_old": 71.2694,
+   "in_new": 15.4694,
+   "out_old": 9302.0903,
+   "out_new": 3925.0903,
+   "drop_inside": 0.7829
+  },
+  {
+   "type": "K",
+   "step": 500736,
+   "episodes": 80.0,
+   "in_old": 65.5472,
+   "in_new": 21.7472,
+   "out_old": 4801.7569,
+   "out_new": 2378.3569,
+   "drop_inside": 0.6682
+  },
+  {
+   "type": "K",
+   "step": "all",
+   "episodes": 559.0,
+   "in_old": 412.1167,
+   "in_new": 132.1167,
+   "out_old": 46805.1046,
+   "out_new": 21246.2046,
+   "drop_inside": 0.6794
+  },
+  {
+   "type": "K:loop",
+   "step": 1000448,
+   "episodes": 54.0,
+   "in_old": 18.2,
+   "in_new": 9.4,
+   "out_old": 3921.8035,
+   "out_new": 1841.5035,
+   "drop_inside": 0.4835
+  },
+  {
+   "type": "K:loop",
+   "step": 2000896,
+   "episodes": 46.0,
+   "in_old": 9.4,
+   "in_new": 6.8,
+   "out_old": 4868.8,
+   "out_new": 2015.1,
+   "drop_inside": 0.2766
+  },
+  {
+   "type": "K:loop",
+   "step": 250880,
+   "episodes": 48.0,
+   "in_old": 15.8,
+   "in_new": 10.1,
+   "out_old": 1548.4743,
+   "out_new": 941.1743,
+   "drop_inside": 0.3608
+  },
+  {
+   "type": "K:loop",
+   "step": 3000320,
+   "episodes": 39.0,
+   "in_old": 5.0,
+   "in_new": 2.9,
+   "out_old": 2349.2,
+   "out_new": 1211.5,
+   "drop_inside": 0.42
+  },
+  {
+   "type": "K:loop",
+   "step": 4000768,
+   "episodes": 32.0,
+   "in_old": 5.4,
+   "in_new": 3.9,
+   "out_old": 3122.4092,
+   "out_new": 1454.7092,
+   "drop_inside": 0.2778
+  },
+  {
+   "type": "K:loop",
+   "step": 5000192,
+   "episodes": 26.0,
+   "in_old": 2.7,
+   "in_new": 0.9,
+   "out_old": 2713.6201,
+   "out_new": 1166.5201,
+   "drop_inside": 0.6667
+  },
+  {
+   "type": "K:loop",
+   "step": 500736,
+   "episodes": 43.0,
+   "in_old": 10.6,
+   "in_new": 3.9,
+   "out_old": 2532.3014,
+   "out_new": 1203.3014,
+   "drop_inside": 0.6321
+  },
+  {
+   "type": "K:loop",
+   "step": "all",
+   "episodes": 288.0,
+   "in_old": 67.1,
+   "in_new": 37.9,
+   "out_old": 21056.6086,
+   "out_new": 9833.8086,
+   "drop_inside": 0.4352
+  },
+  {
+   "type": "K:stationary",
+   "step": 1000448,
+   "episodes": 22.0,
+   "in_old": 0.9,
+   "in_new": 0.6,
+   "out_old": 1735.5,
+   "out_new": 808.1,
+   "drop_inside": 0.3333
+  },
+  {
+   "type": "K:stationary",
+   "step": 2000896,
+   "episodes": 10.0,
+   "in_old": 1.3,
+   "in_new": 0.9,
+   "out_old": 977.6,
+   "out_new": 432.3,
+   "drop_inside": 0.3077
+  },
+  {
+   "type": "K:stationary",
+   "step": 250880,
+   "episodes": 11.0,
+   "in_old": 0.2,
+   "in_new": 0.1,
+   "out_old": 515.0,
+   "out_new": 286.4,
+   "drop_inside": 0.5
+  },
+  {
+   "type": "K:stationary",
+   "step": 3000320,
+   "episodes": 18.0,
+   "in_old": 1.3,
+   "in_new": 1.2,
+   "out_old": 983.1,
+   "out_new": 540.0,
+   "drop_inside": 0.0769
+  },
+  {
+   "type": "K:stationary",
+   "step": 4000768,
+   "episodes": 6.0,
+   "in_old": 0.5,
+   "in_new": 0.5,
+   "out_old": 708.2425,
+   "out_new": 345.9425,
+   "drop_inside": 0.0
+  },
+  {
+   "type": "K:stationary",
+   "step": 5000192,
+   "episodes": 7.0,
+   "in_old": 0.1,
+   "in_new": 0.0,
+   "out_old": 747.1,
+   "out_new": 342.2,
+   "drop_inside": 1.0
+  },
+  {
+   "type": "K:stationary",
+   "step": 500736,
+   "episodes": 8.0,
+   "in_old": 0.4,
+   "in_new": 0.2,
+   "out_old": 277.8,
+   "out_new": 171.0,
+   "drop_inside": 0.5
+  },
+  {
+   "type": "K:stationary",
+   "step": "all",
+   "episodes": 82.0,
+   "in_old": 4.7,
+   "in_new": 3.5,
+   "out_old": 5944.3425,
+   "out_new": 2925.9425,
+   "drop_inside": 0.2553
+  },
+  {
+   "type": "K:wander",
+   "step": 1000448,
+   "episodes": 46.0,
+   "in_old": 34.1,
+   "in_new": 8.7,
+   "out_old": 3386.2007,
+   "out_new": 1530.0007,
+   "drop_inside": 0.7449
+  },
+  {
+   "type": "K:wander",
+   "step": 2000896,
+   "episodes": 65.0,
+   "in_old": 45.9,
+   "in_new": 7.3,
+   "out_old": 7452.5,
+   "out_new": 2972.4,
+   "drop_inside": 0.841
+  },
+  {
+   "type": "K:wander",
+   "step": 250880,
+   "episodes": 52.0,
+   "in_old": 43.9,
+   "in_new": 14.5,
+   "out_old": 3031.4743,
+   "out_new": 1552.3743,
+   "drop_inside": 0.6697
+  },
+  {
+   "type": "K:wander",
+   "step": 3000320,
+   "episodes": 60.0,
+   "in_old": 38.3,
+   "in_new": 11.7,
+   "out_old": 4233.9,
+   "out_new": 2040.4,
+   "drop_inside": 0.6945
+  },
+  {
+   "type": "K:wander",
+   "step": 4000768,
+   "episodes": 68.0,
+   "in_old": 59.7,
+   "in_new": 19.1,
+   "out_old": 7372.3704,
+   "out_new": 3307.1704,
+   "drop_inside": 0.6801
+  },
+  {
+   "type": "K:wander",
+   "step": 5000192,
+   "episodes": 74.0,
+   "in_old": 69.1694,
+   "in_new": 15.0694,
+   "out_old": 8655.4903,
+   "out_new": 3625.5903,
+   "drop_inside": 0.7821
+  },
+  {
+   "type": "K:wander",
+   "step": 500736,
+   "episodes": 63.0,
+   "in_old": 55.9472,
+   "in_new": 17.8472,
+   "out_old": 3935.2667,
+   "out_new": 1978.4667,
+   "drop_inside": 0.681
+  },
+  {
+   "type": "K:wander",
+   "step": "all",
+   "episodes": 428.0,
+   "in_old": 347.0167,
+   "in_new": 94.2167,
+   "out_old": 38067.2023,
+   "out_new": 17006.4023,
+   "drop_inside": 0.7285
+  },
+  {
+   "type": "M",
+   "step": 1000448,
+   "episodes": 6.0,
+   "in_old": 5.1,
+   "in_new": 2.9,
+   "out_old": 550.3,
+   "out_new": 260.6,
+   "drop_inside": 0.4314
+  },
+  {
+   "type": "M",
+   "step": 2000896,
+   "episodes": 2.0,
+   "in_old": 0.5,
+   "in_new": 0.5,
+   "out_old": 227.5,
+   "out_new": 91.3,
+   "drop_inside": 0.0
+  },
+  {
+   "type": "M",
+   "step": 4000768,
+   "episodes": 1.0,
+   "in_old": 0.7,
+   "in_new": 0.7,
+   "out_old": 111.3,
+   "out_new": 58.3,
+   "drop_inside": 0.0
+  },
+  {
+   "type": "M",
+   "step": 5000192,
+   "episodes": 1.0,
+   "in_old": 5.5,
+   "in_new": 0.0,
+   "out_old": 134.7,
+   "out_new": 60.6,
+   "drop_inside": 1.0
+  },
+  {
+   "type": "M",
+   "step": "all",
+   "episodes": 10.0,
+   "in_old": 11.8,
+   "in_new": 4.1,
+   "out_old": 1023.8,
+   "out_new": 470.8,
+   "drop_inside": 0.6525
+  },
+  {
+   "type": "O",
+   "step": 1000448,
+   "episodes": 24.0,
+   "in_old": 575.8,
+   "in_new": 139.6,
+   "out_old": 1766.4028,
+   "out_new": 882.9028,
+   "drop_inside": 0.7576
+  },
+  {
+   "type": "O",
+   "step": 2000896,
+   "episodes": 52.0,
+   "in_old": 1841.4,
+   "in_new": 455.0,
+   "out_old": 4562.1,
+   "out_new": 2050.5,
+   "drop_inside": 0.7529
+  },
+  {
+   "type": "O",
+   "step": 250880,
+   "episodes": 23.0,
+   "in_old": 419.6,
+   "in_new": 311.3,
+   "out_old": 611.7,
+   "out_new": 352.7,
+   "drop_inside": 0.2581
+  },
+  {
+   "type": "O",
+   "step": 3000320,
+   "episodes": 32.0,
+   "in_old": 884.0,
+   "in_new": 377.5,
+   "out_old": 2020.8,
+   "out_new": 930.0,
+   "drop_inside": 0.573
+  },
+  {
+   "type": "O",
+   "step": 4000768,
+   "episodes": 53.0,
+   "in_old": 1841.538,
+   "in_new": 572.538,
+   "out_old": 5103.7333,
+   "out_new": 2449.5333,
+   "drop_inside": 0.6891
+  },
+  {
+   "type": "O",
+   "step": 5000192,
+   "episodes": 53.0,
+   "in_old": 2293.5201,
+   "in_new": 531.8201,
+   "out_old": 4635.4257,
+   "out_new": 2307.7257,
+   "drop_inside": 0.7681
+  },
+  {
+   "type": "O",
+   "step": 500736,
+   "episodes": 21.0,
+   "in_old": 567.4,
+   "in_new": 249.6,
+   "out_old": 1217.2028,
+   "out_new": 576.7028,
+   "drop_inside": 0.5601
+  },
+  {
+   "type": "O",
+   "step": "all",
+   "episodes": 258.0,
+   "in_old": 8423.2581,
+   "in_new": 2637.3581,
+   "out_old": 19917.3645,
+   "out_new": 9550.0645,
+   "drop_inside": 0.6869
+  },
+  {
+   "type": "O:behind",
+   "step": 1000448,
+   "episodes": 22.0,
+   "in_old": 504.1,
+   "in_new": 100.4,
+   "out_old": 1715.0028,
+   "out_new": 858.5028,
+   "drop_inside": 0.8008
+  },
+  {
+   "type": "O:behind",
+   "step": 2000896,
+   "episodes": 50.0,
+   "in_old": 1785.4,
+   "in_new": 410.9,
+   "out_old": 4470.9,
+   "out_new": 2019.4,
+   "drop_inside": 0.7699
+  },
+  {
+   "type": "O:behind",
+   "step": 250880,
+   "episodes": 4.0,
+   "in_old": 80.3,
+   "in_new": 11.7,
+   "out_old": 239.4,
+   "out_new": 162.1,
+   "drop_inside": 0.8543
+  },
+  {
+   "type": "O:behind",
+   "step": 3000320,
+   "episodes": 20.0,
+   "in_old": 536.9,
+   "in_new": 128.3,
+   "out_old": 1636.1,
+   "out_new": 761.7,
+   "drop_inside": 0.761
+  },
+  {
+   "type": "O:behind",
+   "step": 4000768,
+   "episodes": 46.0,
+   "in_old": 1635.938,
+   "in_new": 471.538,
+   "out_old": 4502.7333,
+   "out_new": 2199.2333,
+   "drop_inside": 0.7118
+  },
+  {
+   "type": "O:behind",
+   "step": 5000192,
+   "episodes": 53.0,
+   "in_old": 2292.3201,
+   "in_new": 530.6201,
+   "out_old": 4636.6257,
+   "out_new": 2308.9257,
+   "drop_inside": 0.7685
+  },
+  {
+   "type": "O:behind",
+   "step": 500736,
+   "episodes": 14.0,
+   "in_old": 317.4,
+   "in_new": 62.5,
+   "out_old": 1140.5778,
+   "out_new": 549.5778,
+   "drop_inside": 0.8031
+  },
+  {
+   "type": "O:behind",
+   "step": "all",
+   "episodes": 209.0,
+   "in_old": 7152.3581,
+   "in_new": 1715.9581,
+   "out_old": 18341.3395,
+   "out_new": 8859.4395,
+   "drop_inside": 0.7601
+  },
+  {
+   "type": "O:side",
+   "step": 1000448,
+   "episodes": 5.0,
+   "in_old": 100.9,
+   "in_new": 39.6,
+   "out_old": 302.8,
+   "out_new": 152.6,
+   "drop_inside": 0.6075
+  },
+  {
+   "type": "O:side",
+   "step": 2000896,
+   "episodes": 3.0,
+   "in_old": 63.5,
+   "in_new": 51.3,
+   "out_old": 190.9,
+   "out_new": 71.5,
+   "drop_inside": 0.1921
+  },
+  {
+   "type": "O:side",
+   "step": 250880,
+   "episodes": 19.0,
+   "in_old": 339.3,
+   "in_new": 299.6,
+   "out_old": 372.3,
+   "out_new": 190.6,
+   "drop_inside": 0.117
+  },
+  {
+   "type": "O:side",
+   "step": 3000320,
+   "episodes": 14.0,
+   "in_old": 347.1,
+   "in_new": 249.2,
+   "out_old": 598.2,
+   "out_new": 258.8,
+   "drop_inside": 0.2821
+  },
+  {
+   "type": "O:side",
+   "step": 4000768,
+   "episodes": 15.0,
+   "in_old": 251.0,
+   "in_new": 127.5,
+   "out_old": 1595.9,
+   "out_new": 658.5,
+   "drop_inside": 0.492
+  },
+  {
+   "type": "O:side",
+   "step": 5000192,
+   "episodes": 1.0,
+   "in_old": 7.4,
+   "in_new": 2.1,
+   "out_old": 100.3,
+   "out_new": 44.3,
+   "drop_inside": 0.7162
+  },
+  {
+   "type": "O:side",
+   "step": 500736,
+   "episodes": 11.0,
+   "in_old": 250.0,
+   "in_new": 187.1,
+   "out_old": 511.725,
+   "out_new": 241.325,
+   "drop_inside": 0.2516
+  },
+  {
+   "type": "O:side",
+   "step": "all",
+   "episodes": 68.0,
+   "in_old": 1359.2,
+   "in_new": 956.4,
+   "out_old": 3672.125,
+   "out_new": 1617.625,
+   "drop_inside": 0.2964
+  },
+  {
+   "type": "U",
+   "step": 1000448,
+   "episodes": 2.0,
+   "in_old": 41.5,
+   "in_new": 16.0,
+   "out_old": 112.0,
+   "out_new": 63.7,
+   "drop_inside": 0.6145
+  },
+  {
+   "type": "U",
+   "step": 250880,
+   "episodes": 2.0,
+   "in_old": 49.8,
+   "in_new": 42.4,
+   "out_old": 6.3,
+   "out_new": 6.3,
+   "drop_inside": 0.1486
+  },
+  {
+   "type": "U",
+   "step": 500736,
+   "episodes": 4.0,
+   "in_old": 60.5,
+   "in_new": 38.1,
+   "out_old": 84.7,
+   "out_new": 48.2,
+   "drop_inside": 0.3702
+  },
+  {
+   "type": "U",
+   "step": "all",
+   "episodes": 8.0,
+   "in_old": 151.8,
+   "in_new": 96.5,
+   "out_old": 203.0,
+   "out_new": 118.2,
+   "drop_inside": 0.3643
+  },
+  {
+   "type": "U:novelty",
+   "step": 1000448,
+   "episodes": 2.0,
+   "in_old": 41.5,
+   "in_new": 16.0,
+   "out_old": 112.0,
+   "out_new": 63.7,
+   "drop_inside": 0.6145
+  },
+  {
+   "type": "U:novelty",
+   "step": 250880,
+   "episodes": 1.0,
+   "in_old": 18.1,
+   "in_new": 15.5,
+   "out_old": 16.8,
+   "out_new": 15.0,
+   "drop_inside": 0.1436
+  },
+  {
+   "type": "U:novelty",
+   "step": 500736,
+   "episodes": 3.0,
+   "in_old": 34.9,
+   "in_new": 23.9,
+   "out_old": 81.3,
+   "out_new": 45.3,
+   "drop_inside": 0.3152
+  },
+  {
+   "type": "U:novelty",
+   "step": "all",
+   "episodes": 6.0,
+   "in_old": 94.5,
+   "in_new": 55.4,
+   "out_old": 210.1,
+   "out_new": 124.0,
+   "drop_inside": 0.4138
+  },
+  {
+   "type": "U:review",
+   "step": 250880,
+   "episodes": 2.0,
+   "in_old": 38.3,
+   "in_new": 33.5,
+   "out_old": 17.8,
+   "out_new": 15.2,
+   "drop_inside": 0.1253
+  },
+  {
+   "type": "U:review",
+   "step": 500736,
+   "episodes": 1.0,
+   "in_old": 25.6,
+   "in_new": 14.2,
+   "out_old": 3.4,
+   "out_new": 2.9,
+   "drop_inside": 0.4453
+  },
+  {
+   "type": "U:review",
+   "step": "all",
+   "episodes": 3.0,
+   "in_old": 63.9,
+   "in_new": 47.7,
+   "out_old": 21.2,
+   "out_new": 18.1,
+   "drop_inside": 0.2535
+  }
+ ]
+}

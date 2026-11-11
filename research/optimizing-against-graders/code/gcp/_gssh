@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# rsync -e helper: rsync runs  _gssh [-l user] HOST COMMAND...  and we hand that to gcloud ssh,
+# which manages keys and known-hosts. Zone/project come from config.sh via the environment.
+if [ "$1" = -l ]; then shift 2; fi
+host=$1; shift
+exec gcloud ${E1_PROJECT:+--project "$E1_PROJECT"} compute ssh "$host" --zone "$E1_ZONE" --quiet -- "$@"

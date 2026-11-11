@@ -1,3 +1,18 @@
 _site/
 __pycache__/
 .DS_Store
+
+# Game ROMs and ROM-derived files (never commit; see research/optimizing-against-graders/experiment-e1.md §12)
+*.gb
+*.gbc
+*.gba
+*.state
+*.sav
+*.srm
+# Experiment venvs and local frame/video dumps
+research/*/code/.venv/
+research/*/code/runs/
+research/*/code/**/*.png
+research/*/code/**/*.mp4
+research/*/code/**/*.gif
+research/*/code/**/frames/

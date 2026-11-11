@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Start the agent team in Herdr: lead on the left, researcher / writer / developer
+# stacked on the right, and a "site" tab running the dev server.
+#
+# Usage (from a Herdr pane, in the repo):  ./scripts/team
+# See AGENTS.md for roles. Stop everything by closing the tab/workspace in Herdr.
+set -euo pipefail
+
+if [[ "${HERDR_ENV:-}" != 1 ]]; then
+  echo "Run this inside Herdr (Super+Ctrl+Enter, or 'h' in a terminal)." >&2
+  exit 1
+fi
+
+cd "$(dirname "$0")/.."
+root="$PWD"
+claude_args=(--permission-mode auto)
+
+split() { # <pane> <right|down> <ratio kept by the original pane>
+  herdr pane split "$1" --direction "$2" --ratio "$3" --cwd "$root" --no-focus |
+    jq -r '.result.pane.pane_id'
+}
+
+herdr tab rename "$HERDR_TAB_ID" "team" >/dev/null
+
+researcher_pane=$(split "$HERDR_PANE_ID" right 0.5)
+writer_pane=$(split "$researcher_pane" down 0.34)
+developer_pane=$(split "$writer_pane" down 0.5)
+
+start() { # <name> <pane>
+  herdr agent start "$1" --kind claude --pane "$2" --timeout 60000 \
+    -- --agent "$1" -n "$1" "${claude_args[@]}" >/dev/null &&
+    echo "  started $1" || echo "  $1 did not report ready; check its pane" >&2
+}
+
+echo "Starting agents..."
+start researcher "$researcher_pane" &
+start writer "$writer_pane" &
+start developer "$developer_pane" &
+wait
+
+# Dev server in its own tab: http://127.0.0.1:8000 (drafts included)
+site_pane=$(herdr tab create --workspace "$HERDR_WORKSPACE_ID" --cwd "$root" --label site --no-focus |
+  jq -r '.result.root_pane.pane_id')
+herdr pane run "$site_pane" "./build.py serve" >/dev/null
+
+# This pane becomes the lead. Name it once Claude is detected so the others can
+# reach it with `herdr agent prompt lead ...`.
+( for _ in $(seq 60); do
+    herdr agent rename "$HERDR_PANE_ID" lead >/dev/null 2>&1 && exit 0
+    sleep 1
+  done ) &
+exec claude --agent lead -n lead "${claude_args[@]}"

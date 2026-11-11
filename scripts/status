@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Show what this agent is working on in Herdr's sidebar (no-op outside Herdr).
+#   scripts/status "Reviewing: Sleeper Agents (Hubinger et al. 2024)"
+#   scripts/status --clear
+[[ "${HERDR_ENV:-}" == 1 && -n "${HERDR_PANE_ID:-}" ]] || exit 0
+# Also cached for the Claude Code status line (scripts/statusline)
+cache="${XDG_RUNTIME_DIR:-/tmp}/team-status"; mkdir -p "$cache"
+file="$cache/${HERDR_PANE_ID//[^a-zA-Z0-9]/_}.task"
+if [[ "${1:-}" == --clear ]]; then
+  rm -f "$file"
+  herdr pane report-metadata "$HERDR_PANE_ID" --source team --clear-token task >/dev/null
+else
+  printf '%s' "$*" >"$file"
+  herdr pane report-metadata "$HERDR_PANE_ID" --source team --token "task=$*" >/dev/null
+fi

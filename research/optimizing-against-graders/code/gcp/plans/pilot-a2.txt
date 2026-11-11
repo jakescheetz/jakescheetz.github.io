@@ -1,0 +1,4 @@
+# The §9 oracle pilot: one A2 run on D1, 5M steps, tiles-CNN, normal core (train.py defaults).
+# Runs only after the researcher's L/K precision check (experiment-e1.md §9 "Before main arms" item 2).
+#   gcp/run.sh gcp/plans/pilot-a2.txt --vm e1-a --envs 8
+--arm A2 --state D1 --seed 0 --steps 5000000 --run-id A2-D1-s0 --envs {envs}

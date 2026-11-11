@@ -1,0 +1,1039 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 890 1024" width="890" height="1024" role="img">
+<title>Fig. 1: proxy P and true T for A0 and A2″, by training state</title><style>
+svg { font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; font-size: 11px; }
+polyline { fill: none; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; } .grid { stroke: #e4e3df; }
+.axis { stroke: #52514e; } .A0 { stroke: #2a78d6; } .A2pp { stroke: #eb6834; }
+circle.A0 { fill: #2a78d6; } circle.A2pp { fill: #eb6834; } circle.hollow, circle.axis { fill: #fcfcfb; }
+polygon.band { stroke: none; opacity: .16; } polygon.band.A0 { fill: #2a78d6; } polygon.band.A2pp { fill: #eb6834; }
+.tick1 { stroke: #0b0b0b; } .tick2 { stroke: #52514e; opacity: .55; }
+@media (prefers-color-scheme: dark) {
+  .bg, circle.hollow, circle.axis { fill: #1a1a19; } .ink { fill: #f0efec; } .ink2 { fill: #c3c2b7; }
+  .grid { stroke: #383835; } .axis { stroke: #c3c2b7; } .A0 { stroke: #3987e5; } .A2pp { stroke: #d95926; }
+  circle.A0 { fill: #3987e5; } circle.A2pp { fill: #d95926; } circle.hollow { fill: #1a1a19; }
+  polygon.band.A0 { fill: #3987e5; } polygon.band.A2pp { fill: #d95926; }
+  .tick1 { stroke: #f0efec; } .tick2 { stroke: #c3c2b7; }
+}
+</style>
+<rect class="bg" width="890" height="1024"/>
+<text class="ink" x="16" y="22" font-size="13" font-weight="bold">Fig. 1: proxy P and true T for A0 and A2″, by training state</text>
+<line class="A0" x1="20" x2="42" y1="44" y2="44" stroke-width="2"/>
+<text class="ink" x="48" y="48">A0</text>
+<line class="A2pp" x1="110" x2="132" y1="44" y2="44" stroke-width="2"/>
+<text class="ink" x="138" y="48">A2″</text>
+<line class="axis" x1="210" x2="232" y1="44" y2="44" stroke-width="2" stroke-dasharray="5 3"/>
+<text class="ink" x="238" y="48">leg progress (T panel)</text>
+<circle class="axis hollow" cx="416" cy="44" r="3.5" stroke-width="1.5"/>
+<text class="ink" x="426" y="48">collapsed A2″ seed-ckpt</text>
+<line class="axis" x1="600" x2="622" y1="44" y2="44" stroke-width="1" opacity=".5"/>
+<text class="ink" x="628" y="48">one seed</text>
+<text class="ink" x="70" y="82" font-weight="bold">D1→D1: proxy P</text>
+<line class="grid" x1="70" x2="400" y1="220.0" y2="220.0"/>
+<text class="ink2" x="64" y="224.0" text-anchor="end">0</text>
+<line class="grid" x1="70" x2="400" y1="176.7" y2="176.7"/>
+<text class="ink2" x="64" y="180.7" text-anchor="end">50</text>
+<line class="grid" x1="70" x2="400" y1="133.5" y2="133.5"/>
+<text class="ink2" x="64" y="137.5" text-anchor="end">100</text>
+<line class="grid" x1="70" x2="400" y1="90.2" y2="90.2"/>
+<text class="ink2" x="64" y="94.2" text-anchor="end">150</text>
+<text class="ink2" x="80.5" y="234" text-anchor="middle">250k</text>
+<text class="ink2" x="152.2" y="234" text-anchor="middle">500k</text>
+<text class="ink2" x="223.8" y="234" text-anchor="middle">1M</text>
+<text class="ink2" x="295.4" y="234" text-anchor="middle">2M</text>
+<text class="ink2" x="337.3" y="234" text-anchor="middle">3M</text>
+<text class="ink2" x="390.1" y="234" text-anchor="middle">5M</text>
+<line class="axis" x1="70" x2="400" y1="220" y2="220"/>
+<text class="ink2" x="400" y="248" text-anchor="end">training step (log)</text>
+<text class="ink2" x="36" y="155.0" transform="rotate(-90 36 155.0)" text-anchor="middle">P</text>
+<text class="ink" x="70" y="276" font-weight="bold">D1→D1: true T, leg progress</text>
+<line class="grid" x1="70" x2="400" y1="414.0" y2="414.0"/>
+<text class="ink2" x="64" y="418.0" text-anchor="end">0</text>
+<line class="grid" x1="70" x2="400" y1="370.7" y2="370.7"/>
+<text class="ink2" x="64" y="374.7" text-anchor="end">1</text>
+<line class="grid" x1="70" x2="400" y1="327.3" y2="327.3"/>
+<text class="ink2" x="64" y="331.3" text-anchor="end">2</text>
+<line class="grid" x1="70" x2="400" y1="284.0" y2="284.0"/>
+<text class="ink2" x="64" y="288.0" text-anchor="end">3</text>
+<text class="ink2" x="80.5" y="428" text-anchor="middle">250k</text>
+<text class="ink2" x="152.2" y="428" text-anchor="middle">500k</text>
+<text class="ink2" x="223.8" y="428" text-anchor="middle">1M</text>
+<text class="ink2" x="295.4" y="428" text-anchor="middle">2M</text>
+<text class="ink2" x="337.3" y="428" text-anchor="middle">3M</text>
+<text class="ink2" x="390.1" y="428" text-anchor="middle">5M</text>
+<line class="axis" x1="70" x2="400" y1="414" y2="414"/>
+<text class="ink2" x="400" y="442" text-anchor="end">training step (log)</text>
+<text class="ink2" x="36" y="349.0" transform="rotate(-90 36 349.0)" text-anchor="middle">milestones</text>
+<polygon class="band A0" points="80.9,162.5 152.3,142.5 223.9,134.2 295.5,118.1 337.4,141.7 367.1,101.9 390.1,109.0 390.1,137.5 367.1,129.6 337.4,178.4 295.5,138.2 223.9,177.6 152.3,185.9 80.9,207.8"/>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,192.6 152.3,182.2 223.9,157.5 295.5,112.0 337.4,158.1 367.1,115.3 390.1,113.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="192.6" r="2.5"><title>b2-A0-D1-s1 P x=2.509e+05 y=31.712</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="182.2" r="2.5"><title>b2-A0-D1-s1 P x=5.007e+05 y=43.712</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="157.5" r="2.5"><title>b2-A0-D1-s1 P x=1e+06 y=72.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="112.0" r="2.5"><title>b2-A0-D1-s1 P x=2.001e+06 y=124.838</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="158.1" r="2.5"><title>b2-A0-D1-s1 P x=3e+06 y=71.575</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="115.3" r="2.5"><title>b2-A0-D1-s1 P x=4.001e+06 y=121.037</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="113.1" r="2.5"><title>b2-A0-D1-s1 P x=5e+06 y=123.575</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,155.4 152.3,199.8 223.9,135.7 295.5,136.2 337.4,191.9 367.1,122.3 390.1,107.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="155.4" r="2.5"><title>b2-A0-D1-s2 P x=2.509e+05 y=74.638</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="199.8" r="2.5"><title>b2-A0-D1-s2 P x=5.007e+05 y=23.400</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="135.7" r="2.5"><title>b2-A0-D1-s2 P x=1e+06 y=97.438</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="136.2" r="2.5"><title>b2-A0-D1-s2 P x=2.001e+06 y=96.825</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="191.9" r="2.5"><title>b2-A0-D1-s2 P x=3e+06 y=32.462</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="122.3" r="2.5"><title>b2-A0-D1-s2 P x=4.001e+06 y=112.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="107.2" r="2.5"><title>b2-A0-D1-s2 P x=5e+06 y=130.345</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,205.0 152.3,161.5 223.9,122.1 295.5,136.8 337.4,137.0 367.1,132.2 390.1,139.6"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="205.0" r="2.5"><title>b2-A0-D1-s3 P x=2.509e+05 y=17.312</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="161.5" r="2.5"><title>b2-A0-D1-s3 P x=5.007e+05 y=67.663</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="122.1" r="2.5"><title>b2-A0-D1-s3 P x=1e+06 y=113.150</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="136.8" r="2.5"><title>b2-A0-D1-s3 P x=2.001e+06 y=96.175</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="137.0" r="2.5"><title>b2-A0-D1-s3 P x=3e+06 y=95.987</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="132.2" r="2.5"><title>b2-A0-D1-s3 P x=4.001e+06 y=101.463</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="139.6" r="2.5"><title>b2-A0-D1-s3 P x=5e+06 y=92.975</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,156.4 152.3,148.6 223.9,179.1 295.5,132.0 337.4,144.5 367.1,111.2 390.1,142.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="156.4" r="2.5"><title>b2-A0-D1-s4 P x=2.509e+05 y=73.525</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="148.6" r="2.5"><title>b2-A0-D1-s4 P x=5.007e+05 y=82.525</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="179.1" r="2.5"><title>b2-A0-D1-s4 P x=1e+06 y=47.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="132.0" r="2.5"><title>b2-A0-D1-s4 P x=2.001e+06 y=101.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="144.5" r="2.5"><title>b2-A0-D1-s4 P x=3e+06 y=87.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="111.2" r="2.5"><title>b2-A0-D1-s4 P x=4.001e+06 y=125.737</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="142.8" r="2.5"><title>b2-A0-D1-s4 P x=5e+06 y=89.275</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,218.7 152.3,128.5 223.9,186.4 295.5,124.8 337.4,163.1 367.1,96.2 390.1,110.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="218.7" r="2.5"><title>b2-A0-D1-s5 P x=2.509e+05 y=1.512</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="128.5" r="2.5"><title>b2-A0-D1-s5 P x=5.007e+05 y=105.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="186.4" r="2.5"><title>b2-A0-D1-s5 P x=1e+06 y=38.862</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="124.8" r="2.5"><title>b2-A0-D1-s5 P x=2.001e+06 y=110.075</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="163.1" r="2.5"><title>b2-A0-D1-s5 P x=3e+06 y=65.763</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="96.2" r="2.5"><title>b2-A0-D1-s5 P x=4.001e+06 y=143.123</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="110.1" r="2.5"><title>b2-A0-D1-s5 P x=5e+06 y=127.037</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="80.9,185.6 152.3,164.1 223.9,156.2 295.5,128.4 337.4,158.9 367.1,115.5 390.1,122.6"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="185.6" r="4"><title>A0 pooled P x=2.509e+05 y=39.740</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="164.1" r="4"><title>A0 pooled P x=5.007e+05 y=64.620</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="156.2" r="4"><title>A0 pooled P x=1e+06 y=73.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="128.4" r="4"><title>A0 pooled P x=2.001e+06 y=105.933</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="158.9" r="4"><title>A0 pooled P x=3e+06 y=70.608</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="115.5" r="4"><title>A0 pooled P x=4.001e+06 y=120.857</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="122.6" r="4"><title>A0 pooled P x=5e+06 y=112.641</title></circle>
+<polygon class="band A0" points="80.9,352.2 152.3,331.7 223.9,351.2 295.5,333.8 337.4,351.2 367.1,313.2 390.1,332.8 390.1,371.8 367.1,360.9 337.4,394.5 295.5,365.2 223.9,407.5 152.3,405.3 80.9,414.0"/>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,414.0 223.9,392.3 295.5,327.3 337.4,386.9 367.1,327.3 390.1,327.3"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A0-D1-s1 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A0-D1-s1 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="392.3" r="2.5"><title>b2-A0-D1-s1 T x=1e+06 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="386.9" r="2.5"><title>b2-A0-D1-s1 T x=3e+06 y=0.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=4.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=5e+06 y=2.000</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,376.1 152.3,414.0 223.9,338.2 295.5,376.1 337.4,403.2 367.1,343.6 390.1,338.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="376.1" r="2.5"><title>b2-A0-D1-s2 T x=2.509e+05 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A0-D1-s2 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="338.2" r="2.5"><title>b2-A0-D1-s2 T x=1e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="376.1" r="2.5"><title>b2-A0-D1-s2 T x=2.001e+06 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="403.2" r="2.5"><title>b2-A0-D1-s2 T x=3e+06 y=0.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="343.6" r="2.5"><title>b2-A0-D1-s2 T x=4.001e+06 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="338.2" r="2.5"><title>b2-A0-D1-s2 T x=5e+06 y=1.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,370.7 223.9,343.6 295.5,349.0 337.4,332.8 367.1,376.1 390.1,376.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A0-D1-s3 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="370.7" r="2.5"><title>b2-A0-D1-s3 T x=5.007e+05 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="343.6" r="2.5"><title>b2-A0-D1-s3 T x=1e+06 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="349.0" r="2.5"><title>b2-A0-D1-s3 T x=2.001e+06 y=1.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="332.8" r="2.5"><title>b2-A0-D1-s3 T x=3e+06 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="376.1" r="2.5"><title>b2-A0-D1-s3 T x=4.001e+06 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="376.1" r="2.5"><title>b2-A0-D1-s3 T x=5e+06 y=0.875</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,321.9 152.3,316.5 223.9,414.0 295.5,338.2 337.4,365.2 367.1,338.2 390.1,381.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="321.9" r="2.5"><title>b2-A0-D1-s4 T x=2.509e+05 y=2.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="316.5" r="2.5"><title>b2-A0-D1-s4 T x=5.007e+05 y=2.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="414.0" r="2.5"><title>b2-A0-D1-s4 T x=1e+06 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="338.2" r="2.5"><title>b2-A0-D1-s4 T x=2.001e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="365.2" r="2.5"><title>b2-A0-D1-s4 T x=3e+06 y=1.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="338.2" r="2.5"><title>b2-A0-D1-s4 T x=4.001e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="381.5" r="2.5"><title>b2-A0-D1-s4 T x=5e+06 y=0.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,327.3 223.9,408.6 295.5,354.4 337.4,381.5 367.1,294.8 390.1,338.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A0-D1-s5 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="327.3" r="2.5"><title>b2-A0-D1-s5 T x=5.007e+05 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="408.6" r="2.5"><title>b2-A0-D1-s5 T x=1e+06 y=0.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="354.4" r="2.5"><title>b2-A0-D1-s5 T x=2.001e+06 y=1.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="381.5" r="2.5"><title>b2-A0-D1-s5 T x=3e+06 y=0.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="294.8" r="2.5"><title>b2-A0-D1-s5 T x=4.001e+06 y=2.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="338.2" r="2.5"><title>b2-A0-D1-s5 T x=5e+06 y=1.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="80.9,388.0 152.3,368.5 223.9,379.3 295.5,349.0 337.4,373.9 367.1,336.0 390.1,352.2"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="388.0" r="4"><title>A0 pooled T x=2.509e+05 y=0.600</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="368.5" r="4"><title>A0 pooled T x=5.007e+05 y=1.050</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="379.3" r="4"><title>A0 pooled T x=1e+06 y=0.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="349.0" r="4"><title>A0 pooled T x=2.001e+06 y=1.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="373.9" r="4"><title>A0 pooled T x=3e+06 y=0.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="336.0" r="4"><title>A0 pooled T x=4.001e+06 y=1.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="352.2" r="4"><title>A0 pooled T x=5e+06 y=1.425</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="80.9,368.9 152.3,343.3 223.9,350.2 295.5,319.9 337.4,349.8 367.1,312.5 390.1,321.0"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="368.9" r="0"><title>A0 leg progress x=2.509e+05 y=1.040</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="343.3" r="0"><title>A0 leg progress x=5.007e+05 y=1.633</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="350.2" r="0"><title>A0 leg progress x=1e+06 y=1.473</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="319.9" r="0"><title>A0 leg progress x=2.001e+06 y=2.171</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="349.8" r="0"><title>A0 leg progress x=3e+06 y=1.482</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="312.5" r="0"><title>A0 leg progress x=4.001e+06 y=2.342</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="321.0" r="0"><title>A0 leg progress x=5e+06 y=2.146</title></circle>
+<polygon class="band A2pp" points="80.9,205.5 152.3,199.3 223.9,189.4 295.5,179.3 337.4,193.9 367.1,189.9 390.1,196.2 390.1,216.1 367.1,210.0 337.4,210.1 295.5,206.4 223.9,206.2 152.3,206.1 80.9,215.7"/>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,208.8 152.3,205.5 223.9,183.8 295.5,187.4 337.4,210.5 367.1,216.5 390.1,198.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="208.8" r="2.5"><title>b2-A2pp-D1-s1 P x=2.509e+05 y=12.975</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="205.5" r="2.5"><title>b2-A2pp-D1-s1 P x=5.007e+05 y=16.764</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="183.8" r="2.5"><title>b2-A2pp-D1-s1 P x=1e+06 y=41.875</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="187.4" r="2.5"><title>b2-A2pp-D1-s1 P x=2.001e+06 y=37.722</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="210.5" r="2.5"><title>b2-A2pp-D1-s1 P x=3e+06 y=10.938 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="216.5" r="2.5"><title>b2-A2pp-D1-s1 P x=4.001e+06 y=4.075 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="198.0" r="2.5"><title>b2-A2pp-D1-s1 P x=5e+06 y=25.425</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,217.2 152.3,203.2 223.9,199.0 295.5,215.6 337.4,207.3 367.1,184.7 390.1,219.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="217.2" r="2.5"><title>b2-A2pp-D1-s2 P x=2.509e+05 y=3.263</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="203.2" r="2.5"><title>b2-A2pp-D1-s2 P x=5.007e+05 y=19.477</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="199.0" r="2.5"><title>b2-A2pp-D1-s2 P x=1e+06 y=24.250</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="295.5" cy="215.6" r="2.5"><title>b2-A2pp-D1-s2 P x=2.001e+06 y=5.062 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="207.3" r="2.5"><title>b2-A2pp-D1-s2 P x=3e+06 y=14.662 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="184.7" r="2.5"><title>b2-A2pp-D1-s2 P x=4.001e+06 y=40.825</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="219.3" r="2.5"><title>b2-A2pp-D1-s2 P x=5e+06 y=0.775 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,211.6 152.3,200.9 223.9,212.2 295.5,202.8 337.4,188.1 367.1,194.6 390.1,218.6"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="211.6" r="2.5"><title>b2-A2pp-D1-s3 P x=2.509e+05 y=9.675</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="200.9" r="2.5"><title>b2-A2pp-D1-s3 P x=5.007e+05 y=22.065</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="212.2" r="2.5"><title>b2-A2pp-D1-s3 P x=1e+06 y=9.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="202.8" r="2.5"><title>b2-A2pp-D1-s3 P x=2.001e+06 y=19.836</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="188.1" r="2.5"><title>b2-A2pp-D1-s3 P x=3e+06 y=36.862</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="194.6" r="2.5"><title>b2-A2pp-D1-s3 P x=4.001e+06 y=29.364</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="218.6" r="2.5"><title>b2-A2pp-D1-s3 P x=5e+06 y=1.675 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,201.3 152.3,207.6 223.9,194.4 295.5,169.1 337.4,211.1 367.1,208.4 390.1,205.6"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="201.3" r="2.5"><title>b2-A2pp-D1-s4 P x=2.509e+05 y=21.581</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="207.6" r="2.5"><title>b2-A2pp-D1-s4 P x=5.007e+05 y=14.382</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="194.4" r="2.5"><title>b2-A2pp-D1-s4 P x=1e+06 y=29.575</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="169.1" r="2.5"><title>b2-A2pp-D1-s4 P x=2.001e+06 y=58.801</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="211.1" r="2.5"><title>b2-A2pp-D1-s4 P x=3e+06 y=10.325 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="208.4" r="2.5"><title>b2-A2pp-D1-s4 P x=4.001e+06 y=13.367 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="205.6" r="2.5"><title>b2-A2pp-D1-s4 P x=5e+06 y=16.663 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,215.9 152.3,197.3 223.9,199.9 295.5,191.1 337.4,195.1 367.1,194.1 390.1,190.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="215.9" r="2.5"><title>b2-A2pp-D1-s5 P x=2.509e+05 y=4.688</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="197.3" r="2.5"><title>b2-A2pp-D1-s5 P x=5.007e+05 y=26.200</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="199.9" r="2.5"><title>b2-A2pp-D1-s5 P x=1e+06 y=23.190</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="191.1" r="2.5"><title>b2-A2pp-D1-s5 P x=2.001e+06 y=33.425</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="195.1" r="2.5"><title>b2-A2pp-D1-s5 P x=3e+06 y=28.762</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="194.1" r="2.5"><title>b2-A2pp-D1-s5 P x=4.001e+06 y=29.900</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="190.0" r="2.5"><title>b2-A2pp-D1-s5 P x=5e+06 y=34.725</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="80.9,211.0 152.3,202.9 223.9,197.9 295.5,193.2 337.4,202.4 367.1,199.7 390.1,206.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="211.0" r="4"><title>A2″ pooled P x=2.509e+05 y=10.436</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="202.9" r="4"><title>A2″ pooled P x=5.007e+05 y=19.777</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="197.9" r="4"><title>A2″ pooled P x=1e+06 y=25.578</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="193.2" r="4"><title>A2″ pooled P x=2.001e+06 y=30.969</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="202.4" r="4"><title>A2″ pooled P x=3e+06 y=20.310</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="199.7" r="4"><title>A2″ pooled P x=4.001e+06 y=23.506</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="206.3" r="4"><title>A2″ pooled P x=5e+06 y=15.852</title></circle>
+<polygon class="band A2pp" points="80.9,414.0 152.3,405.3 223.9,337.1 295.5,291.6 337.4,320.8 367.1,287.2 390.1,325.2 390.1,402.1 367.1,391.2 337.4,410.8 295.5,395.6 223.9,393.4 152.3,414.0 80.9,414.0"/>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,414.0 223.9,321.9 295.5,321.9 337.4,397.8 367.1,414.0 390.1,338.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="321.9" r="2.5"><title>b2-A2pp-D1-s1 T x=1e+06 y=2.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="321.9" r="2.5"><title>b2-A2pp-D1-s1 T x=2.001e+06 y=2.125</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="397.8" r="2.5"><title>b2-A2pp-D1-s1 T x=3e+06 y=0.375 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=4.001e+06 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="338.2" r="2.5"><title>b2-A2pp-D1-s1 T x=5e+06 y=1.750</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,414.0 223.9,370.7 295.5,414.0 337.4,414.0 367.1,284.0 390.1,414.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="370.7" r="2.5"><title>b2-A2pp-D1-s2 T x=1e+06 y=1.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="295.5" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=2.001e+06 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=3e+06 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="284.0" r="2.5"><title>b2-A2pp-D1-s2 T x=4.001e+06 y=3.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=5e+06 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,414.0 223.9,414.0 295.5,414.0 337.4,316.5 367.1,305.7 390.1,414.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=1e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=2.001e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="316.5" r="2.5"><title>b2-A2pp-D1-s3 T x=3e+06 y=2.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="305.7" r="2.5"><title>b2-A2pp-D1-s3 T x=4.001e+06 y=2.500</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=5e+06 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,414.0 223.9,370.7 295.5,284.0 337.4,414.0 367.1,414.0 390.1,359.8"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="370.7" r="2.5"><title>b2-A2pp-D1-s4 T x=1e+06 y=1.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="284.0" r="2.5"><title>b2-A2pp-D1-s4 T x=2.001e+06 y=3.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=3e+06 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=4.001e+06 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="359.8" r="2.5"><title>b2-A2pp-D1-s4 T x=5e+06 y=1.250 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,414.0 152.3,403.2 223.9,349.0 295.5,284.0 337.4,294.8 367.1,284.0 390.1,300.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="414.0" r="2.5"><title>b2-A2pp-D1-s5 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="403.2" r="2.5"><title>b2-A2pp-D1-s5 T x=5.007e+05 y=0.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="349.0" r="2.5"><title>b2-A2pp-D1-s5 T x=1e+06 y=1.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="284.0" r="2.5"><title>b2-A2pp-D1-s5 T x=2.001e+06 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="294.8" r="2.5"><title>b2-A2pp-D1-s5 T x=3e+06 y=2.750</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="284.0" r="2.5"><title>b2-A2pp-D1-s5 T x=4.001e+06 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="300.2" r="2.5"><title>b2-A2pp-D1-s5 T x=5e+06 y=2.625</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="80.9,414.0 152.3,411.8 223.9,365.2 295.5,343.6 337.4,367.4 367.1,340.3 390.1,365.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="414.0" r="4"><title>A2″ pooled T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="411.8" r="4"><title>A2″ pooled T x=5.007e+05 y=0.050</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="365.2" r="4"><title>A2″ pooled T x=1e+06 y=1.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="343.6" r="4"><title>A2″ pooled T x=2.001e+06 y=1.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="367.4" r="4"><title>A2″ pooled T x=3e+06 y=1.075</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="340.3" r="4"><title>A2″ pooled T x=4.001e+06 y=1.700</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="365.2" r="4"><title>A2″ pooled T x=5e+06 y=1.125</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="80.9,404.9 152.3,387.6 223.9,346.2 295.5,329.6 337.4,354.2 367.1,334.9 390.1,357.1"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="404.9" r="0"><title>A2″ leg progress x=2.509e+05 y=0.211</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="387.6" r="0"><title>A2″ leg progress x=5.007e+05 y=0.610</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="346.2" r="0"><title>A2″ leg progress x=1e+06 y=1.564</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="329.6" r="0"><title>A2″ leg progress x=2.001e+06 y=1.947</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="354.2" r="0"><title>A2″ leg progress x=3e+06 y=1.379</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="334.9" r="0"><title>A2″ leg progress x=4.001e+06 y=1.825</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="357.1" r="0"><title>A2″ leg progress x=5e+06 y=1.312</title></circle>
+<line class="tick2" x1="152.3" x2="152.3" y1="116" y2="124"/>
+<text class="ink2" x="155.3" y="124" font-size="9">O·s5</text>
+<line class="tick2" x1="223.9" x2="223.9" y1="116" y2="124"/>
+<text class="ink2" x="226.9" y="124" font-size="9">D·s3</text>
+<line class="tick1" x1="295.5" x2="295.5" y1="90" y2="98"/>
+<text class="ink" x="298.5" y="98" font-size="9">D</text>
+<line class="tick2" x1="295.5" x2="295.5" y1="116" y2="124"/>
+<text class="ink2" x="298.5" y="124" font-size="9">D·s5</text>
+<line class="tick1" x1="295.5" x2="295.5" y1="101" y2="109"/>
+<text class="ink" x="298.5" y="109" font-size="9">O</text>
+<line class="tick2" x1="295.5" x2="295.5" y1="127" y2="135"/>
+<text class="ink2" x="298.5" y="135" font-size="9">O·s1</text>
+<line class="tick2" x1="295.5" x2="295.5" y1="138" y2="146"/>
+<text class="ink2" x="298.5" y="146" font-size="9">O·s3</text>
+<line class="tick2" x1="367.1" x2="367.1" y1="116" y2="124"/>
+<text class="ink2" x="370.1" y="124" font-size="9">D·s2</text>
+<text class="ink" x="480" y="82" font-weight="bold">D1→D1: proxy P vs KL</text>
+<line class="grid" x1="480" x2="810" y1="220.0" y2="220.0"/>
+<text class="ink2" x="474" y="224.0" text-anchor="end">0</text>
+<line class="grid" x1="480" x2="810" y1="176.7" y2="176.7"/>
+<text class="ink2" x="474" y="180.7" text-anchor="end">50</text>
+<line class="grid" x1="480" x2="810" y1="133.5" y2="133.5"/>
+<text class="ink2" x="474" y="137.5" text-anchor="end">100</text>
+<line class="grid" x1="480" x2="810" y1="90.2" y2="90.2"/>
+<text class="ink2" x="474" y="94.2" text-anchor="end">150</text>
+<text class="ink2" x="480.0" y="234" text-anchor="middle">0</text>
+<text class="ink2" x="590.5" y="234" text-anchor="middle">0.5</text>
+<text class="ink2" x="701.0" y="234" text-anchor="middle">1</text>
+<line class="axis" x1="480" x2="810" y1="220" y2="220"/>
+<text class="ink2" x="810" y="248" text-anchor="end">KL(π_ckpt ‖ π_init), mean per step</text>
+<text class="ink2" x="446" y="155.0" transform="rotate(-90 446 155.0)" text-anchor="middle">P</text>
+<text class="ink" x="480" y="276" font-weight="bold">D1→D1: true T, leg progress vs KL</text>
+<line class="grid" x1="480" x2="810" y1="414.0" y2="414.0"/>
+<text class="ink2" x="474" y="418.0" text-anchor="end">0</text>
+<line class="grid" x1="480" x2="810" y1="370.7" y2="370.7"/>
+<text class="ink2" x="474" y="374.7" text-anchor="end">1</text>
+<line class="grid" x1="480" x2="810" y1="327.3" y2="327.3"/>
+<text class="ink2" x="474" y="331.3" text-anchor="end">2</text>
+<line class="grid" x1="480" x2="810" y1="284.0" y2="284.0"/>
+<text class="ink2" x="474" y="288.0" text-anchor="end">3</text>
+<text class="ink2" x="480.0" y="428" text-anchor="middle">0</text>
+<text class="ink2" x="590.5" y="428" text-anchor="middle">0.5</text>
+<text class="ink2" x="701.0" y="428" text-anchor="middle">1</text>
+<line class="axis" x1="480" x2="810" y1="414" y2="414"/>
+<text class="ink2" x="810" y="442" text-anchor="end">KL(π_ckpt ‖ π_init), mean per step</text>
+<text class="ink2" x="446" y="349.0" transform="rotate(-90 446 349.0)" text-anchor="middle">milestones</text>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="594.8,192.6 718.9,182.2 647.0,157.5 709.5,112.0 677.0,158.1 767.7,115.3 743.5,113.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="594.8" cy="192.6" r="2.5"><title>b2-A0-D1-s1 P x=0.5196 y=31.712</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="718.9" cy="182.2" r="2.5"><title>b2-A0-D1-s1 P x=1.081 y=43.712</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="647.0" cy="157.5" r="2.5"><title>b2-A0-D1-s1 P x=0.7558 y=72.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="709.5" cy="112.0" r="2.5"><title>b2-A0-D1-s1 P x=1.038 y=124.838</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="677.0" cy="158.1" r="2.5"><title>b2-A0-D1-s1 P x=0.8913 y=71.575</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="767.7" cy="115.3" r="2.5"><title>b2-A0-D1-s1 P x=1.302 y=121.037</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="743.5" cy="113.1" r="2.5"><title>b2-A0-D1-s1 P x=1.192 y=123.575</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="592.8,155.4 794.3,199.8 605.9,135.7 686.8,136.2 609.1,191.9 793.4,122.3 760.8,107.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="592.8" cy="155.4" r="2.5"><title>b2-A0-D1-s2 P x=0.5105 y=74.638</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="794.3" cy="199.8" r="2.5"><title>b2-A0-D1-s2 P x=1.422 y=23.400</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="605.9" cy="135.7" r="2.5"><title>b2-A0-D1-s2 P x=0.5697 y=97.438</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="686.8" cy="136.2" r="2.5"><title>b2-A0-D1-s2 P x=0.9357 y=96.825</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="609.1" cy="191.9" r="2.5"><title>b2-A0-D1-s2 P x=0.5841 y=32.462</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="793.4" cy="122.3" r="2.5"><title>b2-A0-D1-s2 P x=1.418 y=112.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="760.8" cy="107.2" r="2.5"><title>b2-A0-D1-s2 P x=1.271 y=130.345</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="591.1,205.0 552.9,161.5 773.4,122.1 711.4,136.8 628.2,137.0 696.0,132.2 735.7,139.6"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="591.1" cy="205.0" r="2.5"><title>b2-A0-D1-s3 P x=0.5026 y=17.312</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="552.9" cy="161.5" r="2.5"><title>b2-A0-D1-s3 P x=0.33 y=67.663</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.4" cy="122.1" r="2.5"><title>b2-A0-D1-s3 P x=1.327 y=113.150</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="711.4" cy="136.8" r="2.5"><title>b2-A0-D1-s3 P x=1.047 y=96.175</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="628.2" cy="137.0" r="2.5"><title>b2-A0-D1-s3 P x=0.6707 y=95.987</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="696.0" cy="132.2" r="2.5"><title>b2-A0-D1-s3 P x=0.9776 y=101.463</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="735.7" cy="139.6" r="2.5"><title>b2-A0-D1-s3 P x=1.157 y=92.975</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="586.0,156.4 641.5,148.6 713.9,179.1 744.1,132.0 703.8,144.5 712.1,111.2 718.1,142.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="586.0" cy="156.4" r="2.5"><title>b2-A0-D1-s4 P x=0.4795 y=73.525</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="641.5" cy="148.6" r="2.5"><title>b2-A0-D1-s4 P x=0.7308 y=82.525</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="713.9" cy="179.1" r="2.5"><title>b2-A0-D1-s4 P x=1.058 y=47.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="744.1" cy="132.0" r="2.5"><title>b2-A0-D1-s4 P x=1.195 y=101.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="703.8" cy="144.5" r="2.5"><title>b2-A0-D1-s4 P x=1.013 y=87.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="712.1" cy="111.2" r="2.5"><title>b2-A0-D1-s4 P x=1.05 y=125.737</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="718.1" cy="142.8" r="2.5"><title>b2-A0-D1-s4 P x=1.078 y=89.275</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="680.0,218.7 606.0,128.5 618.0,186.4 731.4,124.8 743.9,163.1 756.1,96.2 773.2,110.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="680.0" cy="218.7" r="2.5"><title>b2-A0-D1-s5 P x=0.9049 y=1.512</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="606.0" cy="128.5" r="2.5"><title>b2-A0-D1-s5 P x=0.5703 y=105.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="618.0" cy="186.4" r="2.5"><title>b2-A0-D1-s5 P x=0.6243 y=38.862</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="731.4" cy="124.8" r="2.5"><title>b2-A0-D1-s5 P x=1.138 y=110.075</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="743.9" cy="163.1" r="2.5"><title>b2-A0-D1-s5 P x=1.194 y=65.763</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="756.1" cy="96.2" r="2.5"><title>b2-A0-D1-s5 P x=1.249 y=143.123</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.2" cy="110.1" r="2.5"><title>b2-A0-D1-s5 P x=1.327 y=127.037</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="608.9,185.6 662.7,164.1 671.6,156.2 716.6,128.4 672.4,158.9 745.1,115.5 746.2,122.6"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="608.9" cy="185.6" r="4"><title>A0 pooled P x=0.5834 y=39.740</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="662.7" cy="164.1" r="4"><title>A0 pooled P x=0.8268 y=64.620</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="671.6" cy="156.2" r="4"><title>A0 pooled P x=0.8672 y=73.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="716.6" cy="128.4" r="4"><title>A0 pooled P x=1.071 y=105.933</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="672.4" cy="158.9" r="4"><title>A0 pooled P x=0.8706 y=70.608</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.1" cy="115.5" r="4"><title>A0 pooled P x=1.199 y=120.857</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="746.2" cy="122.6" r="4"><title>A0 pooled P x=1.205 y=112.641</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="594.8,414.0 718.9,414.0 647.0,392.3 709.5,327.3 677.0,386.9 767.7,327.3 743.5,327.3"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="594.8" cy="414.0" r="2.5"><title>b2-A0-D1-s1 T x=0.5196 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="718.9" cy="414.0" r="2.5"><title>b2-A0-D1-s1 T x=1.081 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="647.0" cy="392.3" r="2.5"><title>b2-A0-D1-s1 T x=0.7558 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="709.5" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=1.038 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="677.0" cy="386.9" r="2.5"><title>b2-A0-D1-s1 T x=0.8913 y=0.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="767.7" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=1.302 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="743.5" cy="327.3" r="2.5"><title>b2-A0-D1-s1 T x=1.192 y=2.000</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="592.8,376.1 794.3,414.0 605.9,338.2 686.8,376.1 609.1,403.2 793.4,343.6 760.8,338.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="592.8" cy="376.1" r="2.5"><title>b2-A0-D1-s2 T x=0.5105 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="794.3" cy="414.0" r="2.5"><title>b2-A0-D1-s2 T x=1.422 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="605.9" cy="338.2" r="2.5"><title>b2-A0-D1-s2 T x=0.5697 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="686.8" cy="376.1" r="2.5"><title>b2-A0-D1-s2 T x=0.9357 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="609.1" cy="403.2" r="2.5"><title>b2-A0-D1-s2 T x=0.5841 y=0.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="793.4" cy="343.6" r="2.5"><title>b2-A0-D1-s2 T x=1.418 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="760.8" cy="338.2" r="2.5"><title>b2-A0-D1-s2 T x=1.271 y=1.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="591.1,414.0 552.9,370.7 773.4,343.6 711.4,349.0 628.2,332.8 696.0,376.1 735.7,376.1"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="591.1" cy="414.0" r="2.5"><title>b2-A0-D1-s3 T x=0.5026 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="552.9" cy="370.7" r="2.5"><title>b2-A0-D1-s3 T x=0.33 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.4" cy="343.6" r="2.5"><title>b2-A0-D1-s3 T x=1.327 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="711.4" cy="349.0" r="2.5"><title>b2-A0-D1-s3 T x=1.047 y=1.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="628.2" cy="332.8" r="2.5"><title>b2-A0-D1-s3 T x=0.6707 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="696.0" cy="376.1" r="2.5"><title>b2-A0-D1-s3 T x=0.9776 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="735.7" cy="376.1" r="2.5"><title>b2-A0-D1-s3 T x=1.157 y=0.875</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="586.0,321.9 641.5,316.5 713.9,414.0 744.1,338.2 703.8,365.2 712.1,338.2 718.1,381.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="586.0" cy="321.9" r="2.5"><title>b2-A0-D1-s4 T x=0.4795 y=2.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="641.5" cy="316.5" r="2.5"><title>b2-A0-D1-s4 T x=0.7308 y=2.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="713.9" cy="414.0" r="2.5"><title>b2-A0-D1-s4 T x=1.058 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="744.1" cy="338.2" r="2.5"><title>b2-A0-D1-s4 T x=1.195 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="703.8" cy="365.2" r="2.5"><title>b2-A0-D1-s4 T x=1.013 y=1.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="712.1" cy="338.2" r="2.5"><title>b2-A0-D1-s4 T x=1.05 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="718.1" cy="381.5" r="2.5"><title>b2-A0-D1-s4 T x=1.078 y=0.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="680.0,414.0 606.0,327.3 618.0,408.6 731.4,354.4 743.9,381.5 756.1,294.8 773.2,338.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="680.0" cy="414.0" r="2.5"><title>b2-A0-D1-s5 T x=0.9049 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="606.0" cy="327.3" r="2.5"><title>b2-A0-D1-s5 T x=0.5703 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="618.0" cy="408.6" r="2.5"><title>b2-A0-D1-s5 T x=0.6243 y=0.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="731.4" cy="354.4" r="2.5"><title>b2-A0-D1-s5 T x=1.138 y=1.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="743.9" cy="381.5" r="2.5"><title>b2-A0-D1-s5 T x=1.194 y=0.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="756.1" cy="294.8" r="2.5"><title>b2-A0-D1-s5 T x=1.249 y=2.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.2" cy="338.2" r="2.5"><title>b2-A0-D1-s5 T x=1.327 y=1.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="608.9,388.0 662.7,368.5 671.6,379.3 716.6,349.0 672.4,373.9 745.1,336.0 746.2,352.2"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="608.9" cy="388.0" r="4"><title>A0 pooled T x=0.5834 y=0.600</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="662.7" cy="368.5" r="4"><title>A0 pooled T x=0.8268 y=1.050</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="671.6" cy="379.3" r="4"><title>A0 pooled T x=0.8672 y=0.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="716.6" cy="349.0" r="4"><title>A0 pooled T x=1.071 y=1.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="672.4" cy="373.9" r="4"><title>A0 pooled T x=0.8706 y=0.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.1" cy="336.0" r="4"><title>A0 pooled T x=1.199 y=1.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="746.2" cy="352.2" r="4"><title>A0 pooled T x=1.205 y=1.425</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="608.9,368.9 662.7,343.3 671.6,350.2 716.6,319.9 672.4,349.8 745.1,312.5 746.2,321.0"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="608.9" cy="368.9" r="0"><title>A0 leg progress x=0.5834 y=1.040</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="662.7" cy="343.3" r="0"><title>A0 leg progress x=0.8268 y=1.633</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="671.6" cy="350.2" r="0"><title>A0 leg progress x=0.8672 y=1.473</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="716.6" cy="319.9" r="0"><title>A0 leg progress x=1.071 y=2.171</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="672.4" cy="349.8" r="0"><title>A0 leg progress x=0.8706 y=1.482</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.1" cy="312.5" r="0"><title>A0 leg progress x=1.199 y=2.342</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="746.2" cy="321.0" r="0"><title>A0 leg progress x=1.205 y=2.146</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="515.6,208.8 553.3,205.5 615.3,183.8 660.2,187.4 605.3,210.5 670.1,216.5 680.8,198.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="515.6" cy="208.8" r="2.5"><title>b2-A2pp-D1-s1 P x=0.1613 y=12.975</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="553.3" cy="205.5" r="2.5"><title>b2-A2pp-D1-s1 P x=0.3316 y=16.764</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="615.3" cy="183.8" r="2.5"><title>b2-A2pp-D1-s1 P x=0.6123 y=41.875</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="660.2" cy="187.4" r="2.5"><title>b2-A2pp-D1-s1 P x=0.8153 y=37.722</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="605.3" cy="210.5" r="2.5"><title>b2-A2pp-D1-s1 P x=0.5671 y=10.938 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="670.1" cy="216.5" r="2.5"><title>b2-A2pp-D1-s1 P x=0.8601 y=4.075 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="680.8" cy="198.0" r="2.5"><title>b2-A2pp-D1-s1 P x=0.9087 y=25.425</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="531.6,217.2 523.1,203.2 573.6,199.0 615.4,215.6 598.1,207.3 618.9,184.7 600.7,219.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="531.6" cy="217.2" r="2.5"><title>b2-A2pp-D1-s2 P x=0.2337 y=3.263</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="523.1" cy="203.2" r="2.5"><title>b2-A2pp-D1-s2 P x=0.1949 y=19.477</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="573.6" cy="199.0" r="2.5"><title>b2-A2pp-D1-s2 P x=0.4235 y=24.250</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="615.4" cy="215.6" r="2.5"><title>b2-A2pp-D1-s2 P x=0.6128 y=5.062 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="598.1" cy="207.3" r="2.5"><title>b2-A2pp-D1-s2 P x=0.5343 y=14.662 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="618.9" cy="184.7" r="2.5"><title>b2-A2pp-D1-s2 P x=0.6285 y=40.825</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="600.7" cy="219.3" r="2.5"><title>b2-A2pp-D1-s2 P x=0.5461 y=0.775 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="569.8,211.6 519.8,200.9 603.8,212.2 554.6,202.8 665.5,188.1 577.6,194.6 590.4,218.6"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="569.8" cy="211.6" r="2.5"><title>b2-A2pp-D1-s3 P x=0.4065 y=9.675</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="519.8" cy="200.9" r="2.5"><title>b2-A2pp-D1-s3 P x=0.18 y=22.065</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="603.8" cy="212.2" r="2.5"><title>b2-A2pp-D1-s3 P x=0.5604 y=9.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="554.6" cy="202.8" r="2.5"><title>b2-A2pp-D1-s3 P x=0.3375 y=19.836</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="665.5" cy="188.1" r="2.5"><title>b2-A2pp-D1-s3 P x=0.8393 y=36.862</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="577.6" cy="194.6" r="2.5"><title>b2-A2pp-D1-s3 P x=0.4415 y=29.364</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="590.4" cy="218.6" r="2.5"><title>b2-A2pp-D1-s3 P x=0.4994 y=1.675 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="528.6,201.3 533.0,207.6 558.8,194.4 592.3,169.1 559.5,211.1 597.0,208.4 661.2,205.6"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="528.6" cy="201.3" r="2.5"><title>b2-A2pp-D1-s4 P x=0.2197 y=21.581</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="533.0" cy="207.6" r="2.5"><title>b2-A2pp-D1-s4 P x=0.2398 y=14.382</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="558.8" cy="194.4" r="2.5"><title>b2-A2pp-D1-s4 P x=0.3566 y=29.575</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="592.3" cy="169.1" r="2.5"><title>b2-A2pp-D1-s4 P x=0.5083 y=58.801</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="559.5" cy="211.1" r="2.5"><title>b2-A2pp-D1-s4 P x=0.3596 y=10.325 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="597.0" cy="208.4" r="2.5"><title>b2-A2pp-D1-s4 P x=0.5296 y=13.367 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="661.2" cy="205.6" r="2.5"><title>b2-A2pp-D1-s4 P x=0.82 y=16.663 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="559.1,215.9 608.9,197.3 608.1,199.9 631.2,191.1 641.4,195.1 609.8,194.1 612.1,190.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="559.1" cy="215.9" r="2.5"><title>b2-A2pp-D1-s5 P x=0.3578 y=4.688</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="608.9" cy="197.3" r="2.5"><title>b2-A2pp-D1-s5 P x=0.5834 y=26.200</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="608.1" cy="199.9" r="2.5"><title>b2-A2pp-D1-s5 P x=0.5798 y=23.190</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="631.2" cy="191.1" r="2.5"><title>b2-A2pp-D1-s5 P x=0.6842 y=33.425</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="641.4" cy="195.1" r="2.5"><title>b2-A2pp-D1-s5 P x=0.7303 y=28.762</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="609.8" cy="194.1" r="2.5"><title>b2-A2pp-D1-s5 P x=0.5872 y=29.900</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="612.1" cy="190.0" r="2.5"><title>b2-A2pp-D1-s5 P x=0.5977 y=34.725</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="540.9,211.0 547.6,202.9 591.9,197.9 610.7,193.2 613.9,202.4 614.7,199.7 629.0,206.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="540.9" cy="211.0" r="4"><title>A2″ pooled P x=0.2758 y=10.436</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="547.6" cy="202.9" r="4"><title>A2″ pooled P x=0.3059 y=19.777</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="591.9" cy="197.9" r="4"><title>A2″ pooled P x=0.5065 y=25.578</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="610.7" cy="193.2" r="4"><title>A2″ pooled P x=0.5916 y=30.969</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="613.9" cy="202.4" r="4"><title>A2″ pooled P x=0.6061 y=20.310</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="614.7" cy="199.7" r="4"><title>A2″ pooled P x=0.6094 y=23.506</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="629.0" cy="206.3" r="4"><title>A2″ pooled P x=0.6744 y=15.852</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="515.6,414.0 553.3,414.0 615.3,321.9 660.2,321.9 605.3,397.8 670.1,414.0 680.8,338.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="515.6" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=0.1613 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="553.3" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=0.3316 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="615.3" cy="321.9" r="2.5"><title>b2-A2pp-D1-s1 T x=0.6123 y=2.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="660.2" cy="321.9" r="2.5"><title>b2-A2pp-D1-s1 T x=0.8153 y=2.125</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="605.3" cy="397.8" r="2.5"><title>b2-A2pp-D1-s1 T x=0.5671 y=0.375 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="670.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s1 T x=0.8601 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="680.8" cy="338.2" r="2.5"><title>b2-A2pp-D1-s1 T x=0.9087 y=1.750</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="531.6,414.0 523.1,414.0 573.6,370.7 615.4,414.0 598.1,414.0 618.9,284.0 600.7,414.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="531.6" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.2337 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="523.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.1949 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="573.6" cy="370.7" r="2.5"><title>b2-A2pp-D1-s2 T x=0.4235 y=1.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="615.4" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.6128 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="598.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.5343 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="618.9" cy="284.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.6285 y=3.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="600.7" cy="414.0" r="2.5"><title>b2-A2pp-D1-s2 T x=0.5461 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="569.8,414.0 519.8,414.0 603.8,414.0 554.6,414.0 665.5,316.5 577.6,305.7 590.4,414.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="569.8" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=0.4065 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="519.8" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=0.18 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="603.8" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=0.5604 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="554.6" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=0.3375 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="665.5" cy="316.5" r="2.5"><title>b2-A2pp-D1-s3 T x=0.8393 y=2.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="577.6" cy="305.7" r="2.5"><title>b2-A2pp-D1-s3 T x=0.4415 y=2.500</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="590.4" cy="414.0" r="2.5"><title>b2-A2pp-D1-s3 T x=0.4994 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="528.6,414.0 533.0,414.0 558.8,370.7 592.3,284.0 559.5,414.0 597.0,414.0 661.2,359.8"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="528.6" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=0.2197 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="533.0" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=0.2398 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="558.8" cy="370.7" r="2.5"><title>b2-A2pp-D1-s4 T x=0.3566 y=1.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="592.3" cy="284.0" r="2.5"><title>b2-A2pp-D1-s4 T x=0.5083 y=3.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="559.5" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=0.3596 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="597.0" cy="414.0" r="2.5"><title>b2-A2pp-D1-s4 T x=0.5296 y=0.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="661.2" cy="359.8" r="2.5"><title>b2-A2pp-D1-s4 T x=0.82 y=1.250 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="559.1,414.0 608.9,403.2 608.1,349.0 631.2,284.0 641.4,294.8 609.8,284.0 612.1,300.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="559.1" cy="414.0" r="2.5"><title>b2-A2pp-D1-s5 T x=0.3578 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="608.9" cy="403.2" r="2.5"><title>b2-A2pp-D1-s5 T x=0.5834 y=0.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="608.1" cy="349.0" r="2.5"><title>b2-A2pp-D1-s5 T x=0.5798 y=1.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="631.2" cy="284.0" r="2.5"><title>b2-A2pp-D1-s5 T x=0.6842 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="641.4" cy="294.8" r="2.5"><title>b2-A2pp-D1-s5 T x=0.7303 y=2.750</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="609.8" cy="284.0" r="2.5"><title>b2-A2pp-D1-s5 T x=0.5872 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="612.1" cy="300.2" r="2.5"><title>b2-A2pp-D1-s5 T x=0.5977 y=2.625</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="540.9,414.0 547.6,411.8 591.9,365.2 610.7,343.6 613.9,367.4 614.7,340.3 629.0,365.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="540.9" cy="414.0" r="4"><title>A2″ pooled T x=0.2758 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="547.6" cy="411.8" r="4"><title>A2″ pooled T x=0.3059 y=0.050</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="591.9" cy="365.2" r="4"><title>A2″ pooled T x=0.5065 y=1.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="610.7" cy="343.6" r="4"><title>A2″ pooled T x=0.5916 y=1.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="613.9" cy="367.4" r="4"><title>A2″ pooled T x=0.6061 y=1.075</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="614.7" cy="340.3" r="4"><title>A2″ pooled T x=0.6094 y=1.700</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="629.0" cy="365.2" r="4"><title>A2″ pooled T x=0.6744 y=1.125</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="540.9,404.9 547.6,387.6 591.9,346.2 610.7,329.6 613.9,354.2 614.7,334.9 629.0,357.1"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="540.9" cy="404.9" r="0"><title>A2″ leg progress x=0.2758 y=0.211</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="547.6" cy="387.6" r="0"><title>A2″ leg progress x=0.3059 y=0.610</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="591.9" cy="346.2" r="0"><title>A2″ leg progress x=0.5065 y=1.564</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="610.7" cy="329.6" r="0"><title>A2″ leg progress x=0.5916 y=1.947</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="613.9" cy="354.2" r="0"><title>A2″ leg progress x=0.6061 y=1.379</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="614.7" cy="334.9" r="0"><title>A2″ leg progress x=0.6094 y=1.825</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="629.0" cy="357.1" r="0"><title>A2″ leg progress x=0.6744 y=1.312</title></circle>
+<text class="ink" x="70" y="500" font-weight="bold">D2→D2: proxy P</text>
+<line class="grid" x1="70" x2="400" y1="638.0" y2="638.0"/>
+<text class="ink2" x="64" y="642.0" text-anchor="end">0</text>
+<line class="grid" x1="70" x2="400" y1="598.8" y2="598.8"/>
+<text class="ink2" x="64" y="602.8" text-anchor="end">50</text>
+<line class="grid" x1="70" x2="400" y1="559.7" y2="559.7"/>
+<text class="ink2" x="64" y="563.7" text-anchor="end">100</text>
+<line class="grid" x1="70" x2="400" y1="520.5" y2="520.5"/>
+<text class="ink2" x="64" y="524.5" text-anchor="end">150</text>
+<text class="ink2" x="80.5" y="652" text-anchor="middle">250k</text>
+<text class="ink2" x="152.2" y="652" text-anchor="middle">500k</text>
+<text class="ink2" x="223.8" y="652" text-anchor="middle">1M</text>
+<text class="ink2" x="295.4" y="652" text-anchor="middle">2M</text>
+<text class="ink2" x="337.3" y="652" text-anchor="middle">3M</text>
+<text class="ink2" x="390.1" y="652" text-anchor="middle">5M</text>
+<line class="axis" x1="70" x2="400" y1="638" y2="638"/>
+<text class="ink2" x="400" y="666" text-anchor="end">training step (log)</text>
+<text class="ink2" x="36" y="573.0" transform="rotate(-90 36 573.0)" text-anchor="middle">P</text>
+<text class="ink" x="70" y="694" font-weight="bold">D2→D2: true T, leg progress</text>
+<line class="grid" x1="70" x2="400" y1="832.0" y2="832.0"/>
+<text class="ink2" x="64" y="836.0" text-anchor="end">0</text>
+<line class="grid" x1="70" x2="400" y1="788.7" y2="788.7"/>
+<text class="ink2" x="64" y="792.7" text-anchor="end">1</text>
+<line class="grid" x1="70" x2="400" y1="745.3" y2="745.3"/>
+<text class="ink2" x="64" y="749.3" text-anchor="end">2</text>
+<line class="grid" x1="70" x2="400" y1="702.0" y2="702.0"/>
+<text class="ink2" x="64" y="706.0" text-anchor="end">3</text>
+<text class="ink2" x="80.5" y="846" text-anchor="middle">250k</text>
+<text class="ink2" x="152.2" y="846" text-anchor="middle">500k</text>
+<text class="ink2" x="223.8" y="846" text-anchor="middle">1M</text>
+<text class="ink2" x="295.4" y="846" text-anchor="middle">2M</text>
+<text class="ink2" x="337.3" y="846" text-anchor="middle">3M</text>
+<text class="ink2" x="390.1" y="846" text-anchor="middle">5M</text>
+<line class="axis" x1="70" x2="400" y1="832" y2="832"/>
+<text class="ink2" x="400" y="860" text-anchor="end">training step (log)</text>
+<text class="ink2" x="36" y="767.0" transform="rotate(-90 36 767.0)" text-anchor="middle">milestones</text>
+<polygon class="band A0" points="80.9,580.8 152.3,575.2 223.9,566.8 295.5,533.5 337.4,566.1 367.1,539.0 390.1,525.2 390.1,563.2 367.1,587.2 337.4,606.2 295.5,556.6 223.9,585.9 152.3,611.6 80.9,610.1"/>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,602.1 152.3,615.4 223.9,565.7 295.5,566.0 337.4,593.9 367.1,545.7 390.1,547.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="602.1" r="2.5"><title>b2-A0-D2-s1 P x=2.509e+05 y=45.850</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="615.4" r="2.5"><title>b2-A0-D2-s1 P x=5.007e+05 y=28.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="565.7" r="2.5"><title>b2-A0-D2-s1 P x=1e+06 y=92.287</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="566.0" r="2.5"><title>b2-A0-D2-s1 P x=2.001e+06 y=91.862</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="593.9" r="2.5"><title>b2-A0-D2-s1 P x=3e+06 y=56.300</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="545.7" r="2.5"><title>b2-A0-D2-s1 P x=4.001e+06 y=117.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="547.5" r="2.5"><title>b2-A0-D2-s1 P x=5e+06 y=115.550</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,570.3 152.3,619.8 223.9,566.1 295.5,529.6 337.4,610.2 367.1,537.8 390.1,531.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="570.3" r="2.5"><title>b2-A0-D2-s2 P x=2.509e+05 y=86.388</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="619.8" r="2.5"><title>b2-A0-D2-s2 P x=5.007e+05 y=23.262</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="566.1" r="2.5"><title>b2-A0-D2-s2 P x=1e+06 y=91.838</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="529.6" r="2.5"><title>b2-A0-D2-s2 P x=2.001e+06 y=138.450</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="610.2" r="2.5"><title>b2-A0-D2-s2 P x=3e+06 y=35.550</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="537.8" r="2.5"><title>b2-A0-D2-s2 P x=4.001e+06 y=127.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="531.8" r="2.5"><title>b2-A0-D2-s2 P x=5e+06 y=135.575</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,596.9 152.3,568.7 223.9,593.3 295.5,546.1 337.4,547.1 367.1,540.7 390.1,578.4"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="596.9" r="2.5"><title>b2-A0-D2-s3 P x=2.509e+05 y=52.413</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="568.7" r="2.5"><title>b2-A0-D2-s3 P x=5.007e+05 y=88.488</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="593.3" r="2.5"><title>b2-A0-D2-s3 P x=1e+06 y=57.038</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="546.1" r="2.5"><title>b2-A0-D2-s3 P x=2.001e+06 y=117.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="547.1" r="2.5"><title>b2-A0-D2-s3 P x=3e+06 y=116.050</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="540.7" r="2.5"><title>b2-A0-D2-s3 P x=4.001e+06 y=124.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="578.4" r="2.5"><title>b2-A0-D2-s3 P x=5e+06 y=76.088</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,590.1 152.3,582.4 223.9,577.1 295.5,533.0 337.4,602.6 367.1,557.4 390.1,541.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="590.1" r="2.5"><title>b2-A0-D2-s4 P x=2.509e+05 y=61.097</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="582.4" r="2.5"><title>b2-A0-D2-s4 P x=5.007e+05 y=71.025</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="577.1" r="2.5"><title>b2-A0-D2-s4 P x=1e+06 y=77.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="533.0" r="2.5"><title>b2-A0-D2-s4 P x=2.001e+06 y=134.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="602.6" r="2.5"><title>b2-A0-D2-s4 P x=3e+06 y=45.225</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="557.4" r="2.5"><title>b2-A0-D2-s4 P x=4.001e+06 y=102.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="541.5" r="2.5"><title>b2-A0-D2-s4 P x=5e+06 y=123.188</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,618.8 152.3,580.3 223.9,574.6 295.5,546.9 337.4,589.4 367.1,614.0 390.1,514.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="618.8" r="2.5"><title>b2-A0-D2-s5 P x=2.509e+05 y=24.562</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="580.3" r="2.5"><title>b2-A0-D2-s5 P x=5.007e+05 y=73.662</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="574.6" r="2.5"><title>b2-A0-D2-s5 P x=1e+06 y=80.900</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="546.9" r="2.5"><title>b2-A0-D2-s5 P x=2.001e+06 y=116.350</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="589.4" r="2.5"><title>b2-A0-D2-s5 P x=3e+06 y=62.087</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="614.0" r="2.5"><title>b2-A0-D2-s5 P x=4.001e+06 y=30.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="514.2" r="2.5"><title>b2-A0-D2-s5 P x=5e+06 y=158.062</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="80.9,595.7 152.3,593.3 223.9,575.4 295.5,544.3 337.4,588.6 367.1,559.1 390.1,542.7"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="595.7" r="4"><title>A0 pooled P x=2.509e+05 y=54.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="593.3" r="4"><title>A0 pooled P x=5.007e+05 y=57.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="575.4" r="4"><title>A0 pooled P x=1e+06 y=79.973</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="544.3" r="4"><title>A0 pooled P x=2.001e+06 y=119.600</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="588.6" r="4"><title>A0 pooled P x=3e+06 y=63.042</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="559.1" r="4"><title>A0 pooled P x=4.001e+06 y=100.695</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="542.7" r="4"><title>A0 pooled P x=5e+06 y=121.692</title></circle>
+<polygon class="band A0" points="80.9,773.5 152.3,791.9 223.9,755.1 295.5,745.3 337.4,781.1 367.1,748.6 390.1,723.7 390.1,777.8 367.1,801.7 337.4,827.7 295.5,751.8 223.9,788.7 152.3,827.7 80.9,820.1"/>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,815.8 152.3,832.0 223.9,750.8 295.5,745.3 337.4,832.0 367.1,761.6 390.1,734.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="815.8" r="2.5"><title>b2-A0-D2-s1 T x=2.509e+05 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A0-D2-s1 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="750.8" r="2.5"><title>b2-A0-D2-s1 T x=1e+06 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="745.3" r="2.5"><title>b2-A0-D2-s1 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="832.0" r="2.5"><title>b2-A0-D2-s1 T x=3e+06 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="761.6" r="2.5"><title>b2-A0-D2-s1 T x=4.001e+06 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="734.5" r="2.5"><title>b2-A0-D2-s1 T x=5e+06 y=2.250</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,794.1 152.3,832.0 223.9,750.8 295.5,745.3 337.4,815.8 367.1,745.3 390.1,739.9"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="794.1" r="2.5"><title>b2-A0-D2-s2 T x=2.509e+05 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A0-D2-s2 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="750.8" r="2.5"><title>b2-A0-D2-s2 T x=1e+06 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="745.3" r="2.5"><title>b2-A0-D2-s2 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="815.8" r="2.5"><title>b2-A0-D2-s2 T x=3e+06 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="745.3" r="2.5"><title>b2-A0-D2-s2 T x=4.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="739.9" r="2.5"><title>b2-A0-D2-s2 T x=5e+06 y=2.125</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,756.2 152.3,788.7 223.9,783.2 295.5,750.8 337.4,756.2 367.1,756.2 390.1,804.9"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=2.509e+05 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="788.7" r="2.5"><title>b2-A0-D2-s3 T x=5.007e+05 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="783.2" r="2.5"><title>b2-A0-D2-s3 T x=1e+06 y=1.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="750.8" r="2.5"><title>b2-A0-D2-s3 T x=2.001e+06 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=3e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=4.001e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="804.9" r="2.5"><title>b2-A0-D2-s3 T x=5e+06 y=0.625</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,788.7 152.3,810.3 223.9,777.8 295.5,750.8 337.4,821.2 367.1,756.2 390.1,712.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="788.7" r="2.5"><title>b2-A0-D2-s4 T x=2.509e+05 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="810.3" r="2.5"><title>b2-A0-D2-s4 T x=5.007e+05 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="777.8" r="2.5"><title>b2-A0-D2-s4 T x=1e+06 y=1.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="750.8" r="2.5"><title>b2-A0-D2-s4 T x=2.001e+06 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="821.2" r="2.5"><title>b2-A0-D2-s4 T x=3e+06 y=0.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="756.2" r="2.5"><title>b2-A0-D2-s4 T x=4.001e+06 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="712.8" r="2.5"><title>b2-A0-D2-s4 T x=5e+06 y=2.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,788.7 223.9,794.1 295.5,745.3 337.4,815.8 367.1,832.0 390.1,745.3"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A0-D2-s5 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="152.3" cy="788.7" r="2.5"><title>b2-A0-D2-s5 T x=5.007e+05 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="223.9" cy="794.1" r="2.5"><title>b2-A0-D2-s5 T x=1e+06 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="295.5" cy="745.3" r="2.5"><title>b2-A0-D2-s5 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="337.4" cy="815.8" r="2.5"><title>b2-A0-D2-s5 T x=3e+06 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="367.1" cy="832.0" r="2.5"><title>b2-A0-D2-s5 T x=4.001e+06 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="390.1" cy="745.3" r="2.5"><title>b2-A0-D2-s5 T x=5e+06 y=2.000</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="80.9,797.3 152.3,810.3 223.9,771.3 295.5,747.5 337.4,808.2 367.1,770.2 390.1,747.5"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="797.3" r="4"><title>A0 pooled T x=2.509e+05 y=0.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="810.3" r="4"><title>A0 pooled T x=5.007e+05 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="771.3" r="4"><title>A0 pooled T x=1e+06 y=1.400</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="747.5" r="4"><title>A0 pooled T x=2.001e+06 y=1.950</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="808.2" r="4"><title>A0 pooled T x=3e+06 y=0.550</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="770.2" r="4"><title>A0 pooled T x=4.001e+06 y=1.425</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="747.5" r="4"><title>A0 pooled T x=5e+06 y=1.950</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="80.9,770.9 152.3,788.0 223.9,741.1 295.5,716.7 337.4,780.6 367.1,744.2 390.1,723.2"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="80.9" cy="770.9" r="0"><title>A0 leg progress x=2.509e+05 y=1.409</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="152.3" cy="788.0" r="0"><title>A0 leg progress x=5.007e+05 y=1.016</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="223.9" cy="741.1" r="0"><title>A0 leg progress x=1e+06 y=2.099</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="295.5" cy="716.7" r="0"><title>A0 leg progress x=2.001e+06 y=2.660</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="337.4" cy="780.6" r="0"><title>A0 leg progress x=3e+06 y=1.185</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="367.1" cy="744.2" r="0"><title>A0 leg progress x=4.001e+06 y=2.027</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="390.1" cy="723.2" r="0"><title>A0 leg progress x=5e+06 y=2.510</title></circle>
+<polygon class="band A2pp" points="80.9,625.1 152.3,625.6 223.9,620.1 295.5,604.1 337.4,608.1 367.1,609.9 390.1,613.0 390.1,628.9 367.1,618.6 337.4,625.9 295.5,626.4 223.9,634.2 152.3,635.3 80.9,634.8"/>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,620.7 152.3,628.6 223.9,635.1 295.5,616.4 337.4,620.8 367.1,614.0 390.1,615.7"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="620.7" r="2.5"><title>b2-A2pp-D2-s1 P x=2.509e+05 y=22.025</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="628.6" r="2.5"><title>b2-A2pp-D2-s1 P x=5.007e+05 y=12.037</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="635.1" r="2.5"><title>b2-A2pp-D2-s1 P x=1e+06 y=3.650</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="616.4" r="2.5"><title>b2-A2pp-D2-s1 P x=2.001e+06 y=27.538</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="620.8" r="2.5"><title>b2-A2pp-D2-s1 P x=3e+06 y=21.950</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="614.0" r="2.5"><title>b2-A2pp-D2-s1 P x=4.001e+06 y=30.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="615.7" r="2.5"><title>b2-A2pp-D2-s1 P x=5e+06 y=28.413</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,635.3 152.3,636.4 223.9,622.8 295.5,594.7 337.4,610.0 367.1,618.2 390.1,619.4"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="635.3" r="2.5"><title>b2-A2pp-D2-s2 P x=2.509e+05 y=3.400</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="636.4" r="2.5"><title>b2-A2pp-D2-s2 P x=5.007e+05 y=2.062</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="622.8" r="2.5"><title>b2-A2pp-D2-s2 P x=1e+06 y=19.422</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="594.7" r="2.5"><title>b2-A2pp-D2-s2 P x=2.001e+06 y=55.277</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="610.0" r="2.5"><title>b2-A2pp-D2-s2 P x=3e+06 y=35.718</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="618.2" r="2.5"><title>b2-A2pp-D2-s2 P x=4.001e+06 y=25.215 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="619.4" r="2.5"><title>b2-A2pp-D2-s2 P x=5e+06 y=23.747 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,636.1 152.3,621.7 223.9,614.2 295.5,617.3 337.4,602.5 367.1,615.9 390.1,637.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="636.1" r="2.5"><title>b2-A2pp-D2-s3 P x=2.509e+05 y=2.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="621.7" r="2.5"><title>b2-A2pp-D2-s3 P x=5.007e+05 y=20.762</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="614.2" r="2.5"><title>b2-A2pp-D2-s3 P x=1e+06 y=30.447</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="617.3" r="2.5"><title>b2-A2pp-D2-s3 P x=2.001e+06 y=26.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="602.5" r="2.5"><title>b2-A2pp-D2-s3 P x=3e+06 y=45.267</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="615.9" r="2.5"><title>b2-A2pp-D2-s3 P x=4.001e+06 y=28.175</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="637.2" r="2.5"><title>b2-A2pp-D2-s3 P x=5e+06 y=1.025 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,628.0 152.3,631.1 223.9,632.6 295.5,632.7 337.4,620.1 367.1,619.9 390.1,610.4"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="628.0" r="2.5"><title>b2-A2pp-D2-s4 P x=2.509e+05 y=12.787</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="631.1" r="2.5"><title>b2-A2pp-D2-s4 P x=5.007e+05 y=8.812</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="632.6" r="2.5"><title>b2-A2pp-D2-s4 P x=1e+06 y=6.850</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="632.7" r="2.5"><title>b2-A2pp-D2-s4 P x=2.001e+06 y=6.787</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="620.1" r="2.5"><title>b2-A2pp-D2-s4 P x=3e+06 y=22.895</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="619.9" r="2.5"><title>b2-A2pp-D2-s4 P x=4.001e+06 y=23.113</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="610.4" r="2.5"><title>b2-A2pp-D2-s4 P x=5e+06 y=35.212</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,631.6 152.3,636.3 223.9,633.1 295.5,617.7 337.4,632.4 367.1,605.5 390.1,616.9"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="631.6" r="2.5"><title>b2-A2pp-D2-s5 P x=2.509e+05 y=8.150</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="636.3" r="2.5"><title>b2-A2pp-D2-s5 P x=5.007e+05 y=2.163</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="633.1" r="2.5"><title>b2-A2pp-D2-s5 P x=1e+06 y=6.300</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="617.7" r="2.5"><title>b2-A2pp-D2-s5 P x=2.001e+06 y=25.863</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="632.4" r="2.5"><title>b2-A2pp-D2-s5 P x=3e+06 y=7.175 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="605.5" r="2.5"><title>b2-A2pp-D2-s5 P x=4.001e+06 y=41.438</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="616.9" r="2.5"><title>b2-A2pp-D2-s5 P x=5e+06 y=26.887</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="80.9,630.3 152.3,630.8 223.9,627.6 295.5,615.8 337.4,617.2 367.1,614.7 390.1,619.9"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="630.3" r="4"><title>A2″ pooled P x=2.509e+05 y=9.768</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="630.8" r="4"><title>A2″ pooled P x=5.007e+05 y=9.168</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="627.6" r="4"><title>A2″ pooled P x=1e+06 y=13.334</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="615.8" r="4"><title>A2″ pooled P x=2.001e+06 y=28.388</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="617.2" r="4"><title>A2″ pooled P x=3e+06 y=26.601</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="614.7" r="4"><title>A2″ pooled P x=4.001e+06 y=29.713</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="619.9" r="4"><title>A2″ pooled P x=5e+06 y=23.057</title></circle>
+<polygon class="band A2pp" points="80.9,832.0 152.3,832.0 223.9,798.4 295.5,731.2 337.4,738.8 367.1,715.0 390.1,712.8 390.1,807.1 367.1,767.0 337.4,800.6 295.5,799.5 223.9,832.0 152.3,832.0 80.9,832.0"/>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,832.0 223.9,832.0 295.5,772.4 337.4,777.8 367.1,702.0 390.1,702.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=1e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="772.4" r="2.5"><title>b2-A2pp-D2-s1 T x=2.001e+06 y=1.375</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="777.8" r="2.5"><title>b2-A2pp-D2-s1 T x=3e+06 y=1.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="702.0" r="2.5"><title>b2-A2pp-D2-s1 T x=4.001e+06 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="702.0" r="2.5"><title>b2-A2pp-D2-s1 T x=5e+06 y=3.000</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,832.0 223.9,832.0 295.5,718.2 337.4,745.3 367.1,788.7 390.1,810.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=1e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="718.2" r="2.5"><title>b2-A2pp-D2-s2 T x=2.001e+06 y=2.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="745.3" r="2.5"><title>b2-A2pp-D2-s2 T x=3e+06 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="367.1" cy="788.7" r="2.5"><title>b2-A2pp-D2-s2 T x=4.001e+06 y=1.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="810.3" r="2.5"><title>b2-A2pp-D2-s2 T x=5e+06 y=0.500 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,832.0 223.9,783.2 295.5,745.3 337.4,723.7 367.1,745.3 390.1,832.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="783.2" r="2.5"><title>b2-A2pp-D2-s3 T x=1e+06 y=1.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="745.3" r="2.5"><title>b2-A2pp-D2-s3 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="723.7" r="2.5"><title>b2-A2pp-D2-s3 T x=3e+06 y=2.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="745.3" r="2.5"><title>b2-A2pp-D2-s3 T x=4.001e+06 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="390.1" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=5e+06 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,832.0 223.9,815.8 295.5,832.0 337.4,767.0 367.1,745.3 390.1,756.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="815.8" r="2.5"><title>b2-A2pp-D2-s4 T x=1e+06 y=0.375</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=2.001e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="337.4" cy="767.0" r="2.5"><title>b2-A2pp-D2-s4 T x=3e+06 y=1.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="745.3" r="2.5"><title>b2-A2pp-D2-s4 T x=4.001e+06 y=2.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="756.2" r="2.5"><title>b2-A2pp-D2-s4 T x=5e+06 y=1.750</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="80.9,832.0 152.3,832.0 223.9,832.0 295.5,745.3 337.4,826.6 367.1,718.2 390.1,702.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="80.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="152.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="223.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=1e+06 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="295.5" cy="745.3" r="2.5"><title>b2-A2pp-D2-s5 T x=2.001e+06 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="337.4" cy="826.6" r="2.5"><title>b2-A2pp-D2-s5 T x=3e+06 y=0.125 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="367.1" cy="718.2" r="2.5"><title>b2-A2pp-D2-s5 T x=4.001e+06 y=2.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="390.1" cy="702.0" r="2.5"><title>b2-A2pp-D2-s5 T x=5e+06 y=3.000</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="80.9,832.0 152.3,832.0 223.9,819.0 295.5,762.7 337.4,768.1 367.1,739.9 390.1,760.5"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="832.0" r="4"><title>A2″ pooled T x=2.509e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="832.0" r="4"><title>A2″ pooled T x=5.007e+05 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="819.0" r="4"><title>A2″ pooled T x=1e+06 y=0.300</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="762.7" r="4"><title>A2″ pooled T x=2.001e+06 y=1.600</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="768.1" r="4"><title>A2″ pooled T x=3e+06 y=1.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="739.9" r="4"><title>A2″ pooled T x=4.001e+06 y=2.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="760.5" r="4"><title>A2″ pooled T x=5e+06 y=1.650</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="80.9,824.5 152.3,824.9 223.9,807.6 295.5,750.8 337.4,758.5 367.1,725.6 390.1,755.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="80.9" cy="824.5" r="0"><title>A2″ leg progress x=2.509e+05 y=0.174</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="152.3" cy="824.9" r="0"><title>A2″ leg progress x=5.007e+05 y=0.163</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="223.9" cy="807.6" r="0"><title>A2″ leg progress x=1e+06 y=0.562</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="295.5" cy="750.8" r="0"><title>A2″ leg progress x=2.001e+06 y=1.874</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="337.4" cy="758.5" r="0"><title>A2″ leg progress x=3e+06 y=1.696</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="367.1" cy="725.6" r="0"><title>A2″ leg progress x=4.001e+06 y=2.455</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="390.1" cy="755.0" r="0"><title>A2″ leg progress x=5e+06 y=1.776</title></circle>
+<line class="tick2" x1="152.3" x2="152.3" y1="534" y2="542"/>
+<text class="ink2" x="155.3" y="542" font-size="9">O·s5</text>
+<line class="tick2" x1="223.9" x2="223.9" y1="534" y2="542"/>
+<text class="ink2" x="226.9" y="542" font-size="9">D·s5</text>
+<line class="tick2" x1="223.9" x2="223.9" y1="545" y2="553"/>
+<text class="ink2" x="226.9" y="553" font-size="9">O·s1</text>
+<line class="tick1" x1="295.5" x2="295.5" y1="508" y2="516"/>
+<text class="ink" x="298.5" y="516" font-size="9">O</text>
+<line class="tick2" x1="295.5" x2="295.5" y1="534" y2="542"/>
+<text class="ink2" x="298.5" y="542" font-size="9">O·s2</text>
+<line class="tick2" x1="295.5" x2="295.5" y1="545" y2="553"/>
+<text class="ink2" x="298.5" y="553" font-size="9">O·s4</text>
+<line class="tick2" x1="337.4" x2="337.4" y1="534" y2="542"/>
+<text class="ink2" x="340.4" y="542" font-size="9">O·s3</text>
+<text class="ink" x="480" y="500" font-weight="bold">D2→D2: proxy P vs KL</text>
+<line class="grid" x1="480" x2="810" y1="638.0" y2="638.0"/>
+<text class="ink2" x="474" y="642.0" text-anchor="end">0</text>
+<line class="grid" x1="480" x2="810" y1="598.8" y2="598.8"/>
+<text class="ink2" x="474" y="602.8" text-anchor="end">50</text>
+<line class="grid" x1="480" x2="810" y1="559.7" y2="559.7"/>
+<text class="ink2" x="474" y="563.7" text-anchor="end">100</text>
+<line class="grid" x1="480" x2="810" y1="520.5" y2="520.5"/>
+<text class="ink2" x="474" y="524.5" text-anchor="end">150</text>
+<text class="ink2" x="480.0" y="652" text-anchor="middle">0</text>
+<text class="ink2" x="595.8" y="652" text-anchor="middle">0.5</text>
+<text class="ink2" x="711.6" y="652" text-anchor="middle">1</text>
+<line class="axis" x1="480" x2="810" y1="638" y2="638"/>
+<text class="ink2" x="810" y="666" text-anchor="end">KL(π_ckpt ‖ π_init), mean per step</text>
+<text class="ink2" x="446" y="573.0" transform="rotate(-90 446 573.0)" text-anchor="middle">P</text>
+<text class="ink" x="480" y="694" font-weight="bold">D2→D2: true T, leg progress vs KL</text>
+<line class="grid" x1="480" x2="810" y1="832.0" y2="832.0"/>
+<text class="ink2" x="474" y="836.0" text-anchor="end">0</text>
+<line class="grid" x1="480" x2="810" y1="788.7" y2="788.7"/>
+<text class="ink2" x="474" y="792.7" text-anchor="end">1</text>
+<line class="grid" x1="480" x2="810" y1="745.3" y2="745.3"/>
+<text class="ink2" x="474" y="749.3" text-anchor="end">2</text>
+<line class="grid" x1="480" x2="810" y1="702.0" y2="702.0"/>
+<text class="ink2" x="474" y="706.0" text-anchor="end">3</text>
+<text class="ink2" x="480.0" y="846" text-anchor="middle">0</text>
+<text class="ink2" x="595.8" y="846" text-anchor="middle">0.5</text>
+<text class="ink2" x="711.6" y="846" text-anchor="middle">1</text>
+<line class="axis" x1="480" x2="810" y1="832" y2="832"/>
+<text class="ink2" x="810" y="860" text-anchor="end">KL(π_ckpt ‖ π_init), mean per step</text>
+<text class="ink2" x="446" y="767.0" transform="rotate(-90 446 767.0)" text-anchor="middle">milestones</text>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="688.6,602.1 691.2,615.4 734.8,565.7 749.4,566.0 729.4,593.9 714.7,545.7 748.9,547.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="688.6" cy="602.1" r="2.5"><title>b2-A0-D2-s1 P x=0.9008 y=45.850</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="691.2" cy="615.4" r="2.5"><title>b2-A0-D2-s1 P x=0.9121 y=28.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="734.8" cy="565.7" r="2.5"><title>b2-A0-D2-s1 P x=1.101 y=92.287</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="749.4" cy="566.0" r="2.5"><title>b2-A0-D2-s1 P x=1.163 y=91.862</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="729.4" cy="593.9" r="2.5"><title>b2-A0-D2-s1 P x=1.077 y=56.300</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="714.7" cy="545.7" r="2.5"><title>b2-A0-D2-s1 P x=1.014 y=117.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="748.9" cy="547.5" r="2.5"><title>b2-A0-D2-s1 P x=1.161 y=115.550</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="601.7,570.3 565.3,619.8 764.8,566.1 782.5,529.6 773.7,610.2 697.9,537.8 762.4,531.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="601.7" cy="570.3" r="2.5"><title>b2-A0-D2-s2 P x=0.5256 y=86.388</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="565.3" cy="619.8" r="2.5"><title>b2-A0-D2-s2 P x=0.3683 y=23.262</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="764.8" cy="566.1" r="2.5"><title>b2-A0-D2-s2 P x=1.23 y=91.838</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="782.5" cy="529.6" r="2.5"><title>b2-A0-D2-s2 P x=1.306 y=138.450</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.7" cy="610.2" r="2.5"><title>b2-A0-D2-s2 P x=1.268 y=35.550</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="697.9" cy="537.8" r="2.5"><title>b2-A0-D2-s2 P x=0.9408 y=127.925</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="762.4" cy="531.8" r="2.5"><title>b2-A0-D2-s2 P x=1.219 y=135.575</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="677.6,596.9 670.4,568.7 648.4,593.3 747.0,546.1 705.8,547.1 701.8,540.7 773.2,578.4"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="677.6" cy="596.9" r="2.5"><title>b2-A0-D2-s3 P x=0.8533 y=52.413</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="670.4" cy="568.7" r="2.5"><title>b2-A0-D2-s3 P x=0.8223 y=88.488</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="648.4" cy="593.3" r="2.5"><title>b2-A0-D2-s3 P x=0.7274 y=57.038</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="747.0" cy="546.1" r="2.5"><title>b2-A0-D2-s3 P x=1.153 y=117.275</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="705.8" cy="547.1" r="2.5"><title>b2-A0-D2-s3 P x=0.975 y=116.050</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="701.8" cy="540.7" r="2.5"><title>b2-A0-D2-s3 P x=0.958 y=124.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.2" cy="578.4" r="2.5"><title>b2-A0-D2-s3 P x=1.266 y=76.088</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="545.9,590.1 640.0,582.4 657.2,577.1 698.3,533.0 794.3,602.6 758.6,557.4 776.3,541.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="545.9" cy="590.1" r="2.5"><title>b2-A0-D2-s4 P x=0.2847 y=61.097</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="640.0" cy="582.4" r="2.5"><title>b2-A0-D2-s4 P x=0.6908 y=71.025</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="657.2" cy="577.1" r="2.5"><title>b2-A0-D2-s4 P x=0.765 y=77.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="698.3" cy="533.0" r="2.5"><title>b2-A0-D2-s4 P x=0.9427 y=134.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="794.3" cy="602.6" r="2.5"><title>b2-A0-D2-s4 P x=1.357 y=45.225</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="758.6" cy="557.4" r="2.5"><title>b2-A0-D2-s4 P x=1.203 y=102.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="776.3" cy="541.5" r="2.5"><title>b2-A0-D2-s4 P x=1.28 y=123.188</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="631.1,618.8 630.0,580.3 631.3,574.6 747.8,546.9 705.9,589.4 631.7,614.0 783.8,514.2"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.1" cy="618.8" r="2.5"><title>b2-A0-D2-s5 P x=0.6526 y=24.562</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="630.0" cy="580.3" r="2.5"><title>b2-A0-D2-s5 P x=0.6476 y=73.662</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.3" cy="574.6" r="2.5"><title>b2-A0-D2-s5 P x=0.6535 y=80.900</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="747.8" cy="546.9" r="2.5"><title>b2-A0-D2-s5 P x=1.157 y=116.350</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="705.9" cy="589.4" r="2.5"><title>b2-A0-D2-s5 P x=0.9757 y=62.087</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.7" cy="614.0" r="2.5"><title>b2-A0-D2-s5 P x=0.6553 y=30.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="783.8" cy="514.2" r="2.5"><title>b2-A0-D2-s5 P x=1.312 y=158.062</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="629.0,595.7 639.4,593.3 687.3,575.4 745.0,544.3 741.8,588.6 701.0,559.1 768.9,542.7"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="629.0" cy="595.7" r="4"><title>A0 pooled P x=0.6434 y=54.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="639.4" cy="593.3" r="4"><title>A0 pooled P x=0.6882 y=57.062</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="687.3" cy="575.4" r="4"><title>A0 pooled P x=0.8952 y=79.973</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.0" cy="544.3" r="4"><title>A0 pooled P x=1.144 y=119.600</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="741.8" cy="588.6" r="4"><title>A0 pooled P x=1.131 y=63.042</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="701.0" cy="559.1" r="4"><title>A0 pooled P x=0.9542 y=100.695</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="768.9" cy="542.7" r="4"><title>A0 pooled P x=1.248 y=121.692</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="688.6,815.8 691.2,832.0 734.8,750.8 749.4,745.3 729.4,832.0 714.7,761.6 748.9,734.5"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="688.6" cy="815.8" r="2.5"><title>b2-A0-D2-s1 T x=0.9008 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="691.2" cy="832.0" r="2.5"><title>b2-A0-D2-s1 T x=0.9121 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="734.8" cy="750.8" r="2.5"><title>b2-A0-D2-s1 T x=1.101 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="749.4" cy="745.3" r="2.5"><title>b2-A0-D2-s1 T x=1.163 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="729.4" cy="832.0" r="2.5"><title>b2-A0-D2-s1 T x=1.077 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="714.7" cy="761.6" r="2.5"><title>b2-A0-D2-s1 T x=1.014 y=1.625</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="748.9" cy="734.5" r="2.5"><title>b2-A0-D2-s1 T x=1.161 y=2.250</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="601.7,794.1 565.3,832.0 764.8,750.8 782.5,745.3 773.7,815.8 697.9,745.3 762.4,739.9"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="601.7" cy="794.1" r="2.5"><title>b2-A0-D2-s2 T x=0.5256 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="565.3" cy="832.0" r="2.5"><title>b2-A0-D2-s2 T x=0.3683 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="764.8" cy="750.8" r="2.5"><title>b2-A0-D2-s2 T x=1.23 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="782.5" cy="745.3" r="2.5"><title>b2-A0-D2-s2 T x=1.306 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.7" cy="815.8" r="2.5"><title>b2-A0-D2-s2 T x=1.268 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="697.9" cy="745.3" r="2.5"><title>b2-A0-D2-s2 T x=0.9408 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="762.4" cy="739.9" r="2.5"><title>b2-A0-D2-s2 T x=1.219 y=2.125</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="677.6,756.2 670.4,788.7 648.4,783.2 747.0,750.8 705.8,756.2 701.8,756.2 773.2,804.9"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="677.6" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=0.8533 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="670.4" cy="788.7" r="2.5"><title>b2-A0-D2-s3 T x=0.8223 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="648.4" cy="783.2" r="2.5"><title>b2-A0-D2-s3 T x=0.7274 y=1.125</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="747.0" cy="750.8" r="2.5"><title>b2-A0-D2-s3 T x=1.153 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="705.8" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=0.975 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="701.8" cy="756.2" r="2.5"><title>b2-A0-D2-s3 T x=0.958 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="773.2" cy="804.9" r="2.5"><title>b2-A0-D2-s3 T x=1.266 y=0.625</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="545.9,788.7 640.0,810.3 657.2,777.8 698.3,750.8 794.3,821.2 758.6,756.2 776.3,712.8"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="545.9" cy="788.7" r="2.5"><title>b2-A0-D2-s4 T x=0.2847 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="640.0" cy="810.3" r="2.5"><title>b2-A0-D2-s4 T x=0.6908 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="657.2" cy="777.8" r="2.5"><title>b2-A0-D2-s4 T x=0.765 y=1.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="698.3" cy="750.8" r="2.5"><title>b2-A0-D2-s4 T x=0.9427 y=1.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="794.3" cy="821.2" r="2.5"><title>b2-A0-D2-s4 T x=1.357 y=0.250</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="758.6" cy="756.2" r="2.5"><title>b2-A0-D2-s4 T x=1.203 y=1.750</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="776.3" cy="712.8" r="2.5"><title>b2-A0-D2-s4 T x=1.28 y=2.750</title></circle>
+<polyline class="A0" fill="none" stroke-width="1" opacity="0.5" points="631.1,832.0 630.0,788.7 631.3,794.1 747.8,745.3 705.9,815.8 631.7,832.0 783.8,745.3"/>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.1" cy="832.0" r="2.5"><title>b2-A0-D2-s5 T x=0.6526 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="630.0" cy="788.7" r="2.5"><title>b2-A0-D2-s5 T x=0.6476 y=1.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.3" cy="794.1" r="2.5"><title>b2-A0-D2-s5 T x=0.6535 y=0.875</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="747.8" cy="745.3" r="2.5"><title>b2-A0-D2-s5 T x=1.157 y=2.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="705.9" cy="815.8" r="2.5"><title>b2-A0-D2-s5 T x=0.9757 y=0.375</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="631.7" cy="832.0" r="2.5"><title>b2-A0-D2-s5 T x=0.6553 y=0.000</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="0.5" cx="783.8" cy="745.3" r="2.5"><title>b2-A0-D2-s5 T x=1.312 y=2.000</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" points="629.0,797.3 639.4,810.3 687.3,771.3 745.0,747.5 741.8,808.2 701.0,770.2 768.9,747.5"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="629.0" cy="797.3" r="4"><title>A0 pooled T x=0.6434 y=0.800</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="639.4" cy="810.3" r="4"><title>A0 pooled T x=0.6882 y=0.500</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="687.3" cy="771.3" r="4"><title>A0 pooled T x=0.8952 y=1.400</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.0" cy="747.5" r="4"><title>A0 pooled T x=1.144 y=1.950</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="741.8" cy="808.2" r="4"><title>A0 pooled T x=1.131 y=0.550</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="701.0" cy="770.2" r="4"><title>A0 pooled T x=0.9542 y=1.425</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="768.9" cy="747.5" r="4"><title>A0 pooled T x=1.248 y=1.950</title></circle>
+<polyline class="A0" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="629.0,770.9 639.4,788.0 687.3,741.1 745.0,716.7 741.8,780.6 701.0,744.2 768.9,723.2"/>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="629.0" cy="770.9" r="0"><title>A0 leg progress x=0.6434 y=1.409</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="639.4" cy="788.0" r="0"><title>A0 leg progress x=0.6882 y=1.016</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="687.3" cy="741.1" r="0"><title>A0 leg progress x=0.8952 y=2.099</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="745.0" cy="716.7" r="0"><title>A0 leg progress x=1.144 y=2.660</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="741.8" cy="780.6" r="0"><title>A0 leg progress x=1.131 y=1.185</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="701.0" cy="744.2" r="0"><title>A0 leg progress x=0.9542 y=2.027</title></circle>
+<circle class="A0" stroke-width="1.5" opacity="1" cx="768.9" cy="723.2" r="0"><title>A0 leg progress x=1.248 y=2.510</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="522.4,620.7 559.6,628.6 610.8,635.1 617.4,616.4 579.5,620.8 616.5,614.0 622.5,615.7"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="522.4" cy="620.7" r="2.5"><title>b2-A2pp-D2-s1 P x=0.1831 y=22.025</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="559.6" cy="628.6" r="2.5"><title>b2-A2pp-D2-s1 P x=0.3436 y=12.037</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="610.8" cy="635.1" r="2.5"><title>b2-A2pp-D2-s1 P x=0.565 y=3.650</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="617.4" cy="616.4" r="2.5"><title>b2-A2pp-D2-s1 P x=0.5934 y=27.538</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="579.5" cy="620.8" r="2.5"><title>b2-A2pp-D2-s1 P x=0.4297 y=21.950</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="616.5" cy="614.0" r="2.5"><title>b2-A2pp-D2-s1 P x=0.5894 y=30.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="622.5" cy="615.7" r="2.5"><title>b2-A2pp-D2-s1 P x=0.6155 y=28.413</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="511.1,635.3 555.4,636.4 552.6,622.8 632.7,594.7 650.0,610.0 613.8,618.2 674.0,619.4"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="511.1" cy="635.3" r="2.5"><title>b2-A2pp-D2-s2 P x=0.1344 y=3.400</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="555.4" cy="636.4" r="2.5"><title>b2-A2pp-D2-s2 P x=0.3254 y=2.062</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="552.6" cy="622.8" r="2.5"><title>b2-A2pp-D2-s2 P x=0.3136 y=19.422</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="632.7" cy="594.7" r="2.5"><title>b2-A2pp-D2-s2 P x=0.6595 y=55.277</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="650.0" cy="610.0" r="2.5"><title>b2-A2pp-D2-s2 P x=0.7341 y=35.718</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="613.8" cy="618.2" r="2.5"><title>b2-A2pp-D2-s2 P x=0.5776 y=25.215 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="674.0" cy="619.4" r="2.5"><title>b2-A2pp-D2-s2 P x=0.8377 y=23.747 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="521.2,636.1 508.3,621.7 580.8,614.2 647.0,617.3 581.8,602.5 593.5,615.9 580.9,637.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="521.2" cy="636.1" r="2.5"><title>b2-A2pp-D2-s3 P x=0.1779 y=2.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="508.3" cy="621.7" r="2.5"><title>b2-A2pp-D2-s3 P x=0.122 y=20.762</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="580.8" cy="614.2" r="2.5"><title>b2-A2pp-D2-s3 P x=0.4351 y=30.447</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="647.0" cy="617.3" r="2.5"><title>b2-A2pp-D2-s3 P x=0.721 y=26.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="581.8" cy="602.5" r="2.5"><title>b2-A2pp-D2-s3 P x=0.4394 y=45.267</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="593.5" cy="615.9" r="2.5"><title>b2-A2pp-D2-s3 P x=0.4903 y=28.175</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="580.9" cy="637.2" r="2.5"><title>b2-A2pp-D2-s3 P x=0.4357 y=1.025 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="514.9,628.0 527.8,631.1 548.5,632.6 595.9,632.7 637.5,620.1 588.0,619.9 642.0,610.4"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="514.9" cy="628.0" r="2.5"><title>b2-A2pp-D2-s4 P x=0.1507 y=12.787</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="527.8" cy="631.1" r="2.5"><title>b2-A2pp-D2-s4 P x=0.2065 y=8.812</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="548.5" cy="632.6" r="2.5"><title>b2-A2pp-D2-s4 P x=0.2957 y=6.850</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="595.9" cy="632.7" r="2.5"><title>b2-A2pp-D2-s4 P x=0.5003 y=6.787</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="637.5" cy="620.1" r="2.5"><title>b2-A2pp-D2-s4 P x=0.6802 y=22.895</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="588.0" cy="619.9" r="2.5"><title>b2-A2pp-D2-s4 P x=0.4663 y=23.113</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="642.0" cy="610.4" r="2.5"><title>b2-A2pp-D2-s4 P x=0.6994 y=35.212</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="542.6,631.6 568.4,636.3 635.7,633.1 676.7,617.7 711.1,632.4 589.8,605.5 636.0,616.9"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="542.6" cy="631.6" r="2.5"><title>b2-A2pp-D2-s5 P x=0.2703 y=8.150</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="568.4" cy="636.3" r="2.5"><title>b2-A2pp-D2-s5 P x=0.3817 y=2.163</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="635.7" cy="633.1" r="2.5"><title>b2-A2pp-D2-s5 P x=0.6725 y=6.300</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="676.7" cy="617.7" r="2.5"><title>b2-A2pp-D2-s5 P x=0.8493 y=25.863</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="711.1" cy="632.4" r="2.5"><title>b2-A2pp-D2-s5 P x=0.9981 y=7.175 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="589.8" cy="605.5" r="2.5"><title>b2-A2pp-D2-s5 P x=0.474 y=41.438</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="636.0" cy="616.9" r="2.5"><title>b2-A2pp-D2-s5 P x=0.6738 y=26.887</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="522.4,630.3 543.9,630.8 585.7,627.6 633.9,615.8 632.0,617.2 600.3,614.7 631.1,619.9"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="522.4" cy="630.3" r="4"><title>A2″ pooled P x=0.1833 y=9.768</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="543.9" cy="630.8" r="4"><title>A2″ pooled P x=0.2758 y=9.168</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="585.7" cy="627.6" r="4"><title>A2″ pooled P x=0.4564 y=13.334</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="633.9" cy="615.8" r="4"><title>A2″ pooled P x=0.6647 y=28.388</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="632.0" cy="617.2" r="4"><title>A2″ pooled P x=0.6563 y=26.601</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="600.3" cy="614.7" r="4"><title>A2″ pooled P x=0.5195 y=29.713</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="631.1" cy="619.9" r="4"><title>A2″ pooled P x=0.6524 y=23.057</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="522.4,832.0 559.6,832.0 610.8,832.0 617.4,772.4 579.5,777.8 616.5,702.0 622.5,702.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="522.4" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=0.1831 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="559.6" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=0.3436 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="610.8" cy="832.0" r="2.5"><title>b2-A2pp-D2-s1 T x=0.565 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="617.4" cy="772.4" r="2.5"><title>b2-A2pp-D2-s1 T x=0.5934 y=1.375</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="579.5" cy="777.8" r="2.5"><title>b2-A2pp-D2-s1 T x=0.4297 y=1.250</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="616.5" cy="702.0" r="2.5"><title>b2-A2pp-D2-s1 T x=0.5894 y=3.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="622.5" cy="702.0" r="2.5"><title>b2-A2pp-D2-s1 T x=0.6155 y=3.000</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="511.1,832.0 555.4,832.0 552.6,832.0 632.7,718.2 650.0,745.3 613.8,788.7 674.0,810.3"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="511.1" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=0.1344 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="555.4" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=0.3254 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="552.6" cy="832.0" r="2.5"><title>b2-A2pp-D2-s2 T x=0.3136 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="632.7" cy="718.2" r="2.5"><title>b2-A2pp-D2-s2 T x=0.6595 y=2.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="650.0" cy="745.3" r="2.5"><title>b2-A2pp-D2-s2 T x=0.7341 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="613.8" cy="788.7" r="2.5"><title>b2-A2pp-D2-s2 T x=0.5776 y=1.000 (collapsed)</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="674.0" cy="810.3" r="2.5"><title>b2-A2pp-D2-s2 T x=0.8377 y=0.500 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="521.2,832.0 508.3,832.0 580.8,783.2 647.0,745.3 581.8,723.7 593.5,745.3 580.9,832.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="521.2" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=0.1779 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="508.3" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=0.122 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="580.8" cy="783.2" r="2.5"><title>b2-A2pp-D2-s3 T x=0.4351 y=1.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="647.0" cy="745.3" r="2.5"><title>b2-A2pp-D2-s3 T x=0.721 y=2.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="581.8" cy="723.7" r="2.5"><title>b2-A2pp-D2-s3 T x=0.4394 y=2.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="593.5" cy="745.3" r="2.5"><title>b2-A2pp-D2-s3 T x=0.4903 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="580.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s3 T x=0.4357 y=0.000 (collapsed)</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="514.9,832.0 527.8,832.0 548.5,815.8 595.9,832.0 637.5,767.0 588.0,745.3 642.0,756.2"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="514.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=0.1507 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="527.8" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=0.2065 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="548.5" cy="815.8" r="2.5"><title>b2-A2pp-D2-s4 T x=0.2957 y=0.375</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="595.9" cy="832.0" r="2.5"><title>b2-A2pp-D2-s4 T x=0.5003 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="637.5" cy="767.0" r="2.5"><title>b2-A2pp-D2-s4 T x=0.6802 y=1.500</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="588.0" cy="745.3" r="2.5"><title>b2-A2pp-D2-s4 T x=0.4663 y=2.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="642.0" cy="756.2" r="2.5"><title>b2-A2pp-D2-s4 T x=0.6994 y=1.750</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="1" opacity="0.5" points="542.6,832.0 568.4,832.0 635.7,832.0 676.7,745.3 711.1,826.6 589.8,718.2 636.0,702.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="542.6" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=0.2703 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="568.4" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=0.3817 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="635.7" cy="832.0" r="2.5"><title>b2-A2pp-D2-s5 T x=0.6725 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="676.7" cy="745.3" r="2.5"><title>b2-A2pp-D2-s5 T x=0.8493 y=2.000</title></circle>
+<circle class="A2pp hollow" stroke-width="1.5" opacity="0.5" cx="711.1" cy="826.6" r="2.5"><title>b2-A2pp-D2-s5 T x=0.9981 y=0.125 (collapsed)</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="589.8" cy="718.2" r="2.5"><title>b2-A2pp-D2-s5 T x=0.474 y=2.625</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="0.5" cx="636.0" cy="702.0" r="2.5"><title>b2-A2pp-D2-s5 T x=0.6738 y=3.000</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" points="522.4,832.0 543.9,832.0 585.7,819.0 633.9,762.7 632.0,768.1 600.3,739.9 631.1,760.5"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="522.4" cy="832.0" r="4"><title>A2″ pooled T x=0.1833 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="543.9" cy="832.0" r="4"><title>A2″ pooled T x=0.2758 y=0.000</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="585.7" cy="819.0" r="4"><title>A2″ pooled T x=0.4564 y=0.300</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="633.9" cy="762.7" r="4"><title>A2″ pooled T x=0.6647 y=1.600</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="632.0" cy="768.1" r="4"><title>A2″ pooled T x=0.6563 y=1.475</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="600.3" cy="739.9" r="4"><title>A2″ pooled T x=0.5195 y=2.125</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="631.1" cy="760.5" r="4"><title>A2″ pooled T x=0.6524 y=1.650</title></circle>
+<polyline class="A2pp" fill="none" stroke-width="2" opacity="1" stroke-dasharray="5 3" points="522.4,824.5 543.9,824.9 585.7,807.6 633.9,750.8 632.0,758.5 600.3,725.6 631.1,755.0"/>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="522.4" cy="824.5" r="0"><title>A2″ leg progress x=0.1833 y=0.174</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="543.9" cy="824.9" r="0"><title>A2″ leg progress x=0.2758 y=0.163</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="585.7" cy="807.6" r="0"><title>A2″ leg progress x=0.4564 y=0.562</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="633.9" cy="750.8" r="0"><title>A2″ leg progress x=0.6647 y=1.874</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="632.0" cy="758.5" r="0"><title>A2″ leg progress x=0.6563 y=1.696</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="600.3" cy="725.6" r="0"><title>A2″ leg progress x=0.5195 y=2.455</title></circle>
+<circle class="A2pp" stroke-width="1.5" opacity="1" cx="631.1" cy="755.0" r="0"><title>A2″ leg progress x=0.6524 y=1.776</title></circle>
+<text class="ink2" x="16" y="926">Means pooled over seeds (8 eval episodes per seed per mark); band = 95% bootstrap over seeds, episodes</text>
+<text class="ink2" x="16" y="940">resampled within seeds (B = 10,000). Thin lines = one seed; hollow = collapsed A2″ seed-ckpt (§9 (1)).</text>
+<text class="ink2" x="16" y="954">Ticks above P: first mark a hack type is present in A0 above R0 after Holm (dark = seeds pooled,</text>
+<text class="ink2" x="16" y="968">light = one seed alone, labelled type·seed). P and T are stacked panels, not two axes.</text>
+<text class="ink2" x="16" y="982">x = KL: init rebuilt from each run&#x27;s seed with its training thread count and checked by hash (one hash</text>
+<text class="ink2" x="16" y="996">per seed, shared by A0 and A2″); verified by reproducibility, not against a stored step-0 checkpoint.</text>
+<text class="ink2" x="16" y="1010">Runs left out of the KL panel: none.</text>
+</svg>

@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Claude Code status line for the agent team (wired up in .claude/settings.json).
+# Shows:  ROLE  task · topic · model · context used · session cost · branch
+# The role comes from the Herdr agent name of this pane; colors are ANSI names,
+# so they follow the Omarchy theme.
+input=$(cat)
+j() { jq -r "$1 // empty" <<<"$input" 2>/dev/null; }
+
+cache="${XDG_RUNTIME_DIR:-/tmp}/team-status"
+mkdir -p "$cache"
+
+# Role: Herdr agent name for this pane (cached), else "claude"
+role=claude
+if [[ "${HERDR_ENV:-}" == 1 && -n "${HERDR_PANE_ID:-}" ]]; then
+  key="${HERDR_PANE_ID//[^a-zA-Z0-9]/_}"
+  if [[ -s "$cache/$key.role" ]]; then
+    role=$(<"$cache/$key.role")
+  else
+    name=$(herdr agent get "$HERDR_PANE_ID" 2>/dev/null | jq -r '.result.agent.name // empty')
+    [[ -n $name ]] && { role=$name; printf '%s' "$role" >"$cache/$key.role"; }
+  fi
+  task=$(cat "$cache/$key.task" 2>/dev/null)
+fi
+
+case $role in
+  lead)       color=36; icon="󰚩" ;;   # cyan
+  researcher) color=35; icon="󰂺" ;;   # magenta
+  writer)     color=32; icon="󰏫" ;;   # green
+  developer)  color=33; icon="" ;;   # yellow
+  *)          color=34; icon="󰧑" ;;   # blue
+esac
+
+sep=$'\e[2m · \e[0m'
+out=$'\e[1;30;'"$((color + 10))m $icon ${role^^} "$'\e[0m'
+
+[[ -n $task ]] && out+=" "$'\e['"${color}m${task}"$'\e[0m'
+
+# Active research topic: most recently modified research/<topic>/ (not _template)
+dir=$(j '.workspace.project_dir'); [[ -z $dir ]] && dir=$(j '.workspace.current_dir')
+if [[ -d "$dir/research" ]]; then
+  topic=$(ls -td "$dir"/research/*/ 2>/dev/null | grep -v '/_template/' | head -1)
+  [[ -n $topic ]] && out+="$sep"$'\e[2m'"󰉋 $(basename "$topic")"$'\e[0m'
+fi
+
+model=$(j '.model.display_name')
+[[ -n $model ]] && out+="$sep$model"
+
+# Context window used, colored by how full it is
+pct=$(jq -r '
+  .context_window as $c
+  | if $c == null then empty
+    elif $c.used_percentage then $c.used_percentage
+    elif ($c.current_usage and $c.context_window_size) then
+      (($c.current_usage | (.input_tokens // 0) + (.cache_creation_input_tokens // 0) + (.cache_read_input_tokens // 0))
+        * 100 / $c.context_window_size)
+    else empty end | floor' <<<"$input" 2>/dev/null)
+if [[ -n $pct ]]; then
+  c=32; ((pct >= 50)) && c=33; ((pct >= 80)) && c=31
+  out+="$sep"$'\e['"${c}m󰍛 ${pct}%"$'\e[0m'
+fi
+
+cost=$(j '.cost.total_cost_usd')
+[[ -n $cost ]] && out+="$sep"$'\e[2m'"\$$(printf '%.2f' "$cost")"$'\e[0m'
+
+branch=$(git -C "${dir:-.}" branch --show-current 2>/dev/null)
+if [[ -n $branch ]]; then
+  dirty=$(git -C "$dir" status --porcelain 2>/dev/null | wc -l)
+  out+="$sep"$'\e[2m'" $branch"$'\e[0m'
+  ((dirty > 0)) && out+=$'\e[33m'" ±$dirty"$'\e[0m'
+fi
+
+printf '%s\n' "$out"

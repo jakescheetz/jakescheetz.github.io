@@ -1,0 +1,5 @@
+# A2′ shaped-oracle pilot (experiment-e1.md §4, §9 "A2 oracle pilot" ruling 4): one A2p run on D1, 5M
+# steps, tiles-CNN, normal core (train.py defaults). Pass = M2 in >= 1 D1 eval episode. If it passes
+# without M4, extend the same run to 10M (--steps 10000000 + --resume-all); if it fails, screen-CNN A2′.
+#   gcp/run.sh gcp/plans/pilot-a2p.txt --vm e1-a --envs 8
+--arm A2p --state D1 --seed 0 --steps 5000000 --run-id A2p-D1-s0 --envs {envs}

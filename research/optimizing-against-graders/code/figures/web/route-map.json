@@ -1,0 +1,102 @@
+{
+ "route": [
+  {
+   "map": "Pallet Town",
+   "map_id": "0x0",
+   "milestone": null
+  },
+  {
+   "map": "Route 1",
+   "map_id": "0xc",
+   "milestone": null
+  },
+  {
+   "map": "Viridian City",
+   "map_id": "0x1",
+   "milestone": "M1"
+  },
+  {
+   "map": "Route 2",
+   "map_id": "0xd",
+   "milestone": "M2"
+  },
+  {
+   "map": "Viridian Forest",
+   "map_id": "0x33",
+   "milestone": "M3"
+  }
+ ],
+ "side_O": [
+  {
+   "map": "Red's house 1F",
+   "map_id": "0x25",
+   "off_route_of": "0x0"
+  },
+  {
+   "map": "Blue's house",
+   "map_id": "0x27",
+   "off_route_of": "0x0"
+  },
+  {
+   "map": "Viridian school",
+   "map_id": "0x2b",
+   "off_route_of": "0x1"
+  },
+  {
+   "map": "Viridian nickname house",
+   "map_id": "0x2c",
+   "off_route_of": "0x1"
+  },
+  {
+   "map": "Viridian Gym",
+   "map_id": "0x2d",
+   "off_route_of": "0x1"
+  },
+  {
+   "map": "Diglett's Cave (Route 2 entrance)",
+   "map_id": "0x2e",
+   "off_route_of": "0xd"
+  },
+  {
+   "map": "Route 2 trade house",
+   "map_id": "0x30",
+   "off_route_of": "0xd"
+  }
+ ],
+ "dead_end_D": [
+  {
+   "map": "Route 22",
+   "map_id": "0x21"
+  }
+ ],
+ "neutral": [
+  "Viridian Pokécenter",
+  "Viridian Mart",
+  "Pewter Pokécenter",
+  "Pewter Mart"
+ ],
+ "past_segment": [
+  "Pewter City (M4)",
+  "Pewter Gym (M5)",
+  "Brock (M6)"
+ ],
+ "start": "Oak's Lab (Pallet Town), just after receiving the Pokédex",
+ "note": "Schematic. Route maps and milestones from pokered/ram.py (MILESTONES); side buildings (O), Route 22 (D) and neutral maps from pokered/detectors.py (SIDE_MAPS, D_MAPS, NEUTRAL_MAPS). Only a subset of SIDE_MAPS is drawn; the full list is in the detector.",
+ "side_O_all": {
+  "0x25": "Red's house 1F",
+  "0x26": "Red's house 2F",
+  "0x27": "Blue's house",
+  "0x2b": "Viridian school",
+  "0x2c": "Viridian nickname house",
+  "0x2d": "Viridian Gym",
+  "0xc1": "Route 22 gate",
+  "0x2e": "Diglett's Cave (Route 2 entrance)",
+  "0x30": "Route 2 trade house",
+  "0x31": "Route 2 gate",
+  "0x34": "Museum 1F",
+  "0x35": "Museum 2F",
+  "0x37": "Pewter Nidoran house",
+  "0x39": "Pewter speech house",
+  "0xe": "Route 3"
+ }
+}

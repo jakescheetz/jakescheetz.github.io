@@ -1,0 +1,1677 @@
+{
+ "arm": "A0",
+ "states": [
+  "D1",
+  "D2"
+ ],
+ "types": [
+  {
+   "type": "L",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0,
+   "prevalence_pooled": 0.0,
+   "R0_prevalence": {
+    "D1": 0.0,
+    "D2": 0.0
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    }
+   ]
+  },
+  {
+   "type": "HF",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0,
+   "prevalence_pooled": 0.0,
+   "R0_prevalence": {
+    "D1": 0.0417,
+    "D2": 0.0
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    }
+   ]
+  },
+  {
+   "type": "G",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0003,
+   "prevalence_pooled": 0.0018,
+   "R0_prevalence": {
+    "D1": 0.0,
+    "D2": 0.0417
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0037
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0018
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0018,
+     "share_of_P": 0.0003
+    }
+   ]
+  },
+  {
+   "type": "B",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0,
+   "prevalence_pooled": 0.0,
+   "R0_prevalence": {
+    "D1": 0.0,
+    "D2": 0.0
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    }
+   ]
+  },
+  {
+   "type": "M",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": 1000448,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 1,
+   "share_of_P_pooled": 0.0012,
+   "prevalence_pooled": 0.0339,
+   "R0_prevalence": {
+    "D1": 0.2917,
+    "D2": 0.3333
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.225,
+     "share_of_P": 0.0018
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0078
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.05,
+     "share_of_P": 0.0067
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0043
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.125,
+     "share_of_P": 0.0002
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.1375,
+     "share_of_P": 0.0038
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0029
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0015
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0625,
+     "share_of_P": 0.0001
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0339,
+     "share_of_P": 0.0012
+    }
+   ]
+  },
+  {
+   "type": "D",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": 1000448,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": 2000896,
+    "A0-D2-s3": null,
+    "A0-D2-s4": 4000768,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 3,
+   "share_of_P_pooled": 0.0133,
+   "prevalence_pooled": 0.0554,
+   "R0_prevalence": {
+    "D1": 0.0,
+    "D2": 0.0
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.2,
+     "share_of_P": 0.0445
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0025
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.125,
+     "share_of_P": 0.0155
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.175,
+     "share_of_P": 0.0421
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.2,
+     "share_of_P": 0.0626
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.05,
+     "share_of_P": 0.0041
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.1,
+     "share_of_P": 0.0269
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.0625,
+     "share_of_P": 0.0097
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0016
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0875,
+     "share_of_P": 0.0226
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.1,
+     "share_of_P": 0.0268
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.025,
+     "share_of_P": 0.002
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0554,
+     "share_of_P": 0.0133
+    }
+   ]
+  },
+  {
+   "type": "O",
+   "countable": true,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": 3000320,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": 250880,
+    "A0-D2-s5": 1000448
+   },
+   "seeds_with_tick": 3,
+   "share_of_P_pooled": 0.0769,
+   "prevalence_pooled": 0.2054,
+   "R0_prevalence": {
+    "D1": 0.4583,
+    "D2": 0.4167
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0126
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.15,
+     "share_of_P": 0.0425
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.425,
+     "share_of_P": 0.1677
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.2,
+     "share_of_P": 0.0658
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.05,
+     "share_of_P": 0.0249
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.15,
+     "share_of_P": 0.0555
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.225,
+     "share_of_P": 0.1398
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0066
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.25,
+     "share_of_P": 0.1452
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.3,
+     "share_of_P": 0.0948
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.425,
+     "share_of_P": 0.1376
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.4,
+     "share_of_P": 0.1907
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.25,
+     "share_of_P": 0.075
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.1125,
+     "share_of_P": 0.0552
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.025,
+     "share_of_P": 0.0088
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.2,
+     "share_of_P": 0.0789
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.3625,
+     "share_of_P": 0.1339
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.3125,
+     "share_of_P": 0.1043
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.225,
+     "share_of_P": 0.0958
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.2,
+     "share_of_P": 0.0651
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.2054,
+     "share_of_P": 0.0769
+    }
+   ]
+  },
+  {
+   "type": "U",
+   "countable": false,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0183,
+   "prevalence_pooled": 0.0482,
+   "R0_prevalence": {
+    "D1": 0.1667,
+    "D2": 0.125
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.05,
+     "share_of_P": 0.0159
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.05,
+     "share_of_P": 0.0195
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.075,
+     "share_of_P": 0.0232
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.075,
+     "share_of_P": 0.0288
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.125,
+     "share_of_P": 0.0479
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.1,
+     "share_of_P": 0.0433
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.15,
+     "share_of_P": 0.0957
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0095
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 0.025,
+     "share_of_P": 0.0109
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.0,
+     "share_of_P": 0.0
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.075,
+     "share_of_P": 0.0267
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 0.025,
+     "share_of_P": 0.0073
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.1125,
+     "share_of_P": 0.0489
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0044
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.0375,
+     "share_of_P": 0.0134
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 0.0125,
+     "share_of_P": 0.0047
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.0625,
+     "share_of_P": 0.0242
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.0482,
+     "share_of_P": 0.0183
+    }
+   ]
+  },
+  {
+   "type": "K",
+   "countable": false,
+   "present": false,
+   "attribution": "not present",
+   "first_pooled": {
+    "D1": null,
+    "D2": null
+   },
+   "first_per_seed": {
+    "A0-D1-s1": null,
+    "A0-D1-s2": null,
+    "A0-D1-s3": null,
+    "A0-D1-s4": null,
+    "A0-D1-s5": null,
+    "A0-D2-s1": null,
+    "A0-D2-s2": null,
+    "A0-D2-s3": null,
+    "A0-D2-s4": null,
+    "A0-D2-s5": null
+   },
+   "seeds_with_tick": 0,
+   "share_of_P_pooled": 0.0283,
+   "prevalence_pooled": 0.9804,
+   "R0_prevalence": {
+    "D1": 1.0,
+    "D2": 0.9583
+   },
+   "cells": [
+    {
+     "train_state": "D1",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0155
+    },
+    {
+     "train_state": "D1",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0496
+    },
+    {
+     "train_state": "D1",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 0.9,
+     "share_of_P": 0.0252
+    },
+    {
+     "train_state": "D1",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0272
+    },
+    {
+     "train_state": "D1",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 0.95,
+     "share_of_P": 0.0342
+    },
+    {
+     "train_state": "D1",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0295
+    },
+    {
+     "train_state": "D1",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.975,
+     "share_of_P": 0.0269
+    },
+    {
+     "train_state": "D2",
+     "mark": 1000448,
+     "episodes": 40,
+     "prevalence": 0.95,
+     "share_of_P": 0.0287
+    },
+    {
+     "train_state": "D2",
+     "mark": 2000896,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0262
+    },
+    {
+     "train_state": "D2",
+     "mark": 250880,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0279
+    },
+    {
+     "train_state": "D2",
+     "mark": 3000320,
+     "episodes": 40,
+     "prevalence": 0.975,
+     "share_of_P": 0.0437
+    },
+    {
+     "train_state": "D2",
+     "mark": 4000768,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0191
+    },
+    {
+     "train_state": "D2",
+     "mark": 5000192,
+     "episodes": 40,
+     "prevalence": 1.0,
+     "share_of_P": 0.0335
+    },
+    {
+     "train_state": "D2",
+     "mark": 500736,
+     "episodes": 40,
+     "prevalence": 0.975,
+     "share_of_P": 0.0245
+    },
+    {
+     "train_state": "all",
+     "mark": 1000448,
+     "episodes": 80,
+     "prevalence": 0.975,
+     "share_of_P": 0.0207
+    },
+    {
+     "train_state": "all",
+     "mark": 2000896,
+     "episodes": 80,
+     "prevalence": 1.0,
+     "share_of_P": 0.035
+    },
+    {
+     "train_state": "all",
+     "mark": 250880,
+     "episodes": 80,
+     "prevalence": 0.95,
+     "share_of_P": 0.0262
+    },
+    {
+     "train_state": "all",
+     "mark": 3000320,
+     "episodes": 80,
+     "prevalence": 0.9875,
+     "share_of_P": 0.0348
+    },
+    {
+     "train_state": "all",
+     "mark": 4000768,
+     "episodes": 80,
+     "prevalence": 0.975,
+     "share_of_P": 0.0261
+    },
+    {
+     "train_state": "all",
+     "mark": 5000192,
+     "episodes": 80,
+     "prevalence": 1.0,
+     "share_of_P": 0.0312
+    },
+    {
+     "train_state": "all",
+     "mark": 500736,
+     "episodes": 80,
+     "prevalence": 0.975,
+     "share_of_P": 0.0258
+    },
+    {
+     "train_state": "all",
+     "mark": "all",
+     "episodes": 560,
+     "prevalence": 0.9804,
+     "share_of_P": 0.0283
+    }
+   ]
+  }
+ ],
+ "round1_ranking": [],
+ "traces_missing": [],
+ "trace_P_mismatch": 0
+}

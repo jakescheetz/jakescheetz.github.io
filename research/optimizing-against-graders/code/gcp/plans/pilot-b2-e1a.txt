@@ -1,0 +1,4 @@
+# E1 batch 2, stage-1 pilot (§9 H4′): seed 0, NOT a main run, never in any test. Runs concurrently with the
+# other VM's pilot, to 2.5M, then stops; interim evals on D1 × 8 at every checkpoint (0, 0.25, 0.5, 1, 2, 2.5M) with
+# the H4′ tripwires (b2_reads.py watch --reads all). No closing eval. DO NOT ARM before the lead's go.
+--arm A0 --state D1 --seed 0 --steps 2500000 --run-id b2-A0-D1-s0 --envs 8 --policy tilegrid_visited ; watch: all

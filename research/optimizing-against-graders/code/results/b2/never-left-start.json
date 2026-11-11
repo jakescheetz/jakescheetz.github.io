@@ -1,0 +1,498 @@
+[
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 250880,
+  "never_left": 9,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 500736,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 1000448,
+  "never_left": 1,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 3000320,
+  "never_left": 5,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 250880,
+  "never_left": 4,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 500736,
+  "never_left": 2,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 1000448,
+  "never_left": 1,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 250880,
+  "never_left": 18,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 500736,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 1000448,
+  "never_left": 1,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 5000192,
+  "never_left": 16,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 250880,
+  "never_left": 16,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 500736,
+  "never_left": 20,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 1000448,
+  "never_left": 7,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b2",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 5000192,
+  "never_left": 10,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 250880,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 500736,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 1000448,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D1",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 250880,
+  "never_left": 6,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 500736,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 1000448,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A0",
+  "train_state": "D2",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 250880,
+  "never_left": 16,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 500736,
+  "never_left": 23,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 1000448,
+  "never_left": 13,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 2000896,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 3000320,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D1",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 250880,
+  "never_left": 22,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 500736,
+  "never_left": 18,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 1000448,
+  "never_left": 11,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 2000896,
+  "never_left": 4,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 3000320,
+  "never_left": 4,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 4000768,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "b1",
+  "arm": "A2pp",
+  "train_state": "D2",
+  "mark": 5000192,
+  "never_left": 0,
+  "episodes": 40
+ },
+ {
+  "batch": "R0",
+  "arm": "R0",
+  "train_state": "D1",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 24
+ },
+ {
+  "batch": "R0",
+  "arm": "R0",
+  "train_state": "D2",
+  "mark": 0,
+  "never_left": 0,
+  "episodes": 24
+ }
+]

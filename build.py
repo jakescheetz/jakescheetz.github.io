@@ -25,6 +25,9 @@ ROOT = Path(__file__).resolve().parent
 CONTENT = ROOT / "content"
 POSTS = CONTENT / "posts"
 ASSETS = ROOT / "assets"
+# Game ROMs, save states and battery saves are copyrighted or ROM-derived:
+# never copy them into _site, even if one is dropped into assets/ or content/.
+NEVER_PUBLISH = ("*.gb", "*.gbc", "*.gba", "*.state", "*.sav", "*.srm")
 TEMPLATES = ROOT / "templates"
 FILTERS = ROOT / "filters"
 SITE_META = ROOT / "site.yaml"
@@ -172,9 +175,11 @@ def build(drafts=False, dev=False):
 
     if OUT.exists():
         shutil.rmtree(OUT)
-    shutil.copytree(ASSETS, OUT / "assets", ignore=shutil.ignore_patterns(".*"))
+    shutil.copytree(ASSETS, OUT / "assets", ignore=shutil.ignore_patterns(".*", *NEVER_PUBLISH))
     for src in sorted(CONTENT.rglob("*")):
         if src.is_dir() or src.suffix == ".md" or is_hidden(src, CONTENT):
+            continue
+        if any(src.match(pat) for pat in NEVER_PUBLISH):
             continue
         if any(d in src.parents for d in excluded_dirs):
             continue

@@ -1,0 +1,21 @@
+# Batch-1 D2 eval (experiment-e1.md §9 'Batch-1 analysis plan' A1): eval-only over the done batch-1 runs, D2 x 8 at every mark; output <run>/eval-d2/. No training (runs are done; the queue skips them). D2-trained runs also log KL vs the init policy (--kl-init, §9 C).
+--arm A0 --state D1 --seed 1 --steps {M} --run-id A0-D1-s1 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A2pp --state D1 --seed 1 --steps {M} --run-id A2pp-D1-s1 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A0 --state D2 --seed 1 --steps {M} --run-id A0-D2-s1 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+--arm A2pp --state D2 --seed 1 --steps {M} --run-id A2pp-D2-s1 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+--arm A0 --state D1 --seed 2 --steps {M} --run-id A0-D1-s2 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A2pp --state D1 --seed 2 --steps {M} --run-id A2pp-D1-s2 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A0 --state D2 --seed 2 --steps {M} --run-id A0-D2-s2 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+--arm A2pp --state D2 --seed 2 --steps {M} --run-id A2pp-D2-s2 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+--arm A0 --state D1 --seed 3 --steps {M} --run-id A0-D1-s3 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A2pp --state D1 --seed 3 --steps {M} --run-id A2pp-D1-s3 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --out eval-d2
+--arm A0 --state D2 --seed 3 --steps {M} --run-id A0-D2-s3 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+--arm A2pp --state D2 --seed 3 --steps {M} --run-id A2pp-D2-s3 --envs 8 ; eval: --states D2 --episodes 8 --workers 8 --window-stats --save-traces --kl-init --out eval-d2
+eval-only: R0 --random A0-D1-s0 --states D2 --episodes 24 --workers 8 --window-stats --save-traces --out eval-24-d2
+# D1 KL pass (§9 C, Fig. 1 KL axis): D1-trained runs replayed on D1 with --kl-init (same seeds as eval/, so T/P must match it: a determinism check); output <run>/eval-kl-d1/.
+--arm A0 --state D1 --seed 1 --steps {M} --run-id A0-D1-s1 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1
+--arm A2pp --state D1 --seed 1 --steps {M} --run-id A2pp-D1-s1 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1
+--arm A0 --state D1 --seed 2 --steps {M} --run-id A0-D1-s2 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1
+--arm A2pp --state D1 --seed 2 --steps {M} --run-id A2pp-D1-s2 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1
+--arm A0 --state D1 --seed 3 --steps {M} --run-id A0-D1-s3 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1
+--arm A2pp --state D1 --seed 3 --steps {M} --run-id A2pp-D1-s3 --envs 8 ; eval: --states D1 --episodes 8 --workers 8 --kl-init --out eval-kl-d1

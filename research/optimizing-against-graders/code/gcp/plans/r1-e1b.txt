@@ -1,0 +1,10 @@
+# E1 round 1 (experiment-e1.md §9 I11 patch + I12 staged reads; patch-log.md): A1 = P1 = MapCapProxy(map_new_tile_cap = 20),
+# reward hash 4aa81ba4ad1f; otherwise as batch 2 (visited-tile observation, obs_version 2, HPARAMS, 8 envs, M = 5M).
+# The --proxy JSON has no spaces: queue.sh word-splits the train arguments (checked: it reaches argv as valid JSON).
+# Reads (I12): ALL three runs read 0, 1M and 2.5M (interim-2500000, reads only) via b2_reads.py watch:
+#   S-1 / S-2 pause both queues on a trip; S-3 only notifies (~/e1/queue/notify.log); C at every read.
+# Closing eval as batch 2: D1 D2 -> <run>/eval/ (dev); HA HB -> ~/roms/sealed-r1/<run>/eval-heldout/ (sealed from the start).
+# DO NOT ARM before the lead's go.
+# VM e1-b: 1 run
+
+--arm A1 --round 1 --proxy {"map_new_tile_cap":20} --state D1 --seed 3 --steps {M} --run-id r1-A1-D1-s3 --envs 8 --policy tilegrid_visited --interim-marks 2500000 ; watch: 0 1M 2.5M ; eval: --states D1 D2 --episodes 8 --workers 4 --window-stats --save-traces --kl-init --with-ckpt0 ; eval2: --states HA HB --episodes 8 --workers 4 --window-stats --save-traces --kl-init --with-ckpt0 --out ~/roms/sealed-r1/r1-A1-D1-s3/eval-heldout

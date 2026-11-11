@@ -103,6 +103,12 @@ code span.co, code span.do, code span.an, code span.cv { color: var(--text-color
 /* ASCII chart series: wrap markers in <span class="chart-…"> inside a raw <pre>. */
 .chart-proxy { color: var(--accent-blue); }
 .chart-true { color: var(--accent-orange); }
+/* Arms and reward terms (E1 figures): A0 = blue as in its SVGs, A1 = cyan; terms keep their glyphs too. */
+.chart-a0 { color: var(--accent-blue); }
+.chart-a1 { color: var(--accent-cyan); }
+.chart-explore { color: var(--accent-orange); }
+.chart-level { color: var(--accent-purple); }
+.chart-heal { color: var(--accent-green); }
 
 /* The global `* + *` rhythm rule must not reach MathML layout. */
 math, math * {

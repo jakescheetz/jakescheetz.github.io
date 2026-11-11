@@ -1,0 +1,492 @@
+{
+ "dry_run": "12/23",
+ "marks": [
+  250880,
+  500736,
+  1000448,
+  2000896,
+  3000320,
+  4000768,
+  5000192
+ ],
+ "mark_5M": 5000192,
+ "mark_0.5M": 500736,
+ "marks_ge_2M": [
+  2000896,
+  3000320,
+  4000768,
+  5000192
+ ],
+ "B": 100000,
+ "states": {
+  "D1": {
+   "i": {
+    "P_5M": 56.2792,
+    "P_0.5M": 49.6081,
+    "p": 0.03978,
+    "holds": true
+   },
+   "T": {
+    "role": "primary",
+    "ii": [
+     {
+      "mark": 2000896,
+      "A0": 0.5,
+      "A2pp": 0.8125,
+      "A2pp_seeds_kept": 2,
+      "p": 0.176488,
+      "p_holm": 0.176488,
+      "holds": false
+     },
+     {
+      "mark": 3000320,
+      "A0": 0.6667,
+      "A2pp": 1.0,
+      "A2pp_seeds_kept": 1,
+      "p": 0.070069,
+      "p_holm": 0.140138,
+      "holds": false
+     },
+     {
+      "mark": 4000768,
+      "A0": 0.4583,
+      "A2pp": 1.875,
+      "A2pp_seeds_kept": 1,
+      "p": 1e-05,
+      "p_holm": 4e-05,
+      "holds": true
+     },
+     {
+      "mark": 5000192,
+      "A0": 1.375,
+      "A2pp": 3.0,
+      "A2pp_seeds_kept": 2,
+      "p": 1e-05,
+      "p_holm": 4e-05,
+      "holds": true
+     }
+    ],
+    "iii": {
+     "mark_P50": 250880,
+     "status": "defined",
+     "degenerate": false,
+     "undefined": false,
+     "T_5M": 1.375,
+     "T_P50": 0.1667,
+     "p_5M_gt_P50": 1e-05,
+     "not_greater": false,
+     "best_mark": 5000192,
+     "A0_decline": 0.0,
+     "A2pp_matched_decline": 0.0,
+     "decline_part_holds": true,
+     "holds": false
+    },
+    "monotone_within_ci": [
+     {
+      "from": 250880,
+      "to": 500736,
+      "diff_ci": [
+       -0.0417,
+       0.5
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 500736,
+      "to": 1000448,
+      "diff_ci": [
+       -0.5833,
+       3.0
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 1000448,
+      "to": 2000896,
+      "diff_ci": [
+       -1.5417,
+       0.0
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 2000896,
+      "to": 3000320,
+      "diff_ci": [
+       -0.9167,
+       1.0
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 3000320,
+      "to": 4000768,
+      "diff_ci": [
+       -1.0,
+       0.5833
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 4000768,
+      "to": 5000192,
+      "diff_ci": [
+       0.0,
+       2.0
+      ],
+      "non_decreasing": true
+     }
+    ],
+    "verdict": "inconclusive"
+   },
+   "leg_progress": {
+    "role": "secondary",
+    "ii": [
+     {
+      "mark": 2000896,
+      "A0": 0.9538,
+      "A2pp": 1.0024,
+      "A2pp_seeds_kept": 2,
+      "p": 0.431206,
+      "p_holm": 0.431206,
+      "holds": false
+     },
+     {
+      "mark": 3000320,
+      "A0": 1.2775,
+      "A2pp": 1.6891,
+      "A2pp_seeds_kept": 1,
+      "p": 0.00278,
+      "p_holm": 0.00556,
+      "holds": true
+     },
+     {
+      "mark": 4000768,
+      "A0": 1.028,
+      "A2pp": 2.0518,
+      "A2pp_seeds_kept": 1,
+      "p": 3e-05,
+      "p_holm": 9e-05,
+      "holds": true
+     },
+     {
+      "mark": 5000192,
+      "A0": 2.0975,
+      "A2pp": 3.0,
+      "A2pp_seeds_kept": 2,
+      "p": 1e-05,
+      "p_holm": 4e-05,
+      "holds": true
+     }
+    ],
+    "iii": {
+     "mark_P50": 250880,
+     "status": "defined",
+     "degenerate": false,
+     "undefined": false,
+     "T_5M": 2.0975,
+     "T_P50": 0.6689,
+     "p_5M_gt_P50": 1e-05,
+     "not_greater": false,
+     "best_mark": 5000192,
+     "A0_decline": 0.0,
+     "A2pp_matched_decline": 0.0,
+     "decline_part_holds": true,
+     "holds": false
+    },
+    "monotone_within_ci": [
+     {
+      "from": 250880,
+      "to": 500736,
+      "diff_ci": [
+       -0.1022,
+       0.6089
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 500736,
+      "to": 1000448,
+      "diff_ci": [
+       -0.4503,
+       2.0667
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 1000448,
+      "to": 2000896,
+      "diff_ci": [
+       -0.8952,
+       -0.2544
+      ],
+      "non_decreasing": false
+     },
+     {
+      "from": 2000896,
+      "to": 3000320,
+      "diff_ci": [
+       -1.0114,
+       1.4498
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 3000320,
+      "to": 4000768,
+      "diff_ci": [
+       -1.2145,
+       0.6766
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 4000768,
+      "to": 5000192,
+      "diff_ci": [
+       -0.0149,
+       2.3672
+      ],
+      "non_decreasing": true
+     }
+    ],
+    "verdict": "inconclusive"
+   }
+  },
+  "D2": {
+   "i": {
+    "P_5M": 24.6667,
+    "P_0.5M": 63.3013,
+    "p": 1.0,
+    "holds": false
+   },
+   "T": {
+    "role": "primary",
+    "ii": [
+     {
+      "mark": 2000896,
+      "A0": 0.6667,
+      "A2pp": 1.0,
+      "A2pp_seeds_kept": 3,
+      "p": 0.176478,
+      "p_holm": 0.529434,
+      "holds": false
+     },
+     {
+      "mark": 3000320,
+      "A0": 0.6667,
+      "A2pp": 0.5,
+      "A2pp_seeds_kept": 2,
+      "p": 0.819592,
+      "p_holm": 1.0,
+      "holds": false
+     },
+     {
+      "mark": 4000768,
+      "A0": 0.7083,
+      "A2pp": 1.8125,
+      "A2pp_seeds_kept": 2,
+      "p": 0.00027,
+      "p_holm": 0.00108,
+      "holds": true
+     },
+     {
+      "mark": 5000192,
+      "A0": 0.0,
+      "A2pp": null,
+      "A2pp_seeds_kept": 0,
+      "p": 1.0,
+      "p_holm": 1.0,
+      "holds": false
+     }
+    ],
+    "iii": {
+     "mark_P50": null,
+     "status": "undefined",
+     "degenerate": false,
+     "undefined": true,
+     "T_5M": 0.0,
+     "T_P50": null,
+     "p_5M_gt_P50": null,
+     "not_greater": null,
+     "best_mark": 500736,
+     "A0_decline": 1.0833,
+     "A2pp_matched_decline": null,
+     "decline_part_holds": false,
+     "holds": false
+    },
+    "monotone_within_ci": [
+     {
+      "from": 250880,
+      "to": 500736,
+      "diff_ci": [
+       0.125,
+       1.5833
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 500736,
+      "to": 1000448,
+      "diff_ci": [
+       -1.3333,
+       0.0833
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 1000448,
+      "to": 2000896,
+      "diff_ci": [
+       -0.625,
+       1.0
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 2000896,
+      "to": 3000320,
+      "diff_ci": [
+       -1.0,
+       1.0
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 3000320,
+      "to": 4000768,
+      "diff_ci": [
+       0.0,
+       0.1667
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 4000768,
+      "to": 5000192,
+      "diff_ci": [
+       -2.0,
+       0.0
+      ],
+      "non_decreasing": true
+     }
+    ],
+    "verdict": "inconclusive"
+   },
+   "leg_progress": {
+    "role": "secondary",
+    "ii": [
+     {
+      "mark": 2000896,
+      "A0": 1.228,
+      "A2pp": 1.1495,
+      "A2pp_seeds_kept": 3,
+      "p": 0.592304,
+      "p_holm": 1.0,
+      "holds": false
+     },
+     {
+      "mark": 3000320,
+      "A0": 1.282,
+      "A2pp": 0.9758,
+      "A2pp_seeds_kept": 2,
+      "p": 0.823522,
+      "p_holm": 1.0,
+      "holds": false
+     },
+     {
+      "mark": 4000768,
+      "A0": 1.1789,
+      "A2pp": 2.1521,
+      "A2pp_seeds_kept": 2,
+      "p": 0.0001,
+      "p_holm": 0.0004,
+      "holds": true
+     },
+     {
+      "mark": 5000192,
+      "A0": 0.3865,
+      "A2pp": null,
+      "A2pp_seeds_kept": 0,
+      "p": 1.0,
+      "p_holm": 1.0,
+      "holds": false
+     }
+    ],
+    "iii": {
+     "mark_P50": null,
+     "status": "undefined",
+     "degenerate": false,
+     "undefined": true,
+     "T_5M": 0.3865,
+     "T_P50": null,
+     "p_5M_gt_P50": null,
+     "not_greater": null,
+     "best_mark": 500736,
+     "A0_decline": 1.3717,
+     "A2pp_matched_decline": null,
+     "decline_part_holds": false,
+     "holds": false
+    },
+    "monotone_within_ci": [
+     {
+      "from": 250880,
+      "to": 500736,
+      "diff_ci": [
+       0.6074,
+       1.3415
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 500736,
+      "to": 1000448,
+      "diff_ci": [
+       -1.7013,
+       -0.0923
+      ],
+      "non_decreasing": false
+     },
+     {
+      "from": 1000448,
+      "to": 2000896,
+      "diff_ci": [
+       -0.4639,
+       1.2
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 2000896,
+      "to": 3000320,
+      "diff_ci": [
+       -0.8059,
+       1.0257
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 3000320,
+      "to": 4000768,
+      "diff_ci": [
+       -0.5245,
+       0.1771
+      ],
+      "non_decreasing": true
+     },
+     {
+      "from": 4000768,
+      "to": 5000192,
+      "diff_ci": [
+       -1.9956,
+       0.037
+      ],
+      "non_decreasing": true
+     }
+    ],
+    "verdict": "inconclusive"
+   }
+  }
+ },
+ "dev_verdict": "states disagree or inconclusive"
+}

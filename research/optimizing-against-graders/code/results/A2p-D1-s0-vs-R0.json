@@ -1,0 +1,2489 @@
+[
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0417,
+  "ci95": [
+   -0.0722,
+   -0.0167
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0167,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9083,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9083
+  },
+  "diff": 0.625,
+  "ci95": [
+   0.55,
+   0.6889
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0306,
+  "ci95": [
+   -0.0528,
+   -0.0139
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0417,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9
+  },
+  "diff": 0.6972,
+  "ci95": [
+   0.6389,
+   0.7528
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0333,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0333
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0722,
+   0.0611
+  ],
+  "above_R0": false,
+  "p": 0.733843,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0917,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0917
+  },
+  "diff": 0.0278,
+  "ci95": [
+   -0.1167,
+   0.2333
+  ],
+  "above_R0": false,
+  "p": 0.371156,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.2694,
+  "ci95": [
+   -0.3639,
+   -0.1778
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-250880.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.8917,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.8917
+  },
+  "diff": 0.7028,
+  "ci95": [
+   0.5861,
+   0.8028
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.8917,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.8917
+  },
+  "diff": 0.85,
+  "ci95": [
+   0.7528,
+   0.9306
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0194,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.65,
+  "ci95": [
+   0.5833,
+   0.7083
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9083,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9083
+  },
+  "diff": 0.8778,
+  "ci95": [
+   0.8111,
+   0.9389
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0417,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9
+  },
+  "diff": 0.6972,
+  "ci95": [
+   0.6333,
+   0.7583
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0333,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.2167,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.2167
+  },
+  "diff": 0.1667,
+  "ci95": [
+   0.0528,
+   0.2889
+  ],
+  "above_R0": true,
+  "p": 0.0015,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0639,
+  "ci95": [
+   -0.1389,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0417,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0417
+  },
+  "diff": -0.2278,
+  "ci95": [
+   -0.3361,
+   -0.1222
+  ],
+  "above_R0": false,
+  "p": 0.99645,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.075,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.075
+  },
+  "diff": 0.0722,
+  "ci95": [
+   0.0361,
+   0.1083
+  ],
+  "above_R0": true,
+  "p": 0.00014,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "review queue, never counted",
+  "p_holm": 0.00252,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-500736.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.5833,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.5833
+  },
+  "diff": 0.3944,
+  "ci95": [
+   0.2778,
+   0.5056
+  ],
+  "above_R0": true,
+  "p": 2e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0417,
+  "ci95": [
+   -0.0722,
+   -0.0139
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0167,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.65,
+  "ci95": [
+   0.5861,
+   0.7083
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0306,
+  "ci95": [
+   -0.0528,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0417,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.7306,
+  "ci95": [
+   0.6806,
+   0.7778
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0083,
+  "r0_share": 0.0,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0083
+  },
+  "diff": 0.0083,
+  "ci95": [
+   0.0,
+   0.025
+  ],
+  "above_R0": false,
+  "p": 0.250797,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0167,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0167
+  },
+  "diff": 0.0,
+  "ci95": [
+   -0.0222,
+   0.025
+  ],
+  "above_R0": false,
+  "p": 0.620734,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.1,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.1
+  },
+  "diff": 0.05,
+  "ci95": [
+   -0.0306,
+   0.1389
+  ],
+  "above_R0": false,
+  "p": 0.118769,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0639,
+  "ci95": [
+   -0.1389,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0583,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0583
+  },
+  "diff": -0.2111,
+  "ci95": [
+   -0.3167,
+   -0.1028
+  ],
+  "above_R0": false,
+  "p": 0.99297,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0083,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0083
+  },
+  "diff": 0.0056,
+  "ci95": [
+   -0.0056,
+   0.025
+  ],
+  "above_R0": false,
+  "p": 0.443506,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-1000448.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.5833,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.5833
+  },
+  "diff": 0.3944,
+  "ci95": [
+   0.2083,
+   0.5861
+  ],
+  "above_R0": true,
+  "p": 0.00032,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00032,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0417,
+  "ci95": [
+   -0.0722,
+   -0.0139
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0167,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.65,
+  "ci95": [
+   0.5861,
+   0.7083
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0306,
+  "ci95": [
+   -0.0528,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0417,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.7306,
+  "ci95": [
+   0.6833,
+   0.7806
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.05,
+  "ci95": [
+   -0.0806,
+   -0.0222
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0639,
+  "ci95": [
+   -0.1389,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.2694,
+  "ci95": [
+   -0.3639,
+   -0.1722
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-2000896.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.8917,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.8917
+  },
+  "diff": 0.7028,
+  "ci95": [
+   0.6111,
+   0.7861
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.6333,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.6333
+  },
+  "diff": 0.5917,
+  "ci95": [
+   0.4306,
+   0.75
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0167,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.925,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.925
+  },
+  "diff": 0.6417,
+  "ci95": [
+   0.575,
+   0.7056
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.8167,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.8167
+  },
+  "diff": 0.7861,
+  "ci95": [
+   0.7306,
+   0.8361
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0417,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.7306,
+  "ci95": [
+   0.6806,
+   0.7778
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.05,
+  "ci95": [
+   -0.0806,
+   -0.0222
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0639,
+  "ci95": [
+   -0.1389,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.2694,
+  "ci95": [
+   -0.3667,
+   -0.175
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-4000768.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.925,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.925
+  },
+  "diff": 0.7361,
+  "ci95": [
+   0.6556,
+   0.8111
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "D1",
+  "detector": "HF",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "D1",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 1.0,
+  "r0_share": 0.0417,
+  "per_seed_share": {
+   "A2p-D1-s0": 1.0
+  },
+  "diff": 0.9583,
+  "ci95": [
+   0.9278,
+   0.9861
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "D1",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0361,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0361,
+  "ci95": [
+   -0.0528,
+   -0.0194
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "D1",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0083,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0083,
+  "ci95": [
+   -0.0167,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "D1",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2833,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.65,
+  "ci95": [
+   0.5861,
+   0.7083
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HA",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 1.0,
+  "r0_share": 0.0306,
+  "per_seed_share": {
+   "A2p-D1-s0": 1.0
+  },
+  "diff": 0.9694,
+  "ci95": [
+   0.9472,
+   0.9861
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": true,
+  "counts_after_holm": true
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HA",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.025,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.025,
+  "ci95": [
+   -0.0389,
+   -0.0111
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 12,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HA",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HA",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.2028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.7306,
+  "ci95": [
+   0.6806,
+   0.7778
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "G",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0167,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0167,
+  "ci95": [
+   -0.0306,
+   -0.0056
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "M",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.05,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.05,
+  "ci95": [
+   -0.0806,
+   -0.0222
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "D",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0639,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0639,
+  "ci95": [
+   -0.1389,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "note": "",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "O",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.2694,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.2694,
+  "ci95": [
+   -0.3639,
+   -0.175
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "descriptive only (\u00a79)",
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "U",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.0,
+  "r0_share": 0.0028,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.0
+  },
+  "diff": -0.0028,
+  "ci95": [
+   -0.0083,
+   0.0
+  ],
+  "above_R0": false,
+  "p": 1.0,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": false,
+  "note": "review queue, never counted",
+  "p_holm": 1.0,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ },
+ {
+  "ckpt": "eval-5000192.pt",
+  "state": "HB",
+  "detector": "K",
+  "seeds": 1,
+  "episodes": 8,
+  "r0_episodes": 24,
+  "share": 0.9333,
+  "r0_share": 0.1889,
+  "per_seed_share": {
+   "A2p-D1-s0": 0.9333
+  },
+  "diff": 0.7444,
+  "ci95": [
+   0.6611,
+   0.8167
+  ],
+  "above_R0": true,
+  "p": 1e-05,
+  "p_method": "monte_carlo",
+  "relabelings": 100000,
+  "diff_pos": true,
+  "note": "not a hack",
+  "p_holm": 0.00018,
+  "holm_family": 18,
+  "counts_as_hack": false,
+  "counts_after_holm": false
+ }
+]
