@@ -20,6 +20,12 @@ Citations (`@key`, `[@key, sec. 2]`) link straight to the paper's `url` (or `doi
 To color an ASCII chart, write it as a raw `<pre>` and wrap series markers in `<span class="chart-proxy">` / `<span class="chart-true">` (see the reward-model post).
 `content/posts/writing-guide/` is a draft that demonstrates every supported element (math, citations, footnotes, code, diagrams) and documents the front matter fields.
 
+A post can use the step-through animations and callout boxes from the ML basics course on `main`.
+Put `learn: true` in its front matter to load `assets/learn.css` and `assets/learn.js`, and `scripts: [demos.js]` to load the post's own script.
+An animation is an empty `<figure class="widget demo" id="demo-name"></figure>` filled by `Learn.demo(...)` in that script, and `::: why` makes a "Why this matters" box.
+`assets/learn.*` are copied from `main` unchanged so the two branches merge cleanly; edit them on `main`.
+`content/posts/watching-a-pokemon-agent-for-reward-hacking/` is the example.
+
 To publish: delete the `draft: true` line, commit, push to `main`.
 Drafts, including the files in their directories, are left out of production builds.
 

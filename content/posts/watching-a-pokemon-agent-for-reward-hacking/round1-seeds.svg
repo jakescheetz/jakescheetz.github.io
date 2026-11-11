@@ -1,271 +1,211 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" width="720" height="470" role="img" aria-labelledby="t d"><title id="t">Round 1: three runs on the capped score</title><desc id="d">One panel per training run on the capped score. Bars: real progress (milestones reached, average of 8 test episodes) at each checkpoint; dotted line: the run trained on the uncapped score in batch 2. Strip under each panel: the share of that checkpoint&#x27;s capped score that came from levelling up.</desc><style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520" role="img" aria-labelledby="t d"><title id="t">Round 1: three runs on the capped score</title><desc id="d">A grid with one row per training run on the capped score and two columns. Left column: real progress (milestones reached, average of 8 test episodes) at each checkpoint, with the average of the runs trained before the patch marked for comparison. Right column: the share of that checkpoint&#x27;s capped score that came from levelling up.</desc><style>
 svg { font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; }
 * { shape-rendering: crispEdges; }
-.bg { fill: #e4ecc8; } .s0 { fill: #b9cc8c; } .s1 { fill: #8bac0f; } .s2 { fill: #306230; } .s3 { fill: #0f380f; }
-.k0 { stroke: #b9cc8c; } .k1 { stroke: #8bac0f; } .k2 { stroke: #306230; } .k3 { stroke: #0f380f; }
-.t3 { fill: #0f380f; } .t2 { fill: #306230; } .grey { fill: #c9cfb4; } .kgrey { stroke: #9aa287; } .tgrey { fill: #7d8570; }
-.hatch { fill: url(#hatch); } .hatchline { stroke: #306230; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .t3 { fill: #0b0b0b; } .t2 { fill: #52514e; } .tgrey { fill: #898781; }
+.kink { stroke: #0b0b0b; } .kgrid { stroke: #e1e0d9; } .kaxis { stroke: #c3c2b7; } .empty { fill: #e9e8e2; }
+.onfill { fill: #ffffff; } .onflag { fill: #0b0b0b; }
+.a0 { fill: #2a78d6; } .ka0 { stroke: #2a78d6; } .a0band { fill: #2a78d6; fill-opacity: 0.16; }
+.ref { fill: #eb6834; } .kref { stroke: #eb6834; }
+.a1 { fill: #1baf7a; } .ka1 { stroke: #1baf7a; }
+.rnd { fill: #898781; } .krnd { stroke: #898781; }
+.explore { fill: #eda100; } .level { fill: #6250d6; } .heal { fill: #008300; }
+.h0 { fill: #e896b6; } .h1 { fill: #dd6795; } .h2 { fill: #b3306a; } .h3 { fill: #6b183c; }
+.route { fill: #008300; } .flag { fill: #eda100; } .dead { fill: #e34948; } .kdead { stroke: #e34948; }
 @media (prefers-color-scheme: dark) {
-  .bg { fill: #121c12; } .s0 { fill: #24391f; } .s1 { fill: #4f7a26; } .s2 { fill: #9cbd3c; } .s3 { fill: #d4e6a0; }
-  .k0 { stroke: #24391f; } .k1 { stroke: #4f7a26; } .k2 { stroke: #9cbd3c; } .k3 { stroke: #d4e6a0; }
-  .t3 { fill: #d4e6a0; } .t2 { fill: #9cbd3c; } .grey { fill: #202620; } .kgrey { stroke: #4a5247; } .tgrey { fill: #7f8a78; }
-  .hatchline { stroke: #9cbd3c; }
+  .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .t3 { fill: #f0efec; } .t2 { fill: #c3c2b7; } .tgrey { fill: #898781; }
+  .kink { stroke: #f0efec; } .kgrid { stroke: #2c2c2a; } .kaxis { stroke: #4a4a46; } .empty { fill: #2c2c2a; }
+  .a0 { fill: #3987e5; } .ka0 { stroke: #3987e5; } .a0band { fill: #3987e5; fill-opacity: 0.22; }
+  .ref { fill: #d95926; } .kref { stroke: #d95926; }
+  .a1 { fill: #199e70; } .ka1 { stroke: #199e70; }
+  .explore { fill: #c98500; } .level { fill: #9085e9; } .heal { fill: #008300; }
+  .h0 { fill: #a23266; } .h1 { fill: #cc4f82; } .h2 { fill: #e98bb0; } .h3 { fill: #f9d8e5; }
+  .flag { fill: #c98500; } .dead { fill: #e66767; } .kdead { stroke: #e66767; }
 }
-</style><defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path class="hatchline" d="M0 8 L8 0" stroke-width="2"/></pattern></defs>
-<rect class="bg" width="720" height="470"/>
-<rect class="bg" x="12" y="12" width="696" height="446"></rect>
-<rect class="s3" x="12" y="8" width="696" height="4"></rect>
-<rect class="s3" x="12" y="458" width="696" height="4"></rect>
-<rect class="s3" x="8" y="12" width="4" height="446"></rect>
-<rect class="s3" x="708" y="12" width="4" height="446"></rect>
-<text class="t3" x="28" y="40" font-size="16" font-weight="bold">ROUND 1: THREE RUNS, THREE STORIES</text>
-<text class="t2" x="28" y="58" font-size="11">trained on the capped score; start: Oak&#x27;s Lab with Squirtle; 8 test episodes per checkpoint</text>
-<text class="t2" x="28" y="74" font-size="10">x: checkpoint (millions of training steps); y: milestones reached, average</text>
-<rect class="s2" x="24" y="92" width="220" height="4"></rect>
-<rect class="s2" x="24" y="388" width="220" height="4"></rect>
-<rect class="s2" x="20" y="96" width="4" height="292"></rect>
-<rect class="s2" x="244" y="96" width="4" height="292"></rect>
-<text class="t3" x="32" y="114" font-size="12" font-weight="bold">RUN 1</text>
-<text class="t2" x="32" y="128" font-size="9">progress only at 0.5M, then grinding</text>
-<line class="k0" stroke-width="1" x1="44" x2="240" y1="250" y2="250"/>
-<text class="t2" x="40" y="254.0" text-anchor="end" font-size="9">1</text>
-<line class="k0" stroke-width="1" x1="44" x2="240" y1="198" y2="198"/>
-<text class="t2" x="40" y="202.0" text-anchor="end" font-size="9">2</text>
-<line class="k0" stroke-width="1" x1="44" x2="240" y1="146" y2="146"/>
-<text class="t2" x="40" y="150.0" text-anchor="end" font-size="9">3</text>
-<line class="k3" stroke-width="2" x1="44" x2="240" y1="302" y2="302"/>
-<rect class="s1" x="47" y="299" width="18" height="2"><title>run 1, 0: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="56.25" y="316.0" text-anchor="middle" font-size="9">0</text>
-<rect class="s0" x="47" y="354.0" width="18" height="6"><title>run 1, 0: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="47" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="47" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="47" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="47" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="72" y="299" width="18" height="2"><title>run 1, 0.25M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="80.75" y="316.0" text-anchor="middle" font-size="9">.25</text>
-<rect class="s0" x="72" y="354.0" width="18" height="6"><title>run 1, 0.25M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="72" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="72" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="72" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="72" y="326.0" width="18" height="6"></rect>
-<rect class="s3" x="96" y="289" width="18" height="12"><title>run 1, 0.5M: 2.125 milestones on average (7/8 episodes above 0)</title></rect>
-<rect class="s3" x="96" y="276" width="18" height="12"></rect>
-<rect class="s3" x="96" y="263" width="18" height="12"></rect>
-<rect class="s3" x="96" y="250" width="18" height="12"></rect>
-<rect class="s3" x="96" y="237" width="18" height="12"></rect>
-<rect class="s3" x="96" y="224" width="18" height="12"></rect>
-<rect class="s3" x="96" y="211" width="18" height="12"></rect>
-<rect class="s3" x="96" y="198" width="18" height="12"></rect>
-<text class="t2" x="105.25" y="316.0" text-anchor="middle" font-size="9">.5</text>
-<rect class="s0" x="96" y="354.0" width="18" height="6"><title>run 1, 0.5M: levelling 3% of the capped score</title></rect>
-<rect class="s0" x="96" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="96" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="96" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="96" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="121" y="299" width="18" height="2"><title>run 1, 1M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="129.75" y="316.0" text-anchor="middle" font-size="9">1</text>
-<rect class="s0" x="121" y="354.0" width="18" height="6"><title>run 1, 1M: levelling 5% of the capped score</title></rect>
-<rect class="s0" x="121" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="121" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="121" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="121" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="145" y="299" width="18" height="2"><title>run 1, 2M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="154.25" y="316.0" text-anchor="middle" font-size="9">2</text>
-<rect class="s3" x="145" y="354.0" width="18" height="6"><title>run 1, 2M: levelling 50% of the capped score</title></rect>
-<rect class="s3" x="145" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="145" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="145" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="145" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="170" y="299" width="18" height="2"><title>run 1, 3M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="178.75" y="316.0" text-anchor="middle" font-size="9">3</text>
-<rect class="s3" x="170" y="354.0" width="18" height="6"><title>run 1, 3M: levelling 31% of the capped score</title></rect>
-<rect class="s3" x="170" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="170" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="170" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="170" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="194" y="299" width="18" height="2"><title>run 1, 4M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="203.25" y="316.0" text-anchor="middle" font-size="9">4</text>
-<rect class="s0" x="194" y="354.0" width="18" height="6"><title>run 1, 4M: levelling 4% of the capped score</title></rect>
-<rect class="s0" x="194" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="194" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="194" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="194" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="219" y="299" width="18" height="2"><title>run 1, 5M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="227.75" y="316.0" text-anchor="middle" font-size="9">5</text>
-<rect class="s3" x="219" y="354.0" width="18" height="6"><title>run 1, 5M: levelling 15% of the capped score</title></rect>
-<rect class="s0" x="219" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="219" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="219" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="219" y="326.0" width="18" height="6"></rect>
-<polyline fill="none" class="k2" stroke-width="2" stroke-dasharray="3 3" points="81,271 105,247 130,260 154,224 179,254 203,208 228,228"><title>trained on the uncapped score (batch 2, 5 runs)</title></polyline>
-<text class="t2" x="44" y="374.0" font-size="8">▲ share of score from levelling</text>
-<rect class="s2" x="246" y="92" width="220" height="4"></rect>
-<rect class="s2" x="246" y="388" width="220" height="4"></rect>
-<rect class="s2" x="242" y="96" width="4" height="292"></rect>
-<rect class="s2" x="466" y="96" width="4" height="292"></rect>
-<text class="t3" x="254" y="114" font-size="12" font-weight="bold">RUN 2</text>
-<text class="t2" x="254" y="128" font-size="9">no progress at any checkpoint;</text>
-<text class="t2" x="254" y="139" font-size="9">grinds late</text>
-<line class="k0" stroke-width="1" x1="266" x2="462" y1="250" y2="250"/>
-<text class="t2" x="262" y="254.0" text-anchor="end" font-size="9">1</text>
-<line class="k0" stroke-width="1" x1="266" x2="462" y1="198" y2="198"/>
-<text class="t2" x="262" y="202.0" text-anchor="end" font-size="9">2</text>
-<line class="k0" stroke-width="1" x1="266" x2="462" y1="146" y2="146"/>
-<text class="t2" x="262" y="150.0" text-anchor="end" font-size="9">3</text>
-<line class="k3" stroke-width="2" x1="266" x2="462" y1="302" y2="302"/>
-<rect class="s1" x="269" y="299" width="18" height="2"><title>run 2, 0: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="278.25" y="316.0" text-anchor="middle" font-size="9">0</text>
-<rect class="s0" x="269" y="354.0" width="18" height="6"><title>run 2, 0: levelling 1% of the capped score</title></rect>
-<rect class="s0" x="269" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="269" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="269" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="269" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="294" y="299" width="18" height="2"><title>run 2, 0.25M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="302.75" y="316.0" text-anchor="middle" font-size="9">.25</text>
-<rect class="s0" x="294" y="354.0" width="18" height="6"><title>run 2, 0.25M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="294" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="294" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="294" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="294" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="318" y="299" width="18" height="2"><title>run 2, 0.5M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="327.25" y="316.0" text-anchor="middle" font-size="9">.5</text>
-<rect class="s0" x="318" y="354.0" width="18" height="6"><title>run 2, 0.5M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="318" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="318" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="318" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="318" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="343" y="299" width="18" height="2"><title>run 2, 1M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="351.75" y="316.0" text-anchor="middle" font-size="9">1</text>
-<rect class="s0" x="343" y="354.0" width="18" height="6"><title>run 2, 1M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="343" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="343" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="343" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="343" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="367" y="299" width="18" height="2"><title>run 2, 2M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="376.25" y="316.0" text-anchor="middle" font-size="9">2</text>
-<rect class="s0" x="367" y="354.0" width="18" height="6"><title>run 2, 2M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="367" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="367" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="367" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="367" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="392" y="299" width="18" height="2"><title>run 2, 3M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="400.75" y="316.0" text-anchor="middle" font-size="9">3</text>
-<rect class="s0" x="392" y="354.0" width="18" height="6"><title>run 2, 3M: levelling 7% of the capped score</title></rect>
-<rect class="s0" x="392" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="392" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="392" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="392" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="416" y="299" width="18" height="2"><title>run 2, 4M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="425.25" y="316.0" text-anchor="middle" font-size="9">4</text>
-<rect class="s3" x="416" y="354.0" width="18" height="6"><title>run 2, 4M: levelling 29% of the capped score</title></rect>
-<rect class="s0" x="416" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="416" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="416" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="416" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="441" y="299" width="18" height="2"><title>run 2, 5M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="449.75" y="316.0" text-anchor="middle" font-size="9">5</text>
-<rect class="s3" x="441" y="354.0" width="18" height="6"><title>run 2, 5M: levelling 10% of the capped score</title></rect>
-<rect class="s0" x="441" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="441" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="441" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="441" y="326.0" width="18" height="6"></rect>
-<polyline fill="none" class="k2" stroke-width="2" stroke-dasharray="3 3" points="303,271 327,247 352,260 376,224 401,254 425,208 450,228"><title>trained on the uncapped score (batch 2, 5 runs)</title></polyline>
-<text class="t2" x="266" y="374.0" font-size="8">▲ share of score from levelling</text>
-<rect class="s2" x="468" y="92" width="220" height="4"></rect>
-<rect class="s2" x="468" y="388" width="220" height="4"></rect>
-<rect class="s2" x="464" y="96" width="4" height="292"></rect>
-<rect class="s2" x="688" y="96" width="4" height="292"></rect>
-<text class="t3" x="476" y="114" font-size="12" font-weight="bold">RUN 3</text>
-<text class="t2" x="476" y="128" font-size="9">progress at 4 checkpoints, no grinding</text>
-<line class="k0" stroke-width="1" x1="488" x2="684" y1="250" y2="250"/>
-<text class="t2" x="484" y="254.0" text-anchor="end" font-size="9">1</text>
-<line class="k0" stroke-width="1" x1="488" x2="684" y1="198" y2="198"/>
-<text class="t2" x="484" y="202.0" text-anchor="end" font-size="9">2</text>
-<line class="k0" stroke-width="1" x1="488" x2="684" y1="146" y2="146"/>
-<text class="t2" x="484" y="150.0" text-anchor="end" font-size="9">3</text>
-<line class="k3" stroke-width="2" x1="488" x2="684" y1="302" y2="302"/>
-<rect class="s1" x="491" y="299" width="18" height="2"><title>run 3, 0: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="500.25" y="316.0" text-anchor="middle" font-size="9">0</text>
-<rect class="s0" x="491" y="354.0" width="18" height="6"><title>run 3, 0: levelling 2% of the capped score</title></rect>
-<rect class="s0" x="491" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="491" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="491" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="491" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="516" y="299" width="18" height="2"><title>run 3, 0.25M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="524.75" y="316.0" text-anchor="middle" font-size="9">.25</text>
-<rect class="s0" x="516" y="354.0" width="18" height="6"><title>run 3, 0.25M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="516" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="516" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="516" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="516" y="326.0" width="18" height="6"></rect>
-<rect class="s3" x="540" y="289" width="18" height="12"><title>run 3, 0.5M: 2.0 milestones on average (8/8 episodes above 0)</title></rect>
-<rect class="s3" x="540" y="276" width="18" height="12"></rect>
-<rect class="s3" x="540" y="263" width="18" height="12"></rect>
-<rect class="s3" x="540" y="250" width="18" height="12"></rect>
-<rect class="s3" x="540" y="237" width="18" height="12"></rect>
-<rect class="s3" x="540" y="224" width="18" height="12"></rect>
-<rect class="s3" x="540" y="211" width="18" height="12"></rect>
-<rect class="s3" x="540" y="198" width="18" height="12"></rect>
-<text class="t2" x="549.25" y="316.0" text-anchor="middle" font-size="9">.5</text>
-<rect class="s0" x="540" y="354.0" width="18" height="6"><title>run 3, 0.5M: levelling 1% of the capped score</title></rect>
-<rect class="s0" x="540" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="540" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="540" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="540" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="565" y="299" width="18" height="2"><title>run 3, 1M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="573.75" y="316.0" text-anchor="middle" font-size="9">1</text>
-<rect class="s0" x="565" y="354.0" width="18" height="6"><title>run 3, 1M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="565" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="565" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="565" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="565" y="326.0" width="18" height="6"></rect>
-<rect class="s3" x="589" y="289" width="18" height="12"><title>run 3, 2M: 2.25 milestones on average (8/8 episodes above 0)</title></rect>
-<rect class="s3" x="589" y="276" width="18" height="12"></rect>
-<rect class="s3" x="589" y="263" width="18" height="12"></rect>
-<rect class="s3" x="589" y="250" width="18" height="12"></rect>
-<rect class="s3" x="589" y="237" width="18" height="12"></rect>
-<rect class="s3" x="589" y="224" width="18" height="12"></rect>
-<rect class="s3" x="589" y="211" width="18" height="12"></rect>
-<rect class="s3" x="589" y="198" width="18" height="12"></rect>
-<rect class="s3" x="589" y="185" width="18" height="12"></rect>
-<text class="t2" x="598.25" y="316.0" text-anchor="middle" font-size="9">2</text>
-<rect class="s0" x="589" y="354.0" width="18" height="6"><title>run 3, 2M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="589" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="589" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="589" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="589" y="326.0" width="18" height="6"></rect>
-<rect class="s3" x="614" y="289" width="18" height="12"><title>run 3, 3M: 0.875 milestones on average (5/8 episodes above 0)</title></rect>
-<rect class="s3" x="614" y="276" width="18" height="12"></rect>
-<rect class="s3" x="614" y="263" width="18" height="12"></rect>
-<rect class="s3" x="614" y="250" width="18" height="12"></rect>
-<text class="t2" x="622.75" y="316.0" text-anchor="middle" font-size="9">3</text>
-<rect class="s0" x="614" y="354.0" width="18" height="6"><title>run 3, 3M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="614" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="614" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="614" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="614" y="326.0" width="18" height="6"></rect>
-<rect class="s1" x="638" y="299" width="18" height="2"><title>run 3, 4M: no milestone in any of the 8 episodes</title></rect>
-<text class="t2" x="647.25" y="316.0" text-anchor="middle" font-size="9">4</text>
-<rect class="s0" x="638" y="354.0" width="18" height="6"><title>run 3, 4M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="638" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="638" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="638" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="638" y="326.0" width="18" height="6"></rect>
-<rect class="s3" x="663" y="289" width="18" height="12"><title>run 3, 5M: 1.0 milestones on average (4/8 episodes above 0)</title></rect>
-<rect class="s3" x="663" y="276" width="18" height="12"></rect>
-<rect class="s3" x="663" y="263" width="18" height="12"></rect>
-<rect class="s3" x="663" y="250" width="18" height="12"></rect>
-<text class="t2" x="671.75" y="316.0" text-anchor="middle" font-size="9">5</text>
-<rect class="s0" x="663" y="354.0" width="18" height="6"><title>run 3, 5M: levelling 0% of the capped score</title></rect>
-<rect class="s0" x="663" y="347.0" width="18" height="6"></rect>
-<rect class="s0" x="663" y="340.0" width="18" height="6"></rect>
-<rect class="s0" x="663" y="333.0" width="18" height="6"></rect>
-<rect class="s0" x="663" y="326.0" width="18" height="6"></rect>
-<polyline fill="none" class="k2" stroke-width="2" stroke-dasharray="3 3" points="525,271 549,247 574,260 598,224 623,254 647,208 672,228"><title>trained on the uncapped score (batch 2, 5 runs)</title></polyline>
-<text class="t2" x="488" y="374.0" font-size="8">▲ share of score from levelling</text>
-<rect class="s3" x="28" y="426" width="12" height="12"></rect>
-<text class="t3" x="46" y="436" font-size="10">real progress (milestones, average)</text>
-<line class="k2" stroke-width="2" stroke-dasharray="3 3" x1="300" x2="328" y1="432" y2="432"/>
-<text class="t3" x="334" y="436" font-size="10">trained on the uncapped score (batch 2)</text>
-<text class="t2" x="28" y="452" font-size="9">each checkpoint is one sample: progress swings between checkpoints</text>
+</style>
+<rect class="bg" width="720" height="520"/>
+<rect class="bg" x="12" y="12" width="696" height="496"></rect>
+<rect class="ink" x="12" y="8" width="696" height="4"></rect>
+<rect class="ink" x="12" y="508" width="696" height="4"></rect>
+<rect class="ink" x="8" y="12" width="4" height="496"></rect>
+<rect class="ink" x="708" y="12" width="4" height="496"></rect>
+<text class="t3" x="28" y="40" font-size="16" font-weight="bold">ROUND 1: THREE RUNS ON THE PATCHED SCORE</text>
+<text class="t2" x="28" y="58" font-size="11">one bar per checkpoint (8 test episodes each); start: Oak&#x27;s Lab with Squirtle</text>
+<text class="t3" x="206" y="90" font-size="11" font-weight="bold">REAL PROGRESS</text>
+<text class="t2" x="206" y="105" font-size="10">milestones reached, average (0 to 3)</text>
+<text class="t3" x="480" y="90" font-size="11" font-weight="bold">SCORE FROM LEVELLING UP</text>
+<text class="t2" x="480" y="105" font-size="10">share of that checkpoint&#x27;s score</text>
+<text class="t3" x="28" y="150" font-size="13" font-weight="bold">RUN 1</text>
+<text class="t2" x="28" y="168" font-size="10">progress at 0.5M only,</text>
+<text class="t2" x="28" y="181" font-size="10">then grinding</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="184" y2="184"/>
+<text class="t2" x="200" y="187.0" text-anchor="end" font-size="9">1</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="160" y2="160"/>
+<text class="t2" x="200" y="163.0" text-anchor="end" font-size="9">2</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="136" y2="136"/>
+<text class="t2" x="200" y="139.0" text-anchor="end" font-size="9">3</text>
+<line class="kink" stroke-width="2" x1="206" x2="436" y1="208" y2="208"/>
+<rect class="rnd" x="213" y="205" width="18" height="2"><title>run 1, 0.25M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="209" y="193" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.25M: 0.60 milestones on average</title></rect>
+<text class="t2" x="222.0" y="221.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="a1" x="246" y="157" width="18" height="51"><title>run 1, 0.5M: 2.125 milestones on average (7/8 episodes above 0)</title></rect>
+<text class="t3" x="255.0" y="153" text-anchor="middle" font-size="9" font-weight="bold">2.125</text>
+<rect class="a0" x="242" y="182" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.5M: 1.05 milestones on average</title></rect>
+<text class="t2" x="255.0" y="221.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="rnd" x="279" y="205" width="18" height="2"><title>run 1, 1M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="275" y="188" width="26" height="3"><title>before the patch (batch 2, 5 runs), 1M: 0.80 milestones on average</title></rect>
+<text class="t2" x="288.0" y="221.0" text-anchor="middle" font-size="9">1</text>
+<rect class="rnd" x="312" y="205" width="18" height="2"><title>run 1, 2M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="308" y="171" width="26" height="3"><title>before the patch (batch 2, 5 runs), 2M: 1.50 milestones on average</title></rect>
+<text class="t2" x="321.0" y="221.0" text-anchor="middle" font-size="9">2</text>
+<rect class="rnd" x="345" y="205" width="18" height="2"><title>run 1, 3M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="341" y="185" width="26" height="3"><title>before the patch (batch 2, 5 runs), 3M: 0.93 milestones on average</title></rect>
+<text class="t2" x="354.0" y="221.0" text-anchor="middle" font-size="9">3</text>
+<rect class="rnd" x="378" y="205" width="18" height="2"><title>run 1, 4M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="374" y="164" width="26" height="3"><title>before the patch (batch 2, 5 runs), 4M: 1.80 milestones on average</title></rect>
+<text class="t2" x="387.0" y="221.0" text-anchor="middle" font-size="9">4</text>
+<rect class="rnd" x="411" y="205" width="18" height="2"><title>run 1, 5M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="407" y="173" width="26" height="3"><title>before the patch (batch 2, 5 runs), 5M: 1.43 milestones on average</title></rect>
+<text class="t2" x="420.0" y="221.0" text-anchor="middle" font-size="9">5</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="172" y2="172"/>
+<text class="t2" x="474" y="175.0" text-anchor="end" font-size="9">25%</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="136" y2="136"/>
+<text class="t2" x="474" y="139.0" text-anchor="end" font-size="9">50%</text>
+<line class="kink" stroke-width="2" x1="480" x2="692" y1="208" y2="208"/>
+<rect class="rnd" x="486" y="205" width="18" height="2"><title>run 1, 0.25M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="495.0" y="221.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="level" x="516" y="204" width="18" height="4"><title>run 1, 0.5M: levelling 3% of the capped score</title></rect>
+<text class="t3" x="525.0" y="200" text-anchor="middle" font-size="9" font-weight="bold">3%</text>
+<text class="t2" x="525.0" y="221.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="level" x="547" y="201" width="18" height="7"><title>run 1, 1M: levelling 5% of the capped score</title></rect>
+<text class="t3" x="556.0" y="197" text-anchor="middle" font-size="9" font-weight="bold">5%</text>
+<text class="t2" x="556.0" y="221.0" text-anchor="middle" font-size="9">1</text>
+<rect class="level" x="577" y="136" width="18" height="72"><title>run 1, 2M: levelling 50% of the capped score</title></rect>
+<text class="t3" x="586.0" y="132" text-anchor="middle" font-size="9" font-weight="bold">50%</text>
+<text class="t2" x="586.0" y="221.0" text-anchor="middle" font-size="9">2</text>
+<rect class="level" x="607" y="163" width="18" height="45"><title>run 1, 3M: levelling 31% of the capped score</title></rect>
+<text class="t3" x="616.0" y="159" text-anchor="middle" font-size="9" font-weight="bold">31%</text>
+<text class="t2" x="616.0" y="221.0" text-anchor="middle" font-size="9">3</text>
+<rect class="level" x="638" y="202" width="18" height="6"><title>run 1, 4M: levelling 4% of the capped score</title></rect>
+<text class="t3" x="647.0" y="198" text-anchor="middle" font-size="9" font-weight="bold">4%</text>
+<text class="t2" x="647.0" y="221.0" text-anchor="middle" font-size="9">4</text>
+<rect class="level" x="668" y="187" width="18" height="21"><title>run 1, 5M: levelling 15% of the capped score</title></rect>
+<text class="t3" x="677.0" y="183" text-anchor="middle" font-size="9" font-weight="bold">15%</text>
+<text class="t2" x="677.0" y="221.0" text-anchor="middle" font-size="9">5</text>
+<text class="t3" x="28" y="260" font-size="13" font-weight="bold">RUN 2</text>
+<text class="t2" x="28" y="278" font-size="10">never makes progress,</text>
+<text class="t2" x="28" y="291" font-size="10">grinds late</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="294" y2="294"/>
+<text class="t2" x="200" y="297.0" text-anchor="end" font-size="9">1</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="270" y2="270"/>
+<text class="t2" x="200" y="273.0" text-anchor="end" font-size="9">2</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="246" y2="246"/>
+<text class="t2" x="200" y="249.0" text-anchor="end" font-size="9">3</text>
+<line class="kink" stroke-width="2" x1="206" x2="436" y1="318" y2="318"/>
+<rect class="rnd" x="213" y="315" width="18" height="2"><title>run 2, 0.25M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="209" y="303" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.25M: 0.60 milestones on average</title></rect>
+<text class="t2" x="222.0" y="331.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="rnd" x="246" y="315" width="18" height="2"><title>run 2, 0.5M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="242" y="292" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.5M: 1.05 milestones on average</title></rect>
+<text class="t2" x="255.0" y="331.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="rnd" x="279" y="315" width="18" height="2"><title>run 2, 1M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="275" y="298" width="26" height="3"><title>before the patch (batch 2, 5 runs), 1M: 0.80 milestones on average</title></rect>
+<text class="t2" x="288.0" y="331.0" text-anchor="middle" font-size="9">1</text>
+<rect class="rnd" x="312" y="315" width="18" height="2"><title>run 2, 2M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="308" y="281" width="26" height="3"><title>before the patch (batch 2, 5 runs), 2M: 1.50 milestones on average</title></rect>
+<text class="t2" x="321.0" y="331.0" text-anchor="middle" font-size="9">2</text>
+<rect class="rnd" x="345" y="315" width="18" height="2"><title>run 2, 3M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="341" y="295" width="26" height="3"><title>before the patch (batch 2, 5 runs), 3M: 0.93 milestones on average</title></rect>
+<text class="t2" x="354.0" y="331.0" text-anchor="middle" font-size="9">3</text>
+<rect class="rnd" x="378" y="315" width="18" height="2"><title>run 2, 4M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="374" y="274" width="26" height="3"><title>before the patch (batch 2, 5 runs), 4M: 1.80 milestones on average</title></rect>
+<text class="t2" x="387.0" y="331.0" text-anchor="middle" font-size="9">4</text>
+<rect class="rnd" x="411" y="315" width="18" height="2"><title>run 2, 5M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="407" y="283" width="26" height="3"><title>before the patch (batch 2, 5 runs), 5M: 1.43 milestones on average</title></rect>
+<text class="t2" x="420.0" y="331.0" text-anchor="middle" font-size="9">5</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="282" y2="282"/>
+<text class="t2" x="474" y="285.0" text-anchor="end" font-size="9">25%</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="246" y2="246"/>
+<text class="t2" x="474" y="249.0" text-anchor="end" font-size="9">50%</text>
+<line class="kink" stroke-width="2" x1="480" x2="692" y1="318" y2="318"/>
+<rect class="rnd" x="486" y="315" width="18" height="2"><title>run 2, 0.25M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="495.0" y="331.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="rnd" x="516" y="315" width="18" height="2"><title>run 2, 0.5M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="525.0" y="331.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="rnd" x="547" y="315" width="18" height="2"><title>run 2, 1M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="556.0" y="331.0" text-anchor="middle" font-size="9">1</text>
+<rect class="rnd" x="577" y="315" width="18" height="2"><title>run 2, 2M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="586.0" y="331.0" text-anchor="middle" font-size="9">2</text>
+<rect class="level" x="607" y="308" width="18" height="10"><title>run 2, 3M: levelling 7% of the capped score</title></rect>
+<text class="t3" x="616.0" y="304" text-anchor="middle" font-size="9" font-weight="bold">7%</text>
+<text class="t2" x="616.0" y="331.0" text-anchor="middle" font-size="9">3</text>
+<rect class="level" x="638" y="277" width="18" height="41"><title>run 2, 4M: levelling 29% of the capped score</title></rect>
+<text class="t3" x="647.0" y="273" text-anchor="middle" font-size="9" font-weight="bold">29%</text>
+<text class="t2" x="647.0" y="331.0" text-anchor="middle" font-size="9">4</text>
+<rect class="level" x="668" y="304" width="18" height="14"><title>run 2, 5M: levelling 10% of the capped score</title></rect>
+<text class="t3" x="677.0" y="300" text-anchor="middle" font-size="9" font-weight="bold">10%</text>
+<text class="t2" x="677.0" y="331.0" text-anchor="middle" font-size="9">5</text>
+<text class="t3" x="28" y="370" font-size="13" font-weight="bold">RUN 3</text>
+<text class="t2" x="28" y="388" font-size="10">progress at 4 of 7</text>
+<text class="t2" x="28" y="401" font-size="10">checkpoints, no grinding</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="404" y2="404"/>
+<text class="t2" x="200" y="407.0" text-anchor="end" font-size="9">1</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="380" y2="380"/>
+<text class="t2" x="200" y="383.0" text-anchor="end" font-size="9">2</text>
+<line class="kgrid" stroke-width="2" x1="206" x2="436" y1="356" y2="356"/>
+<text class="t2" x="200" y="359.0" text-anchor="end" font-size="9">3</text>
+<line class="kink" stroke-width="2" x1="206" x2="436" y1="428" y2="428"/>
+<rect class="rnd" x="213" y="425" width="18" height="2"><title>run 3, 0.25M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="209" y="413" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.25M: 0.60 milestones on average</title></rect>
+<text class="t2" x="222.0" y="441.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="a1" x="246" y="380" width="18" height="48"><title>run 3, 0.5M: 2.0 milestones on average (8/8 episodes above 0)</title></rect>
+<text class="t3" x="255.0" y="376" text-anchor="middle" font-size="9" font-weight="bold">2</text>
+<rect class="a0" x="242" y="402" width="26" height="3"><title>before the patch (batch 2, 5 runs), 0.5M: 1.05 milestones on average</title></rect>
+<text class="t2" x="255.0" y="441.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="rnd" x="279" y="425" width="18" height="2"><title>run 3, 1M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="275" y="408" width="26" height="3"><title>before the patch (batch 2, 5 runs), 1M: 0.80 milestones on average</title></rect>
+<text class="t2" x="288.0" y="441.0" text-anchor="middle" font-size="9">1</text>
+<rect class="a1" x="312" y="374" width="18" height="54"><title>run 3, 2M: 2.25 milestones on average (8/8 episodes above 0)</title></rect>
+<text class="t3" x="321.0" y="370" text-anchor="middle" font-size="9" font-weight="bold">2.25</text>
+<rect class="a0" x="308" y="391" width="26" height="3"><title>before the patch (batch 2, 5 runs), 2M: 1.50 milestones on average</title></rect>
+<text class="t2" x="321.0" y="441.0" text-anchor="middle" font-size="9">2</text>
+<rect class="a1" x="345" y="407" width="18" height="21"><title>run 3, 3M: 0.875 milestones on average (5/8 episodes above 0)</title></rect>
+<text class="t3" x="354.0" y="400" text-anchor="middle" font-size="9" font-weight="bold">0.875</text>
+<rect class="a0" x="341" y="405" width="26" height="3"><title>before the patch (batch 2, 5 runs), 3M: 0.93 milestones on average</title></rect>
+<text class="t2" x="354.0" y="441.0" text-anchor="middle" font-size="9">3</text>
+<rect class="rnd" x="378" y="425" width="18" height="2"><title>run 3, 4M: 0.0 milestones on average (0/8 episodes above 0)</title></rect>
+<rect class="a0" x="374" y="384" width="26" height="3"><title>before the patch (batch 2, 5 runs), 4M: 1.80 milestones on average</title></rect>
+<text class="t2" x="387.0" y="441.0" text-anchor="middle" font-size="9">4</text>
+<rect class="a1" x="411" y="404" width="18" height="24"><title>run 3, 5M: 1.0 milestones on average (4/8 episodes above 0)</title></rect>
+<text class="t3" x="420.0" y="388" text-anchor="middle" font-size="9" font-weight="bold">1</text>
+<rect class="a0" x="407" y="393" width="26" height="3"><title>before the patch (batch 2, 5 runs), 5M: 1.43 milestones on average</title></rect>
+<text class="t2" x="420.0" y="441.0" text-anchor="middle" font-size="9">5</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="392" y2="392"/>
+<text class="t2" x="474" y="395.0" text-anchor="end" font-size="9">25%</text>
+<line class="kgrid" stroke-width="2" x1="480" x2="692" y1="356" y2="356"/>
+<text class="t2" x="474" y="359.0" text-anchor="end" font-size="9">50%</text>
+<line class="kink" stroke-width="2" x1="480" x2="692" y1="428" y2="428"/>
+<rect class="rnd" x="486" y="425" width="18" height="2"><title>run 3, 0.25M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="495.0" y="441.0" text-anchor="middle" font-size="9">0.25</text>
+<rect class="level" x="516" y="427" width="18" height="1"><title>run 3, 0.5M: levelling 1% of the capped score</title></rect>
+<text class="t3" x="525.0" y="423" text-anchor="middle" font-size="9" font-weight="bold">1%</text>
+<text class="t2" x="525.0" y="441.0" text-anchor="middle" font-size="9">0.5</text>
+<rect class="rnd" x="547" y="425" width="18" height="2"><title>run 3, 1M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="556.0" y="441.0" text-anchor="middle" font-size="9">1</text>
+<rect class="rnd" x="577" y="425" width="18" height="2"><title>run 3, 2M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="586.0" y="441.0" text-anchor="middle" font-size="9">2</text>
+<rect class="rnd" x="607" y="425" width="18" height="2"><title>run 3, 3M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="616.0" y="441.0" text-anchor="middle" font-size="9">3</text>
+<rect class="rnd" x="638" y="425" width="18" height="2"><title>run 3, 4M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="647.0" y="441.0" text-anchor="middle" font-size="9">4</text>
+<rect class="rnd" x="668" y="425" width="18" height="2"><title>run 3, 5M: levelling 0% of the capped score</title></rect>
+<text class="t2" x="677.0" y="441.0" text-anchor="middle" font-size="9">5</text>
+<text class="t2" x="321.0" y="458" text-anchor="middle" font-size="10">training steps (millions)</text>
+<text class="t2" x="586.0" y="458" text-anchor="middle" font-size="10">training steps (millions)</text>
+<rect class="a1" x="28" y="470" width="12" height="12"></rect>
+<text class="t3" x="46" y="480" font-size="10">real progress</text>
+<rect class="a0" x="160" y="474" width="24" height="3"></rect>
+<text class="t3" x="192" y="480" font-size="10">before the patch (batch 2, average of 5 runs)</text>
+<rect class="level" x="500" y="470" width="12" height="12"></rect>
+<text class="t3" x="518" y="480" font-size="10">score from levelling up</text>
+<text class="t2" x="28" y="496" font-size="9">each checkpoint is one sample: progress swings between checkpoints</text>
 </svg>

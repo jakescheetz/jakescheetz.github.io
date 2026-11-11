@@ -9,6 +9,15 @@
   4000768,
   5000192
  ],
+ "marks_drawn": [
+  250880,
+  500736,
+  1000448,
+  2000896,
+  3000320,
+  4000768,
+  5000192
+ ],
  "runs": {
   "run 1": [
    {
@@ -194,5 +203,5 @@
   "4000768": 1.8,
   "5000192": 1.425
  },
- "caption": "Round 1, one panel per training run on the capped score. Run 1 made progress only at 0.5M and then earned more of its score by levelling up; run 2 never reached a milestone and levelled late; run 3 made progress at four checkpoints and never levelled much. The dotted line is the uncapped-score agent of batch 2."
+ "caption": "Round 1, one row per training run on the capped score. Run 1 made progress only at 0.5M and then earned more of its score by levelling up; run 2 never reached a milestone and levelled late; run 3 made progress at four checkpoints and never levelled much. The blue ticks are the uncapped-score agent of batch 2."
 }

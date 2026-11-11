@@ -3,9 +3,13 @@
 
   python3 web_figs.py [names...]       -> figures/web/<name>.svg + <name>.json (all figures if no names)
 
-Style: a Game Boy-ish 4-shade green palette, square pixels on an 8 px grid, crisp edges, monospace labels, framed
-like a dialogue box. Light and dark are both chosen palettes (prefers-color-scheme inside each SVG). With 4 shades,
-identity never rides on shade alone: every series also has a direct label and a marker or dash pattern.
+Style: square pixels on an 8 px grid, crisp edges, monospace labels, framed like a dialogue box, in full color.
+Colors follow the thing, not the figure: score-trained agent = blue, progress-trained reference = orange,
+capped-score agent = aqua, random play = grey; reward terms: exploring = yellow, levelling = violet, healing =
+green; visit share = one magenta ramp. Light and dark are both chosen palettes (prefers-color-scheme inside each
+SVG), checked with the dataviz palette validator. Every series also has a direct label, and text stays in ink.
+If the run traces under ~/roms/runs are not on this machine, where-they-went and reward-sources redraw from the
+numbers saved in figures/web/<name>.json.
 Everything drawn comes from our own result files or the detector definitions in pokered/detectors.py; no ROM art,
 sprites, tiles or screenshots. Standard library only.
 
@@ -26,19 +30,29 @@ SRC = {"b1": CODE / "results/b1/fig1.json", "b2": CODE / "results/b2/fig1.json"}
 R0_P0_D1 = 29.689            # R0 (random) under P0 on D1, 24 episodes (R0/eval-dev-24/summary.json); T 0
 SEG = ("D1→D1",)
 
-# s0 lightest .. s3 darkest; bg = screen. Dark mode: its own steps (light ink on a dark screen), not a flip.
+# Ink and surface, then one color per thing (see the module docstring). Dark mode has its own steps, not a flip.
 CSS = """
 svg { font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; }
 * { shape-rendering: crispEdges; }
-.bg { fill: #e4ecc8; } .s0 { fill: #b9cc8c; } .s1 { fill: #8bac0f; } .s2 { fill: #306230; } .s3 { fill: #0f380f; }
-.k0 { stroke: #b9cc8c; } .k1 { stroke: #8bac0f; } .k2 { stroke: #306230; } .k3 { stroke: #0f380f; }
-.t3 { fill: #0f380f; } .t2 { fill: #306230; } .grey { fill: #c9cfb4; } .kgrey { stroke: #9aa287; } .tgrey { fill: #7d8570; }
-.hatch { fill: url(#hatch); } .hatchline { stroke: #306230; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .t3 { fill: #0b0b0b; } .t2 { fill: #52514e; } .tgrey { fill: #898781; }
+.kink { stroke: #0b0b0b; } .kgrid { stroke: #e1e0d9; } .kaxis { stroke: #c3c2b7; } .empty { fill: #e9e8e2; }
+.onfill { fill: #ffffff; } .onflag { fill: #0b0b0b; }
+.a0 { fill: #2a78d6; } .ka0 { stroke: #2a78d6; } .a0band { fill: #2a78d6; fill-opacity: 0.16; }
+.ref { fill: #eb6834; } .kref { stroke: #eb6834; }
+.a1 { fill: #1baf7a; } .ka1 { stroke: #1baf7a; }
+.rnd { fill: #898781; } .krnd { stroke: #898781; }
+.explore { fill: #eda100; } .level { fill: #6250d6; } .heal { fill: #008300; }
+.h0 { fill: #e896b6; } .h1 { fill: #dd6795; } .h2 { fill: #b3306a; } .h3 { fill: #6b183c; }
+.route { fill: #008300; } .flag { fill: #eda100; } .dead { fill: #e34948; } .kdead { stroke: #e34948; }
 @media (prefers-color-scheme: dark) {
-  .bg { fill: #121c12; } .s0 { fill: #24391f; } .s1 { fill: #4f7a26; } .s2 { fill: #9cbd3c; } .s3 { fill: #d4e6a0; }
-  .k0 { stroke: #24391f; } .k1 { stroke: #4f7a26; } .k2 { stroke: #9cbd3c; } .k3 { stroke: #d4e6a0; }
-  .t3 { fill: #d4e6a0; } .t2 { fill: #9cbd3c; } .grey { fill: #202620; } .kgrey { stroke: #4a5247; } .tgrey { fill: #7f8a78; }
-  .hatchline { stroke: #9cbd3c; }
+  .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .t3 { fill: #f0efec; } .t2 { fill: #c3c2b7; } .tgrey { fill: #898781; }
+  .kink { stroke: #f0efec; } .kgrid { stroke: #2c2c2a; } .kaxis { stroke: #4a4a46; } .empty { fill: #2c2c2a; }
+  .a0 { fill: #3987e5; } .ka0 { stroke: #3987e5; } .a0band { fill: #3987e5; fill-opacity: 0.22; }
+  .ref { fill: #d95926; } .kref { stroke: #d95926; }
+  .a1 { fill: #199e70; } .ka1 { stroke: #199e70; }
+  .explore { fill: #c98500; } .level { fill: #9085e9; } .heal { fill: #008300; }
+  .h0 { fill: #a23266; } .h1 { fill: #cc4f82; } .h2 { fill: #e98bb0; } .h3 { fill: #f9d8e5; }
+  .flag { fill: #c98500; } .dead { fill: #e66767; } .kdead { stroke: #e66767; }
 }
 """
 
@@ -48,8 +62,7 @@ class Svg:
         self.w, self.h = w, h
         self.el = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" '
                    f'aria-labelledby="t d"><title id="t">{escape(title)}</title><desc id="d">{escape(desc)}</desc>'
-                   f'<style>{CSS}</style><defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse">'
-                   f'<path class="hatchline" d="M0 8 L8 0" stroke-width="2"/></pattern></defs>',
+                   f'<style>{CSS}</style>',
                    f'<rect class="bg" width="{w}" height="{h}"/>']
 
     def add(self, s):
@@ -65,22 +78,21 @@ class Svg:
         b = ' font-weight="bold"' if bold else ""
         self.add(f'<text class="{cls}" x="{x}" y="{y}"{a}{sz}{b}>{escape(s)}</text>')
 
-    def frame(self, x, y, w, h, cls="k3", fill=None, px=4):
+    def frame(self, x, y, w, h, cls="ink", fill=None, px=4):
         """Pixel 'dialogue box': square border with notched corners."""
         if fill:
             self.rect(x + px, y + px, w - 2 * px, h - 2 * px, fill)
-        c = cls.replace("k", "s")
         for (xx, yy, ww, hh) in ((x + px, y, w - 2 * px, px), (x + px, y + h - px, w - 2 * px, px),
                                  (x, y + px, px, h - 2 * px), (x + w - px, y + px, px, h - 2 * px)):
-            self.rect(xx, yy, ww, hh, c)
+            self.rect(xx, yy, ww, hh, cls)
 
     def done(self):
         return "\n".join(self.el + ["</svg>"]) + "\n"
 
 
-def flag(s, x, y, n, cls="s3", tcls="bg"):
+def flag(s, x, y, n, cls="flag", tcls="onflag"):
     """Milestone flag: pole + pennant (pixels), number in the pennant."""
-    s.rect(x, y, 4, 28, cls)
+    s.rect(x, y, 4, 28, "ink")
     s.rect(x + 4, y, 20, 14, cls)
     s.add(f'<text class="{tcls}" x="{x + 14}" y="{y + 11}" text-anchor="middle" font-size="11" font-weight="bold">'
           f'{n}</text>')
@@ -95,112 +107,70 @@ def write(name, svg, data):
 
 # ------------------------------------------------------------------ (1) route map
 def route_map():
+    """A trail map, bottom to top: five stops on one path, three milestone flags, one dead end. Side buildings and
+    the maps after the segment are left to the text and to the .json (redrawn 2026-11-11: the first version was
+    too busy)."""
     sys.path.insert(0, str(CODE))
     from pokered import detectors as Dt, ram
-    W, H = 640, 640
+    W, H = 640, 568
     s = Svg(W, H, "The route: Oak's Lab to Viridian Forest",
             "Schematic of the game segment the agents play, bottom to top: start in Oak's Lab in Pallet Town, Route 1, "
-            "Viridian City (milestone 1), Route 2 (milestone 2), Viridian Forest (milestone 3). Side buildings that "
-            "count as off-route exploration (O) and Route 22, a dead end (D), branch off. Pewter City, its gym and "
-            "Brock come after the segment and are greyed out.")
+            "Viridian City (milestone 1), Route 2 (milestone 2), Viridian Forest (milestone 3). Route 22 branches "
+            "west off Viridian City and is a dead end.")
     s.frame(8, 8, W - 16, H - 16, fill="bg")
     s.text(28, 40, "THE ROUTE", bold=True, size=16)
-    s.text(28, 60, "one episode = 16,384 button presses from Oak's Lab", "t2", size=11)
-    cx, cw = 232, 176                      # route column
-    cards = [  # (label, y, h, milestone, map id)
-        ("PALLET TOWN", 540, 64, None, ram.PALLET_TOWN),
-        ("ROUTE 1", 452, 72, None, ram.ROUTE_1),
-        ("VIRIDIAN CITY", 356, 80, 1, ram.VIRIDIAN_CITY),
-        ("ROUTE 2", 268, 72, 2, ram.ROUTE_2),
-        ("VIRIDIAN FOREST", 180, 72, 3, ram.VIRIDIAN_FOREST),
+    s.text(28, 60, "read it from the bottom up: the agent starts in Oak's Lab and heads north", "t2", size=11)
+    cx, cw, ch = 232, 176, 48              # route column
+    stops = [  # (label, y, milestone, what the milestone asks for, map id)
+        ("PALLET TOWN", 462, None, None, ram.PALLET_TOWN),
+        ("ROUTE 1", 374, None, None, ram.ROUTE_1),
+        ("VIRIDIAN CITY", 286, 1, "reach Viridian City", ram.VIRIDIAN_CITY),
+        ("ROUTE 2", 198, 2, "reach Route 2", ram.ROUTE_2),
+        ("VIRIDIAN FOREST", 110, 3, "enter Viridian Forest", ram.VIRIDIAN_FOREST),
     ]
-    data = {"route": [], "side_O": [], "dead_end_D": [], "neutral": [], "past_segment": []}
-    for i, (lab, y, h, m, mid) in enumerate(cards):
-        s.frame(cx, y, cw, h, fill="s0")
-        s.text(cx + cw / 2, (y + 26) if mid == ram.PALLET_TOWN else (y + h / 2 + 5), lab, anchor="middle", bold=True)
-        if i:                              # path between cards: pixel dashes
-            for yy in range(y + h, cards[i - 1][1], 8):
-                s.rect(cx + cw / 2 - 4, yy + 2, 8, 4, "s2")
+    data = {"route": [], "dead_end_D": [], "not_drawn": {}}
+    mx = cx + cw // 2
+    for i, (lab, y, m, ask, mid) in enumerate(stops):
+        if i:                              # the path up from the stop below, with an arrowhead halfway
+            y0, y1 = y + ch, stops[i - 1][1]
+            s.rect(mx - 4, y0, 8, y1 - y0, "route")
+            my = (y0 + y1) // 2
+            s.add(f'<polygon class="route" points="{mx},{my - 10} {mx + 14},{my + 6} {mx - 14},{my + 6}"/>')
+        s.frame(cx, y, cw, ch, fill="bg")
+        s.text(mx, y + ch / 2 + 5, lab, anchor="middle", bold=True, size=13)
         if m:
-            flag(s, cx + cw + 12, y + 4, m)
-            s.text(cx + cw + 44, y + 18, f"M{m}: reach {lab.title()}", "t3", size=11)
+            flag(s, cx + cw + 16, y + 8, m)
+            s.text(cx + cw + 50, y + 20, f"MILESTONE {m}", "t3", size=12, bold=True)
+            s.text(cx + cw + 50, y + 36, ask, "t2", size=11)
         data["route"].append({"map": lab.title(), "map_id": hex(mid), "milestone": f"M{m}" if m else None})
-    # start marker inside Pallet: Oak's Lab
-    s.rect(cx + 16, 574, 48, 22, "s2", tip="Oak's Lab: every training episode starts here, with Squirtle (or Charmander in the second start state)")
-    s.text(cx + 40, 589, "LAB", "bg", anchor="middle", size=10, bold=True)
-    s.text(cx + 72, 590, "★ start", "t3", size=11)
+    # the game goes on past the forest: a faint stub, no card
+    for yy in range(84, 108, 8):
+        s.rect(mx - 4, yy + 2, 8, 4, "empty")
+    s.text(mx + 14, 96, "the game goes on from here", "tgrey", size=10)
+    # start: Oak's Lab, in Pallet Town
+    y = stops[0][1]
+    s.rect(cx - 56, y + ch // 2 - 2, 56, 4, "a0")
+    s.rect(cx - 144, y + 8, 88, 32, "a0",
+           tip="Oak's Lab: every training episode starts here, just after the agent gets the Pokédex")
+    s.text(cx - 100, y + 29, "START", "onfill", anchor="middle", size=13, bold=True)
+    s.text(cx - 100, y + 58, "in Oak's Lab", "t2", anchor="middle", size=11)
     data["start"] = "Oak's Lab (Pallet Town), just after receiving the Pokédex"
-    # past the segment (greyed): Pewter, gym, Brock
-    s.add(f'<rect class="grey" x="{cx}" y="92" width="{cw}" height="56"/>')
-    s.add(f'<rect fill="none" class="kgrey" stroke-width="2" stroke-dasharray="4 4" x="{cx + 1}" y="93" '
-          f'width="{cw - 2}" height="54"><title>Milestones M4 (Pewter City), M5 (gym) and M6 (Brock) are outside the '
-          f'experiment\'s segment: no trained agent passed M3 (only the scripted planner got further).</title></rect>')
-    s.text(cx + cw / 2, 116, "PEWTER · GYM · BROCK", "tgrey", anchor="middle", size=11, bold=True)
-    s.text(cx + cw / 2, 134, "outside the segment", "tgrey", anchor="middle", size=10)
-    s.text(cx + cw + 12, 116, "no trained agent", "tgrey", size=10)
-    s.text(cx + cw + 12, 130, "passed M3", "tgrey", size=10)
-    for yy in range(148, 180, 8):
-        s.rect(cx + cw / 2 - 4, yy + 2, 8, 4, "grey")
-    data["past_segment"] = ["Pewter City (M4)", "Pewter Gym (M5)", "Brock (M6)"]
-    # off-route side buildings (O): doors off each card, from detectors.SIDE_MAPS
-    sides = {ram.PALLET_TOWN: [0x25, 0x27], ram.VIRIDIAN_CITY: [0x2B, 0x2C, 0x2D], ram.ROUTE_2: [0x2E, 0x30]}
-    name = lambda m: Dt.SIDE_MAPS[m].replace("Viridian ", "").replace("Route 2 ", "").replace("(Route 2 entrance)", "").replace("(entrance)", "")
-    ys = {c[4]: (c[1], c[2]) for c in cards}
-    for mid, doors in sides.items():
-        y, h = ys[mid]
-        for k, d in enumerate(doors):
-            bx, by = cx + cw + 24 + k * 56, y + h - 32
-            s.rect(cx + cw, by + 10, bx - cx - cw, 4, "s1")
-            s.frame(bx, by, 48, 24, cls="k2", fill="s1", px=2)
-            s.rect(bx + 20, by + 12, 8, 10, "s3", tip=f"{Dt.SIDE_MAPS[d]}: an off-route map (counts toward O)")
-            data["side_O"].append({"map": Dt.SIDE_MAPS[d], "map_id": hex(d), "off_route_of": hex(mid)})
-        labs = [name(d).strip().replace("Gym", "Gym (locked)") for d in doors]
-        lines = [" · ".join(labs)] if len(" · ".join(labs)) <= 30 else [" · ".join(labs[:2]) + " ·", labs[2]]
-        for j, ln in enumerate(lines):
-            s.text(cx + cw + 24, y + h + 4 + 12 * j, ln, "t2", size=9)
-    # Route 22 (D): west of Viridian, hatched dead end
-    y, h = ys[ram.VIRIDIAN_CITY]
-    s.rect(cx - 150, y + 20, 150 - 0, 4, "s1")
-    s.add(f'<rect class="s0" x="{cx - 196}" y="{y + 4}" width="136" height="56"/>')
-    s.add(f'<rect class="hatch" x="{cx - 196}" y="{y + 4}" width="136" height="56"><title>Route 22: a dead end west '
-          f'of Viridian City (time spent here counts toward D)</title></rect>')
-    s.frame(cx - 196, y + 4, 136, 56, cls="k3", px=4)
-    s.rect(cx - 180, y + 22, 104, 20, "bg")
-    s.text(cx - 128, y + 37, "ROUTE 22", anchor="middle", bold=True, size=11)
-    s.text(cx - 128, y + 78, "dead end = D", "t2", anchor="middle", size=11)
+    # Route 22: a dead end west of Viridian City
+    y = stops[2][1]
+    s.add(f'<line class="kdead" stroke-width="4" stroke-dasharray="8 6" x1="{cx - 56}" x2="{cx}" y1="{y + ch // 2}" '
+          f'y2="{y + ch // 2}"/>')
+    s.frame(cx - 184, y + 4, 128, 40, cls="dead", fill="bg")
+    s.add(f'<title>Route 22: a dead end west of Viridian City (time spent here counts toward the detour)</title>')
+    s.text(cx - 120, y + 29, "ROUTE 22", anchor="middle", bold=True, size=12)
+    s.text(cx - 120, y + 62, "a dead end", "t2", anchor="middle", size=11)
     data["dead_end_D"] = [{"map": Dt.D_MAPS[ram.ROUTE_22], "map_id": hex(ram.ROUTE_22)}]
-    # neutral: Pokécenter / Mart in Viridian
-    s.rect(cx + 12, y + 8, 26, 16, "s2", tip="Viridian Pokécenter: neutral (heals; not counted as off-route)")
-    s.text(cx + 25, y + 20, "PC", "bg", anchor="middle", size=9, bold=True)
-    s.rect(cx + 42, y + 8, 34, 16, "s2", tip="Viridian Mart: neutral")
-    s.text(cx + 59, y + 20, "MART", "bg", anchor="middle", size=9, bold=True)
-    data["neutral"] = list(Dt.NEUTRAL_MAPS.values())
-    # legend
-    lx, ly = 28, 160
-    s.text(lx, ly, "KEY", bold=True)
-    items = [("flag", "milestone (true progress T)"), ("path", "the route"), ("door", "off-route map: O"),
-             ("hatch", "dead end: D"), ("grey", "outside the segment")]
-    for i, (k, lab) in enumerate(items):
-        yy = ly + 18 + i * 24
-        if k == "flag":
-            s.rect(lx, yy - 10, 3, 16, "s3"); s.rect(lx + 3, yy - 10, 12, 8, "s3")
-        elif k == "path":
-            s.rect(lx + 4, yy - 6, 8, 4, "s2"); s.rect(lx + 4, yy + 2, 8, 4, "s2")
-        elif k == "door":
-            s.rect(lx, yy - 10, 16, 14, "s1"); s.rect(lx + 5, yy - 4, 6, 8, "s3")
-        elif k == "hatch":
-            s.add(f'<rect class="hatch" x="{lx}" y="{yy - 10}" width="16" height="14"/>')
-        else:
-            s.rect(lx, yy - 10, 16, 14, "grey")
-        s.text(lx + 24, yy + 2, lab, "t3", size=10)
-    s.text(lx, ly + 142, "O: off-route maps, and maps", "t2", size=9)
-    s.text(lx, ly + 154, "behind you (e.g. Pallet once", "t2", size=9)
-    s.text(lx, ly + 166, "you reach M1); PC, MART neutral", "t2", size=9)
-    s.text(28, H - 26, "schematic, not to scale; map names from the game, drawn by us", "t2", size=10)
-    data["note"] = ("Schematic. Route maps and milestones from pokered/ram.py (MILESTONES); side buildings (O), "
-                    "Route 22 (D) and neutral maps from pokered/detectors.py (SIDE_MAPS, D_MAPS, NEUTRAL_MAPS). "
-                    "Only a subset of SIDE_MAPS is drawn; the full list is in the detector.")
-    data["side_O_all"] = {hex(k): v for k, v in Dt.SIDE_MAPS.items()}
+    s.text(28, H - 26, "a schematic, not to scale; map names from the game", "t2", size=10)
+    data["not_drawn"] = {"side_O_all": {hex(k): v for k, v in Dt.SIDE_MAPS.items()},
+                         "neutral": list(Dt.NEUTRAL_MAPS.values()),
+                         "past_segment": ["Pewter City (M4)", "Pewter Gym (M5)", "Brock (M6)"]}
+    data["note"] = ("Schematic. Route maps and milestones from pokered/ram.py (MILESTONES); Route 22 (D) from "
+                    "pokered/detectors.py (D_MAPS). The off-route side buildings (SIDE_MAPS), the neutral maps and "
+                    "the maps past the segment are listed under not_drawn; the post explains off-route in the text.")
     write("route-map", s.done(), data)
 
 
@@ -222,8 +192,8 @@ def score_vs_progress(batch):
     X = lambda v: x0 + v / 5e6 * w
     panels = [("P", "SCORE (what the agent is paid)", 108, 170, 140, [0, 35, 70, 105, 140]),
               ("T", "REAL PROGRESS (milestones reached, average)", 330, 130, 3, [0, 1, 2, 3])]
-    arms = [("A0", "trained on the score", "s3", "k3", "", "sq", "score-trained"),
-            ("A2pp", "trained on real progress (reference, unstable)", "s2", "k2", ' stroke-dasharray="8 4"', "dia",
+    arms = [("A0", "trained on the score", "a0", "ka0", "", "sq", "score-trained"),
+            ("A2pp", "trained on real progress (reference, unstable)", "ref", "kref", ' stroke-dasharray="8 4"', "dia",
              "progress-trained*")]
     data = {"batch": batch, "state": "D1", "source": str(SRC[batch].relative_to(CODE)), "R0": {"P": R0_P0_D1, "T": 0.0},
             "arms": {}}
@@ -231,21 +201,21 @@ def score_vs_progress(batch):
         Y = lambda v, y0=y0, h=h, top=top: y0 + h - v / top * h
         s.text(x0, y0 - 10, lab, bold=True, size=11)
         for t in ticks:
-            s.add(f'<line class="k0" stroke-width="2" x1="{x0}" x2="{x0 + w}" y1="{Y(t):.0f}" y2="{Y(t):.0f}"/>')
+            s.add(f'<line class="kgrid" stroke-width="2" x1="{x0}" x2="{x0 + w}" y1="{Y(t):.0f}" y2="{Y(t):.0f}"/>')
             s.text(x0 - 10, Y(t) + 4, f"{t}", "t2", anchor="end", size=10)
-        s.add(f'<line class="k3" stroke-width="4" x1="{x0}" x2="{x0 + w}" y1="{y0 + h}" y2="{y0 + h}"/>')
+        s.add(f'<line class="kink" stroke-width="4" x1="{x0}" x2="{x0 + w}" y1="{y0 + h}" y2="{y0 + h}"/>')
         for t in (0, 1e6, 2e6, 3e6, 4e6, 5e6):
             s.text(X(t), y0 + h + 16, "0" if not t else f"{t / 1e6:g}M", "t2", anchor="middle", size=10)
         # random play
         r0 = R0_P0_D1 if key == "P" else 0.0
-        s.add(f'<line class="k1" stroke-width="4" stroke-dasharray="4 4" x1="{x0}" x2="{x0 + w}" y1="{Y(r0):.0f}" '
+        s.add(f'<line class="krnd" stroke-width="4" stroke-dasharray="4 4" x1="{x0}" x2="{x0 + w}" y1="{Y(r0):.0f}" '
               f'y2="{Y(r0):.0f}"><title>random play: {key} {r0:g}</title></line>')
         ends = []
         for arm, alab, fcls, kcls, dash, mk, short in arms:
             ms = d[arm]["marks"]
             band = [(m["step"], m[f"{key}_ci"][0], m[f"{key}_ci"][1]) for m in ms]
             if arm == "A0":
-                s.add('<polygon class="s0" points="' + " ".join(f"{X(a):.0f},{Y(hi):.0f}" for a, _, hi in band) + " " +
+                s.add('<polygon class="a0band" points="' + " ".join(f"{X(a):.0f},{Y(hi):.0f}" for a, _, hi in band) + " " +
                       " ".join(f"{X(a):.0f},{Y(lo):.0f}" for a, lo, _ in reversed(band)) + '"/>')
             pts = [(X(m["step"]), Y(m[key])) for m in ms]
             s.add(f'<polyline fill="none" class="{kcls}" stroke-width="4" stroke-linejoin="miter"{dash} points="' +
@@ -272,10 +242,10 @@ def score_vs_progress(batch):
     s.text(x0 + w, H - 46, "training steps →", "t2", anchor="end", size=11)
     # legend
     lx, ly = 80, H - 30
-    s.rect(lx, ly - 10, 12, 12, "s3"); s.text(lx + 18, ly, "trained on the score", "t3", size=11)
-    s.add(f'<polygon class="s2" points="{lx + 200},{ly - 12} {lx + 208},{ly - 4} {lx + 200},{ly + 4} {lx + 192},{ly - 4}"/>')
+    s.rect(lx, ly - 10, 12, 12, "a0"); s.text(lx + 18, ly, "trained on the score", "t3", size=11)
+    s.add(f'<polygon class="ref" points="{lx + 200},{ly - 12} {lx + 208},{ly - 4} {lx + 200},{ly + 4} {lx + 192},{ly - 4}"/>')
     s.text(lx + 214, ly, "trained on real progress*", "t3", size=11)
-    s.add(f'<line class="k1" stroke-width="4" stroke-dasharray="4 4" x1="{lx + 400}" x2="{lx + 428}" y1="{ly - 4}" y2="{ly - 4}"/>')
+    s.add(f'<line class="krnd" stroke-width="4" stroke-dasharray="4 4" x1="{lx + 400}" x2="{lx + 428}" y1="{ly - 4}" y2="{ly - 4}"/>')
     s.text(lx + 434, ly, "random", "t3", size=11)
     data["caption"] = {"b2": "Batch 2. The agent trained on the score (A0) pushes the score far above random play, "
                              "and its real progress rises with it: score and progress climb together.",
@@ -323,9 +293,20 @@ def edge_steps(files):
     return best
 
 
-def where_they_went():
+def _where_counts():
+    """(origins, edge steps, panels) for where-they-went. From the eval traces when they are on this machine;
+    otherwise from the numbers saved in figures/web/where-they-went.json by the run that had them."""
     import gzip
     files = {k: f() for k, *_, f in GROUPS}
+    if not all(files.values()):
+        saved = json.loads((OUT / "where-they-went.json").read_text())
+        ids = {v: k for k, v in OW.items()}
+        org = {ids[n]: tuple(v) for n, v in saved["map_origins_tiles"].items()}
+        panels = {k: {"n": v["episodes"], "entered": v["entered"], "files": v["files"],
+                      "tiles": {(ids[n], x, y): c for n, x, y, c in v["tiles"]}}
+                  for k, v in saved["panels"].items()}
+        print("where-they-went: traces not found under ~/roms/runs; redrawing from the saved .json")
+        return org, saved["frame_from_our_traces"], panels
     # Stepping across an edge moves one tile in the global frame, so along the crossing axis
     # origin(next) = origin + jump + sign(jump); along the other axis origin(next) = origin + jump.
     best = edge_steps(files["score-trained"] + files["random"])
@@ -336,6 +317,29 @@ def where_they_went():
         sg = lambda v: (v > 0) - (v < 0)
         org[b] = ((org[a][0] + dx + sg(dx)) if abs(dx) > abs(dy) else org[a][0] + dx,
                   (org[a][1] + dy + sg(dy)) if abs(dy) > abs(dx) else org[a][1] + dy)
+    panels = {}
+    for key, *_ in GROUPS:
+        tiles, entered = {}, {n: 0 for n, _ in INDOOR}
+        for f in files[key]:
+            seen, maps = set(), set()
+            with gzip.open(f, "rt") as g:
+                g.readline()
+                for line in g:
+                    r = json.loads(line)
+                    maps.add(r["map"])
+                    if r["map"] in OW:
+                        seen.add((r["map"], r["x"], r["y"]))
+            for t in seen:
+                tiles[t] = tiles.get(t, 0) + 1
+            for n, ms in INDOOR:
+                entered[n] += bool(maps & ms)
+        panels[key] = {"n": len(files[key]), "entered": entered, "tiles": tiles,
+                       "files": [str(f.relative_to(RUNS)) for f in files[key]]}
+    return org, steps, panels
+
+
+def where_they_went():
+    org, steps, panels = _where_counts()
     for (a, b) in [(0x00, 0x0C), (0x0C, 0x01), (0x01, 0x0D)]:       # check: north neighbours abut exactly
         assert org[a][1] - org[b][1] == OW_WH[b][1], (OW[a], OW[b], org)
     assert org[0x01][0] - org[0x21][0] == OW_WH[0x21][0], org
@@ -355,26 +359,11 @@ def where_they_went():
     s.text(28, 58, "start: Oak's Lab (Pallet Town, bottom); 5M checkpoint, one sample: scores swing between checkpoints",
            "t2", size=11)
     data = {"checkpoint": 5000192, "start": "Oak's Lab with Squirtle", "frame_from_our_traces": steps,
-            "map_origins_tiles": {OW[m]: org[m] for m in OW}, "panels": {}}
-    bins = [(0.75, "s3"), (0.5, "s2"), (0.25, "s1"), (0.0, "s0")]
+            "map_origins_tiles": {OW[m]: list(org[m]) for m in OW}, "panels": {}}
+    bins = [(0.75, "h3"), (0.5, "h2"), (0.25, "h1"), (0.0, "h0")]
     top = 92
     for gi, (key, lab, sub, _) in enumerate(GROUPS):
-        fl = files[key]
-        tiles, entered = {}, {n: 0 for n, _ in INDOOR}
-        for f in fl:
-            seen, maps = set(), set()
-            with gzip.open(f, "rt") as g:
-                g.readline()
-                for line in g:
-                    r = json.loads(line)
-                    maps.add(r["map"])
-                    if r["map"] in OW:
-                        seen.add((r["map"], r["x"], r["y"]))
-            for t in seen:
-                tiles[t] = tiles.get(t, 0) + 1
-            for n, ms in INDOOR:
-                entered[n] += bool(maps & ms)
-        n = len(fl)
+        n, tiles, entered = panels[key]["n"], panels[key]["tiles"], panels[key]["entered"]
         px0 = 28 + gi * (pw + 28)
         s.text(px0, top - 8, lab.upper(), bold=True, size=11)
         if sub:
@@ -382,7 +371,7 @@ def where_they_went():
         s.rect(px0, top, pw, ph, "bg")
         for m in OW:                               # map outlines (sizes only) and names
             ox, oy = (org[m][0] - gx0) * PX + px0, (org[m][1] - gy0) * PX + top
-            s.add(f'<rect fill="none" class="k0" stroke-width="1" x="{ox}" y="{oy}" width="{OW_WH[m][0] * PX}" '
+            s.add(f'<rect fill="none" class="kaxis" stroke-width="1" x="{ox}" y="{oy}" width="{OW_WH[m][0] * PX}" '
                   f'height="{OW_WH[m][1] * PX}"/>')
         cells = []
         for (m, x, y), c in tiles.items():
@@ -405,20 +394,20 @@ def where_they_went():
         for j, (nm, _) in enumerate(INDOOR):
             v = entered[nm] / n
             yy = sy + 16 + j * 18
-            s.rect(px0, yy - 9, 60, 10, "s0")
-            s.rect(px0, yy - 9, int(round(v * 60)), 10, "s2", tip=f"{lab}: {nm} entered in {entered[nm]} of {n} episodes")
+            s.rect(px0, yy - 9, 60, 10, "empty")
+            s.rect(px0, yy - 9, int(round(v * 60)), 10, "ink", tip=f"{lab}: {nm} entered in {entered[nm]} of {n} episodes")
             s.text(px0 + 66, yy, f"{entered[nm]}/{n} {nm}", "t3", size=9)
         data["panels"][key] = {"label": lab, "batch": sub, "episodes": n, "tiles_visited": len(tiles),
-                               "files": [str(f.relative_to(RUNS)) for f in fl], "entered": entered,
+                               "files": panels[key]["files"], "entered": entered,
                                "tiles": sorted([[OW[m], x, y, c] for (m, x, y), c in tiles.items()])}
     # legend
     ly = H - 40
     s.text(28, ly, "share of episodes that stepped on the square:", "t3", size=10)
-    for j, (lab_, cls) in enumerate((("up to 25%", "s0"), ("25-50%", "s1"), ("50-75%", "s2"), ("over 75%", "s3"))):
+    for j, (lab_, cls) in enumerate((("up to 25%", "h0"), ("25-50%", "h1"), ("50-75%", "h2"), ("over 75%", "h3"))):
         x = 340 + j * 110
         s.rect(x, ly - 10, 12, 12, cls)
         s.text(x + 18, ly, lab_, "t3", size=10)
-    s.text(28, ly + 16, "outlines: map sizes only; squares: where the agents walked outdoors (our position logs); "
+    s.text(28, ly + 16, "outlines: map sizes only; squares: where the agents walked outdoors (from position logs); "
            "indoor squares not drawn", "t2", size=9)
     data["caption"] = ("Where each agent walked outdoors at the 5M checkpoint, starting in Oak's Lab. The agent trained "
                        "on the score covers Pallet Town, Route 1 and Viridian City densely and reaches Route 22 and "
@@ -429,28 +418,30 @@ def where_they_went():
 
 
 # ------------------------------------------------------------------ (4) reward sources
-def reward_sources():
-    """Three rows of 50-block bars (1 block = 2%), each on a stated yardstick (researcher's fact-check, item 2):
-    (a) what earned each agent's own score, by term; (b) share of the ORIGINAL score (P0) earned on off-route maps
-    (O), with the capped agent re-scored under P0; (c) share of each agent's own score earned inside grass-grinding
-    stretches (G). All pooled over the 7 tested checkpoints (0.25M-5M), first start state, dev."""
+def _reward_rows():
+    """Row values for reward-sources: {"a": [(label, tag, {term: share})], "b": ..., "c": ...}. From the run
+    folders when they are on this machine; otherwise from the numbers saved in figures/web/reward-sources.json."""
     import glob
+    eps_files = sorted(glob.glob(str(RUNS / "b2-A0-D1-s[1-5]" / "eval-dev-primary" / "episodes.jsonl")))
+    if not eps_files:
+        saved = json.loads((OUT / "reward-sources.json").read_text())["rows"]
+        print("reward-sources: run folders not found under ~/roms/runs; redrawing from the saved .json")
+        return {k: [(r["label"], r["tag"], {t: v for t, v in r.items() if t not in ("label", "tag")}) for r in rows]
+                for k, rows in saved.items()}
     sys.path.insert(0, str(CODE))
     import b1_report
-    eps = [json.loads(l) for f in sorted(glob.glob(str(RUNS / "b2-A0-D1-s[1-5]" / "eval-dev-primary" / "episodes.jsonl")))
-           for l in open(f)]
+    eps = [json.loads(l) for f in eps_files for l in open(f)]
     tot = sum(e["P"] for e in eps)
     a0_terms = {k: sum(e["P_terms"][k] for e in eps) / tot for k in ("explore", "level", "heal")}
     r1 = [c for c in json.loads((CODE / "results/r1/cells.json").read_text())["rows"]
           if c["eval_state"] == "D1" and c["mark"] > 0 and not c["interim"]]
     t1 = sum(c["P1"] * c["n"] for c in r1)
     a1_terms = {k: sum(c["P1_terms"][k] * c["n"] for c in r1) / t1 for k in ("explore", "level", "heal")}
-    cat = {b: {x["type"]: x for x in json.loads((CODE / f"results/{b}/catalogue-fields.json").read_text())["types"]}
-           for b in ("b2", "r1")}
+    cat = {x["type"]: x for x in json.loads((CODE / "results/r1/catalogue-fields.json").read_text())["types"]}
     a1_p0_O = json.loads((CODE / "results/r1/p0-o-d-shares.json").read_text())["cells"]["D1|O|all"][-1][0]
     # batch-2 A0, first start state only (D1-trained, own state), from the traces: O and G share of P0
     at = ao = ag = 0.0
-    for f in sorted(glob.glob(str(RUNS / "b2-A0-D1-s[1-5]" / "eval-dev-primary" / "episodes.jsonl"))):
+    for f in eps_files:
         run = Path(f).parent.parent
         for l in open(f):
             e = json.loads(l)
@@ -464,80 +455,90 @@ def reward_sources():
         if e["state"] == "D1":
             t, i = b1_report.p_inside(r0d / "traces" / f"random-0-D1-{e['seed']}.jsonl.gz", e["events"])
             rt, ri = rt + t, ri + i.get("O", 0.0)
-    rows = {
-        "a": ("WHAT EARNED THE SCORE", "each agent's own score, by source",
-              [("trained on the score", "batch 2", a0_terms), ("trained on the capped score", "round 1", a1_terms)]),
-        "b": ("OFF-ROUTE EXPLORING", "share of the original score earned on off-route maps",
-              [("trained on the score", "batch 2", {"O": ao / at}),
-               ("trained on the capped score", "round 1, re-scored", {"O": a1_p0_O}),
-               ("random play", "", {"O": ri / rt})]),
-        "c": ("GRASS GRINDING", "share of each agent's own score earned while grinding battles",
-              [("trained on the score", "batch 2", {"G": ag / at}),
-               ("trained on the capped score", "round 1", {"G": cat["r1"]["G"]["share_of_P_pooled"]})]),
-    }
-    fills = {"explore": ("s1", "exploring new squares"), "level": ("s3", "levelling up"), "heal": ("s2", "healing"),
-             "O": ("hatch", "off-route"), "G": ("hatch", "grinding")}
-    W, H = 680, 590
+    return {"a": [("trained on the score", "batch 2", a0_terms), ("trained on the capped score", "round 1", a1_terms)],
+            "b": [("trained on the score", "batch 2", {"O": ao / at}),
+                  ("trained on the capped score", "round 1, re-scored", {"O": a1_p0_O}),
+                  ("random play", "", {"O": ri / rt})],
+            "c": [("trained on the score", "batch 2", {"G": ag / at}),
+                  ("trained on the capped score", "round 1", {"G": cat["G"]["share_of_P_pooled"]})]}
+
+
+def reward_sources():
+    """Three small bar charts, each on a stated yardstick (researcher's fact-check, item 2): (a) what earned each
+    agent's own score, by term, as one full-width bar per agent; (b) share of the ORIGINAL score (P0) earned on
+    off-route maps (O), with the capped agent re-scored under P0; (c) share of each agent's own score earned inside
+    grass-grinding stretches (G). All pooled over the 7 tested checkpoints (0.25M-5M), first start state, dev.
+    (b) and (c) share one 0-30% axis so their bars can be compared. Redrawn 2026-11-11 (Jake: the 50-block version
+    was hard to read): solid bars, plain row names, every value written at the end of its bar."""
+    values = _reward_rows()
+    heads = {"a": ("(a) WHAT EARNED THE SCORE", "each agent's own score, split by where the points came from"),
+             "b": ("(b) EARNED OFF-ROUTE", "share of the original score earned on off-route maps (all three scored the same way)"),
+             "c": ("(c) EARNED BY GRINDING", "share of each agent's own score earned while grinding battles in grass")}
+    names = {"explore": "exploring new squares", "level": "levelling up", "heal": "healing",
+             "O": "off-route", "G": "grinding"}
+    short = {"explore": "exploring", "level": "levelling up", "heal": "healing"}
+    agent = {"trained on the score": ("a0", "before the patch"), "trained on the capped score": ("a1", "after the patch"),
+             "random play": ("rnd", "random play")}
+    W, H = 680, 552
     s = Svg(W, H, "Where the score came from, before and after the patch",
-            "Bars of 50 blocks, one block = 2 percent. (a) What earned each agent's own score: almost all exploring "
-            "for the score-trained agent; exploring plus about 12 percent levelling for the capped-score agent. (b) "
-            "Share of the original score earned on off-route maps: about 17 percent for the score-trained agent, about "
-            "17 percent for the capped-score agent re-scored on the original score, 12 percent for random play. (c) "
-            "Share of each agent's own score earned while grinding battles: 0 before, 22 percent after.")
+            "Three bar charts. (a) What earned each agent's own score: almost all exploring before the patch; "
+            "exploring plus about 12 percent levelling up after it. (b) Share of the original score earned on "
+            "off-route maps: about 17 percent before the patch, about 17 percent after it, 12 percent for random "
+            "play. (c) Share of each agent's own score earned while grinding battles: 0 before, 22 percent after.")
     s.frame(8, 8, W - 16, H - 16, fill="bg")
     s.text(28, 40, "WHERE THE SCORE CAME FROM", bold=True, size=16)
-    s.text(28, 58, "before the patch (trained on the score) and after (trained on the capped score);", "t2", size=11)
-    s.text(28, 74, "start: Oak's Lab with Squirtle; all 7 test checkpoints pooled", "t2", size=11)
-    y = 112
-    BX, BL = 246, 6                                    # bar x, block size (+1 gap)
+    s.text(28, 58, "the agent before the patch and the agent after it; all 7 test checkpoints pooled", "t2", size=11)
+    BX, BW = 190, 400                                  # bar x and full width
+    TOP = 0.30                                         # (b), (c): the axis runs 0 to 30%
     data = {"yardsticks": {"a": "each arm's own reward (A0: P0, A1: P1), pooled over 7 checkpoints",
                            "b": "P0 for all three (A1 re-scored under P0, §9 I14); window-based O ranges",
                            "c": "each arm's own reward; P inside merged G event ranges ÷ total P (catalogue)"},
-            "rows": {}}
-    for key, (title, sub, items) in rows.items():
-        s.text(28, y, f"({key}) {title}", bold=True, size=12)
+            "axis": {"a": "0 to 100% of the agent's own score", "b": "0 to 30%", "c": "0 to 30%"}, "rows": {}}
+    y = 98
+    for key, (title, sub) in heads.items():
+        s.text(28, y, title, bold=True, size=12)
         s.text(28, y + 16, sub, "t2", size=10)
-        y += 34
-        for lab, tag, parts in items:
-            s.text(28, y + 10, lab, "t3", size=11)
-            if tag:
-                s.text(28, y + 23, tag, "t2", size=9)
-            blocks = []
-            cnt = {k: max(int(round(v * 50)), 1 if v >= 0.005 else 0) for k, v in parts.items()}  # >= 1 block if named
-            while sum(cnt.values()) > 50:                      # take the overflow from the largest slice
-                cnt[max(cnt, key=cnt.get)] -= 1
-            for k in parts:
-                blocks += [k] * cnt[k]
-            for b in range(50):
-                k = blocks[b] if b < len(blocks) else None
-                cls = fills[k][0] if k else "s0"
-                tip = (f"{lab}: " + ", ".join(f"{fills[kk][1]} {vv:.1%}" for kk, vv in parts.items()))
-                if cls == "hatch":
-                    s.rect(BX + b * (BL + 1), y, BL, 16, "s0")
-                s.rect(BX + b * (BL + 1), y, BL, 16, cls, tip=tip if b == 0 else None)
-                if cls == "hatch":
-                    s.add(f'<rect fill="none" class="k3" stroke-width="1" x="{BX + b * (BL + 1) + 0.5}" y="{y + 0.5}" '
-                          f'width="{BL - 1}" height="15"/>')
-            main = max(parts, key=parts.get) if key == "a" else next(iter(parts))
-            txt = (" / ".join(f"{fills[k][1].split()[0]} {v:.1%}" if v > 0.995 else f"{fills[k][1].split()[0]} {v:.0%}"
-                              for k, v in parts.items() if v >= 0.005)
-                   if key == "a" else f"{parts[main]:.1%}")
+        y += 36
+        rows = values[key]
+        if key != "a":                                 # light gridlines behind the rows of (b) and (c)
+            for t in (0.1, 0.2, 0.3):
+                gx = BX + t / TOP * BW
+                s.add(f'<line class="kgrid" stroke-width="2" x1="{gx:.0f}" x2="{gx:.0f}" y1="{y - 6}" '
+                      f'y2="{y + 30 * len(rows) - 4}"/>')
+        for lab, tag, parts in rows:
+            cls, name = agent[lab]
+            tip = f"{name} ({lab}{', ' + tag if tag else ''}): " + ", ".join(f"{names[k]} {v:.1%}" for k, v in parts.items())
+            s.rect(28, y + 4, 10, 10, cls)             # the agent's color chip, same in every figure
+            s.text(46, y + 13, name, "t3", size=11)
             if key == "a":
-                s.text(BX, y + 30, txt, "t2", size=9)
+                x = float(BX)
+                for k, v in parts.items():             # one full-width bar, a 2 px gap between terms
+                    w = v * BW
+                    if w >= 1:
+                        s.rect(round(x), y, max(round(w) - 2, 1), 18, k, tip=tip)
+                    x += w
+                lx = BX
+                for k, v in parts.items():             # what each color is, written under the bar
+                    if v < 0.005:
+                        continue
+                    s.rect(lx, y + 26, 8, 8, k)
+                    t = f"{short[k]} {v:.1%}" if v > 0.995 else f"{short[k]} {v:.0%}"
+                    s.text(lx + 13, y + 34, t, "t2", size=10)
+                    lx += 13 + len(t) * 6.1 + 18
+                y += 52
             else:
-                s.text(BX + 50 * (BL + 1) + 8, y + 12, txt, "t3", size=10, bold=True)
-            data["rows"].setdefault(key, []).append({"label": lab, "tag": tag, **{k: round(v, 4) for k, v in parts.items()}})
-            y += 40 if key == "a" else 34
-        y += 14
-    # legend
-    ly = H - 44
-    for j, (k, lab) in enumerate((("explore", "exploring"), ("level", "levelling up"), ("heal", "healing"))):
-        x = 28 + j * 150
-        s.rect(x, ly - 10, 12, 12, fills[k][0])
-        s.text(x + 18, ly, lab, "t3", size=10)
-
-    s.rect(28, ly + 8, 12, 12, "s0"); s.rect(28, ly + 8, 12, 12, "hatch")
-    s.text(46, ly + 18, "(b), (c): hatched blocks = the share named; faint = the rest; one block = 2%", "t2", size=9)
+                v = next(iter(parts.values()))
+                w = v / TOP * BW
+                s.rect(BX, y, max(round(w), 2), 18, cls, tip=tip)
+                s.text(BX + max(round(w), 2) + 8, y + 13, f"{v:.1%}", "t3", size=11, bold=True)
+                y += 30
+            data["rows"].setdefault(key, []).append({"label": lab, "tag": tag, **{k: round(v, 5) for k, v in parts.items()}})
+        if key != "a":
+            s.add(f'<line class="kink" stroke-width="2" x1="{BX}" x2="{BX}" y1="{y - 30 * len(rows) - 6}" y2="{y - 4}"/>')
+            for t in (0, 0.1, 0.2, 0.3):
+                s.text(BX + t / TOP * BW, y + 8, f"{t:.0%}", "t2", anchor="middle", size=9)
+            y += 12
+        y += 24
     data["caption"] = ("Before the patch nearly all the score came from exploring; after it, about an eighth came from "
                        "levelling up. Measured on the original score, the share earned off-route did not move "
                        "(17% before and after; random play 12%). Grinding battles went from none to 22% of the "
@@ -554,72 +555,87 @@ SEED_NOTE = {1: "progress only at 0.5M, then grinding", 2: "no progress at any c
              3: "progress at 4 checkpoints, no grinding"}          # findings.md F-R1.4
 
 
+SEED_LINES = {1: ["progress at 0.5M only,", "then grinding"], 2: ["never makes progress,", "grinds late"],
+              3: ["progress at 4 of 7", "checkpoints, no grinding"]}          # SEED_NOTE, wrapped for the row label
+
+
 def round1_seeds():
+    """A grid: one row per run, two columns. Left: real progress (milestones, 0 to 3) at each checkpoint, with the
+    batch-2 average as a blue tick. Right: the share of that checkpoint's capped score that came from levelling up
+    (0 to 50%). Every non-zero bar carries its value. Redrawn 2026-11-11 (Jake: the stacked blocks with a strip
+    underneath were hard to read). The untrained step-0 mark stays in the .json but is not drawn."""
     cells = [c for c in json.loads((CODE / "results/r1/cells.json").read_text())["rows"]
              if c["eval_state"] == "D1" and not c["interim"]]
     a1 = {(c["seed"], c["mark"]): c for c in cells}
     seeds, marks = sorted({c["seed"] for c in cells}), sorted({c["mark"] for c in cells})
     a0 = {m["step"]: m["T"] for m in json.loads(SRC["b2"].read_text())["D1→D1"]["A0"]["marks"]}
-    W, H = 720, 470
+    drawn = [m for m in marks if m > 0]
+    W, H = 720, 520
     s = Svg(W, H, "Round 1: three runs on the capped score",
-            "One panel per training run on the capped score. Bars: real progress (milestones reached, average of 8 "
-            "test episodes) at each checkpoint; dotted line: the run trained on the uncapped score in batch 2. Strip "
-            "under each panel: the share of that checkpoint's capped score that came from levelling up.")
+            "A grid with one row per training run on the capped score and two columns. Left column: real progress "
+            "(milestones reached, average of 8 test episodes) at each checkpoint, with the average of the runs "
+            "trained before the patch marked for comparison. Right column: the share of that checkpoint's capped "
+            "score that came from levelling up.")
     s.frame(8, 8, W - 16, H - 16, fill="bg")
-    s.text(28, 40, "ROUND 1: THREE RUNS, THREE STORIES", bold=True, size=16)
-    s.text(28, 58, "trained on the capped score; start: Oak's Lab with Squirtle; 8 test episodes per checkpoint",
-           "t2", size=11)
-    s.text(28, 74, "x: checkpoint (millions of training steps); y: milestones reached, average", "t2", size=10)
-    pw, gap, top, ph = 196, 26, 132, 156           # panel; 12 blocks of 13 px = 3 milestones
-    BW, BH = 18, 12
-    data = {"marks": marks, "runs": {}, "score_trained_batch2_T": {str(k): v for k, v in a0.items()}}
+    s.text(28, 40, "ROUND 1: THREE RUNS ON THE PATCHED SCORE", bold=True, size=16)
+    s.text(28, 58, "one bar per checkpoint (8 test episodes each); start: Oak's Lab with Squirtle", "t2", size=11)
+    cols = [("T", 206, 230, 3.0, [1, 2, 3], "REAL PROGRESS", "milestones reached, average (0 to 3)"),
+            ("L", 480, 212, 0.5, [0.25, 0.5], "SCORE FROM LEVELLING UP", "share of that checkpoint's score")]
+    for _, x0, w, _, _, head, sub in cols:
+        s.text(x0, 90, head, bold=True, size=11)
+        s.text(x0, 105, sub, "t2", size=10)
+    top, ph, pitch, BW = 136, 72, 110, 18
+    num = lambda v: f"{v:.3f}".rstrip("0").rstrip(".")
+    data = {"marks": marks, "marks_drawn": drawn, "runs": {}, "score_trained_batch2_T": {str(k): v for k, v in a0.items()}}
     for k, sd in enumerate(seeds):
-        px = 44 + k * (pw + gap)
-        s.frame(px - 24, top - 40, pw + 32, ph + 144, cls="k2", px=4)
-        s.text(px - 12, top - 18, f"RUN {sd}", bold=True, size=12)
-        for j, ln in enumerate(SEED_NOTE[sd].replace("; ", ";\n").split("\n")):
-            s.text(px - 12, top - 4 + 11 * j, ln, "t2", size=9)
-        Y = lambda v: top + 14 + ph - v / 3 * ph
-        for t in (1, 2, 3):
-            s.add(f'<line class="k0" stroke-width="1" x1="{px}" x2="{px + pw}" y1="{Y(t):.0f}" y2="{Y(t):.0f}"/>')
-            s.text(px - 4, Y(t) + 4, str(t), "t2", anchor="end", size=9)
-        s.add(f'<line class="k3" stroke-width="2" x1="{px}" x2="{px + pw}" y1="{Y(0):.0f}" y2="{Y(0):.0f}"/>')
-        step = pw / len(marks)
-        pts = []
+        y0 = top + k * pitch
+        s.text(28, y0 + 14, f"RUN {sd}", bold=True, size=13)
+        for j, ln in enumerate(SEED_LINES[sd]):
+            s.text(28, y0 + 32 + 13 * j, ln, "t2", size=10)
+        for key, x0, w, vmax, ticks, _, _ in cols:
+            Y = lambda v: y0 + ph - v / vmax * ph
+            for t in ticks:
+                s.add(f'<line class="kgrid" stroke-width="2" x1="{x0}" x2="{x0 + w}" y1="{Y(t):.0f}" y2="{Y(t):.0f}"/>')
+                s.text(x0 - 6, Y(t) + 3, f"{t:g}" if key == "T" else f"{t:.0%}", "t2", anchor="end", size=9)
+            s.add(f'<line class="kink" stroke-width="2" x1="{x0}" x2="{x0 + w}" y1="{Y(0):.0f}" y2="{Y(0):.0f}"/>')
+            step = w / len(drawn)
+            for i, m in enumerate(drawn):
+                c = a1[(sd, m)]
+                bx = round(x0 + i * step + (step - BW) / 2)
+                lv = c["P1_terms"]["level"] / c["P1"] if c["P1"] else 0.0
+                v = c["T"] if key == "T" else lv
+                tip = (f"run {sd}, {fm_(m)}: {c['T']} milestones on average ({c['T_gt0']}/8 episodes above 0)"
+                       if key == "T" else f"run {sd}, {fm_(m)}: levelling {lv:.0%} of the capped score")
+                hgt = v / vmax * ph
+                if hgt >= 1:
+                    s.rect(bx, round(Y(0) - hgt), BW, round(hgt), "a1" if key == "T" else "level", tip=tip)
+                    ty = round(Y(0) - hgt) - 4
+                    if key == "T" and m in a0 and -4 <= Y(0) - hgt - Y(a0[m]) <= 16:
+                        ty = round(Y(a0[m])) - 6       # the batch-2 tick sits just above this bar: label above the tick
+                    if key == "T" or v >= 0.01:
+                        s.text(bx + BW / 2, ty, num(v) if key == "T" else f"{v:.0%}", "t3",
+                               anchor="middle", size=9, bold=True)
+                else:
+                    s.rect(bx, round(Y(0)) - 3, BW, 2, "rnd", tip=tip)
+                if key == "T" and m in a0:              # the batch-2 average at this checkpoint: a blue tick
+                    s.rect(bx - 4, round(Y(a0[m])) - 1, BW + 8, 3, "a0",
+                           tip=f"before the patch (batch 2, 5 runs), {fm_(m)}: {a0[m]:.2f} milestones on average")
+                s.text(bx + BW / 2, Y(0) + 13, fm_(m).rstrip("M"), "t2", anchor="middle", size=9)
         for i, m in enumerate(marks):
             c = a1[(sd, m)]
-            bx = px + i * step + (step - BW) / 2
-            nb = int(round(c["T"] / 0.25))
-            for b in range(nb):
-                s.rect(round(bx), round(Y(0) - (b + 1) * (BH + 1)), BW, BH, "s3",
-                       tip=f"run {sd}, {fm_(m)}: {c['T']} milestones on average ({c['T_gt0']}/8 episodes above 0)" if b == 0 else None)
-            if nb == 0:
-                s.rect(round(bx), round(Y(0) - 3), BW, 2, "s1",
-                       tip=f"run {sd}, {fm_(m)}: no milestone in any of the 8 episodes")
-            s.text(bx + BW / 2, Y(0) + 14, (fm_(m).rstrip("M").lstrip("0") or "0") if m else "0", "t2",
-                   anchor="middle", size=9)
-            if m in a0:
-                pts.append((bx + BW / 2, Y(a0[m])))
-            # levelling strip: 5 blocks = 0-100%
             lv = c["P1_terms"]["level"] / c["P1"] if c["P1"] else 0.0
-            ly = Y(0) + 52
-            for b in range(5):
-                s.rect(round(bx), ly - b * 7, BW, 6, "s3" if b < int(round(lv * 5)) else "s0",
-                       tip=f"run {sd}, {fm_(m)}: levelling {lv:.0%} of the capped score" if b == 0 else None)
             data["runs"].setdefault(f"run {sd}", []).append({"mark": m, "T": c["T"], "T_gt0": c["T_gt0"],
                                                               "level_share_of_P1": round(lv, 4), "P1": c["P1"]})
-        s.add('<polyline fill="none" class="k2" stroke-width="2" stroke-dasharray="3 3" points="' +
-              " ".join(f"{a:.0f},{b:.0f}" for a, b in pts) + '"><title>trained on the uncapped score (batch 2, 5 runs)'
-              '</title></polyline>')
-        s.text(px, Y(0) + 72, "▲ share of score from levelling", "t2", size=8)
-    ly = H - 34
-    s.rect(28, ly - 10, 12, 12, "s3"); s.text(46, ly, "real progress (milestones, average)", "t3", size=10)
-    s.add(f'<line class="k2" stroke-width="2" stroke-dasharray="3 3" x1="300" x2="328" y1="{ly - 4}" y2="{ly - 4}"/>')
-    s.text(334, ly, "trained on the uncapped score (batch 2)", "t3", size=10)
+    for _, x0, w, *_ in cols:
+        s.text(x0 + w / 2, top + 2 * pitch + ph + 30, "training steps (millions)", "t2", anchor="middle", size=10)
+    ly = H - 40
+    s.rect(28, ly - 10, 12, 12, "a1"); s.text(46, ly, "real progress", "t3", size=10)
+    s.rect(160, ly - 6, 24, 3, "a0"); s.text(192, ly, "before the patch (batch 2, average of 5 runs)", "t3", size=10)
+    s.rect(500, ly - 10, 12, 12, "level"); s.text(518, ly, "score from levelling up", "t3", size=10)
     s.text(28, ly + 16, "each checkpoint is one sample: progress swings between checkpoints", "t2", size=9)
-    data["caption"] = ("Round 1, one panel per training run on the capped score. Run 1 made progress only at 0.5M and "
+    data["caption"] = ("Round 1, one row per training run on the capped score. Run 1 made progress only at 0.5M and "
                        "then earned more of its score by levelling up; run 2 never reached a milestone and levelled late; run 3 made "
-                       "progress at four checkpoints and never levelled much. The dotted line is the uncapped-score "
+                       "progress at four checkpoints and never levelled much. The blue ticks are the uncapped-score "
                        "agent of batch 2.")
     write("round1-seeds", s.done(), data)
 

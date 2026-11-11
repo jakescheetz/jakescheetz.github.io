@@ -1,0 +1,337 @@
+/* /learn: widget panels, SVG stages, controls, "done when" boxes, unit navigation, progress. */
+
+/* Widget panel: full width, bordered like <details>, padded to stay on the line grid. */
+figure.widget {
+  margin: calc(var(--line-height) * 2) 0;
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  overflow: visible;
+}
+figure.widget > * {
+  margin-top: 0;
+}
+figure.widget > * + * {
+  margin-top: var(--line-height);
+}
+figure.widget figcaption {
+  font-style: normal;
+  color: var(--text-color-alt);
+}
+
+/* SVG stage. Shapes take their color from `color`: set fill/stroke to currentColor and add a
+   color class (ink, muted, blue, orange, green, purple, cyan) on the shape or a parent group. */
+.stage {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: 13px;
+}
+.stage line, .stage polyline, .stage path {
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+.stage text, .stage polygon {
+  fill: currentColor;
+  stroke: none;
+}
+.stage .ink { color: var(--text-color); }
+.stage .muted { color: var(--text-color-alt); }
+.stage .blue { color: var(--accent-blue); }
+.stage .orange { color: var(--accent-orange); }
+.stage .green { color: var(--accent-green); }
+.stage .purple { color: var(--accent-purple); }
+.stage .cyan { color: var(--accent-cyan); }
+.stage .faint { opacity: 0.35; }
+.stage .dashed { stroke-dasharray: 4 4; }
+.stage .thin { stroke-width: 1; }
+.stage .thick { stroke-width: 4; }
+
+/* Controls: one grid row per slider, label | track | value. */
+.controls > * {
+  margin: 0;
+}
+.control {
+  display: grid;
+  grid-template-columns: 18ch 1fr 9ch;
+  column-gap: 1ch;
+  align-items: center;
+  height: var(--line-height);
+}
+.control > * {
+  margin: 0;
+}
+.control label {
+  width: auto;
+  white-space: nowrap;
+}
+.control output {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+/* Phones: a 12ch label column, widened for any label longer than that (one line per row). */
+@media screen and (max-width: 480px) {
+  .control {
+    grid-template-columns: minmax(12ch, max-content) 1fr 7ch;
+  }
+}
+
+.control input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--line-height);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.control input[type=range]::-webkit-slider-runnable-track {
+  height: var(--border-thickness);
+  background: var(--text-color);
+}
+.control input[type=range]::-moz-range-track {
+  height: var(--border-thickness);
+  background: var(--text-color);
+}
+.control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1ch;
+  height: var(--line-height);
+  margin-top: calc((var(--line-height) - var(--border-thickness)) / -2);
+  border: none;
+  border-radius: 0;
+  background: var(--accent-blue);
+}
+.control input[type=range]::-moz-range-thumb {
+  width: 1ch;
+  height: var(--line-height);
+  border: none;
+  border-radius: 0;
+  background: var(--accent-blue);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1ch;
+}
+.buttons > * {
+  margin: 0;
+}
+
+pre.readout {
+  margin: 0;
+  white-space: pre-wrap;
+}
+/* Accent text anywhere on learn pages: readouts, raw <pre> diagrams, inline notes. */
+span.blue { color: var(--accent-blue); }
+span.orange { color: var(--accent-orange); }
+span.green { color: var(--accent-green); }
+span.purple { color: var(--accent-purple); }
+span.cyan { color: var(--accent-cyan); }
+
+@media (prefers-reduced-motion: reduce) {
+  .widget *, .widget *::before, .widget *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* "You're done when" checklist: a pandoc fenced div `::: done-when`. */
+.done-when {
+  border: var(--border-thickness) solid var(--accent-green);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  margin-bottom: var(--line-height);
+}
+.done-when::before {
+  content: "You're done when";
+  display: block;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin-bottom: var(--line-height);
+}
+.done-when > :last-child {
+  margin-bottom: 0;
+}
+
+/* Term-by-term reading of the formula above it: a pandoc fenced div `::: formula`.
+   A quieter blockquote, so the main text reads on its own and this can be skipped. */
+.formula {
+  font-size: 0.875rem;
+  color: var(--text-color-alt);
+  margin: 0 0 var(--line-height);
+  padding-left: calc(2ch - var(--border-thickness));
+  border-left: var(--border-thickness) solid var(--text-color-alt);
+}
+.formula > * {
+  margin-bottom: 0;
+}
+.formula > * + * {
+  margin-top: calc(var(--line-height) / 2);
+}
+
+/* Unit navigation and progress. */
+.unit-nav {
+  margin-top: calc(var(--line-height) * 2);
+}
+.unit-done {
+  font-weight: var(--font-weight-normal);
+}
+.unit-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 2ch;
+}
+.unit-links > * {
+  margin: 0;
+}
+.unit-links a:last-child:not(:first-child) {
+  text-align: right;
+}
+.done {
+  color: var(--accent-green);
+}
+.unit-index td:last-child {
+  text-align: center;
+}
+.unit-index td.width-min {
+  white-space: nowrap;
+}
+.progress-bar {
+  white-space: pre;
+}
+.unit-section {
+  margin-bottom: 0;
+}
+
+/* Quizzes: questions drawn at random by assets/learn.js from a hidden .quiz-bank. */
+.quiz-list > li {
+  display: grid;
+  grid-template-columns: 4ch 1fr;
+}
+.quiz-list > li + li {
+  margin-top: var(--line-height);
+}
+.quiz-list > li::before {
+  grid-column: 1;
+  grid-row: 1;
+}
+.quiz-list > li > * {
+  grid-column: 2;
+  margin: 0;
+}
+.quiz-prompt {
+  font-weight: var(--font-weight-medium);
+}
+.quiz-choice {
+  display: grid;
+  grid-template-columns: 3ch 1fr;
+  width: auto;
+  font-weight: var(--font-weight-normal);
+  cursor: pointer;
+}
+.quiz-choice > * {
+  margin: 0;
+}
+/* The theme's radio fills a whole line, so one-line options stack into a chain of touching
+   circles; inset each circle a little so neighbours have a gap (row height is unchanged). */
+.quiz-choice > input[type=radio] {
+  width: calc(var(--line-height) - 4px);
+  height: calc(var(--line-height) - 4px);
+  margin: 2px;
+}
+.quiz-choice.is-correct {
+  color: var(--accent-green);
+}
+.quiz-choice.is-wrong {
+  color: var(--accent-orange);
+  text-decoration: line-through;
+}
+.quiz-list > li > .quiz-mark {
+  margin-top: var(--line-height);
+}
+.quiz-mark.missed {
+  color: var(--accent-orange);
+}
+.quiz-why > * {
+  margin: 0;
+}
+.quiz-result {
+  font-weight: var(--font-weight-bold);
+}
+.quiz-filter {
+  font-weight: var(--font-weight-normal);
+  margin-bottom: var(--line-height);
+}
+
+/* Step-through animation: <figure class="widget demo" id="…"></figure>, filled by Learn.demo(). */
+:root {
+  --demo-line: #d0d0d0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --demo-line: #333;
+  }
+}
+figure.demo canvas {
+  display: block;
+  width: 100%;
+}
+figure.demo .demo-cap {
+  margin-bottom: 0;
+}
+.demo-buttons {
+  align-items: center;
+}
+.demo-count {
+  margin-right: auto;
+  white-space: nowrap;
+}
+.demo-buttons button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Callout boxes: pandoc fenced divs `::: why`, `::: real-world`, `::: review`, `::: say`.
+   Same box as "done when", with the label drawn by CSS and a color per kind. */
+.why, .real-world, .review, .say {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
+  margin-bottom: var(--line-height);
+}
+.why::before, .real-world::before, .review::before, .say::before {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin-bottom: var(--line-height);
+}
+.why > :last-child, .real-world > :last-child, .review > :last-child, .say > :last-child {
+  margin-bottom: 0;
+}
+.why { border-color: var(--accent-orange); }
+.why::before { content: "Why this matters"; color: var(--accent-orange); }
+.real-world { border-color: var(--accent-cyan); }
+.real-world::before { content: "Where you'll see it"; color: var(--accent-cyan); }
+.review::before { content: "Quick review"; }
+.say { border-color: var(--accent-blue); }
+.say::before { content: "The short version"; color: var(--accent-blue); }
+
+/* Quick review: a definition list, term on its own line and the meaning indented under it. */
+.review dl {
+  margin: 0;
+}
+.review dt {
+  font-weight: var(--font-weight-bold);
+}
+.review dt:not(:first-child) {
+  margin-top: var(--line-height);
+}
+.review dd {
+  margin: 0 0 0 2ch;
+}
+.review dd > p {
+  margin: 0;
+}

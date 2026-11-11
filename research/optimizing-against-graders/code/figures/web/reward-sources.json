@@ -4,6 +4,11 @@
   "b": "P0 for all three (A1 re-scored under P0, §9 I14); window-based O ranges",
   "c": "each arm's own reward; P inside merged G event ranges ÷ total P (catalogue)"
  },
+ "axis": {
+  "a": "0 to 100% of the agent's own score",
+  "b": "0 to 30%",
+  "c": "0 to 30%"
+ },
  "rows": {
   "a": [
    {
@@ -25,7 +30,7 @@
    {
     "label": "trained on the score",
     "tag": "batch 2",
-    "O": 0.1695
+    "O": 0.16948
    },
    {
     "label": "trained on the capped score",

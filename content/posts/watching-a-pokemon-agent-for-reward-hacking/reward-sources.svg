@@ -1,477 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 590" width="680" height="590" role="img" aria-labelledby="t d"><title id="t">Where the score came from, before and after the patch</title><desc id="d">Bars of 50 blocks, one block = 2 percent. (a) What earned each agent&#x27;s own score: almost all exploring for the score-trained agent; exploring plus about 12 percent levelling for the capped-score agent. (b) Share of the original score earned on off-route maps: about 17 percent for the score-trained agent, about 17 percent for the capped-score agent re-scored on the original score, 12 percent for random play. (c) Share of each agent&#x27;s own score earned while grinding battles: 0 before, 22 percent after.</desc><style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 552" width="680" height="552" role="img" aria-labelledby="t d"><title id="t">Where the score came from, before and after the patch</title><desc id="d">Three bar charts. (a) What earned each agent&#x27;s own score: almost all exploring before the patch; exploring plus about 12 percent levelling up after it. (b) Share of the original score earned on off-route maps: about 17 percent before the patch, about 17 percent after it, 12 percent for random play. (c) Share of each agent&#x27;s own score earned while grinding battles: 0 before, 22 percent after.</desc><style>
 svg { font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; }
 * { shape-rendering: crispEdges; }
-.bg { fill: #e4ecc8; } .s0 { fill: #b9cc8c; } .s1 { fill: #8bac0f; } .s2 { fill: #306230; } .s3 { fill: #0f380f; }
-.k0 { stroke: #b9cc8c; } .k1 { stroke: #8bac0f; } .k2 { stroke: #306230; } .k3 { stroke: #0f380f; }
-.t3 { fill: #0f380f; } .t2 { fill: #306230; } .grey { fill: #c9cfb4; } .kgrey { stroke: #9aa287; } .tgrey { fill: #7d8570; }
-.hatch { fill: url(#hatch); } .hatchline { stroke: #306230; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .t3 { fill: #0b0b0b; } .t2 { fill: #52514e; } .tgrey { fill: #898781; }
+.kink { stroke: #0b0b0b; } .kgrid { stroke: #e1e0d9; } .kaxis { stroke: #c3c2b7; } .empty { fill: #e9e8e2; }
+.onfill { fill: #ffffff; } .onflag { fill: #0b0b0b; }
+.a0 { fill: #2a78d6; } .ka0 { stroke: #2a78d6; } .a0band { fill: #2a78d6; fill-opacity: 0.16; }
+.ref { fill: #eb6834; } .kref { stroke: #eb6834; }
+.a1 { fill: #1baf7a; } .ka1 { stroke: #1baf7a; }
+.rnd { fill: #898781; } .krnd { stroke: #898781; }
+.explore { fill: #eda100; } .level { fill: #6250d6; } .heal { fill: #008300; }
+.h0 { fill: #e896b6; } .h1 { fill: #dd6795; } .h2 { fill: #b3306a; } .h3 { fill: #6b183c; }
+.route { fill: #008300; } .flag { fill: #eda100; } .dead { fill: #e34948; } .kdead { stroke: #e34948; }
 @media (prefers-color-scheme: dark) {
-  .bg { fill: #121c12; } .s0 { fill: #24391f; } .s1 { fill: #4f7a26; } .s2 { fill: #9cbd3c; } .s3 { fill: #d4e6a0; }
-  .k0 { stroke: #24391f; } .k1 { stroke: #4f7a26; } .k2 { stroke: #9cbd3c; } .k3 { stroke: #d4e6a0; }
-  .t3 { fill: #d4e6a0; } .t2 { fill: #9cbd3c; } .grey { fill: #202620; } .kgrey { stroke: #4a5247; } .tgrey { fill: #7f8a78; }
-  .hatchline { stroke: #9cbd3c; }
+  .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .t3 { fill: #f0efec; } .t2 { fill: #c3c2b7; } .tgrey { fill: #898781; }
+  .kink { stroke: #f0efec; } .kgrid { stroke: #2c2c2a; } .kaxis { stroke: #4a4a46; } .empty { fill: #2c2c2a; }
+  .a0 { fill: #3987e5; } .ka0 { stroke: #3987e5; } .a0band { fill: #3987e5; fill-opacity: 0.22; }
+  .ref { fill: #d95926; } .kref { stroke: #d95926; }
+  .a1 { fill: #199e70; } .ka1 { stroke: #199e70; }
+  .explore { fill: #c98500; } .level { fill: #9085e9; } .heal { fill: #008300; }
+  .h0 { fill: #a23266; } .h1 { fill: #cc4f82; } .h2 { fill: #e98bb0; } .h3 { fill: #f9d8e5; }
+  .flag { fill: #c98500; } .dead { fill: #e66767; } .kdead { stroke: #e66767; }
 }
-</style><defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path class="hatchline" d="M0 8 L8 0" stroke-width="2"/></pattern></defs>
-<rect class="bg" width="680" height="590"/>
-<rect class="bg" x="12" y="12" width="656" height="566"></rect>
-<rect class="s3" x="12" y="8" width="656" height="4"></rect>
-<rect class="s3" x="12" y="578" width="656" height="4"></rect>
-<rect class="s3" x="8" y="12" width="4" height="566"></rect>
-<rect class="s3" x="668" y="12" width="4" height="566"></rect>
+</style>
+<rect class="bg" width="680" height="552"/>
+<rect class="bg" x="12" y="12" width="656" height="528"></rect>
+<rect class="ink" x="12" y="8" width="656" height="4"></rect>
+<rect class="ink" x="12" y="540" width="656" height="4"></rect>
+<rect class="ink" x="8" y="12" width="4" height="528"></rect>
+<rect class="ink" x="668" y="12" width="4" height="528"></rect>
 <text class="t3" x="28" y="40" font-size="16" font-weight="bold">WHERE THE SCORE CAME FROM</text>
-<text class="t2" x="28" y="58" font-size="11">before the patch (trained on the score) and after (trained on the capped score);</text>
-<text class="t2" x="28" y="74" font-size="11">start: Oak&#x27;s Lab with Squirtle; all 7 test checkpoints pooled</text>
-<text class="t3" x="28" y="112" font-size="12" font-weight="bold">(a) WHAT EARNED THE SCORE</text>
-<text class="t2" x="28" y="128" font-size="10">each agent&#x27;s own score, by source</text>
-<text class="t3" x="28" y="156" font-size="11">trained on the score</text>
-<text class="t2" x="28" y="169" font-size="9">batch 2</text>
-<rect class="s1" x="246" y="146" width="6" height="16"><title>trained on the score: exploring new squares 99.9%, levelling up 0.0%, healing 0.1%</title></rect>
-<rect class="s1" x="253" y="146" width="6" height="16"></rect>
-<rect class="s1" x="260" y="146" width="6" height="16"></rect>
-<rect class="s1" x="267" y="146" width="6" height="16"></rect>
-<rect class="s1" x="274" y="146" width="6" height="16"></rect>
-<rect class="s1" x="281" y="146" width="6" height="16"></rect>
-<rect class="s1" x="288" y="146" width="6" height="16"></rect>
-<rect class="s1" x="295" y="146" width="6" height="16"></rect>
-<rect class="s1" x="302" y="146" width="6" height="16"></rect>
-<rect class="s1" x="309" y="146" width="6" height="16"></rect>
-<rect class="s1" x="316" y="146" width="6" height="16"></rect>
-<rect class="s1" x="323" y="146" width="6" height="16"></rect>
-<rect class="s1" x="330" y="146" width="6" height="16"></rect>
-<rect class="s1" x="337" y="146" width="6" height="16"></rect>
-<rect class="s1" x="344" y="146" width="6" height="16"></rect>
-<rect class="s1" x="351" y="146" width="6" height="16"></rect>
-<rect class="s1" x="358" y="146" width="6" height="16"></rect>
-<rect class="s1" x="365" y="146" width="6" height="16"></rect>
-<rect class="s1" x="372" y="146" width="6" height="16"></rect>
-<rect class="s1" x="379" y="146" width="6" height="16"></rect>
-<rect class="s1" x="386" y="146" width="6" height="16"></rect>
-<rect class="s1" x="393" y="146" width="6" height="16"></rect>
-<rect class="s1" x="400" y="146" width="6" height="16"></rect>
-<rect class="s1" x="407" y="146" width="6" height="16"></rect>
-<rect class="s1" x="414" y="146" width="6" height="16"></rect>
-<rect class="s1" x="421" y="146" width="6" height="16"></rect>
-<rect class="s1" x="428" y="146" width="6" height="16"></rect>
-<rect class="s1" x="435" y="146" width="6" height="16"></rect>
-<rect class="s1" x="442" y="146" width="6" height="16"></rect>
-<rect class="s1" x="449" y="146" width="6" height="16"></rect>
-<rect class="s1" x="456" y="146" width="6" height="16"></rect>
-<rect class="s1" x="463" y="146" width="6" height="16"></rect>
-<rect class="s1" x="470" y="146" width="6" height="16"></rect>
-<rect class="s1" x="477" y="146" width="6" height="16"></rect>
-<rect class="s1" x="484" y="146" width="6" height="16"></rect>
-<rect class="s1" x="491" y="146" width="6" height="16"></rect>
-<rect class="s1" x="498" y="146" width="6" height="16"></rect>
-<rect class="s1" x="505" y="146" width="6" height="16"></rect>
-<rect class="s1" x="512" y="146" width="6" height="16"></rect>
-<rect class="s1" x="519" y="146" width="6" height="16"></rect>
-<rect class="s1" x="526" y="146" width="6" height="16"></rect>
-<rect class="s1" x="533" y="146" width="6" height="16"></rect>
-<rect class="s1" x="540" y="146" width="6" height="16"></rect>
-<rect class="s1" x="547" y="146" width="6" height="16"></rect>
-<rect class="s1" x="554" y="146" width="6" height="16"></rect>
-<rect class="s1" x="561" y="146" width="6" height="16"></rect>
-<rect class="s1" x="568" y="146" width="6" height="16"></rect>
-<rect class="s1" x="575" y="146" width="6" height="16"></rect>
-<rect class="s1" x="582" y="146" width="6" height="16"></rect>
-<rect class="s1" x="589" y="146" width="6" height="16"></rect>
-<text class="t2" x="246" y="176" font-size="9">exploring 99.9%</text>
-<text class="t3" x="28" y="196" font-size="11">trained on the capped score</text>
-<text class="t2" x="28" y="209" font-size="9">round 1</text>
-<rect class="s1" x="246" y="186" width="6" height="16"><title>trained on the capped score: exploring new squares 87.5%, levelling up 11.6%, healing 0.9%</title></rect>
-<rect class="s1" x="253" y="186" width="6" height="16"></rect>
-<rect class="s1" x="260" y="186" width="6" height="16"></rect>
-<rect class="s1" x="267" y="186" width="6" height="16"></rect>
-<rect class="s1" x="274" y="186" width="6" height="16"></rect>
-<rect class="s1" x="281" y="186" width="6" height="16"></rect>
-<rect class="s1" x="288" y="186" width="6" height="16"></rect>
-<rect class="s1" x="295" y="186" width="6" height="16"></rect>
-<rect class="s1" x="302" y="186" width="6" height="16"></rect>
-<rect class="s1" x="309" y="186" width="6" height="16"></rect>
-<rect class="s1" x="316" y="186" width="6" height="16"></rect>
-<rect class="s1" x="323" y="186" width="6" height="16"></rect>
-<rect class="s1" x="330" y="186" width="6" height="16"></rect>
-<rect class="s1" x="337" y="186" width="6" height="16"></rect>
-<rect class="s1" x="344" y="186" width="6" height="16"></rect>
-<rect class="s1" x="351" y="186" width="6" height="16"></rect>
-<rect class="s1" x="358" y="186" width="6" height="16"></rect>
-<rect class="s1" x="365" y="186" width="6" height="16"></rect>
-<rect class="s1" x="372" y="186" width="6" height="16"></rect>
-<rect class="s1" x="379" y="186" width="6" height="16"></rect>
-<rect class="s1" x="386" y="186" width="6" height="16"></rect>
-<rect class="s1" x="393" y="186" width="6" height="16"></rect>
-<rect class="s1" x="400" y="186" width="6" height="16"></rect>
-<rect class="s1" x="407" y="186" width="6" height="16"></rect>
-<rect class="s1" x="414" y="186" width="6" height="16"></rect>
-<rect class="s1" x="421" y="186" width="6" height="16"></rect>
-<rect class="s1" x="428" y="186" width="6" height="16"></rect>
-<rect class="s1" x="435" y="186" width="6" height="16"></rect>
-<rect class="s1" x="442" y="186" width="6" height="16"></rect>
-<rect class="s1" x="449" y="186" width="6" height="16"></rect>
-<rect class="s1" x="456" y="186" width="6" height="16"></rect>
-<rect class="s1" x="463" y="186" width="6" height="16"></rect>
-<rect class="s1" x="470" y="186" width="6" height="16"></rect>
-<rect class="s1" x="477" y="186" width="6" height="16"></rect>
-<rect class="s1" x="484" y="186" width="6" height="16"></rect>
-<rect class="s1" x="491" y="186" width="6" height="16"></rect>
-<rect class="s1" x="498" y="186" width="6" height="16"></rect>
-<rect class="s1" x="505" y="186" width="6" height="16"></rect>
-<rect class="s1" x="512" y="186" width="6" height="16"></rect>
-<rect class="s1" x="519" y="186" width="6" height="16"></rect>
-<rect class="s1" x="526" y="186" width="6" height="16"></rect>
-<rect class="s1" x="533" y="186" width="6" height="16"></rect>
-<rect class="s1" x="540" y="186" width="6" height="16"></rect>
-<rect class="s3" x="547" y="186" width="6" height="16"></rect>
-<rect class="s3" x="554" y="186" width="6" height="16"></rect>
-<rect class="s3" x="561" y="186" width="6" height="16"></rect>
-<rect class="s3" x="568" y="186" width="6" height="16"></rect>
-<rect class="s3" x="575" y="186" width="6" height="16"></rect>
-<rect class="s3" x="582" y="186" width="6" height="16"></rect>
-<rect class="s2" x="589" y="186" width="6" height="16"></rect>
-<text class="t2" x="246" y="216" font-size="9">exploring 87% / levelling 12% / healing 1%</text>
-<text class="t3" x="28" y="240" font-size="12" font-weight="bold">(b) OFF-ROUTE EXPLORING</text>
-<text class="t2" x="28" y="256" font-size="10">share of the original score earned on off-route maps</text>
-<text class="t3" x="28" y="284" font-size="11">trained on the score</text>
-<text class="t2" x="28" y="297" font-size="9">batch 2</text>
-<rect class="s0" x="246" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="246" y="274" width="6" height="16"><title>trained on the score: off-route 16.9%</title></rect>
-<rect fill="none" class="k3" stroke-width="1" x="246.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="253" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="253" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="253.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="260" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="260" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="260.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="267" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="267" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="267.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="274" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="274" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="274.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="281" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="281" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="281.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="288" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="288" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="288.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="295" y="274" width="6" height="16"></rect>
-<rect class="hatch" x="295" y="274" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="295.5" y="274.5" width="5" height="15"/>
-<rect class="s0" x="302" y="274" width="6" height="16"></rect>
-<rect class="s0" x="309" y="274" width="6" height="16"></rect>
-<rect class="s0" x="316" y="274" width="6" height="16"></rect>
-<rect class="s0" x="323" y="274" width="6" height="16"></rect>
-<rect class="s0" x="330" y="274" width="6" height="16"></rect>
-<rect class="s0" x="337" y="274" width="6" height="16"></rect>
-<rect class="s0" x="344" y="274" width="6" height="16"></rect>
-<rect class="s0" x="351" y="274" width="6" height="16"></rect>
-<rect class="s0" x="358" y="274" width="6" height="16"></rect>
-<rect class="s0" x="365" y="274" width="6" height="16"></rect>
-<rect class="s0" x="372" y="274" width="6" height="16"></rect>
-<rect class="s0" x="379" y="274" width="6" height="16"></rect>
-<rect class="s0" x="386" y="274" width="6" height="16"></rect>
-<rect class="s0" x="393" y="274" width="6" height="16"></rect>
-<rect class="s0" x="400" y="274" width="6" height="16"></rect>
-<rect class="s0" x="407" y="274" width="6" height="16"></rect>
-<rect class="s0" x="414" y="274" width="6" height="16"></rect>
-<rect class="s0" x="421" y="274" width="6" height="16"></rect>
-<rect class="s0" x="428" y="274" width="6" height="16"></rect>
-<rect class="s0" x="435" y="274" width="6" height="16"></rect>
-<rect class="s0" x="442" y="274" width="6" height="16"></rect>
-<rect class="s0" x="449" y="274" width="6" height="16"></rect>
-<rect class="s0" x="456" y="274" width="6" height="16"></rect>
-<rect class="s0" x="463" y="274" width="6" height="16"></rect>
-<rect class="s0" x="470" y="274" width="6" height="16"></rect>
-<rect class="s0" x="477" y="274" width="6" height="16"></rect>
-<rect class="s0" x="484" y="274" width="6" height="16"></rect>
-<rect class="s0" x="491" y="274" width="6" height="16"></rect>
-<rect class="s0" x="498" y="274" width="6" height="16"></rect>
-<rect class="s0" x="505" y="274" width="6" height="16"></rect>
-<rect class="s0" x="512" y="274" width="6" height="16"></rect>
-<rect class="s0" x="519" y="274" width="6" height="16"></rect>
-<rect class="s0" x="526" y="274" width="6" height="16"></rect>
-<rect class="s0" x="533" y="274" width="6" height="16"></rect>
-<rect class="s0" x="540" y="274" width="6" height="16"></rect>
-<rect class="s0" x="547" y="274" width="6" height="16"></rect>
-<rect class="s0" x="554" y="274" width="6" height="16"></rect>
-<rect class="s0" x="561" y="274" width="6" height="16"></rect>
-<rect class="s0" x="568" y="274" width="6" height="16"></rect>
-<rect class="s0" x="575" y="274" width="6" height="16"></rect>
-<rect class="s0" x="582" y="274" width="6" height="16"></rect>
-<rect class="s0" x="589" y="274" width="6" height="16"></rect>
-<text class="t3" x="604" y="286" font-size="10" font-weight="bold">16.9%</text>
-<text class="t3" x="28" y="318" font-size="11">trained on the capped score</text>
-<text class="t2" x="28" y="331" font-size="9">round 1, re-scored</text>
-<rect class="s0" x="246" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="246" y="308" width="6" height="16"><title>trained on the capped score: off-route 17.4%</title></rect>
-<rect fill="none" class="k3" stroke-width="1" x="246.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="253" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="253" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="253.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="260" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="260" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="260.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="267" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="267" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="267.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="274" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="274" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="274.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="281" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="281" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="281.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="288" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="288" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="288.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="295" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="295" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="295.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="302" y="308" width="6" height="16"></rect>
-<rect class="hatch" x="302" y="308" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="302.5" y="308.5" width="5" height="15"/>
-<rect class="s0" x="309" y="308" width="6" height="16"></rect>
-<rect class="s0" x="316" y="308" width="6" height="16"></rect>
-<rect class="s0" x="323" y="308" width="6" height="16"></rect>
-<rect class="s0" x="330" y="308" width="6" height="16"></rect>
-<rect class="s0" x="337" y="308" width="6" height="16"></rect>
-<rect class="s0" x="344" y="308" width="6" height="16"></rect>
-<rect class="s0" x="351" y="308" width="6" height="16"></rect>
-<rect class="s0" x="358" y="308" width="6" height="16"></rect>
-<rect class="s0" x="365" y="308" width="6" height="16"></rect>
-<rect class="s0" x="372" y="308" width="6" height="16"></rect>
-<rect class="s0" x="379" y="308" width="6" height="16"></rect>
-<rect class="s0" x="386" y="308" width="6" height="16"></rect>
-<rect class="s0" x="393" y="308" width="6" height="16"></rect>
-<rect class="s0" x="400" y="308" width="6" height="16"></rect>
-<rect class="s0" x="407" y="308" width="6" height="16"></rect>
-<rect class="s0" x="414" y="308" width="6" height="16"></rect>
-<rect class="s0" x="421" y="308" width="6" height="16"></rect>
-<rect class="s0" x="428" y="308" width="6" height="16"></rect>
-<rect class="s0" x="435" y="308" width="6" height="16"></rect>
-<rect class="s0" x="442" y="308" width="6" height="16"></rect>
-<rect class="s0" x="449" y="308" width="6" height="16"></rect>
-<rect class="s0" x="456" y="308" width="6" height="16"></rect>
-<rect class="s0" x="463" y="308" width="6" height="16"></rect>
-<rect class="s0" x="470" y="308" width="6" height="16"></rect>
-<rect class="s0" x="477" y="308" width="6" height="16"></rect>
-<rect class="s0" x="484" y="308" width="6" height="16"></rect>
-<rect class="s0" x="491" y="308" width="6" height="16"></rect>
-<rect class="s0" x="498" y="308" width="6" height="16"></rect>
-<rect class="s0" x="505" y="308" width="6" height="16"></rect>
-<rect class="s0" x="512" y="308" width="6" height="16"></rect>
-<rect class="s0" x="519" y="308" width="6" height="16"></rect>
-<rect class="s0" x="526" y="308" width="6" height="16"></rect>
-<rect class="s0" x="533" y="308" width="6" height="16"></rect>
-<rect class="s0" x="540" y="308" width="6" height="16"></rect>
-<rect class="s0" x="547" y="308" width="6" height="16"></rect>
-<rect class="s0" x="554" y="308" width="6" height="16"></rect>
-<rect class="s0" x="561" y="308" width="6" height="16"></rect>
-<rect class="s0" x="568" y="308" width="6" height="16"></rect>
-<rect class="s0" x="575" y="308" width="6" height="16"></rect>
-<rect class="s0" x="582" y="308" width="6" height="16"></rect>
-<rect class="s0" x="589" y="308" width="6" height="16"></rect>
-<text class="t3" x="604" y="320" font-size="10" font-weight="bold">17.4%</text>
-<text class="t3" x="28" y="352" font-size="11">random play</text>
-<rect class="s0" x="246" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="246" y="342" width="6" height="16"><title>random play: off-route 12.2%</title></rect>
-<rect fill="none" class="k3" stroke-width="1" x="246.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="253" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="253" y="342" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="253.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="260" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="260" y="342" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="260.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="267" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="267" y="342" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="267.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="274" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="274" y="342" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="274.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="281" y="342" width="6" height="16"></rect>
-<rect class="hatch" x="281" y="342" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="281.5" y="342.5" width="5" height="15"/>
-<rect class="s0" x="288" y="342" width="6" height="16"></rect>
-<rect class="s0" x="295" y="342" width="6" height="16"></rect>
-<rect class="s0" x="302" y="342" width="6" height="16"></rect>
-<rect class="s0" x="309" y="342" width="6" height="16"></rect>
-<rect class="s0" x="316" y="342" width="6" height="16"></rect>
-<rect class="s0" x="323" y="342" width="6" height="16"></rect>
-<rect class="s0" x="330" y="342" width="6" height="16"></rect>
-<rect class="s0" x="337" y="342" width="6" height="16"></rect>
-<rect class="s0" x="344" y="342" width="6" height="16"></rect>
-<rect class="s0" x="351" y="342" width="6" height="16"></rect>
-<rect class="s0" x="358" y="342" width="6" height="16"></rect>
-<rect class="s0" x="365" y="342" width="6" height="16"></rect>
-<rect class="s0" x="372" y="342" width="6" height="16"></rect>
-<rect class="s0" x="379" y="342" width="6" height="16"></rect>
-<rect class="s0" x="386" y="342" width="6" height="16"></rect>
-<rect class="s0" x="393" y="342" width="6" height="16"></rect>
-<rect class="s0" x="400" y="342" width="6" height="16"></rect>
-<rect class="s0" x="407" y="342" width="6" height="16"></rect>
-<rect class="s0" x="414" y="342" width="6" height="16"></rect>
-<rect class="s0" x="421" y="342" width="6" height="16"></rect>
-<rect class="s0" x="428" y="342" width="6" height="16"></rect>
-<rect class="s0" x="435" y="342" width="6" height="16"></rect>
-<rect class="s0" x="442" y="342" width="6" height="16"></rect>
-<rect class="s0" x="449" y="342" width="6" height="16"></rect>
-<rect class="s0" x="456" y="342" width="6" height="16"></rect>
-<rect class="s0" x="463" y="342" width="6" height="16"></rect>
-<rect class="s0" x="470" y="342" width="6" height="16"></rect>
-<rect class="s0" x="477" y="342" width="6" height="16"></rect>
-<rect class="s0" x="484" y="342" width="6" height="16"></rect>
-<rect class="s0" x="491" y="342" width="6" height="16"></rect>
-<rect class="s0" x="498" y="342" width="6" height="16"></rect>
-<rect class="s0" x="505" y="342" width="6" height="16"></rect>
-<rect class="s0" x="512" y="342" width="6" height="16"></rect>
-<rect class="s0" x="519" y="342" width="6" height="16"></rect>
-<rect class="s0" x="526" y="342" width="6" height="16"></rect>
-<rect class="s0" x="533" y="342" width="6" height="16"></rect>
-<rect class="s0" x="540" y="342" width="6" height="16"></rect>
-<rect class="s0" x="547" y="342" width="6" height="16"></rect>
-<rect class="s0" x="554" y="342" width="6" height="16"></rect>
-<rect class="s0" x="561" y="342" width="6" height="16"></rect>
-<rect class="s0" x="568" y="342" width="6" height="16"></rect>
-<rect class="s0" x="575" y="342" width="6" height="16"></rect>
-<rect class="s0" x="582" y="342" width="6" height="16"></rect>
-<rect class="s0" x="589" y="342" width="6" height="16"></rect>
-<text class="t3" x="604" y="354" font-size="10" font-weight="bold">12.2%</text>
-<text class="t3" x="28" y="390" font-size="12" font-weight="bold">(c) GRASS GRINDING</text>
-<text class="t2" x="28" y="406" font-size="10">share of each agent&#x27;s own score earned while grinding battles</text>
-<text class="t3" x="28" y="434" font-size="11">trained on the score</text>
-<text class="t2" x="28" y="447" font-size="9">batch 2</text>
-<rect class="s0" x="246" y="424" width="6" height="16"><title>trained on the score: grinding 0.0%</title></rect>
-<rect class="s0" x="253" y="424" width="6" height="16"></rect>
-<rect class="s0" x="260" y="424" width="6" height="16"></rect>
-<rect class="s0" x="267" y="424" width="6" height="16"></rect>
-<rect class="s0" x="274" y="424" width="6" height="16"></rect>
-<rect class="s0" x="281" y="424" width="6" height="16"></rect>
-<rect class="s0" x="288" y="424" width="6" height="16"></rect>
-<rect class="s0" x="295" y="424" width="6" height="16"></rect>
-<rect class="s0" x="302" y="424" width="6" height="16"></rect>
-<rect class="s0" x="309" y="424" width="6" height="16"></rect>
-<rect class="s0" x="316" y="424" width="6" height="16"></rect>
-<rect class="s0" x="323" y="424" width="6" height="16"></rect>
-<rect class="s0" x="330" y="424" width="6" height="16"></rect>
-<rect class="s0" x="337" y="424" width="6" height="16"></rect>
-<rect class="s0" x="344" y="424" width="6" height="16"></rect>
-<rect class="s0" x="351" y="424" width="6" height="16"></rect>
-<rect class="s0" x="358" y="424" width="6" height="16"></rect>
-<rect class="s0" x="365" y="424" width="6" height="16"></rect>
-<rect class="s0" x="372" y="424" width="6" height="16"></rect>
-<rect class="s0" x="379" y="424" width="6" height="16"></rect>
-<rect class="s0" x="386" y="424" width="6" height="16"></rect>
-<rect class="s0" x="393" y="424" width="6" height="16"></rect>
-<rect class="s0" x="400" y="424" width="6" height="16"></rect>
-<rect class="s0" x="407" y="424" width="6" height="16"></rect>
-<rect class="s0" x="414" y="424" width="6" height="16"></rect>
-<rect class="s0" x="421" y="424" width="6" height="16"></rect>
-<rect class="s0" x="428" y="424" width="6" height="16"></rect>
-<rect class="s0" x="435" y="424" width="6" height="16"></rect>
-<rect class="s0" x="442" y="424" width="6" height="16"></rect>
-<rect class="s0" x="449" y="424" width="6" height="16"></rect>
-<rect class="s0" x="456" y="424" width="6" height="16"></rect>
-<rect class="s0" x="463" y="424" width="6" height="16"></rect>
-<rect class="s0" x="470" y="424" width="6" height="16"></rect>
-<rect class="s0" x="477" y="424" width="6" height="16"></rect>
-<rect class="s0" x="484" y="424" width="6" height="16"></rect>
-<rect class="s0" x="491" y="424" width="6" height="16"></rect>
-<rect class="s0" x="498" y="424" width="6" height="16"></rect>
-<rect class="s0" x="505" y="424" width="6" height="16"></rect>
-<rect class="s0" x="512" y="424" width="6" height="16"></rect>
-<rect class="s0" x="519" y="424" width="6" height="16"></rect>
-<rect class="s0" x="526" y="424" width="6" height="16"></rect>
-<rect class="s0" x="533" y="424" width="6" height="16"></rect>
-<rect class="s0" x="540" y="424" width="6" height="16"></rect>
-<rect class="s0" x="547" y="424" width="6" height="16"></rect>
-<rect class="s0" x="554" y="424" width="6" height="16"></rect>
-<rect class="s0" x="561" y="424" width="6" height="16"></rect>
-<rect class="s0" x="568" y="424" width="6" height="16"></rect>
-<rect class="s0" x="575" y="424" width="6" height="16"></rect>
-<rect class="s0" x="582" y="424" width="6" height="16"></rect>
-<rect class="s0" x="589" y="424" width="6" height="16"></rect>
-<text class="t3" x="604" y="436" font-size="10" font-weight="bold">0.0%</text>
-<text class="t3" x="28" y="468" font-size="11">trained on the capped score</text>
-<text class="t2" x="28" y="481" font-size="9">round 1</text>
-<rect class="s0" x="246" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="246" y="458" width="6" height="16"><title>trained on the capped score: grinding 22.3%</title></rect>
-<rect fill="none" class="k3" stroke-width="1" x="246.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="253" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="253" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="253.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="260" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="260" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="260.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="267" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="267" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="267.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="274" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="274" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="274.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="281" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="281" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="281.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="288" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="288" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="288.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="295" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="295" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="295.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="302" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="302" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="302.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="309" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="309" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="309.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="316" y="458" width="6" height="16"></rect>
-<rect class="hatch" x="316" y="458" width="6" height="16"></rect>
-<rect fill="none" class="k3" stroke-width="1" x="316.5" y="458.5" width="5" height="15"/>
-<rect class="s0" x="323" y="458" width="6" height="16"></rect>
-<rect class="s0" x="330" y="458" width="6" height="16"></rect>
-<rect class="s0" x="337" y="458" width="6" height="16"></rect>
-<rect class="s0" x="344" y="458" width="6" height="16"></rect>
-<rect class="s0" x="351" y="458" width="6" height="16"></rect>
-<rect class="s0" x="358" y="458" width="6" height="16"></rect>
-<rect class="s0" x="365" y="458" width="6" height="16"></rect>
-<rect class="s0" x="372" y="458" width="6" height="16"></rect>
-<rect class="s0" x="379" y="458" width="6" height="16"></rect>
-<rect class="s0" x="386" y="458" width="6" height="16"></rect>
-<rect class="s0" x="393" y="458" width="6" height="16"></rect>
-<rect class="s0" x="400" y="458" width="6" height="16"></rect>
-<rect class="s0" x="407" y="458" width="6" height="16"></rect>
-<rect class="s0" x="414" y="458" width="6" height="16"></rect>
-<rect class="s0" x="421" y="458" width="6" height="16"></rect>
-<rect class="s0" x="428" y="458" width="6" height="16"></rect>
-<rect class="s0" x="435" y="458" width="6" height="16"></rect>
-<rect class="s0" x="442" y="458" width="6" height="16"></rect>
-<rect class="s0" x="449" y="458" width="6" height="16"></rect>
-<rect class="s0" x="456" y="458" width="6" height="16"></rect>
-<rect class="s0" x="463" y="458" width="6" height="16"></rect>
-<rect class="s0" x="470" y="458" width="6" height="16"></rect>
-<rect class="s0" x="477" y="458" width="6" height="16"></rect>
-<rect class="s0" x="484" y="458" width="6" height="16"></rect>
-<rect class="s0" x="491" y="458" width="6" height="16"></rect>
-<rect class="s0" x="498" y="458" width="6" height="16"></rect>
-<rect class="s0" x="505" y="458" width="6" height="16"></rect>
-<rect class="s0" x="512" y="458" width="6" height="16"></rect>
-<rect class="s0" x="519" y="458" width="6" height="16"></rect>
-<rect class="s0" x="526" y="458" width="6" height="16"></rect>
-<rect class="s0" x="533" y="458" width="6" height="16"></rect>
-<rect class="s0" x="540" y="458" width="6" height="16"></rect>
-<rect class="s0" x="547" y="458" width="6" height="16"></rect>
-<rect class="s0" x="554" y="458" width="6" height="16"></rect>
-<rect class="s0" x="561" y="458" width="6" height="16"></rect>
-<rect class="s0" x="568" y="458" width="6" height="16"></rect>
-<rect class="s0" x="575" y="458" width="6" height="16"></rect>
-<rect class="s0" x="582" y="458" width="6" height="16"></rect>
-<rect class="s0" x="589" y="458" width="6" height="16"></rect>
-<text class="t3" x="604" y="470" font-size="10" font-weight="bold">22.3%</text>
-<rect class="s1" x="28" y="536" width="12" height="12"></rect>
-<text class="t3" x="46" y="546" font-size="10">exploring</text>
-<rect class="s3" x="178" y="536" width="12" height="12"></rect>
-<text class="t3" x="196" y="546" font-size="10">levelling up</text>
-<rect class="s2" x="328" y="536" width="12" height="12"></rect>
-<text class="t3" x="346" y="546" font-size="10">healing</text>
-<rect class="s0" x="28" y="554" width="12" height="12"></rect>
-<rect class="hatch" x="28" y="554" width="12" height="12"></rect>
-<text class="t2" x="46" y="564" font-size="9">(b), (c): hatched blocks = the share named; faint = the rest; one block = 2%</text>
+<text class="t2" x="28" y="58" font-size="11">the agent before the patch and the agent after it; all 7 test checkpoints pooled</text>
+<text class="t3" x="28" y="98" font-size="12" font-weight="bold">(a) WHAT EARNED THE SCORE</text>
+<text class="t2" x="28" y="114" font-size="10">each agent&#x27;s own score, split by where the points came from</text>
+<rect class="a0" x="28" y="138" width="10" height="10"></rect>
+<text class="t3" x="46" y="147" font-size="11">before the patch</text>
+<rect class="explore" x="190" y="134" width="398" height="18"><title>before the patch (trained on the score, batch 2): exploring new squares 99.9%, levelling up 0.0%, healing 0.1%</title></rect>
+<rect class="explore" x="190" y="160" width="8" height="8"></rect>
+<text class="t2" x="203" y="168" font-size="10">exploring 99.9%</text>
+<rect class="a1" x="28" y="190" width="10" height="10"></rect>
+<text class="t3" x="46" y="199" font-size="11">after the patch</text>
+<rect class="explore" x="190" y="186" width="348" height="18"><title>after the patch (trained on the capped score, round 1): exploring new squares 87.5%, levelling up 11.6%, healing 0.9%</title></rect>
+<rect class="level" x="540" y="186" width="45" height="18"><title>after the patch (trained on the capped score, round 1): exploring new squares 87.5%, levelling up 11.6%, healing 0.9%</title></rect>
+<rect class="heal" x="587" y="186" width="1" height="18"><title>after the patch (trained on the capped score, round 1): exploring new squares 87.5%, levelling up 11.6%, healing 0.9%</title></rect>
+<rect class="explore" x="190" y="212" width="8" height="8"></rect>
+<text class="t2" x="203" y="220" font-size="10">exploring 87%</text>
+<rect class="level" x="300.3" y="212" width="8" height="8"></rect>
+<text class="t2" x="313.3" y="220" font-size="10">levelling up 12%</text>
+<rect class="heal" x="428.9" y="212" width="8" height="8"></rect>
+<text class="t2" x="441.9" y="220" font-size="10">healing 1%</text>
+<text class="t3" x="28" y="262" font-size="12" font-weight="bold">(b) EARNED OFF-ROUTE</text>
+<text class="t2" x="28" y="278" font-size="10">share of the original score earned on off-route maps (all three scored the same way)</text>
+<line class="kgrid" stroke-width="2" x1="323" x2="323" y1="292" y2="384"/>
+<line class="kgrid" stroke-width="2" x1="457" x2="457" y1="292" y2="384"/>
+<line class="kgrid" stroke-width="2" x1="590" x2="590" y1="292" y2="384"/>
+<rect class="a0" x="28" y="302" width="10" height="10"></rect>
+<text class="t3" x="46" y="311" font-size="11">before the patch</text>
+<rect class="a0" x="190" y="298" width="226" height="18"><title>before the patch (trained on the score, batch 2): off-route 16.9%</title></rect>
+<text class="t3" x="424" y="311" font-size="11" font-weight="bold">16.9%</text>
+<rect class="a1" x="28" y="332" width="10" height="10"></rect>
+<text class="t3" x="46" y="341" font-size="11">after the patch</text>
+<rect class="a1" x="190" y="328" width="232" height="18"><title>after the patch (trained on the capped score, round 1, re-scored): off-route 17.4%</title></rect>
+<text class="t3" x="430" y="341" font-size="11" font-weight="bold">17.4%</text>
+<rect class="rnd" x="28" y="362" width="10" height="10"></rect>
+<text class="t3" x="46" y="371" font-size="11">random play</text>
+<rect class="rnd" x="190" y="358" width="163" height="18"><title>random play (random play): off-route 12.2%</title></rect>
+<text class="t3" x="361" y="371" font-size="11" font-weight="bold">12.2%</text>
+<line class="kink" stroke-width="2" x1="190" x2="190" y1="292" y2="384"/>
+<text class="t2" x="190.0" y="396" text-anchor="middle" font-size="9">0%</text>
+<text class="t2" x="323.33333333333337" y="396" text-anchor="middle" font-size="9">10%</text>
+<text class="t2" x="456.6666666666667" y="396" text-anchor="middle" font-size="9">20%</text>
+<text class="t2" x="590.0" y="396" text-anchor="middle" font-size="9">30%</text>
+<text class="t3" x="28" y="424" font-size="12" font-weight="bold">(c) EARNED BY GRINDING</text>
+<text class="t2" x="28" y="440" font-size="10">share of each agent&#x27;s own score earned while grinding battles in grass</text>
+<line class="kgrid" stroke-width="2" x1="323" x2="323" y1="454" y2="516"/>
+<line class="kgrid" stroke-width="2" x1="457" x2="457" y1="454" y2="516"/>
+<line class="kgrid" stroke-width="2" x1="590" x2="590" y1="454" y2="516"/>
+<rect class="a0" x="28" y="464" width="10" height="10"></rect>
+<text class="t3" x="46" y="473" font-size="11">before the patch</text>
+<rect class="a0" x="190" y="460" width="2" height="18"><title>before the patch (trained on the score, batch 2): grinding 0.0%</title></rect>
+<text class="t3" x="200" y="473" font-size="11" font-weight="bold">0.0%</text>
+<rect class="a1" x="28" y="494" width="10" height="10"></rect>
+<text class="t3" x="46" y="503" font-size="11">after the patch</text>
+<rect class="a1" x="190" y="490" width="297" height="18"><title>after the patch (trained on the capped score, round 1): grinding 22.3%</title></rect>
+<text class="t3" x="495" y="503" font-size="11" font-weight="bold">22.3%</text>
+<line class="kink" stroke-width="2" x1="190" x2="190" y1="454" y2="516"/>
+<text class="t2" x="190.0" y="528" text-anchor="middle" font-size="9">0%</text>
+<text class="t2" x="323.33333333333337" y="528" text-anchor="middle" font-size="9">10%</text>
+<text class="t2" x="456.6666666666667" y="528" text-anchor="middle" font-size="9">20%</text>
+<text class="t2" x="590.0" y="528" text-anchor="middle" font-size="9">30%</text>
 </svg>
