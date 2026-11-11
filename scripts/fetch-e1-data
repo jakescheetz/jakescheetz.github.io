@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Fetch the private E1 essentials (ROM, start states, walk grid) into ~/roms.
+# The data lives in the PRIVATE repo jakescheetz/e1-data, never in this public repo.
+# Needs SSH access to GitHub as jakescheetz. Safe to re-run: it pulls updates.
+set -euo pipefail
+
+REPO="git@github.com:jakescheetz/e1-data.git"
+DEST="${E1_DATA_DIR:-$HOME/roms}"
+
+if [ -d "$DEST/.git" ]; then
+  echo "Updating $DEST"
+  git -C "$DEST" pull --ff-only
+elif [ -e "$DEST" ] && [ -n "$(ls -A "$DEST" 2>/dev/null)" ]; then
+  echo "$DEST exists and is not the e1-data clone; cloning beside it and copying missing files"
+  tmp="$(mktemp -d)"
+  git clone -q "$REPO" "$tmp/e1-data"
+  cp -Rn "$tmp/e1-data/." "$DEST/"
+  rm -rf "$tmp"
+else
+  git clone "$REPO" "$DEST"
+fi
+
+ROM="$DEST/pokemon_red.gb"
+[ -f "$ROM" ] || { echo "No ROM at $ROM after fetch" >&2; exit 1; }
+echo
+echo "Done. Add this to your shell profile (~/.zshrc or ~/.bashrc), then open a new terminal:"
+echo "  export POKEMON_RED_ROM=\"$ROM\""
